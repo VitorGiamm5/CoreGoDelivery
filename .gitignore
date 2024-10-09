@@ -1,0 +1,79 @@
+# Build results
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Aa]ssetsBin/
+[Aa]ssetsObj/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+*.exe
+*.dll
+*.log
+*.so
+*.dylib
+*.swp
+*.pdb
+*.vscode
+
+# Visual Studio Code
+.vscode/
+
+# User-specific files
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Mono Auto Generated Files
+mono_crash.*
+
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
+
+# Folder config file
+Desktop.ini
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+# ASP.NET Scaffolding
+ScaffoldingReadMe.txt
+
+# RIA/Silverlight projects
+Generated_Code/
+
+# MSTest test Results
+TestResults/
+
+# Web-specific folders
+.vscode/
+.idea/
+.ionide/
+node_modules/
+bower_components/
+
+# SQL Server files
+*.mdf
+*.ldf
+
+# NuGet Packages
+*.nupkg
+*.snupkg
+**/packages/*
+# except build/, see https://github.com/github/gitignore/pull/1529
+!**/packages/build/
+
+# Others
+*.VSHost.exe
+.vs/
+project.lock.json
+global.json
+.lock.json
+
+# Rider project files
+.idea/
+*.vsidx
