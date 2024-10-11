@@ -1,4 +1,4 @@
-namespace CoreGoDelivery
+namespace CoreGoDelivery.Api.CoreGoDelivery.API
 {
     public class WeatherForecast
     {

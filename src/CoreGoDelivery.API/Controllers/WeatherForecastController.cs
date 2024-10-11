@@ -1,6 +1,7 @@
+using CoreGoDelivery.Api.CoreGoDelivery.API;
 using Microsoft.AspNetCore.Mvc;
 
-namespace CoreGoDelivery.Controllers
+namespace CoreGoDelivery.Api.Controllers
 {
     [ApiController]
     [Route("[controller]")]

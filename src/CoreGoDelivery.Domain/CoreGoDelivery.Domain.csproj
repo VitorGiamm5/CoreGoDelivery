@@ -7,7 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CoreGoDelivery.Domain\CoreGoDelivery.Domain.csproj" />
+    <PackageReference Include="System.Text.Json" Version="8.0.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="DTO\Response\" />
   </ItemGroup>
 
 </Project>
