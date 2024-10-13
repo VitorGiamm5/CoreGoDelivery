@@ -1,42 +1,62 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using CoreGoDelivery.Domain.DTO.Motocycle;
+using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace CoreGoDelivery.Api.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("motos")]
     [ApiController]
     public class MotocycleController : ControllerBase
     {
         // GET: api/<MotocycleController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        [HttpGet]
+        public async Task<List<MotocycleDto>> Get([FromQuery] PlateIdDto request)
         {
-            return new string[] { "value1", "value2" };
+            List<MotocycleDto> result = [
+                new MotocycleDto()
+                {
+                    MotocycleId = "moto123",
+                    YearManufacture = 2020,
+                    ModelName = "Mottu Sport",
+                    PlateId = "CDX-0101"
+                }
+            ];
+
+            return result;
         }
 
         // GET api/<MotocycleController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public async Task<MotocycleDto> Get(string id)
         {
-            return "value";
+            var result = new MotocycleDto()
+            {
+                MotocycleId = "moto123",
+                YearManufacture = 2020,
+                ModelName = "Mottu Sport",
+                PlateId = "CDX-0101"
+            };
+
+            return result;
         }
 
         // POST api/<MotocycleController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public void Post([FromBody] MotocycleDto request)
         {
         }
 
         // PUT api/<MotocycleController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpPut("{id}/placa")]
+        public void Put(string id, [FromBody] PlateIdDto request)
         {
         }
 
         // DELETE api/<MotocycleController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public void Delete(string id)
         {
         }
     }

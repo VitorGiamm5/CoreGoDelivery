@@ -1,4 +1,4 @@
-﻿using CoreGoDelivery.Domain.Enums.Delivery;
+﻿using CoreGoDelivery.Domain.Enums.LicenceDriverType;
 using System.ComponentModel.DataAnnotations;
 
 namespace CoreGoDelivery.Domain.Entities.LicenceDriver

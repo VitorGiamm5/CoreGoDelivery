@@ -4,7 +4,7 @@
 
 namespace CoreGoDelivery.Api.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("locacao")]
     [ApiController]
     public class RentalController : ControllerBase
     {

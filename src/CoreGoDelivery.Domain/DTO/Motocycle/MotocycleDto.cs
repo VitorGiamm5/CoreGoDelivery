@@ -14,6 +14,6 @@ namespace CoreGoDelivery.Domain.DTO.Motocycle
         public string ModelName { get; set; }
 
         [JsonPropertyName("placa")]
-        public string IdentificationPlate { get; set; }
+        public string PlateId { get; set; }
     }
 }

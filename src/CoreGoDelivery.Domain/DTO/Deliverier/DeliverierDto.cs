@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using CoreGoDelivery.Domain.Enums.LicenceDriverType;
+using System.Text.Json.Serialization;
 
 namespace CoreGoDelivery.Domain.DTO.Deliverier
 {
@@ -20,7 +21,8 @@ namespace CoreGoDelivery.Domain.DTO.Deliverier
         public string LicenseNumber { get; set; }
 
         [JsonPropertyName("tipo_cnh")]
-        public string LicenseType { get; set; }
+        //[JsonConverter]
+        public LicenceDriverTypeEnum LicenseType { get; set; }
 
         [JsonPropertyName("imagem_cnh")]
         public string LicenseImageBase64 { get; set; }

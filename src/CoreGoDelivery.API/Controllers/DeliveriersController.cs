@@ -1,12 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+﻿using CoreGoDelivery.Domain.DTO.Motocycle;
+using Microsoft.AspNetCore.Mvc;
 
 namespace CoreGoDelivery.Api.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("entregadores")]
     [ApiController]
-    public class DeliveriersController : ControllerBase
+    public class DeliveriersController : BaseApiController
     {
         // GET: api/<DeliveriersController>
         [HttpGet]
@@ -16,16 +15,17 @@ namespace CoreGoDelivery.Api.Controllers
         }
 
         // GET api/<DeliveriersController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        [HttpGet("{placa}")]
+        public string Get(int placa)
         {
             return "value";
         }
 
         // POST api/<DeliveriersController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public void Post([FromBody] MotocycleDto value)
         {
+            
         }
 
         // PUT api/<DeliveriersController>/5
