@@ -1,18 +1,15 @@
-﻿using CoreGoDelivery.Domain.DTO.Motocycle;
-using Microsoft.AspNetCore.Mvc;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+﻿using Microsoft.AspNetCore.Mvc;
+using CoreGoDelivery.Domain.DTO.Motocycle;
+using CoreGoDelivery.Domain.DTO.Response;
 
 namespace CoreGoDelivery.Api.Controllers
 {
     [Route("motos")]
     [ApiController]
-    public class MotocycleController : ControllerBase
+    public class MotocycleController : BaseApiController
     {
-        // GET: api/<MotocycleController>
         [HttpGet]
-        [HttpGet]
-        public async Task<List<MotocycleDto>> Get([FromQuery] PlateIdDto request)
+        public async Task<IActionResult> Get([FromQuery] PlateIdDto? request)
         {
             List<MotocycleDto> result = [
                 new MotocycleDto()
@@ -24,12 +21,17 @@ namespace CoreGoDelivery.Api.Controllers
                 }
             ];
 
-            return result;
+            var apiReponse = new ApiResponse()
+            {
+                Data = result,
+                Message = null
+            };
+
+            return Response(apiReponse);
         }
 
-        // GET api/<MotocycleController>/5
         [HttpGet("{id}")]
-        public async Task<MotocycleDto> Get(string id)
+        public async Task<IActionResult> Get(string id)
         {
             var result = new MotocycleDto()
             {
@@ -39,25 +41,52 @@ namespace CoreGoDelivery.Api.Controllers
                 PlateId = "CDX-0101"
             };
 
-            return result;
+            var apiReponse = new ApiResponse()
+            {
+                Data = result,
+                Message = null
+            };
+
+            return Response(apiReponse);
         }
 
-        // POST api/<MotocycleController>
         [HttpPost]
-        public void Post([FromBody] MotocycleDto request)
+        public async Task<IActionResult> Post([FromBody] MotocycleDto request)
         {
+            var apiReponse = new ApiResponse()
+            {
+                Message = null
+            };
+
+            return Response(apiReponse);
         }
 
-        // PUT api/<MotocycleController>/5
         [HttpPut("{id}/placa")]
-        public void Put(string id, [FromBody] PlateIdDto request)
+        public async Task<IActionResult> Put(string id, [FromBody] PlateIdDto request)
         {
+            var apiReponse = new ApiResponse()
+            {
+                Message = null
+            };
+
+            return Response(apiReponse);
         }
 
-        // DELETE api/<MotocycleController>/5
+        /// <summary>
+        /// Deleta uma empresa
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
         [HttpDelete("{id}")]
-        public void Delete(string id)
+        public async Task<IActionResult> Delete(PlateIdDto id)
         {
+            var apiReponse = new ApiResponse()
+            {
+                Message = null
+            };
+
+            return Response(apiReponse);
         }
     }
 }

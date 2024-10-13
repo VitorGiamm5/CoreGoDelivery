@@ -1,25 +1,65 @@
+using Microsoft.OpenApi.Models;
+using System.Text.Json.Serialization;
+using CoreGoDelivery.Api.Conveters;
+using CoreGoDelivery.Api.Swagger;
+using Serilog;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+builder.Logging.ClearProviders();
+builder.Logging.AddConsole();
 
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+var logFilePath = builder.Configuration["Serilog:LogFilePath"]!;
+Log.Logger = new LoggerConfiguration()
+    .WriteTo.File(logFilePath, rollingInterval: RollingInterval.Day)
+    .CreateLogger();
+builder.Host.UseSerilog();
+
+builder.Services.AddControllers().AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+    options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
+    options.JsonSerializerOptions.WriteIndented = true;
+    options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
+
+    options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+    options.JsonSerializerOptions.Converters.Add(new CustomDateTimeConverter("s"));
+});
+
+builder.Services.AddHealthChecks();
+builder.Services.AddHttpClient();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo 
+    {
+         Title = $"Sistema de Manutencao de Motos - {builder.Environment.EnvironmentName}",
+         Version = "v1"
+    });
+    c.CustomSchemaIds(type => type.ToString());
+    c.OperationFilter<DefaultValuesOperation>();
+});
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
-
-app.UseAuthorization();
-
 app.MapControllers();
 
-app.Run();
+try
+{
+    Log.Information("Starting application...");
+    app.Run();
+}
+catch (Exception ex)
+{
+    Log.Fatal(ex, "Fail to start application...");
+}
+finally
+{
+    Log.CloseAndFlush();
+}

@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:16.4
+    container_name: postgres-db
+    environment:
+      POSTGRES_USER: randandan
+      POSTGRES_PASSWORD: randandan_XLR
+      POSTGRES_DB: dbgodelivery
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - webnet
+
+volumes:
+  pgdata:
+
+networks:
+  webnet:
+    driver: bridge

@@ -1,43 +1,73 @@
-﻿using Microsoft.AspNetCore.Mvc;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+﻿using CoreGoDelivery.Domain.DTO.Rental;
+using CoreGoDelivery.Domain.DTO.Response;
+using Microsoft.AspNetCore.Mvc;
 
 namespace CoreGoDelivery.Api.Controllers
 {
     [Route("locacao")]
     [ApiController]
-    public class RentalController : ControllerBase
+    public class RentalController : BaseApiController
     {
-        // GET: api/<RentalController>
-        [HttpGet]
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
-
-        // GET api/<RentalController>/5
+        ///<Summary>
+        /// Gets the answer
+        ///</Summary>
         [HttpGet("{id}")]
-        public string Get(int id)
+        public async Task<IActionResult> Get(string id)
         {
-            return "value";
+            var result = new RentalDto()
+            {
+                RentalId = "locacao123",
+                DayliRate = 10,
+                DeliveryPersonId = "valor_diaria",
+                MotorcycleId = "moto123",
+                StartDate = DateTime.Now.AddDays(-20),
+                EndDate = DateTime.Now,
+                EstimatedEndDate = DateTime.Now,
+                ReturnedToBaseDate = DateTime.Now,
+            };
+
+            var apiReponse = new ApiResponse()
+            {
+                Data = result,
+                Message = null
+            };
+
+            return Response(apiReponse);
         }
 
-        // POST api/<RentalController>
+        ///<Summary>
+        /// Gets the answer
+        ///</Summary>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public async Task<IActionResult> Post([FromBody] ReturnedToBaseDateDto request)
         {
+            var apiReponse = new ApiResponse()
+            {
+                Data = null,
+                Message = null
+            };
+
+            return Response(apiReponse);
         }
 
-        // PUT api/<RentalController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        ///<Summary>
+        /// Gets the answer
+        ///</Summary>
+        [HttpPut("{id}/devolucao")]
+        public async Task<IActionResult> Put(string id, [FromBody] RentalDto request)
         {
-        }
+            var result = new ResponseMessageDto()
+            {
+                Message = "Data de devolução informada com sucesso"
+            };
 
-        // DELETE api/<RentalController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
+            var apiReponse = new ApiResponse()
+            {
+                Data = result,
+                Message = null
+            };
+
+            return Response(apiReponse);
         }
     }
 }

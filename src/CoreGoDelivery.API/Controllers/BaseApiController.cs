@@ -1,5 +1,6 @@
-﻿using CoreGoDelivery.Domain.DTO.Response;
+﻿using System.Net;
 using Microsoft.AspNetCore.Mvc;
+using CoreGoDelivery.Domain.DTO.Response;
 
 namespace CoreGoDelivery.Api.Controllers
 {
@@ -8,22 +9,33 @@ namespace CoreGoDelivery.Api.Controllers
     [Consumes("application/json")]
     public class BaseApiController : ControllerBase
     {
-        protected new IActionResult Response(ApiResponse result = null)
+        private const string FAULT_ERROR_MESSAGE = "Unknown error";
+
+        protected new IActionResult Response(ApiResponse response)
         {
-            if (result?.Data != null && result?.Error == null)
+            if (response.HasError())
             {
-                return StatusCode(201);
+                if (response.HasDataType())
+                {
+                    return StatusCode((int)HttpStatusCode.NotFound, response);
+                }
+
+                response.Data = null;
+                return StatusCode((int)HttpStatusCode.BadRequest, response);
             }
-            else if (result?.Data == null && result?.Error == null)
+            else if (!response.HasDataType())
             {
-                return StatusCode(404, new { message = "Resource not found" });
+                return StatusCode((int)HttpStatusCode.Created);
             }
-            else if (result?.Data == null && result?.Error != null)
+            else if (response.HasDataType())
             {
-                return BadRequest(new { message = "Bad request", error = result?.Error });
+                return StatusCode((int)HttpStatusCode.OK, response.Data);
             }
 
-            return StatusCode(500, new { message = "Unknown error" });
+            response.Data = null;
+            response.Message = FAULT_ERROR_MESSAGE;
+
+            return StatusCode((int)HttpStatusCode.InternalServerError, response);
         }
     }
 }

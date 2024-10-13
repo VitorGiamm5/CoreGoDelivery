@@ -11,12 +11,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoreGoDelivery.Application"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreGoDelivery.xUnitTest", "src\CoreGoDelivery.xUnitTest\CoreGoDelivery.xUnitTest.csproj", "{4A2F5627-9FDC-4223-9756-EAF16BACD9AB}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoreGoDelivery.Domain", "src\CoreGoDelivery.Domain\CoreGoDelivery.Domain.csproj", "{D3879E7E-E10F-4C2A-B459-E1F0F96AF0E4}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{9CD24020-DF0B-4081-855D-413E41390739}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreGoDelivery.Domain", "src\CoreGoDelivery.Domain\CoreGoDelivery.Domain.csproj", "{0AA16454-C745-48F0-9B8A-64860B9391D8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -40,10 +40,10 @@ Global
 		{4A2F5627-9FDC-4223-9756-EAF16BACD9AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4A2F5627-9FDC-4223-9756-EAF16BACD9AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4A2F5627-9FDC-4223-9756-EAF16BACD9AB}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D3879E7E-E10F-4C2A-B459-E1F0F96AF0E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D3879E7E-E10F-4C2A-B459-E1F0F96AF0E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D3879E7E-E10F-4C2A-B459-E1F0F96AF0E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D3879E7E-E10F-4C2A-B459-E1F0F96AF0E4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0AA16454-C745-48F0-9B8A-64860B9391D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0AA16454-C745-48F0-9B8A-64860B9391D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0AA16454-C745-48F0-9B8A-64860B9391D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0AA16454-C745-48F0-9B8A-64860B9391D8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

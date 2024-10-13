@@ -1,4 +1,5 @@
-﻿using CoreGoDelivery.Domain.DTO.Motocycle;
+﻿using CoreGoDelivery.Domain.DTO.Deliverier;
+using CoreGoDelivery.Domain.DTO.Response;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CoreGoDelivery.Api.Controllers
@@ -7,37 +8,39 @@ namespace CoreGoDelivery.Api.Controllers
     [ApiController]
     public class DeliveriersController : BaseApiController
     {
-        // GET: api/<DeliveriersController>
-        [HttpGet]
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
-
-        // GET api/<DeliveriersController>/5
-        [HttpGet("{placa}")]
-        public string Get(int placa)
-        {
-            return "value";
-        }
-
-        // POST api/<DeliveriersController>
         [HttpPost]
-        public void Post([FromBody] MotocycleDto value)
+        public async Task<IActionResult> Post([FromBody] DeliverierDto request)
         {
-            
+            var result = new DeliverierDto()
+            {
+                DeliverierId = "entregador123",
+                FullName = "João da Silva",
+                BirthDate = DateTime.Now.AddYears(-20),
+                LicenseNumber = "12345678900",
+                LicenseType = request.LicenseType,
+                LicenseImageBase64 = "base64string"
+            };
+
+            var apiReponse = new ApiResponse()
+            {
+                Data = result,
+                Message = null
+            };
+
+            return Response(apiReponse);
         }
 
-        // PUT api/<DeliveriersController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpPost("{id}/cnh")]
+        public async Task<IActionResult> Post([FromBody] LicenseImageString request)
         {
+            var apiReponse = new ApiResponse()
+            {
+                Data = null,
+                Message = null
+            };
+
+            return Response(apiReponse);
         }
 
-        // DELETE api/<DeliveriersController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
     }
 }

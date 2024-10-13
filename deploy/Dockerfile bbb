@@ -1,0 +1,19 @@
+#Stage 1
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+WORKDIR /build
+COPY . .
+
+RUN dotnet restore "CoreGoDelivery.API" --no-cache -s https://api.nuget.org/v3/index.json
+
+RUN dotnet publish "CoreGoDelivery.API" -c Release -o "/app" --no-restore --self-contained --runtime linux-64
+
+#Stage 2
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS final
+WORKDIR /app
+COPY --from=build /app .
+
+ENV ASPNETCORE_ENVIRONMENT=DEV
+ENV ASPNETCORE_URLS=http://*:5006
+
+EXPOSE 6006
+ENTRYPOINT ["DOTNET", "CoreGoDelivery.API.dll"]
