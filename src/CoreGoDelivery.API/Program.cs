@@ -9,10 +9,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Logging.ClearProviders();
 builder.Logging.AddConsole();
 
-var logFilePath = builder.Configuration["Serilog:LogFilePath"]!;
-Log.Logger = new LoggerConfiguration()
-    .WriteTo.File(logFilePath, rollingInterval: RollingInterval.Day)
-    .CreateLogger();
+// var logFilePath = builder.Configuration["Serilog:LogFilePath"]!;
+// Log.Logger = new LoggerConfiguration()
+//     .WriteTo.File(logFilePath, rollingInterval: RollingInterval.Day)
+//     .CreateLogger();
 builder.Host.UseSerilog();
 
 builder.Services.AddControllers().AddJsonOptions(options =>

@@ -8,9 +8,6 @@ namespace CoreGoDelivery.Api.Controllers
     [ApiController]
     public class RentalController : BaseApiController
     {
-        ///<Summary>
-        /// Gets the answer
-        ///</Summary>
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(string id)
         {
@@ -32,12 +29,10 @@ namespace CoreGoDelivery.Api.Controllers
                 Message = null
             };
 
+            await Task.CompletedTask; 
             return Response(apiReponse);
         }
 
-        ///<Summary>
-        /// Gets the answer
-        ///</Summary>
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] ReturnedToBaseDateDto request)
         {
@@ -47,12 +42,10 @@ namespace CoreGoDelivery.Api.Controllers
                 Message = null
             };
 
+            await Task.CompletedTask; 
             return Response(apiReponse);
         }
 
-        ///<Summary>
-        /// Gets the answer
-        ///</Summary>
         [HttpPut("{id}/devolucao")]
         public async Task<IActionResult> Put(string id, [FromBody] RentalDto request)
         {
@@ -67,6 +60,7 @@ namespace CoreGoDelivery.Api.Controllers
                 Message = null
             };
 
+            await Task.CompletedTask;
             return Response(apiReponse);
         }
     }

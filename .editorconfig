@@ -63,6 +63,9 @@ csharp_style_prefer_switch_expression = true:suggestion
 csharp_style_prefer_pattern_matching = true:silent
 csharp_style_pattern_matching_over_is_with_cast_check = true:suggestion
 
+# CS1591: Missing XML comment for publicly visible type or member
+dotnet_diagnostic.CS1591.severity = none
+
 [*.vb]
 #### Estilos de nomenclatura ####
 
@@ -81,7 +84,7 @@ dotnet_naming_rule.membros_sem_campo_should_be_pascal_case.symbols = membros_sem
 dotnet_naming_rule.membros_sem_campo_should_be_pascal_case.style = pascal_case
 
 # Especificações de símbolo
-
+/nowarn
 dotnet_naming_symbols.interface.applicable_kinds = interface
 dotnet_naming_symbols.interface.applicable_accessibilities = public, friend, private, protected, protected_friend, private_protected
 dotnet_naming_symbols.interface.required_modifiers = 

@@ -27,6 +27,7 @@ namespace CoreGoDelivery.Api.Controllers
                 Message = null
             };
 
+            await Task.CompletedTask;
             return Response(apiReponse);
         }
 
@@ -39,8 +40,8 @@ namespace CoreGoDelivery.Api.Controllers
                 Message = null
             };
 
+            await Task.CompletedTask;
             return Response(apiReponse);
         }
-
     }
 }

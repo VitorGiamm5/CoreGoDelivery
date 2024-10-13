@@ -27,6 +27,7 @@ namespace CoreGoDelivery.Api.Controllers
                 Message = null
             };
 
+            await Task.CompletedTask;
             return Response(apiReponse);
         }
 
@@ -47,6 +48,7 @@ namespace CoreGoDelivery.Api.Controllers
                 Message = null
             };
 
+            await Task.CompletedTask;
             return Response(apiReponse);
         }
 
@@ -58,6 +60,7 @@ namespace CoreGoDelivery.Api.Controllers
                 Message = null
             };
 
+            await Task.CompletedTask;
             return Response(apiReponse);
         }
 
@@ -69,15 +72,10 @@ namespace CoreGoDelivery.Api.Controllers
                 Message = null
             };
 
+            await Task.CompletedTask;
             return Response(apiReponse);
         }
 
-        /// <summary>
-        /// Deleta uma empresa
-        /// </summary>
-        /// <param name="id"></param>
-        /// <param name="cancellationToken"></param>
-        /// <returns></returns>
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(PlateIdDto id)
         {
@@ -86,6 +84,7 @@ namespace CoreGoDelivery.Api.Controllers
                 Message = null
             };
 
+            await Task.CompletedTask;
             return Response(apiReponse);
         }
     }
