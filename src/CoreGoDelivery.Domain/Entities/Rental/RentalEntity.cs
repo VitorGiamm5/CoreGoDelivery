@@ -24,15 +24,15 @@ namespace CoreGoDelivery.Domain.Entities.Rental
 
         [ForeignKey(nameof(Deliverier))]
         public string DeliveryPersonId { get; set; }
-        public DeliverierEntity Deliverier { get; set; }
+        public DeliverierEntity? Deliverier { get; set; }
 
         [ForeignKey(nameof(Motocycle))]
         public string MotocycleId { get; set; }
-        public MotocycleEntity Motocycle { get; set; }
+        public MotocycleEntity? Motocycle { get; set; }
 
         [ForeignKey(nameof(RentalPlan))]
         public int RentalPlanId { get; set; }
-        public RentalPlanEntity RentalPlan { get; set; }
+        public RentalPlanEntity? RentalPlan { get; set; }
 
         #endregion
     }

@@ -1,18 +1,23 @@
-﻿using System.Text.Json.Serialization;
+﻿using System.ComponentModel;
+using System.Text.Json.Serialization;
 
 namespace CoreGoDelivery.Domain.DTO.Motocycle
 {
     public sealed class MotocycleDto
     {
+        [DefaultValue("moto123")]
         [JsonPropertyName("identificador")]
         public string MotocycleId { get; set; }
 
+        [DefaultValue(2020)]
         [JsonPropertyName("ano")]
         public int YearManufacture { get; set; }
 
+        [DefaultValue("Mottu Sport")]
         [JsonPropertyName("modelo")]
         public string ModelName { get; set; }
 
+        [DefaultValue("CDX-0101")]
         [JsonPropertyName("placa")]
         public string PlateId { get; set; }
     }

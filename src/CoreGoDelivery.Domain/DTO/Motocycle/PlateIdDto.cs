@@ -1,4 +1,7 @@
-﻿namespace CoreGoDelivery.Domain.DTO.Motocycle
+﻿using System.ComponentModel;
+
+namespace CoreGoDelivery.Domain.DTO.Motocycle
 {
-    public record PlateIdDto(string Placa);
+    [DefaultValue("SDFZXCV")]
+    public record PlateIdDto(string? Placa);
 }
