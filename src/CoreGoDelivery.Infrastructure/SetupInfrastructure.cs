@@ -10,7 +10,7 @@ namespace CoreGoDelivery.Infrastructure
         public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
         {
             //services.AddDomain(configuration);
-            services.AddDbContextPool<GoDeliveryContext>(options => options.AddInfrastructure(configuration));
+            services.AddDbContextPool<AplicationDbContext>(options => options.AddInfrastructure(configuration));
         
             return services;
         }

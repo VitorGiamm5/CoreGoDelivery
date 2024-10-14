@@ -24,7 +24,7 @@ namespace CoreGoDelivery.Infrastructure.Database
                 .UseNpgsql(dataSouce, b => b
                     .MigrationsHistoryTable(NAME_MIGRATION_HISTORY, NAME_DATA_BASE)
                     .EnableRetryOnFailure(2)
-                    .MigrationsAssembly(typeof(GoDeliveryContext).Assembly.FullName)
+                    .MigrationsAssembly(typeof(AplicationDbContext).Assembly.FullName)
                 );
 
             return optionsBuilder;
