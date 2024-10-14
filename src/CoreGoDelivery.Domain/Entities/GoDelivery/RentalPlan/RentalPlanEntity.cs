@@ -1,13 +1,13 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace CoreGoDelivery.Domain.Entities.RentalPlan
+namespace CoreGoDelivery.Domain.Entities.GoDelivery.RentalPlan
 {
-    public class RentalPlanEntity
+    public sealed class RentalPlanEntity
     {
         [Key]
         public int RentalPlanId { get; set; }
 
-        public int Days { get; set; }
+        public int DaysQuantity { get; set; }
 
         public double DailyCost { get; set; }
     }

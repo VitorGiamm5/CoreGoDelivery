@@ -284,3 +284,6 @@ __pycache__/
 # tools/
 
 # End of https://www.toptal.com/developers/gitignore/api/aspnetcore
+.vs/CoreGoDelivery/DesignTimeBuild/.dtbcache.v2
+.vs/CoreGoDelivery/DesignTimeBuild/.dtbcache.v2
+.vs/CoreGoDelivery/v17/.suo

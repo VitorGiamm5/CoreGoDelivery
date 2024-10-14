@@ -5,9 +5,9 @@ namespace CoreGoDelivery.Domain
 {
     public static class SetupDomain
     {
-        public static IConfiguration AddDomain(this IConfiguration configuration)
+        public static IServiceCollection AddDomain(this IServiceCollection services, IConfiguration configuration)
         {
-            return configuration;
+            return services;
         }
     }
 }

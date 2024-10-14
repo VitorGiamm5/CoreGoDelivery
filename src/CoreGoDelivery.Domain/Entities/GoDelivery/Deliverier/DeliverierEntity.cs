@@ -1,11 +1,10 @@
-﻿using CoreGoDelivery.Domain.Entities.LicenceDriver;
+﻿using CoreGoDelivery.Domain.Entities.GoDelivery.LicenceDriver;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text.Json.Serialization;
 
-namespace CoreGoDelivery.Domain.Entities.Deliverier
+namespace CoreGoDelivery.Domain.Entities.GoDelivery.Deliverier
 {
-    public class DeliverierEntity
+    public sealed class DeliverierEntity
     {
         [Key]
         public string DeliverierId { get; set; }

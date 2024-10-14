@@ -3,12 +3,15 @@
   "WorkspaceRootPath": "C:\\Projetos\\CoreGoDelivery\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{48B385D5-1C0D-46E0-AFFF-13A8BAF21226}|src\\CoreGoDelivery.API\\CoreGoDelivery.Api.csproj|c:\\projetos\\coregodelivery\\src\\coregodelivery.api\\controllers\\motocyclecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{48B385D5-1C0D-46E0-AFFF-13A8BAF21226}|src\\CoreGoDelivery.API\\CoreGoDelivery.Api.csproj|solutionrelative:src\\coregodelivery.api\\controllers\\motocyclecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\MSBuild\\Current\\Bin\\amd64\\Microsoft.Common.CurrentVersion.targets||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{913B8928-DB53-4BAE-9806-503A929B4E79}|src\\CoreGoDelivery.Infrastructure\\CoreGoDelivery.Infrastructure.csproj|c:\\projetos\\coregodelivery\\src\\coregodelivery.infrastructure\\database\\databasesecret.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{913B8928-DB53-4BAE-9806-503A929B4E79}|src\\CoreGoDelivery.Infrastructure\\CoreGoDelivery.Infrastructure.csproj|solutionrelative:src\\coregodelivery.infrastructure\\database\\databasesecret.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{48B385D5-1C0D-46E0-AFFF-13A8BAF21226}|src\\CoreGoDelivery.API\\CoreGoDelivery.Api.csproj|c:\\projetos\\coregodelivery\\src\\coregodelivery.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{48B385D5-1C0D-46E0-AFFF-13A8BAF21226}|src\\CoreGoDelivery.API\\CoreGoDelivery.Api.csproj|solutionrelative:src\\coregodelivery.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{913B8928-DB53-4BAE-9806-503A929B4E79}|src\\CoreGoDelivery.Infrastructure\\CoreGoDelivery.Infrastructure.csproj|c:\\projetos\\coregodelivery\\src\\coregodelivery.infrastructure\\setupinfrastructure.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{913B8928-DB53-4BAE-9806-503A929B4E79}|src\\CoreGoDelivery.Infrastructure\\CoreGoDelivery.Infrastructure.csproj|solutionrelative:src\\coregodelivery.infrastructure\\setupinfrastructure.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -23,27 +26,40 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "MotocycleController.cs",
-              "DocumentMoniker": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.API\\Controllers\\MotocycleController.cs",
-              "RelativeDocumentMoniker": "src\\CoreGoDelivery.API\\Controllers\\MotocycleController.cs",
-              "ToolTip": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.API\\Controllers\\MotocycleController.cs",
-              "RelativeToolTip": "src\\CoreGoDelivery.API\\Controllers\\MotocycleController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAApAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-14T19:32:33.077Z",
+              "Title": "Microsoft.Common.CurrentVersion.targets",
+              "DocumentMoniker": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\MSBuild\\Current\\Bin\\amd64\\Microsoft.Common.CurrentVersion.targets",
+              "RelativeDocumentMoniker": "..\\..\\Program Files\\Microsoft Visual Studio\\2022\\Community\\MSBuild\\Current\\Bin\\amd64\\Microsoft.Common.CurrentVersion.targets",
+              "ToolTip": "C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\MSBuild\\Current\\Bin\\amd64\\Microsoft.Common.CurrentVersion.targets",
+              "RelativeToolTip": "..\\..\\Program Files\\Microsoft Visual Studio\\2022\\Community\\MSBuild\\Current\\Bin\\amd64\\Microsoft.Common.CurrentVersion.targets",
+              "ViewState": "AgIAAFwJAAAAAAAAAAAAAGsJAAAEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003801|",
+              "WhenOpened": "2024-10-14T23:50:14.829Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "DatabaseSecret.cs",
-              "DocumentMoniker": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.Infrastructure\\Database\\DatabaseSecret.cs",
-              "RelativeDocumentMoniker": "src\\CoreGoDelivery.Infrastructure\\Database\\DatabaseSecret.cs",
-              "ToolTip": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.Infrastructure\\Database\\DatabaseSecret.cs",
-              "RelativeToolTip": "src\\CoreGoDelivery.Infrastructure\\Database\\DatabaseSecret.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.API\\Program.cs",
+              "RelativeDocumentMoniker": "src\\CoreGoDelivery.API\\Program.cs",
+              "ToolTip": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.API\\Program.cs",
+              "RelativeToolTip": "src\\CoreGoDelivery.API\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAiAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-14T19:32:18.096Z",
+              "WhenOpened": "2024-10-14T23:43:37.354Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "SetupInfrastructure.cs",
+              "DocumentMoniker": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.Infrastructure\\SetupInfrastructure.cs",
+              "RelativeDocumentMoniker": "src\\CoreGoDelivery.Infrastructure\\SetupInfrastructure.cs",
+              "ToolTip": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.Infrastructure\\SetupInfrastructure.cs",
+              "RelativeToolTip": "src\\CoreGoDelivery.Infrastructure\\SetupInfrastructure.cs",
+              "ViewState": "AgIAABAAAAAAAAAAAAAgwBcAAABGAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-14T23:40:21.542Z",
               "EditorCaption": ""
             }
           ]

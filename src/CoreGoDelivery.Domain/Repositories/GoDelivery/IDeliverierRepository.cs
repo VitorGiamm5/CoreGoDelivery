@@ -1,4 +1,4 @@
-﻿using CoreGoDelivery.Domain.Entities.Deliverier;
+﻿using CoreGoDelivery.Domain.Entities.GoDelivery.Deliverier;
 
 namespace CoreGoDelivery.Domain.Repositories.GoDelivery
 {

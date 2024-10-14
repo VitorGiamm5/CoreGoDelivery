@@ -1,4 +1,4 @@
-﻿using CoreGoDelivery.Domain.Entities.Motocycle;
+﻿using CoreGoDelivery.Domain.Entities.GoDelivery.Motocycle;
 
 namespace CoreGoDelivery.Domain.Repositories.GoDelivery
 {

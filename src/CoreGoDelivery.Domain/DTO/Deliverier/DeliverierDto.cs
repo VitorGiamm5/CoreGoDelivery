@@ -29,6 +29,6 @@ namespace CoreGoDelivery.Domain.DTO.Deliverier
         [DefaultValue("A")]
         [JsonPropertyName("tipo_cnh")]
         [JsonConverter(typeof(JsonStringEnumConverter))]
-        public LicenceDriverTypeEnum LicenseType { get; set; } = LicenceDriverTypeEnum.A;
+        public LicenceTypeEnum LicenseType { get; set; } = LicenceTypeEnum.A;
     }
 }

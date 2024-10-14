@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace CoreGoDelivery.Domain.Entities.ModelMotocycle
+namespace CoreGoDelivery.Domain.Entities.GoDelivery.ModelMotocycle
 {
     public sealed class ModelMotocycleEntity
     {
