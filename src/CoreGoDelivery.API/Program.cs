@@ -1,7 +1,7 @@
-using Microsoft.OpenApi.Models;
 using System.Text.Json.Serialization;
 using CoreGoDelivery.Api.Conveters;
 using CoreGoDelivery.Api.Swagger;
+using Microsoft.OpenApi.Models;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
