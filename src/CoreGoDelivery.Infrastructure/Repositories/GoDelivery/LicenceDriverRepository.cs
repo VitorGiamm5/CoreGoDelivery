@@ -1,6 +1,7 @@
 ﻿using CoreGoDelivery.Domain.Entities.GoDelivery.LicenceDriver;
 using CoreGoDelivery.Domain.Repositories.GoDelivery;
 using CoreGoDelivery.Infrastructure.Database;
+using Microsoft.EntityFrameworkCore;
 
 namespace CoreGoDelivery.Infrastructure.Repositories.GoDelivery
 {
@@ -8,6 +9,15 @@ namespace CoreGoDelivery.Infrastructure.Repositories.GoDelivery
     {
         public LicenceDriverRepository(AplicationDbContext context) : base(context)
         {
+        }
+
+        public async Task<bool> CheckIsUnicByLicence(string licence)
+        {
+            var result = await _context
+                .Set<LicenceDriverEntity>()
+                .FirstOrDefaultAsync(x => x.Id == licence);
+
+            return result == null;
         }
 
         public async Task<bool> Create(LicenceDriverEntity data)

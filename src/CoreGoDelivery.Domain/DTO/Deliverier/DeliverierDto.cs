@@ -8,7 +8,7 @@ namespace CoreGoDelivery.Domain.DTO.Deliverier
     {
         [DefaultValue("entregador123")]
         [JsonPropertyName("identificador")]
-        public string DeliverierId { get; set; }
+        public string Id { get; set; }
 
         [DefaultValue("João da Silva")]
         [JsonPropertyName("nome")]

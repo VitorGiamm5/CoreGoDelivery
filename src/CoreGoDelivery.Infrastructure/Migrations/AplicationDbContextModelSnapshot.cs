@@ -129,7 +129,7 @@ namespace CoreGoDelivery.Infrastructure.Migrations
                         .HasColumnType("text")
                         .HasColumnName("ID_RENTAL");
 
-                    b.Property<string>("DeliverierId")
+                    b.Property<string>("Id")
                         .IsRequired()
                         .HasColumnType("text")
                         .HasColumnName("ID_FK_DELIVERIER");
@@ -161,7 +161,7 @@ namespace CoreGoDelivery.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("DeliverierId");
+                    b.HasIndex("Id");
 
                     b.HasIndex("MotocycleId");
 
@@ -218,7 +218,7 @@ namespace CoreGoDelivery.Infrastructure.Migrations
                 {
                     b.HasOne("CoreGoDelivery.Domain.Entities.GoDelivery.Deliverier.DeliverierEntity", "Deliverier")
                         .WithMany()
-                        .HasForeignKey("DeliverierId")
+                        .HasForeignKey("Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

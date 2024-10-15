@@ -2,6 +2,7 @@
 using CoreGoDelivery.Domain.Repositories.GoDelivery;
 using CoreGoDelivery.Infrastructure.Database;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace CoreGoDelivery.Infrastructure.Repositories.GoDelivery
 {
@@ -35,7 +36,12 @@ namespace CoreGoDelivery.Infrastructure.Repositories.GoDelivery
 
             await _context.SaveChangesAsync();
 
-            return result.State == EntityState.Added;
+            return WasSuccessStatus(result);
+        }
+
+        private static bool WasSuccessStatus(EntityEntry<DeliverierEntity> result)
+        {
+            return result.State == EntityState.Added || result.State == EntityState.Unchanged;
         }
     }
 }

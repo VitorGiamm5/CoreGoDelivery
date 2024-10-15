@@ -1,11 +1,16 @@
 ﻿using CoreGoDelivery.Application.Services.Internal.Interface;
 using CoreGoDelivery.Domain.DTO.Motocycle;
 using CoreGoDelivery.Domain.DTO.Response;
+using CoreGoDelivery.Domain.Entities.GoDelivery.Deliverier;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
+using Microsoft.EntityFrameworkCore;
 
 namespace CoreGoDelivery.Application.Services.Internal.Motocycle
 {
     public class MotocycleService : IMotocycleService
     {
+        private const string MESSAGE_INVALID_DATA = "Dados inválidos";
+
         public Task<ApiResponse> ChangePlate(string id, PlateIdDto data)
         {
             var apiReponse = new ApiResponse()
@@ -74,6 +79,11 @@ namespace CoreGoDelivery.Application.Services.Internal.Motocycle
             };
 
             return Task.FromResult(apiReponse);
+        }
+
+        private static bool WasSuccessStatus(EntityEntry<DeliverierEntity> result)
+        {
+            return result.State == EntityState.Added || result.State == EntityState.Unchanged;
         }
     }
 }

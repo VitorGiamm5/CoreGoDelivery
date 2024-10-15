@@ -1,11 +1,16 @@
 ﻿using CoreGoDelivery.Application.Services.Internal.Interface;
 using CoreGoDelivery.Domain.DTO.Rental;
 using CoreGoDelivery.Domain.DTO.Response;
+using CoreGoDelivery.Domain.Entities.GoDelivery.Deliverier;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
+using Microsoft.EntityFrameworkCore;
 
 namespace CoreGoDelivery.Application.Services.Internal.Rental
 {
     public class RentalService : IRentalService
     {
+        private const string MESSAGE_INVALID_DATA = "Dados inválidos";
+
         public Task<ApiResponse> Create(RentalDto data)
         {
             var apiReponse = new ApiResponse()
@@ -54,6 +59,11 @@ namespace CoreGoDelivery.Application.Services.Internal.Rental
             };
 
             return Task.FromResult(apiReponse);
+        }
+
+        private static bool WasSuccessStatus(EntityEntry<DeliverierEntity> result)
+        {
+            return result.State == EntityState.Added || result.State == EntityState.Unchanged;
         }
     }
 }

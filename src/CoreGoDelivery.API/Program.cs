@@ -1,4 +1,5 @@
 using CoreGoDelivery.Api.Conveters;
+using CoreGoDelivery.Api.Extensions;
 using CoreGoDelivery.Api.Swagger;
 using CoreGoDelivery.Application;
 using Microsoft.OpenApi.Models;
@@ -22,7 +23,9 @@ builder.Services.AddControllers().AddJsonOptions(options =>
     options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
     options.JsonSerializerOptions.WriteIndented = true;
     options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
+    options.JsonSerializerOptions.DefaultBufferSize= 4096;
 
+    options.JsonSerializerOptions.Converters.Add(new TrimStringJsonConverter());
     options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
     options.JsonSerializerOptions.Converters.Add(new CustomDateTimeConverter("s"));
 });
