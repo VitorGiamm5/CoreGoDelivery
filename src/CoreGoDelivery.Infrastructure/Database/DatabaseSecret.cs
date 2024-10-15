@@ -1,6 +1,4 @@
-﻿using System.Text;
-
-namespace CoreGoDelivery.Infrastructure.Database
+﻿namespace CoreGoDelivery.Infrastructure.Database
 {
     public sealed class DatabaseSecret
     {

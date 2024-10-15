@@ -1,6 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
+﻿using CoreGoDelivery.Domain.Entities.GoDelivery.Deliverier;
 using Microsoft.EntityFrameworkCore;
-using CoreGoDelivery.Domain.Entities.GoDelivery.Deliverier;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace CoreGoDelivery.Infrastructure.Database.Configuration.GoDelivery
 {

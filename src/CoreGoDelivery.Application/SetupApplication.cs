@@ -1,11 +1,10 @@
-﻿using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using CoreGoDelivery.Application.Services.Internal.Deliverier;
+﻿using CoreGoDelivery.Application.Services.Internal.Deliverier;
 using CoreGoDelivery.Application.Services.Internal.Interface;
 using CoreGoDelivery.Application.Services.Internal.Motocycle;
 using CoreGoDelivery.Application.Services.Internal.Rental;
 using CoreGoDelivery.Infrastructure;
-using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace CoreGoDelivery.Application
 {

@@ -1,5 +1,4 @@
-﻿using CoreGoDelivery.Domain.DTO.Motocycle;
-using CoreGoDelivery.Domain.DTO.Rental;
+﻿using CoreGoDelivery.Domain.DTO.Rental;
 using CoreGoDelivery.Domain.DTO.Response;
 
 namespace CoreGoDelivery.Application.Services.Internal.Interface

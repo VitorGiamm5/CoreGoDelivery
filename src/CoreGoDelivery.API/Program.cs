@@ -1,11 +1,9 @@
-using System.Text.Json.Serialization;
 using CoreGoDelivery.Api.Conveters;
 using CoreGoDelivery.Api.Swagger;
 using CoreGoDelivery.Application;
-using CoreGoDelivery.Infrastructure;
-using CoreGoDelivery.Infrastructure.Database;
 using Microsoft.OpenApi.Models;
 using Serilog;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -33,10 +31,10 @@ builder.Services.AddHttpClient();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
-    c.SwaggerDoc("v1", new OpenApiInfo 
+    c.SwaggerDoc("v1", new OpenApiInfo
     {
-         Title = $"Sistema de Manutencao de Motos - {builder.Environment.EnvironmentName}",
-         Version = "v1"
+        Title = $"Sistema de Manutencao de Motos - {builder.Environment.EnvironmentName}",
+        Version = "v1"
     });
     c.CustomSchemaIds(type => type.ToString());
     c.OperationFilter<DefaultValuesOperation>();

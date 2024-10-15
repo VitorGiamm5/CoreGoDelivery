@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Npgsql;
-using System.Text.Json;
 
 namespace CoreGoDelivery.Infrastructure.Database
 {
@@ -10,9 +9,6 @@ namespace CoreGoDelivery.Infrastructure.Database
         public static DbContextOptionsBuilder AddInfrastructure(this DbContextOptionsBuilder optionsBuilder, IConfiguration configuration)
         {
             var dataSourceBuilder = new NpgsqlDataSourceBuilder(configuration.GetConnectionString("postgre"));
-            
-            if(dataSourceBuilder is null)
-                throw new ArgumentNullException(nameof(dataSourceBuilder));
 
             //var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
             //var secret = JsonSerializer.Deserialize<DatabaseSecret>(dataSourceBuilder.Name, options);

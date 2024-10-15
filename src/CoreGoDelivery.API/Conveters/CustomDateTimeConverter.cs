@@ -23,7 +23,7 @@ namespace CoreGoDelivery.Api.Conveters
         {
             var readerString = reader.GetString();
 
-            if(string.IsNullOrEmpty(readerString))
+            if (string.IsNullOrEmpty(readerString))
             {
                 return null;
             }

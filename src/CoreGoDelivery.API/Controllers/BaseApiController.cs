@@ -1,6 +1,6 @@
-﻿using System.Net;
+﻿using CoreGoDelivery.Domain.DTO.Response;
 using Microsoft.AspNetCore.Mvc;
-using CoreGoDelivery.Domain.DTO.Response;
+using System.Net;
 
 namespace CoreGoDelivery.Api.Controllers
 {

@@ -1,6 +1,4 @@
-﻿using CoreGoDelivery.Domain.Entities.GoDelivery.Rental;
-
-namespace CoreGoDelivery.Domain.Repositories.GoDelivery
+﻿namespace CoreGoDelivery.Domain.Repositories.GoDelivery
 {
     public interface IRentalRepository
     {

@@ -1,6 +1,5 @@
 ﻿using CoreGoDelivery.Application.Services.Internal.Interface;
 using CoreGoDelivery.Domain.DTO.Deliverier;
-using CoreGoDelivery.Domain.DTO.Response;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CoreGoDelivery.Api.Controllers
