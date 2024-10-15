@@ -1,5 +1,4 @@
 using CoreGoDelivery.Api.Conveters;
-using CoreGoDelivery.Api.Extensions;
 using CoreGoDelivery.Api.Swagger;
 using CoreGoDelivery.Application;
 using Microsoft.OpenApi.Models;

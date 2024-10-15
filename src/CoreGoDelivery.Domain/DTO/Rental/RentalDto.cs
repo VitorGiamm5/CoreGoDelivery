@@ -32,7 +32,7 @@ namespace CoreGoDelivery.Domain.DTO.Rental
         [JsonPropertyName("data_previsao_termino")]
         public DateTime EstimatedEndDate { get; set; }
 
-        [DefaultValue("entregador123")]
+        [DefaultValue(1)]
         [JsonPropertyName("plano")]
         public int PlanId { get; set; }
     }

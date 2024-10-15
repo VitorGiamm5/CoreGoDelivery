@@ -8,6 +8,7 @@ using CoreGoDelivery.Domain.Entities.GoDelivery.LicenceDriver;
 using CoreGoDelivery.Domain.Enums.LicenceDriverType;
 using CoreGoDelivery.Domain.Repositories.GoDelivery;
 using DocumentValidator;
+using System.ComponentModel.DataAnnotations;
 
 namespace CoreGoDelivery.Application.Services.Internal.Deliverier
 {
@@ -28,6 +29,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Deliverier
         #region Create
         public async Task<ApiResponse> Create(DeliverierDto data)
         {
+
             var apiReponse = new ApiResponse()
             {
                 Data = null,
@@ -43,12 +45,12 @@ namespace CoreGoDelivery.Application.Services.Internal.Deliverier
             {
                 Id = data.Id ?? Ulid.NewUlid().ToString(),
                 FullName = data.FullName,
-                CNPJ = Regex.Replace(data.CNPJ, @"[./\s-]", ""),
+                CNPJ = CnpjNormalize(data),
                 BirthDate = data.BirthDate,
                 LicenceDriver = new LicenceDriverEntity()
                 {
                     Id = data.LicenseNumber,
-                    Type = data.LicenseType,
+                    Type = ParseLicenseType(data),
                     FileNameImageNormalized = FileNameNormalize(data)
                 }
             };
@@ -60,15 +62,29 @@ namespace CoreGoDelivery.Application.Services.Internal.Deliverier
             return apiReponse;
         }
 
+        private static LicenceTypeEnum ParseLicenseType(DeliverierDto data)
+        {
+            Enum.TryParse(data.LicenseType, ignoreCase: true, out LicenceTypeEnum licenseType);
+            return licenseType;
+        }
+
+        private static string CnpjNormalize(DeliverierDto data)
+        {
+            return Regex.Replace(data.CNPJ, @"[./\s-]", "");
+        }
+
         private async Task<string?> ValidatorDeliverierAsync(DeliverierDto data)
         {
             var message = new StringBuilder();
 
             #region Id validator
-            if (string.IsNullOrWhiteSpace(data.Id))
+            if (!string.IsNullOrWhiteSpace(data.Id))
             {
                 var isUnicId = await _repositoryDeliverier.CheckIsUnicById(data.Id);
-                if (!isUnicId) message.Append($"{nameof(data.Id)}: {data.Id} already exists; ");
+                if (!isUnicId)
+                {
+                    message.Append($"{nameof(data.Id)}: {data.Id} already exists; ");
+                }
             }
             #endregion
 
@@ -79,11 +95,10 @@ namespace CoreGoDelivery.Application.Services.Internal.Deliverier
             }
             else
             {
-                var isCnpjValid = CnpjValidation.Validate(data.CNPJ);
-                if (!isCnpjValid) message.Append($"{nameof(data.CNPJ)}: {data.CNPJ} is invalid; ");
-
-                var isUnicCnpj = await _repositoryDeliverier.CheckIsUnicByCnpj(data.CNPJ);
-                if (!isUnicCnpj) message.Append($"{nameof(data.CNPJ)}: {data.CNPJ} already exists; ");
+                if (!CnpjValidation.Validate(data.CNPJ))
+                {
+                    message.Append($"{nameof(data.CNPJ)}: {data.CNPJ} is invalid; ");
+                }
             }
             #endregion
 
@@ -95,7 +110,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Deliverier
             else
             {
                 var isValidLicense = CnhValidation.Validate(data.LicenseNumber);
-                if (!isValidLicense) message.Append($"{nameof(data.CNPJ)}: {data.CNPJ} is invalid; ");
+                if (!isValidLicense) message.Append($"{nameof(data.LicenseNumber)}: {data.LicenseNumber} is invalid; ");
 
                 var isUnicLicence = await _repositoryLicence.CheckIsUnicByLicence(data.LicenseNumber);
                 if (!isUnicLicence) message.Append($"{nameof(data.LicenseNumber)}: {data.LicenseNumber} already exists; ");
@@ -114,11 +129,35 @@ namespace CoreGoDelivery.Application.Services.Internal.Deliverier
             #endregion
 
             #region BirthDate validator
-            if (string.IsNullOrWhiteSpace(data.BirthDate.ToString())) message.Append($"Invalid: {nameof(data.BirthDate)}: {data.BirthDate}; ");
+            if (string.IsNullOrWhiteSpace(data.BirthDate.ToString()))
+            {
+                message.Append($"Invalid: {nameof(data.BirthDate)}: {data.BirthDate}; ");
+            }
+            else
+            {
+                if (data.BirthDate is DateTime birthDate)
+                {
+                    var age = DateTime.Today.Year - birthDate.Year;
+
+                    // Se o aniversário ainda não ocorreu neste ano, subtrair 1 da idade
+                    if (birthDate.Date > DateTime.Today.AddYears(-age))
+                    {
+                        age--;
+                    }
+
+                    if (age < 18)
+                    {
+                        message.Append("The person must be at least 18 years old.");
+                    }
+                }
+            }
             #endregion
 
             #region License Type validator
-            if (data.LicenseType == LicenceTypeEnum.None) message.Append($"Invalid: {nameof(data.LicenseType)}: {data.LicenseType}; ");
+            if (!Enum.TryParse(data.LicenseType, ignoreCase: true, out LicenceTypeEnum _))
+            {
+                message.Append($"Invalid: {nameof(data.LicenseType)}: {data.LicenseType}; ");
+            }
             #endregion
 
             #region Finaly

@@ -1,0 +1,28 @@
+{
+"tb_rentalPlan": [
+	{
+		"ID_RENTAL_PLAN" : 1,
+		"DAYS_QUANTITY" : 7,
+		"DAYLI_COST" : 30.0
+	},
+	{
+		"ID_RENTAL_PLAN" : 2,
+		"DAYS_QUANTITY" : 15,
+		"DAYLI_COST" : 28.0
+	},
+	{
+		"ID_RENTAL_PLAN" : 3,
+		"DAYS_QUANTITY" : 30,
+		"DAYLI_COST" : 22.0
+	},
+	{
+		"ID_RENTAL_PLAN" : 4,
+		"DAYS_QUANTITY" : 45,
+		"DAYLI_COST" : 20.0
+	},
+	{
+		"ID_RENTAL_PLAN" : 5,
+		"DAYS_QUANTITY" : 50,
+		"DAYLI_COST" : 18.0
+	}
+]}

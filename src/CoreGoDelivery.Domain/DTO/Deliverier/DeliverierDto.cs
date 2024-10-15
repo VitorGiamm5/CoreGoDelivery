@@ -1,5 +1,7 @@
 ﻿using CoreGoDelivery.Domain.Enums.LicenceDriverType;
+using CoreGoDelivery.Domain.Validators.Attributes;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
 namespace CoreGoDelivery.Domain.DTO.Deliverier
@@ -28,7 +30,6 @@ namespace CoreGoDelivery.Domain.DTO.Deliverier
 
         [DefaultValue("A")]
         [JsonPropertyName("tipo_cnh")]
-        [JsonConverter(typeof(JsonStringEnumConverter))]
-        public LicenceTypeEnum LicenseType { get; set; } = LicenceTypeEnum.A;
+        public string LicenseType { get; set; }
     }
 }
