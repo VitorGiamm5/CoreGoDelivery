@@ -29,10 +29,13 @@ namespace CoreGoDelivery.Infrastructure.Repositories.GoDelivery
 
         public async Task<bool> Create(DeliverierEntity data)
         {
-            var result = await _context.Set<DeliverierEntity>().AddAsync(data);
+            var result = await _context
+                .Set<DeliverierEntity>()
+                .AddAsync(data);
+
             await _context.SaveChangesAsync();
 
-            return result != null;
+            return result.State == EntityState.Added;
         }
     }
 }

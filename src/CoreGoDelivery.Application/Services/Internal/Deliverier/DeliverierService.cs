@@ -22,27 +22,23 @@ namespace CoreGoDelivery.Application.Services.Internal.Deliverier
 
         public async Task<ApiResponse> Create(DeliverierDto data)
         {
-            var ulid = Ulid.NewUlid().ToString();
+
 
             var deliverier = new DeliverierEntity()
             {
-                Id = ulid,
+                Id = Ulid.NewUlid().ToString(),
                 FullName = data.FullName,
                 CNPJ = data.CNPJ,
                 BirthDate = data.BirthDate,
-                LicenseNumberId = ulid
+                LicenceDriver = new LicenceDriverEntity()
+                {
+                    Id = Ulid.NewUlid().ToString(),
+                    Type = data.LicenseType,
+                    FileNameImageNormalized = FileNameNormalize(data)
+                }
             };
 
-            _ = _repositoryDeliverier.Create(deliverier);
-
-            var licence = new LicenceDriverEntity()
-            {
-                Id = ulid,
-                Type = data.LicenseType,
-                FileNameImageNormalized = FileNameNormalize(data)
-            };
-
-            _ = _repositoryLicence.Create(licence);
+            var resultDeliverier = await _repositoryDeliverier.Create(deliverier);
 
             var apiReponse = new ApiResponse()
             {

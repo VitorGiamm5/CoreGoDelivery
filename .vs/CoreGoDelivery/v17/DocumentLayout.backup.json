@@ -3,28 +3,52 @@
   "WorkspaceRootPath": "C:\\Projetos\\CoreGoDelivery\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{C3CBF9A3-8269-49FC-92F2-FE97DDA6838A}|src\\CoreGoDelivery.Application\\CoreGoDelivery.Application.csproj|c:\\projetos\\coregodelivery\\src\\coregodelivery.application\\setupapplication.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C3CBF9A3-8269-49FC-92F2-FE97DDA6838A}|src\\CoreGoDelivery.Application\\CoreGoDelivery.Application.csproj|solutionrelative:src\\coregodelivery.application\\setupapplication.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{913B8928-DB53-4BAE-9806-503A929B4E79}|src\\CoreGoDelivery.Infrastructure\\CoreGoDelivery.Infrastructure.csproj|c:\\projetos\\coregodelivery\\src\\coregodelivery.infrastructure\\repositories\\godelivery\\deliverierrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{913B8928-DB53-4BAE-9806-503A929B4E79}|src\\CoreGoDelivery.Infrastructure\\CoreGoDelivery.Infrastructure.csproj|solutionrelative:src\\coregodelivery.infrastructure\\repositories\\godelivery\\deliverierrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{C3CBF9A3-8269-49FC-92F2-FE97DDA6838A}|src\\CoreGoDelivery.Application\\CoreGoDelivery.Application.csproj|c:\\projetos\\coregodelivery\\src\\coregodelivery.application\\services\\internal\\deliverier\\deliverierservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{C3CBF9A3-8269-49FC-92F2-FE97DDA6838A}|src\\CoreGoDelivery.Application\\CoreGoDelivery.Application.csproj|solutionrelative:src\\coregodelivery.application\\services\\internal\\deliverier\\deliverierservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{913B8928-DB53-4BAE-9806-503A929B4E79}|src\\CoreGoDelivery.Infrastructure\\CoreGoDelivery.Infrastructure.csproj|c:\\projetos\\coregodelivery\\src\\coregodelivery.infrastructure\\database\\configuration\\godelivery\\deliverierconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{913B8928-DB53-4BAE-9806-503A929B4E79}|src\\CoreGoDelivery.Infrastructure\\CoreGoDelivery.Infrastructure.csproj|solutionrelative:src\\coregodelivery.infrastructure\\database\\configuration\\godelivery\\deliverierconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{48B385D5-1C0D-46E0-AFFF-13A8BAF21226}|src\\CoreGoDelivery.API\\CoreGoDelivery.Api.csproj|c:\\projetos\\coregodelivery\\src\\coregodelivery.api\\controllers\\deliverierscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{48B385D5-1C0D-46E0-AFFF-13A8BAF21226}|src\\CoreGoDelivery.API\\CoreGoDelivery.Api.csproj|solutionrelative:src\\coregodelivery.api\\controllers\\deliverierscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{913B8928-DB53-4BAE-9806-503A929B4E79}|src\\CoreGoDelivery.Infrastructure\\CoreGoDelivery.Infrastructure.csproj|c:\\projetos\\coregodelivery\\src\\coregodelivery.infrastructure\\setupinfrastructure.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{913B8928-DB53-4BAE-9806-503A929B4E79}|src\\CoreGoDelivery.Infrastructure\\CoreGoDelivery.Infrastructure.csproj|solutionrelative:src\\coregodelivery.infrastructure\\setupinfrastructure.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{913B8928-DB53-4BAE-9806-503A929B4E79}|src\\CoreGoDelivery.Infrastructure\\CoreGoDelivery.Infrastructure.csproj|c:\\projetos\\coregodelivery\\src\\coregodelivery.infrastructure\\repositories\\godelivery\\deliverierrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{913B8928-DB53-4BAE-9806-503A929B4E79}|src\\CoreGoDelivery.Infrastructure\\CoreGoDelivery.Infrastructure.csproj|solutionrelative:src\\coregodelivery.infrastructure\\repositories\\godelivery\\deliverierrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{0AA16454-C745-48F0-9B8A-64860B9391D8}|src\\CoreGoDelivery.Domain\\CoreGoDelivery.Domain.csproj|c:\\projetos\\coregodelivery\\src\\coregodelivery.domain\\setupdomain.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0AA16454-C745-48F0-9B8A-64860B9391D8}|src\\CoreGoDelivery.Domain\\CoreGoDelivery.Domain.csproj|solutionrelative:src\\coregodelivery.domain\\setupdomain.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{913B8928-DB53-4BAE-9806-503A929B4E79}|src\\CoreGoDelivery.Infrastructure\\CoreGoDelivery.Infrastructure.csproj|c:\\projetos\\coregodelivery\\src\\coregodelivery.infrastructure\\database\\setupdatabase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{913B8928-DB53-4BAE-9806-503A929B4E79}|src\\CoreGoDelivery.Infrastructure\\CoreGoDelivery.Infrastructure.csproj|solutionrelative:src\\coregodelivery.infrastructure\\database\\setupdatabase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{0AA16454-C745-48F0-9B8A-64860B9391D8}|src\\CoreGoDelivery.Domain\\CoreGoDelivery.Domain.csproj|c:\\projetos\\coregodelivery\\src\\coregodelivery.domain\\setupdomain.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{0AA16454-C745-48F0-9B8A-64860B9391D8}|src\\CoreGoDelivery.Domain\\CoreGoDelivery.Domain.csproj|solutionrelative:src\\coregodelivery.domain\\setupdomain.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{913B8928-DB53-4BAE-9806-503A929B4E79}|src\\CoreGoDelivery.Infrastructure\\CoreGoDelivery.Infrastructure.csproj|c:\\projetos\\coregodelivery\\src\\coregodelivery.infrastructure\\database\\aplicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{913B8928-DB53-4BAE-9806-503A929B4E79}|src\\CoreGoDelivery.Infrastructure\\CoreGoDelivery.Infrastructure.csproj|solutionrelative:src\\coregodelivery.infrastructure\\database\\aplicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{913B8928-DB53-4BAE-9806-503A929B4E79}|src\\CoreGoDelivery.Infrastructure\\CoreGoDelivery.Infrastructure.csproj|c:\\projetos\\coregodelivery\\src\\coregodelivery.infrastructure\\coregodelivery.infrastructure.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{913B8928-DB53-4BAE-9806-503A929B4E79}|src\\CoreGoDelivery.Infrastructure\\CoreGoDelivery.Infrastructure.csproj|solutionrelative:src\\coregodelivery.infrastructure\\coregodelivery.infrastructure.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{48B385D5-1C0D-46E0-AFFF-13A8BAF21226}|src\\CoreGoDelivery.API\\CoreGoDelivery.Api.csproj|c:\\projetos\\coregodelivery\\src\\coregodelivery.api\\swagger\\defaultvaluesoperation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{48B385D5-1C0D-46E0-AFFF-13A8BAF21226}|src\\CoreGoDelivery.API\\CoreGoDelivery.Api.csproj|solutionrelative:src\\coregodelivery.api\\swagger\\defaultvaluesoperation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{48B385D5-1C0D-46E0-AFFF-13A8BAF21226}|src\\CoreGoDelivery.API\\CoreGoDelivery.Api.csproj|c:\\projetos\\coregodelivery\\src\\coregodelivery.api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{48B385D5-1C0D-46E0-AFFF-13A8BAF21226}|src\\CoreGoDelivery.API\\CoreGoDelivery.Api.csproj|solutionrelative:src\\coregodelivery.api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C3CBF9A3-8269-49FC-92F2-FE97DDA6838A}|src\\CoreGoDelivery.Application\\CoreGoDelivery.Application.csproj|c:\\projetos\\coregodelivery\\src\\coregodelivery.application\\setupapplication.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C3CBF9A3-8269-49FC-92F2-FE97DDA6838A}|src\\CoreGoDelivery.Application\\CoreGoDelivery.Application.csproj|solutionrelative:src\\coregodelivery.application\\setupapplication.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -34,43 +58,82 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 4,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 2,
+              "Title": "DeliverierConfiguration.cs",
+              "DocumentMoniker": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.Infrastructure\\Database\\Configuration\\GoDelivery\\DeliverierConfiguration.cs",
+              "RelativeDocumentMoniker": "src\\CoreGoDelivery.Infrastructure\\Database\\Configuration\\GoDelivery\\DeliverierConfiguration.cs",
+              "ToolTip": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.Infrastructure\\Database\\Configuration\\GoDelivery\\DeliverierConfiguration.cs",
+              "RelativeToolTip": "src\\CoreGoDelivery.Infrastructure\\Database\\Configuration\\GoDelivery\\DeliverierConfiguration.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAzAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-15T07:04:33.505Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "DefaultValuesOperation.cs",
+              "DocumentMoniker": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.API\\Swagger\\DefaultValuesOperation.cs",
+              "RelativeDocumentMoniker": "src\\CoreGoDelivery.API\\Swagger\\DefaultValuesOperation.cs",
+              "ToolTip": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.API\\Swagger\\DefaultValuesOperation.cs",
+              "RelativeToolTip": "src\\CoreGoDelivery.API\\Swagger\\DefaultValuesOperation.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAlwBUAAAAiAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-15T06:49:40.358Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.API\\appsettings.json",
+              "RelativeDocumentMoniker": "src\\CoreGoDelivery.API\\appsettings.json",
+              "ToolTip": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.API\\appsettings.json",
+              "RelativeToolTip": "src\\CoreGoDelivery.API\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2024-10-15T06:49:24.168Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
               "Title": "SetupApplication.cs",
               "DocumentMoniker": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.Application\\SetupApplication.cs",
               "RelativeDocumentMoniker": "src\\CoreGoDelivery.Application\\SetupApplication.cs",
               "ToolTip": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.Application\\SetupApplication.cs",
               "RelativeToolTip": "src\\CoreGoDelivery.Application\\SetupApplication.cs",
-              "ViewState": "AgIAAA0AAAAAAAAAAAAlwCIAAAAaAAAAAAAAAA==",
+              "ViewState": "AgIAAAQAAAAAAAAAAAAiwB4AAAAUAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-10-15T06:43:51.771Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 0,
               "Title": "DeliverierRepository.cs",
               "DocumentMoniker": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.Infrastructure\\Repositories\\GoDelivery\\DeliverierRepository.cs",
               "RelativeDocumentMoniker": "src\\CoreGoDelivery.Infrastructure\\Repositories\\GoDelivery\\DeliverierRepository.cs",
               "ToolTip": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.Infrastructure\\Repositories\\GoDelivery\\DeliverierRepository.cs",
               "RelativeToolTip": "src\\CoreGoDelivery.Infrastructure\\Repositories\\GoDelivery\\DeliverierRepository.cs",
-              "ViewState": "AgIAAAoAAAAAAAAAAAAgwAAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAA0AAAAAAAAAAAA7wBwAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-10-15T06:41:33.14Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 4,
               "Title": "SetupInfrastructure.cs",
               "DocumentMoniker": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.Infrastructure\\SetupInfrastructure.cs",
               "RelativeDocumentMoniker": "src\\CoreGoDelivery.Infrastructure\\SetupInfrastructure.cs",
               "ToolTip": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.Infrastructure\\SetupInfrastructure.cs",
               "RelativeToolTip": "src\\CoreGoDelivery.Infrastructure\\SetupInfrastructure.cs",
-              "ViewState": "AgIAAAUAAAAAAAAAAAAWwB4AAAAcAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAABOAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-10-15T06:25:17.192Z",
               "EditorCaption": ""
@@ -90,13 +153,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 6,
               "Title": "SetupDatabase.cs",
               "DocumentMoniker": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.Infrastructure\\Database\\SetupDatabase.cs",
               "RelativeDocumentMoniker": "src\\CoreGoDelivery.Infrastructure\\Database\\SetupDatabase.cs",
               "ToolTip": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.Infrastructure\\Database\\SetupDatabase.cs",
               "RelativeToolTip": "src\\CoreGoDelivery.Infrastructure\\Database\\SetupDatabase.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAMAAAAAAAAAA==",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAABAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-10-15T06:23:59.761Z",
               "EditorCaption": ""
@@ -107,11 +170,50 @@
               "Title": "DeliverierService.cs",
               "DocumentMoniker": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.Application\\Services\\Internal\\Deliverier\\DeliverierService.cs",
               "RelativeDocumentMoniker": "src\\CoreGoDelivery.Application\\Services\\Internal\\Deliverier\\DeliverierService.cs",
-              "ToolTip": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.Application\\Services\\Internal\\Deliverier\\DeliverierService.cs",
-              "RelativeToolTip": "src\\CoreGoDelivery.Application\\Services\\Internal\\Deliverier\\DeliverierService.cs",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAAAsAAAAuAAAAAAAAAA==",
+              "ToolTip": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.Application\\Services\\Internal\\Deliverier\\DeliverierService.cs*",
+              "RelativeToolTip": "src\\CoreGoDelivery.Application\\Services\\Internal\\Deliverier\\DeliverierService.cs*",
+              "ViewState": "AgIAABEAAAAAAAAAAAAuwCgAAABCAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-10-15T06:22:05.419Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "CoreGoDelivery.Infrastructure",
+              "DocumentMoniker": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.Infrastructure\\CoreGoDelivery.Infrastructure.csproj",
+              "RelativeDocumentMoniker": "src\\CoreGoDelivery.Infrastructure\\CoreGoDelivery.Infrastructure.csproj",
+              "ToolTip": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.Infrastructure\\CoreGoDelivery.Infrastructure.csproj",
+              "RelativeToolTip": "src\\CoreGoDelivery.Infrastructure\\CoreGoDelivery.Infrastructure.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2024-10-15T06:50:04.943Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "DeliveriersController.cs",
+              "DocumentMoniker": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.API\\Controllers\\DeliveriersController.cs",
+              "RelativeDocumentMoniker": "src\\CoreGoDelivery.API\\Controllers\\DeliveriersController.cs",
+              "ToolTip": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.API\\Controllers\\DeliveriersController.cs",
+              "RelativeToolTip": "src\\CoreGoDelivery.API\\Controllers\\DeliveriersController.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAABQAAAA5AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-15T07:01:21.28Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "AplicationDbContext.cs",
+              "DocumentMoniker": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.Infrastructure\\Database\\AplicationDbContext.cs",
+              "RelativeDocumentMoniker": "src\\CoreGoDelivery.Infrastructure\\Database\\AplicationDbContext.cs",
+              "ToolTip": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.Infrastructure\\Database\\AplicationDbContext.cs",
+              "RelativeToolTip": "src\\CoreGoDelivery.Infrastructure\\Database\\AplicationDbContext.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAyAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-15T06:50:12.405Z",
               "EditorCaption": ""
             }
           ]
