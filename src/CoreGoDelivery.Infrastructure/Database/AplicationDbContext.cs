@@ -5,8 +5,6 @@ namespace CoreGoDelivery.Infrastructure.Database
 {
     public class AplicationDbContext : DbContext
     {
-        private const string DEFAULT_SCHEMA = "godeliverydb";
-
         public AplicationDbContext(DbContextOptions options) : base(options)
         {
         }
@@ -14,10 +12,14 @@ namespace CoreGoDelivery.Infrastructure.Database
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.HasDefaultSchema("godeliverydb");
-            builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+            builder.ApplyConfigurationsFromAssembly(GetType().Assembly);
 
             base.OnModelCreating(builder);
         }
 
+        //public async Task<IEnumerable<IEntityEventManager>> SaveAsync()
+        //{
+
+        //}
     }
 }

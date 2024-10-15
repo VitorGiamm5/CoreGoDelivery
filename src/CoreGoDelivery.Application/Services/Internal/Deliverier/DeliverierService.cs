@@ -27,7 +27,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Deliverier
             return apiReponse;
         }
 
-        public async Task<ApiResponse> Update(DeliverierDto data)
+        public async Task<ApiResponse> UploadCnh(string id)
         {
             var apiReponse = new ApiResponse()
             {

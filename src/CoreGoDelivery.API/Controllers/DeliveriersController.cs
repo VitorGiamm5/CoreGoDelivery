@@ -25,15 +25,10 @@ namespace CoreGoDelivery.Api.Controllers
         }
 
         [HttpPost("{id}/cnh")]
-        public async Task<IActionResult> Update([FromBody] LicenseImageString request)
+        public async Task<IActionResult> Upload(string id, [FromBody] LicenseImageString request)
         {
-            var apiReponse = new ApiResponse()
-            {
-                Data = null,
-                Message = null
-            };
+            var apiReponse = await _deliverierService.UploadCnh(id);
 
-            await Task.CompletedTask;
             return Response(apiReponse);
         }
     }

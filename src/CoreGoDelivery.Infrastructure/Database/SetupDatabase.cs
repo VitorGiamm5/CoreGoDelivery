@@ -1,28 +1,32 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Npgsql;
+using System.Text.Json;
 
 namespace CoreGoDelivery.Infrastructure.Database
 {
     public static class SetupDatabase
     {
-        private const string NAME_SECTION_POSTRE = "Postgre";
-        private const string NAME_MIGRATION_HISTORY = "__EFMigrationsHistory";
-        private const string NAME_DATA_BASE = "dbgodelivery";
-        private const int TIMEOUT_CONNECTIONDB = 1000;
-
         public static DbContextOptionsBuilder AddInfrastructure(this DbContextOptionsBuilder optionsBuilder, IConfiguration configuration)
         {
-            var dataSourceBuilder = new NpgsqlDataSourceBuilder(configuration.GetConnectionString(NAME_SECTION_POSTRE));
+            var dataSourceBuilder = new NpgsqlDataSourceBuilder(configuration.GetConnectionString("postgre"));
+            
+            if(dataSourceBuilder is null)
+                throw new ArgumentNullException(nameof(dataSourceBuilder));
+
+            //var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
+            //var secret = JsonSerializer.Deserialize<DatabaseSecret>(dataSourceBuilder.Name, options);
+            var naaame = dataSourceBuilder?.Name;
+
             dataSourceBuilder.EnableDynamicJson();
             dataSourceBuilder.ConnectionStringBuilder.IncludeErrorDetail = true;
-            dataSourceBuilder.ConnectionStringBuilder.Timeout = TIMEOUT_CONNECTIONDB;
+            dataSourceBuilder.ConnectionStringBuilder.Timeout = 1000;
 
             var dataSouce = dataSourceBuilder.Build();
             optionsBuilder
                 .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking)
                 .UseNpgsql(dataSouce, b => b
-                    .MigrationsHistoryTable(NAME_MIGRATION_HISTORY, NAME_DATA_BASE)
+                    .MigrationsHistoryTable("__EFMigrationsHistory", "dbgodelivery")
                     .EnableRetryOnFailure(2)
                     .MigrationsAssembly(typeof(AplicationDbContext).Assembly.FullName)
                 );

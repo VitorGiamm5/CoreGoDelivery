@@ -1,6 +1,13 @@
-﻿namespace CoreGoDelivery.Application.Services.Internal.Interface
+﻿using CoreGoDelivery.Domain.DTO.Motocycle;
+using CoreGoDelivery.Domain.DTO.Rental;
+using CoreGoDelivery.Domain.DTO.Response;
+
+namespace CoreGoDelivery.Application.Services.Internal.Interface
 {
     public interface IRentalService
     {
+        Task<ApiResponse> GetOne(string id);
+        Task<ApiResponse> Create(RentalDto data);
+        Task<ApiResponse> UpdateReturnedToBaseDate(string id, ReturnedToBaseDateDto data);
     }
 }

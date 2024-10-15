@@ -1,6 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using CoreGoDelivery.Application.Services.Internal.Interface;
 using CoreGoDelivery.Domain.DTO.Motocycle;
 using CoreGoDelivery.Domain.DTO.Response;
+using Microsoft.AspNetCore.Mvc;
 
 namespace CoreGoDelivery.Api.Controllers
 {
@@ -8,84 +9,51 @@ namespace CoreGoDelivery.Api.Controllers
     [ApiController]
     public class MotocycleController : BaseApiController
     {
+        private readonly IMotocycleService _motocycleService;
+
+        public MotocycleController(IMotocycleService motocycleService)
+        {
+            _motocycleService = motocycleService;
+        }
+
         [HttpGet]
         public async Task<IActionResult> Get([FromQuery] PlateIdDto? request)
         {
-            List<MotocycleDto> result = [
-                new MotocycleDto()
-                {
-                    MotocycleId = "moto123",
-                    YearManufacture = 2020,
-                    ModelName = "Mottu Sport",
-                    PlateId = "CDX-0101"
-                }
-            ];
+            var result = await _motocycleService.List(request);
 
-            var apiReponse = new ApiResponse()
-            {
-                Data = result,
-                Message = null
-            };
-
-            await Task.CompletedTask;
-            return Response(apiReponse);
+            return Response(result);
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(string id)
         {
-            var result = new MotocycleDto()
-            {
-                MotocycleId = "moto123",
-                YearManufacture = 2020,
-                ModelName = "Mottu Sport",
-                PlateId = "CDX-0101"
-            };
+            var result = await _motocycleService.GetOne(id);
 
-            var apiReponse = new ApiResponse()
-            {
-                Data = result,
-                Message = null
-            };
-
-            await Task.CompletedTask;
-            return Response(apiReponse);
+            return Response(result);
         }
 
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] MotocycleDto request)
         {
-            var apiReponse = new ApiResponse()
-            {
-                Message = null
-            };
+            var result = await _motocycleService.Create(request);
 
-            await Task.CompletedTask;
-            return Response(apiReponse);
+            return Response(result);
         }
 
         [HttpPut("{id}/placa")]
         public async Task<IActionResult> Put(string id, [FromBody] PlateIdDto request)
         {
-            var apiReponse = new ApiResponse()
-            {
-                Message = null
-            };
+            var result = await _motocycleService.ChangePlate(id, request);
 
-            await Task.CompletedTask;
-            return Response(apiReponse);
+            return Response(result);
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(PlateIdDto id)
         {
-            var apiReponse = new ApiResponse()
-            {
-                Message = null
-            };
+            var result = await _motocycleService.Delete(id);
 
-            await Task.CompletedTask;
-            return Response(apiReponse);
+            return Response(result);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using CoreGoDelivery.Domain.DTO.Rental;
+﻿using CoreGoDelivery.Application.Services.Internal.Interface;
+using CoreGoDelivery.Domain.DTO.Rental;
 using CoreGoDelivery.Domain.DTO.Response;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,60 +9,35 @@ namespace CoreGoDelivery.Api.Controllers
     [ApiController]
     public class RentalController : BaseApiController
     {
-        [HttpGet("{id}")]
-        public async Task<IActionResult> Get(string id)
+        private readonly IRentalService _rentalService;
+
+        public RentalController(IRentalService rentalService)
         {
-            var result = new RentalDto()
-            {
-                RentalId = "locacao123",
-                DayliRate = 10,
-                DeliveryPersonId = "valor_diaria",
-                MotorcycleId = "moto123",
-                StartDate = DateTime.Now.AddDays(-20),
-                EndDate = DateTime.Now,
-                EstimatedEndDate = DateTime.Now,
-                ReturnedToBaseDate = DateTime.Now,
-            };
+            _rentalService = rentalService;
+        }
 
-            var apiReponse = new ApiResponse()
-            {
-                Data = result,
-                Message = null
-            };
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetOne(string id)
+        {
+            var result = await _rentalService.GetOne(id);
 
-            await Task.CompletedTask; 
-            return Response(apiReponse);
+            return Response(result);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] ReturnedToBaseDateDto request)
+        public async Task<IActionResult> Create([FromBody] RentalDto request)
         {
-            var apiReponse = new ApiResponse()
-            {
-                Data = null,
-                Message = null
-            };
+            var result = await _rentalService.Create(request);
 
-            await Task.CompletedTask; 
-            return Response(apiReponse);
+            return Response(result);
         }
 
         [HttpPut("{id}/devolucao")]
-        public async Task<IActionResult> Put(string id, [FromBody] RentalDto request)
+        public async Task<IActionResult> UpdateReturnedToBaseDate(string id, [FromBody] RentalDto request)
         {
-            var result = new ResponseMessageDto()
-            {
-                Message = "Data de devolução informada com sucesso"
-            };
+            var result = await _rentalService.UpdateReturnedToBaseDate(id, request);
 
-            var apiReponse = new ApiResponse()
-            {
-                Data = result,
-                Message = null
-            };
-
-            await Task.CompletedTask;
-            return Response(apiReponse);
+            return Response(result);
         }
     }
 }

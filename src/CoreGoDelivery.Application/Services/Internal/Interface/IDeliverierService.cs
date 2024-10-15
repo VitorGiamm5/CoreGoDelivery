@@ -5,7 +5,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Interface
 {
     public interface IDeliverierService
     {
-        public Task<ApiResponse> Create(DeliverierDto data);
-        public Task<ApiResponse> Update(DeliverierDto data);
+        Task<ApiResponse> Create(DeliverierDto data);
+        Task<ApiResponse> UploadCnh(string id);
     }
 }
