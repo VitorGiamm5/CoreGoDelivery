@@ -9,7 +9,7 @@ namespace CoreGoDelivery.Domain.Entities.GoDelivery.Rental
     public sealed class RentalEntity
     {
         [Key]
-        public string RentalId { get; set; }
+        public string Id { get; set; }
 
         public DateTime StartDate { get; set; }
 

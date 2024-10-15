@@ -10,7 +10,7 @@ namespace CoreGoDelivery.Infrastructure.Database
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            builder.HasDefaultSchema("godeliverydb");
+            builder.HasDefaultSchema("dbgodelivery");
             builder.ApplyConfigurationsFromAssembly(GetType().Assembly);
 
             base.OnModelCreating(builder);

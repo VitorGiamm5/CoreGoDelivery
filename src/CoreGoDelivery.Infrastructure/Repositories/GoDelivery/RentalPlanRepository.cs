@@ -1,6 +1,8 @@
-﻿namespace CoreGoDelivery.Infrastructure.Repositories.GoDelivery
+﻿using CoreGoDelivery.Domain.Repositories.GoDelivery;
+
+namespace CoreGoDelivery.Infrastructure.Repositories.GoDelivery
 {
-    internal class RentalPlanRepository
+    public class RentalPlanRepository : IRentalPlanRepository
     {
     }
 }

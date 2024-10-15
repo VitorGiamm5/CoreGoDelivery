@@ -26,13 +26,13 @@ namespace CoreGoDelivery.Application
         private static IServiceCollection AddInternalServices(this IServiceCollection services)
         {
             services
-                .AddSingleton<IDeliverierService, DeliverierService>();
+                .AddScoped<IDeliverierService, DeliverierService>();
 
             services
-                .AddSingleton<IMotocycleService, MotocycleService>();
+                .AddScoped<IMotocycleService, MotocycleService>();
 
             services
-                .AddSingleton<IRentalService, RentalService>();
+                .AddScoped<IRentalService, RentalService>();
 
             return services;
         }

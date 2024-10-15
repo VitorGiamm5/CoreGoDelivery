@@ -9,9 +9,9 @@ namespace CoreGoDelivery.Infrastructure.Database.Configuration.GoDelivery
         public void Configure(EntityTypeBuilder<RentalEntity> builder)
         {
             builder.ToTable("tb_rental");
-            builder.HasKey(t => t.RentalId);
+            builder.HasKey(t => t.Id);
 
-            builder.Property(t => t.RentalId).HasColumnName("ID_RENTAL");
+            builder.Property(t => t.Id).HasColumnName("ID_RENTAL");
             builder.Property(t => t.StartDate).HasColumnName("DATE_START");
             builder.Property(t => t.EndDate).HasColumnName("DATE_END");
             builder.Property(t => t.EstimatedReturnDate).HasColumnName("DATE_ESTIMATED_RETURN");

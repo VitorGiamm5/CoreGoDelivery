@@ -7,7 +7,7 @@ namespace CoreGoDelivery.Domain.Entities.GoDelivery.Deliverier
     public sealed class DeliverierEntity
     {
         [Key]
-        public string DeliverierId { get; set; }
+        public string Id { get; set; }
 
         public string FullName { get; set; }
 

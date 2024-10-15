@@ -6,10 +6,10 @@ namespace CoreGoDelivery.Domain.Entities.GoDelivery.LicenceDriver
     public sealed class LicenceDriverEntity
     {
         [Key]
-        public string LicenceDriverId { get; set; }
+        public string Id { get; set; }
 
-        public LicenceTypeEnum LicenceType { get; set; }
+        public LicenceTypeEnum Type { get; set; }
 
-        public string ImageUrlReference { get; set; }
+        public string FileNameImageNormalized { get; set; }
     }
 }

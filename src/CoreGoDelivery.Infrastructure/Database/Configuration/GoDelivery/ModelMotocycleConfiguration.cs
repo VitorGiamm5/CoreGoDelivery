@@ -9,12 +9,12 @@ namespace CoreGoDelivery.Infrastructure.Database.Configuration.GoDelivery
         public void Configure(EntityTypeBuilder<ModelMotocycleEntity> builder)
         {
             builder.ToTable("tb_modelMotocycle");
-            builder.HasKey(t => t.ModelMotocycleId);
+            builder.HasKey(t => t.Id);
 
-            builder.Property(t => t.ModelMotocycleId).HasColumnName("ID_MODEL_MOTOCYCLE");
+            builder.Property(t => t.Id).HasColumnName("ID_MODEL_MOTOCYCLE");
             builder.Property(t => t.Name).HasColumnName("NAME");
             builder.Property(t => t.NormalizedName).HasColumnName("NORMALIZED_NAME");
-            builder.Property(t => t.ModelMotocycleId).HasColumnName("ID_FK_MODEL_MOTOCYCLE");
+            builder.Property(t => t.Id).HasColumnName("ID_FK_MODEL_MOTOCYCLE");
         }
     }
 }

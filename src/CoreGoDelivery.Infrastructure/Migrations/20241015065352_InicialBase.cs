@@ -13,11 +13,11 @@ namespace CoreGoDelivery.Infrastructure.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.EnsureSchema(
-                name: "godeliverydb");
+                name: "dbgodelivery");
 
             migrationBuilder.CreateTable(
                 name: "tb_licenceDriver",
-                schema: "godeliverydb",
+                schema: "dbgodelivery",
                 columns: table => new
                 {
                     ID_LICENSE_DRIVER = table.Column<string>(type: "text", nullable: false),
@@ -31,7 +31,7 @@ namespace CoreGoDelivery.Infrastructure.Migrations
 
             migrationBuilder.CreateTable(
                 name: "tb_modelMotocycle",
-                schema: "godeliverydb",
+                schema: "dbgodelivery",
                 columns: table => new
                 {
                     ID_FK_MODEL_MOTOCYCLE = table.Column<string>(type: "text", nullable: false),
@@ -45,7 +45,7 @@ namespace CoreGoDelivery.Infrastructure.Migrations
 
             migrationBuilder.CreateTable(
                 name: "tb_rentalPlan",
-                schema: "godeliverydb",
+                schema: "dbgodelivery",
                 columns: table => new
                 {
                     ID_RENTAL_PLAN = table.Column<int>(type: "integer", nullable: false)
@@ -60,7 +60,7 @@ namespace CoreGoDelivery.Infrastructure.Migrations
 
             migrationBuilder.CreateTable(
                 name: "tb_deliverier",
-                schema: "godeliverydb",
+                schema: "dbgodelivery",
                 columns: table => new
                 {
                     ID_DELIVERIER = table.Column<string>(type: "text", nullable: false),
@@ -75,7 +75,7 @@ namespace CoreGoDelivery.Infrastructure.Migrations
                     table.ForeignKey(
                         name: "FK_tb_deliverier_tb_licenceDriver_ID_FK_LICENSE_NUMBER",
                         column: x => x.ID_FK_LICENSE_NUMBER,
-                        principalSchema: "godeliverydb",
+                        principalSchema: "dbgodelivery",
                         principalTable: "tb_licenceDriver",
                         principalColumn: "ID_LICENSE_DRIVER",
                         onDelete: ReferentialAction.Cascade);
@@ -83,7 +83,7 @@ namespace CoreGoDelivery.Infrastructure.Migrations
 
             migrationBuilder.CreateTable(
                 name: "tb_motocycle",
-                schema: "godeliverydb",
+                schema: "dbgodelivery",
                 columns: table => new
                 {
                     ID_MOTOCYCLE = table.Column<string>(type: "text", nullable: false),
@@ -97,7 +97,7 @@ namespace CoreGoDelivery.Infrastructure.Migrations
                     table.ForeignKey(
                         name: "FK_tb_motocycle_tb_modelMotocycle_ID_FK_NODEL_MOTOCYCLE",
                         column: x => x.ID_FK_NODEL_MOTOCYCLE,
-                        principalSchema: "godeliverydb",
+                        principalSchema: "dbgodelivery",
                         principalTable: "tb_modelMotocycle",
                         principalColumn: "ID_FK_MODEL_MOTOCYCLE",
                         onDelete: ReferentialAction.Cascade);
@@ -105,7 +105,7 @@ namespace CoreGoDelivery.Infrastructure.Migrations
 
             migrationBuilder.CreateTable(
                 name: "tb_rental",
-                schema: "godeliverydb",
+                schema: "dbgodelivery",
                 columns: table => new
                 {
                     ID_RENTAL = table.Column<string>(type: "text", nullable: false),
@@ -123,21 +123,21 @@ namespace CoreGoDelivery.Infrastructure.Migrations
                     table.ForeignKey(
                         name: "FK_tb_rental_tb_deliverier_ID_FK_DELIVERIER",
                         column: x => x.ID_FK_DELIVERIER,
-                        principalSchema: "godeliverydb",
+                        principalSchema: "dbgodelivery",
                         principalTable: "tb_deliverier",
                         principalColumn: "ID_DELIVERIER",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_tb_rental_tb_motocycle_ID_FK_MOTOCYCLE",
                         column: x => x.ID_FK_MOTOCYCLE,
-                        principalSchema: "godeliverydb",
+                        principalSchema: "dbgodelivery",
                         principalTable: "tb_motocycle",
                         principalColumn: "ID_MOTOCYCLE",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_tb_rental_tb_rentalPlan_ID_FK_RENTAL_PLAN",
                         column: x => x.ID_FK_RENTAL_PLAN,
-                        principalSchema: "godeliverydb",
+                        principalSchema: "dbgodelivery",
                         principalTable: "tb_rentalPlan",
                         principalColumn: "ID_RENTAL_PLAN",
                         onDelete: ReferentialAction.Cascade);
@@ -145,31 +145,31 @@ namespace CoreGoDelivery.Infrastructure.Migrations
 
             migrationBuilder.CreateIndex(
                 name: "IX_tb_deliverier_ID_FK_LICENSE_NUMBER",
-                schema: "godeliverydb",
+                schema: "dbgodelivery",
                 table: "tb_deliverier",
                 column: "ID_FK_LICENSE_NUMBER");
 
             migrationBuilder.CreateIndex(
                 name: "IX_tb_motocycle_ID_FK_NODEL_MOTOCYCLE",
-                schema: "godeliverydb",
+                schema: "dbgodelivery",
                 table: "tb_motocycle",
                 column: "ID_FK_NODEL_MOTOCYCLE");
 
             migrationBuilder.CreateIndex(
                 name: "IX_tb_rental_ID_FK_DELIVERIER",
-                schema: "godeliverydb",
+                schema: "dbgodelivery",
                 table: "tb_rental",
                 column: "ID_FK_DELIVERIER");
 
             migrationBuilder.CreateIndex(
                 name: "IX_tb_rental_ID_FK_MOTOCYCLE",
-                schema: "godeliverydb",
+                schema: "dbgodelivery",
                 table: "tb_rental",
                 column: "ID_FK_MOTOCYCLE");
 
             migrationBuilder.CreateIndex(
                 name: "IX_tb_rental_ID_FK_RENTAL_PLAN",
-                schema: "godeliverydb",
+                schema: "dbgodelivery",
                 table: "tb_rental",
                 column: "ID_FK_RENTAL_PLAN");
         }
@@ -179,27 +179,27 @@ namespace CoreGoDelivery.Infrastructure.Migrations
         {
             migrationBuilder.DropTable(
                 name: "tb_rental",
-                schema: "godeliverydb");
+                schema: "dbgodelivery");
 
             migrationBuilder.DropTable(
                 name: "tb_deliverier",
-                schema: "godeliverydb");
+                schema: "dbgodelivery");
 
             migrationBuilder.DropTable(
                 name: "tb_motocycle",
-                schema: "godeliverydb");
+                schema: "dbgodelivery");
 
             migrationBuilder.DropTable(
                 name: "tb_rentalPlan",
-                schema: "godeliverydb");
+                schema: "dbgodelivery");
 
             migrationBuilder.DropTable(
                 name: "tb_licenceDriver",
-                schema: "godeliverydb");
+                schema: "dbgodelivery");
 
             migrationBuilder.DropTable(
                 name: "tb_modelMotocycle",
-                schema: "godeliverydb");
+                schema: "dbgodelivery");
         }
     }
 }

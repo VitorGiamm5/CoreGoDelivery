@@ -7,7 +7,7 @@ namespace CoreGoDelivery.Domain.Entities.GoDelivery.Motocycle
     public sealed class MotocycleEntity
     {
         [Key]
-        public string MotocycleId { get; set; }
+        public string Id { get; set; }
 
         public int YearManufacture { get; set; }
 

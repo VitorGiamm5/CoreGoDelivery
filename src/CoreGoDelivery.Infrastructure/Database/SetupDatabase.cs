@@ -10,13 +10,9 @@ namespace CoreGoDelivery.Infrastructure.Database
         {
             var dataSourceBuilder = new NpgsqlDataSourceBuilder(configuration.GetConnectionString("postgre"));
 
-            //var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
-            //var secret = JsonSerializer.Deserialize<DatabaseSecret>(dataSourceBuilder.Name, options);
-            var naaame = dataSourceBuilder?.Name;
-
-            dataSourceBuilder.EnableDynamicJson();
-            dataSourceBuilder.ConnectionStringBuilder.IncludeErrorDetail = true;
-            dataSourceBuilder.ConnectionStringBuilder.Timeout = 1000;
+            dataSourceBuilder!.EnableDynamicJson();
+            dataSourceBuilder!.ConnectionStringBuilder.IncludeErrorDetail = true;
+            dataSourceBuilder!.ConnectionStringBuilder.Timeout = 1000;
 
             var dataSouce = dataSourceBuilder.Build();
             optionsBuilder

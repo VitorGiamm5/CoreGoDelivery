@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace CoreGoDelivery.Infrastructure.Migrations
 {
     [DbContext(typeof(AplicationDbContext))]
-    [Migration("20241015025925_InicialBase")]
+    [Migration("20241015065352_InicialBase")]
     partial class InicialBase
     {
         /// <inheritdoc />
@@ -20,7 +20,7 @@ namespace CoreGoDelivery.Infrastructure.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasDefaultSchema("godeliverydb")
+                .HasDefaultSchema("dbgodelivery")
                 .HasAnnotation("ProductVersion", "8.0.10")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
@@ -28,7 +28,7 @@ namespace CoreGoDelivery.Infrastructure.Migrations
 
             modelBuilder.Entity("CoreGoDelivery.Domain.Entities.GoDelivery.Deliverier.DeliverierEntity", b =>
                 {
-                    b.Property<string>("DeliverierId")
+                    b.Property<string>("Id")
                         .HasColumnType("text")
                         .HasColumnName("ID_DELIVERIER");
 
@@ -51,36 +51,36 @@ namespace CoreGoDelivery.Infrastructure.Migrations
                         .HasColumnType("text")
                         .HasColumnName("ID_FK_LICENSE_NUMBER");
 
-                    b.HasKey("DeliverierId");
+                    b.HasKey("Id");
 
                     b.HasIndex("LicenseNumberId");
 
-                    b.ToTable("tb_deliverier", "godeliverydb");
+                    b.ToTable("tb_deliverier", "dbgodelivery");
                 });
 
             modelBuilder.Entity("CoreGoDelivery.Domain.Entities.GoDelivery.LicenceDriver.LicenceDriverEntity", b =>
                 {
-                    b.Property<string>("LicenceDriverId")
+                    b.Property<string>("Id")
                         .HasColumnType("text")
                         .HasColumnName("ID_LICENSE_DRIVER");
 
-                    b.Property<string>("ImageUrlReference")
+                    b.Property<string>("FileNameImageNormalized")
                         .IsRequired()
                         .HasColumnType("text")
                         .HasColumnName("IMAGE_URL_REFERENCE");
 
-                    b.Property<int>("LicenceType")
+                    b.Property<int>("Type")
                         .HasColumnType("integer")
                         .HasColumnName("ID_LICENSE_TYPE");
 
-                    b.HasKey("LicenceDriverId");
+                    b.HasKey("Id");
 
-                    b.ToTable("tb_licenceDriver", "godeliverydb");
+                    b.ToTable("tb_licenceDriver", "dbgodelivery");
                 });
 
             modelBuilder.Entity("CoreGoDelivery.Domain.Entities.GoDelivery.ModelMotocycle.ModelMotocycleEntity", b =>
                 {
-                    b.Property<string>("ModelMotocycleId")
+                    b.Property<string>("Id")
                         .HasColumnType("text")
                         .HasColumnName("ID_FK_MODEL_MOTOCYCLE");
 
@@ -94,14 +94,14 @@ namespace CoreGoDelivery.Infrastructure.Migrations
                         .HasColumnType("text")
                         .HasColumnName("NORMALIZED_NAME");
 
-                    b.HasKey("ModelMotocycleId");
+                    b.HasKey("Id");
 
-                    b.ToTable("tb_modelMotocycle", "godeliverydb");
+                    b.ToTable("tb_modelMotocycle", "dbgodelivery");
                 });
 
             modelBuilder.Entity("CoreGoDelivery.Domain.Entities.GoDelivery.Motocycle.MotocycleEntity", b =>
                 {
-                    b.Property<string>("MotocycleId")
+                    b.Property<string>("Id")
                         .HasColumnType("text")
                         .HasColumnName("ID_MOTOCYCLE");
 
@@ -119,16 +119,16 @@ namespace CoreGoDelivery.Infrastructure.Migrations
                         .HasColumnType("integer")
                         .HasColumnName("YEAR_MANUFACTURE");
 
-                    b.HasKey("MotocycleId");
+                    b.HasKey("Id");
 
                     b.HasIndex("ModelMotocycleId");
 
-                    b.ToTable("tb_motocycle", "godeliverydb");
+                    b.ToTable("tb_motocycle", "dbgodelivery");
                 });
 
             modelBuilder.Entity("CoreGoDelivery.Domain.Entities.GoDelivery.Rental.RentalEntity", b =>
                 {
-                    b.Property<string>("RentalId")
+                    b.Property<string>("Id")
                         .HasColumnType("text")
                         .HasColumnName("ID_RENTAL");
 
@@ -162,7 +162,7 @@ namespace CoreGoDelivery.Infrastructure.Migrations
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("DATE_START");
 
-                    b.HasKey("RentalId");
+                    b.HasKey("Id");
 
                     b.HasIndex("DeliverierId");
 
@@ -170,17 +170,17 @@ namespace CoreGoDelivery.Infrastructure.Migrations
 
                     b.HasIndex("RentalPlanId");
 
-                    b.ToTable("tb_rental", "godeliverydb");
+                    b.ToTable("tb_rental", "dbgodelivery");
                 });
 
             modelBuilder.Entity("CoreGoDelivery.Domain.Entities.GoDelivery.RentalPlan.RentalPlanEntity", b =>
                 {
-                    b.Property<int>("RentalPlanId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
                         .HasColumnName("ID_RENTAL_PLAN");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("RentalPlanId"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<double>("DailyCost")
                         .HasColumnType("double precision")
@@ -190,9 +190,9 @@ namespace CoreGoDelivery.Infrastructure.Migrations
                         .HasColumnType("integer")
                         .HasColumnName("DAYS_QUANTITY");
 
-                    b.HasKey("RentalPlanId");
+                    b.HasKey("Id");
 
-                    b.ToTable("tb_rentalPlan", "godeliverydb");
+                    b.ToTable("tb_rentalPlan", "dbgodelivery");
                 });
 
             modelBuilder.Entity("CoreGoDelivery.Domain.Entities.GoDelivery.Deliverier.DeliverierEntity", b =>

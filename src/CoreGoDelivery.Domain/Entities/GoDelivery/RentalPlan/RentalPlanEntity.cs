@@ -5,7 +5,7 @@ namespace CoreGoDelivery.Domain.Entities.GoDelivery.RentalPlan
     public sealed class RentalPlanEntity
     {
         [Key]
-        public int RentalPlanId { get; set; }
+        public int Id { get; set; }
 
         public int DaysQuantity { get; set; }
 

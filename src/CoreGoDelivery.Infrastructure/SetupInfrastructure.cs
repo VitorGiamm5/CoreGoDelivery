@@ -16,32 +16,41 @@ namespace CoreGoDelivery.Infrastructure
             services.AddDomain(configuration);
 
             services.AddDbContextPool<AplicationDbContext>(options => options
-                .UseNpgsql(configuration.GetConnectionString("postgre"))
+                .UseNpgsql(configuration.GetConnectionString("Postgre"))
                 .AddInfrastructure(configuration));
 
             services.TryAddScoped<IDeliverierRepository, DeliverierRepository>();
+            services.TryAddScoped<ILicenceDriverRepository, LicenceDriverRepository>();
+            services.TryAddScoped<IModelMotocycleRepository, ModelMotocycleRepository>();
             services.TryAddScoped<IMotocycleRepository, MotocycleRepository>();
+            services.TryAddScoped<IRentalPlanRepository, RentalPlanRepository>();
             services.TryAddScoped<IRentalRepository, RentalRepository>();
 
-            var serviceProvider = services.BuildServiceProvider();
-
-            using (var scope = serviceProvider.CreateScope())
-            {
-                var dbContext = scope.ServiceProvider.GetRequiredService<AplicationDbContext>();
-
-                try
-                {
-                    var c = dbContext.Database.GetPendingMigrations();
-                }
-                catch (Exception ex)
-                {
-                    // Log ou tratamento de erro
-                    Console.WriteLine($"Erro ao aplicar as migrações: {ex.Message}");
-                    throw;
-                }
-            }
+            ExecutePendingMigration(services);
 
             return services;
+        }
+
+        private static void ExecutePendingMigration(IServiceCollection services)
+        {
+            var serviceProvider = services.BuildServiceProvider();
+            using var scope = serviceProvider.CreateScope();
+            var dbContext = scope.ServiceProvider.GetRequiredService<AplicationDbContext>();
+
+            try
+            {
+                var migrations = dbContext.Database.GetPendingMigrations();
+                if (migrations.Any())
+                {
+                    dbContext.Database.MigrateAsync().Wait();
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log ou tratamento de erro
+                Console.WriteLine($"Erro ao aplicar as migrações: {ex.Message}");
+                throw;
+            }
         }
     }
 }
