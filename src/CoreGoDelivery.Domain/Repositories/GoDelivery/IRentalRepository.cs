@@ -2,7 +2,7 @@
 
 namespace CoreGoDelivery.Domain.Repositories.GoDelivery
 {
-    public interface IRentalRepository : IBaseRespository<RentalEntity>
+    public interface IRentalRepository
     {
     }
 }

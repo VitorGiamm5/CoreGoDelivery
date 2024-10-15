@@ -21,6 +21,7 @@
 	<ItemGroup>
 		<ProjectReference Include="..\CoreGoDelivery.Application\CoreGoDelivery.Application.csproj" />
 		<ProjectReference Include="..\CoreGoDelivery.Domain\CoreGoDelivery.Domain.csproj" />
+		<ProjectReference Include="..\CoreGoDelivery.Infrastructure\CoreGoDelivery.Infrastructure.csproj" />
 	</ItemGroup>
 
 </Project>

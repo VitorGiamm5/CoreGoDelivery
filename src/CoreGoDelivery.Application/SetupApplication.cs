@@ -1,32 +1,41 @@
-﻿using CoreGoDelivery.Infrastructure;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using CoreGoDelivery.Application.Services.Internal.Deliverier;
+using CoreGoDelivery.Application.Services.Internal.Interface;
+using CoreGoDelivery.Application.Services.Internal.Motocycle;
+using CoreGoDelivery.Application.Services.Internal.Rental;
+using CoreGoDelivery.Infrastructure;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
-namespace CoreGoDelivery.Application;
-
-public static class SetupApplication
+namespace CoreGoDelivery.Application
 {
-    private static IConfigurationRoot _config;
-    //private const string TEMPLATE_LOCAL_FILE = "appsettings.{0}.json";
-    //public const string ASPNETENV = "ASPNETCORE_ENVIRONMENT";
-    public static IServiceCollection AddApplication(this IServiceCollection services, IConfiguration configuration)
+    public static class SetupApplication
     {
+        private static IConfigurationRoot _config;
 
-        services
-            .AddSingleton(GetConfigurationRoot);
+        public static IServiceCollection AddApplication(this IServiceCollection services, IConfiguration configuration)
+        {
+            services
+                .AddInfrastructure(configuration);
 
-        services
-            .AddInfrastructure(configuration);
+            services
+               .AddInternalServices();
 
-        return services;
-    }
+            return services;
+        }
 
-    private static IConfigurationRoot GetConfigurationRoot(IServiceProvider provider)
-    {
-        _config = new ConfigurationBuilder()
-            .Build();
+        private static IServiceCollection AddInternalServices(this IServiceCollection services)
+        {
+            services
+                .AddSingleton<IDeliverierService, DeliverierService>();
 
-        return _config;
+            services
+                .AddSingleton<IMotocycleService, MotocycleService>();
+
+            services
+                .AddSingleton<IRentalService, RentalService>();
+
+            return services;
+        }
     }
 }

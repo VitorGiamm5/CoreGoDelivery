@@ -1,4 +1,5 @@
-﻿using CoreGoDelivery.Domain.DTO.Deliverier;
+﻿using CoreGoDelivery.Application.Services.Internal.Interface;
+using CoreGoDelivery.Domain.DTO.Deliverier;
 using CoreGoDelivery.Domain.DTO.Response;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,31 +9,23 @@ namespace CoreGoDelivery.Api.Controllers
     [ApiController]
     public class DeliveriersController : BaseApiController
     {
-        [HttpPost]
-        public async Task<IActionResult> Post([FromBody] DeliverierDto request)
+        private readonly IDeliverierService _deliverierService;
+
+        public DeliveriersController(IDeliverierService deliverierService)
         {
-            var result = new DeliverierDto()
-            {
-                DeliverierId = "entregador123",
-                FullName = "João da Silva",
-                BirthDate = DateTime.Now.AddYears(-20),
-                LicenseNumber = "12345678900",
-                LicenseType = request.LicenseType,
-                LicenseImageBase64 = "base64string"
-            };
+            _deliverierService = deliverierService;
+        }
 
-            var apiReponse = new ApiResponse()
-            {
-                Data = result,
-                Message = null
-            };
+        [HttpPost]
+        public async Task<IActionResult> Create([FromBody] DeliverierDto request)
+        {
+            var apiReponse = await _deliverierService.Create(request);
 
-            await Task.CompletedTask;
             return Response(apiReponse);
         }
 
         [HttpPost("{id}/cnh")]
-        public async Task<IActionResult> Post([FromBody] LicenseImageString request)
+        public async Task<IActionResult> Update([FromBody] LicenseImageString request)
         {
             var apiReponse = new ApiResponse()
             {

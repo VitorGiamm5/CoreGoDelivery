@@ -1,6 +1,9 @@
 using System.Text.Json.Serialization;
 using CoreGoDelivery.Api.Conveters;
 using CoreGoDelivery.Api.Swagger;
+using CoreGoDelivery.Application;
+using CoreGoDelivery.Infrastructure;
+using CoreGoDelivery.Infrastructure.Database;
 using Microsoft.OpenApi.Models;
 using Serilog;
 
@@ -26,7 +29,6 @@ builder.Services.AddControllers().AddJsonOptions(options =>
     options.JsonSerializerOptions.Converters.Add(new CustomDateTimeConverter("s"));
 });
 
-builder.Services.AddHealthChecks();
 builder.Services.AddHttpClient();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
@@ -39,6 +41,18 @@ builder.Services.AddSwaggerGen(c =>
     c.CustomSchemaIds(type => type.ToString());
     c.OperationFilter<DefaultValuesOperation>();
 });
+
+builder.Configuration
+    .SetBasePath(builder.Environment.ContentRootPath)
+    .AddJsonFile("appsettings.json", true, true)
+    .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json", true, true)
+    .AddEnvironmentVariables();
+
+EnvironmentVariablesExtensions.AddEnvironmentVariables(builder.Configuration);
+
+builder.Services.AddApplication(builder.Configuration);
+
+builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
 

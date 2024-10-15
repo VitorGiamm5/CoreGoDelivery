@@ -5,7 +5,7 @@ using CoreGoDelivery.Infrastructure.Repositories.GoDelivery;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace CoreGoDelivery.Infrastructure
 {
@@ -19,27 +19,28 @@ namespace CoreGoDelivery.Infrastructure
                 .UseNpgsql(configuration.GetConnectionString("postgre"))
                 .AddInfrastructure(configuration));
 
-            services.AddScoped<IDeliverierRepository, DeliverierRepository>();
-            services.AddScoped<IMotocycleRepository, MotocycleRepository>();
-            services.AddScoped<IRentalRepository, RentalRepository>();
+            services.TryAddScoped<IDeliverierRepository, DeliverierRepository>();
+            services.TryAddScoped<IMotocycleRepository, MotocycleRepository>();
+            services.TryAddScoped<IRentalRepository, RentalRepository>();
 
-            //var serviceProvider = services.BuildServiceProvider();
+            var serviceProvider = services.BuildServiceProvider();
 
-            //using (var scope = serviceProvider.CreateScope())
-            //{
-            //    var dbContext = scope.ServiceProvider.GetRequiredService<AplicationDbContext>();
+            using (var scope = serviceProvider.CreateScope())
+            {
+                var dbContext = scope.ServiceProvider.GetRequiredService<AplicationDbContext>();
 
-            //    try
-            //    {
-            //        dbContext.Database.Migrate();
-            //    }
-            //    catch (Exception ex)
-            //    {
-            //        // Log ou tratamento de erro
-            //        Console.WriteLine($"Erro ao aplicar as migrações: {ex.Message}");
-            //        throw;
-            //    }
-            //}
+                try
+                {
+                    var c = dbContext.Database.GetPendingMigrations();
+                }
+                catch (Exception ex)
+                {
+                    // Log ou tratamento de erro
+                    Console.WriteLine($"Erro ao aplicar as migrações: {ex.Message}");
+                    throw;
+                }
+            }
+
             return services;
         }
     }
