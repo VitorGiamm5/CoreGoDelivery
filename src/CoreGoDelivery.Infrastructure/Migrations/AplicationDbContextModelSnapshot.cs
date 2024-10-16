@@ -118,8 +118,6 @@ namespace CoreGoDelivery.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ModelMotocycleId");
-
                     b.ToTable("tb_motocycle", "dbgodelivery");
                 });
 
@@ -129,7 +127,7 @@ namespace CoreGoDelivery.Infrastructure.Migrations
                         .HasColumnType("text")
                         .HasColumnName("ID_RENTAL");
 
-                    b.Property<string>("Id")
+                    b.Property<string>("DeliverierId")
                         .IsRequired()
                         .HasColumnType("text")
                         .HasColumnName("ID_FK_DELIVERIER");
@@ -161,7 +159,7 @@ namespace CoreGoDelivery.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Id");
+                    b.HasIndex("DeliverierId");
 
                     b.HasIndex("MotocycleId");
 
@@ -203,22 +201,11 @@ namespace CoreGoDelivery.Infrastructure.Migrations
                     b.Navigation("LicenceDriver");
                 });
 
-            modelBuilder.Entity("CoreGoDelivery.Domain.Entities.GoDelivery.Motocycle.MotocycleEntity", b =>
-                {
-                    b.HasOne("CoreGoDelivery.Domain.Entities.GoDelivery.ModelMotocycle.ModelMotocycleEntity", "ModelMotocycle")
-                        .WithMany()
-                        .HasForeignKey("ModelMotocycleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("ModelMotocycle");
-                });
-
             modelBuilder.Entity("CoreGoDelivery.Domain.Entities.GoDelivery.Rental.RentalEntity", b =>
                 {
                     b.HasOne("CoreGoDelivery.Domain.Entities.GoDelivery.Deliverier.DeliverierEntity", "Deliverier")
                         .WithMany()
-                        .HasForeignKey("Id")
+                        .HasForeignKey("DeliverierId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

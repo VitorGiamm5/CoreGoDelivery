@@ -2,5 +2,6 @@
 {
     public interface IModelMotocycleRepository
     {
+        Task<string> GetIdByModelName(string model);
     }
 }

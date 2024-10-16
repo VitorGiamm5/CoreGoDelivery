@@ -44,6 +44,21 @@ namespace CoreGoDelivery.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "tb_motocycle",
+                schema: "dbgodelivery",
+                columns: table => new
+                {
+                    ID_MOTOCYCLE = table.Column<string>(type: "text", nullable: false),
+                    YEAR_MANUFACTURE = table.Column<int>(type: "integer", nullable: false),
+                    ID_PLATE_NORMALIZED = table.Column<string>(type: "text", nullable: false),
+                    ID_FK_NODEL_MOTOCYCLE = table.Column<string>(type: "text", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_tb_motocycle", x => x.ID_MOTOCYCLE);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "tb_rentalPlan",
                 schema: "dbgodelivery",
                 columns: table => new
@@ -78,28 +93,6 @@ namespace CoreGoDelivery.Infrastructure.Migrations
                         principalSchema: "dbgodelivery",
                         principalTable: "tb_licenceDriver",
                         principalColumn: "ID_LICENSE_DRIVER",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "tb_motocycle",
-                schema: "dbgodelivery",
-                columns: table => new
-                {
-                    ID_MOTOCYCLE = table.Column<string>(type: "text", nullable: false),
-                    YEAR_MANUFACTURE = table.Column<int>(type: "integer", nullable: false),
-                    ID_PLATE_NORMALIZED = table.Column<string>(type: "text", nullable: false),
-                    ID_FK_NODEL_MOTOCYCLE = table.Column<string>(type: "text", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_tb_motocycle", x => x.ID_MOTOCYCLE);
-                    table.ForeignKey(
-                        name: "FK_tb_motocycle_tb_modelMotocycle_ID_FK_NODEL_MOTOCYCLE",
-                        column: x => x.ID_FK_NODEL_MOTOCYCLE,
-                        principalSchema: "dbgodelivery",
-                        principalTable: "tb_modelMotocycle",
-                        principalColumn: "ID_FK_MODEL_MOTOCYCLE",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -150,12 +143,6 @@ namespace CoreGoDelivery.Infrastructure.Migrations
                 column: "ID_FK_LICENSE_NUMBER");
 
             migrationBuilder.CreateIndex(
-                name: "IX_tb_motocycle_ID_FK_NODEL_MOTOCYCLE",
-                schema: "dbgodelivery",
-                table: "tb_motocycle",
-                column: "ID_FK_NODEL_MOTOCYCLE");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_tb_rental_ID_FK_DELIVERIER",
                 schema: "dbgodelivery",
                 table: "tb_rental",
@@ -178,6 +165,10 @@ namespace CoreGoDelivery.Infrastructure.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "tb_modelMotocycle",
+                schema: "dbgodelivery");
+
+            migrationBuilder.DropTable(
                 name: "tb_rental",
                 schema: "dbgodelivery");
 
@@ -195,10 +186,6 @@ namespace CoreGoDelivery.Infrastructure.Migrations
 
             migrationBuilder.DropTable(
                 name: "tb_licenceDriver",
-                schema: "dbgodelivery");
-
-            migrationBuilder.DropTable(
-                name: "tb_modelMotocycle",
                 schema: "dbgodelivery");
         }
     }

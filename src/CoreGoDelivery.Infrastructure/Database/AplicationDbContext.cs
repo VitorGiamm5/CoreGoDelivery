@@ -15,10 +15,5 @@ namespace CoreGoDelivery.Infrastructure.Database
 
             base.OnModelCreating(builder);
         }
-
-        //public async Task<IEnumerable<IEntityEventManager>> SaveAsync()
-        //{
-
-        //}
     }
 }

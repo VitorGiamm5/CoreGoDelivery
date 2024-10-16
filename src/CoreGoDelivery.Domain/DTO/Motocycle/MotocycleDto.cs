@@ -1,13 +1,15 @@
 ﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
 namespace CoreGoDelivery.Domain.DTO.Motocycle
 {
     public sealed class MotocycleDto
     {
+        [Key]
         [DefaultValue("moto123")]
         [JsonPropertyName("identificador")]
-        public string MotocycleId { get; set; }
+        public string Id { get; set; }
 
         [DefaultValue(2020)]
         [JsonPropertyName("ano")]

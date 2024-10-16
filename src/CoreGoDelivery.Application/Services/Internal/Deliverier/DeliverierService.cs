@@ -1,6 +1,4 @@
 ﻿using CoreGoDelivery.Application.Services.Internal.Interface;
-using System.Text;
-using System.Text.RegularExpressions;
 using CoreGoDelivery.Domain.DTO.Deliverier;
 using CoreGoDelivery.Domain.DTO.Response;
 using CoreGoDelivery.Domain.Entities.GoDelivery.Deliverier;
@@ -8,7 +6,8 @@ using CoreGoDelivery.Domain.Entities.GoDelivery.LicenceDriver;
 using CoreGoDelivery.Domain.Enums.LicenceDriverType;
 using CoreGoDelivery.Domain.Repositories.GoDelivery;
 using DocumentValidator;
-using System.ComponentModel.DataAnnotations;
+using System.Text;
+using System.Text.RegularExpressions;
 
 namespace CoreGoDelivery.Application.Services.Internal.Deliverier
 {
@@ -43,7 +42,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Deliverier
 
             var deliverier = new DeliverierEntity()
             {
-                Id = data.Id ?? Ulid.NewUlid().ToString(),
+                Id = SelectId(data.Id),
                 FullName = data.FullName,
                 CNPJ = CnpjNormalize(data),
                 BirthDate = data.BirthDate,
@@ -62,9 +61,17 @@ namespace CoreGoDelivery.Application.Services.Internal.Deliverier
             return apiReponse;
         }
 
+        private string SelectId(string id)
+        {
+            var result = string.IsNullOrEmpty(id) ? Ulid.NewUlid().ToString() : id;
+
+            return result;
+        }
+
         private static LicenceTypeEnum ParseLicenseType(DeliverierDto data)
         {
             Enum.TryParse(data.LicenseType, ignoreCase: true, out LicenceTypeEnum licenseType);
+
             return licenseType;
         }
 
@@ -81,6 +88,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Deliverier
             if (!string.IsNullOrWhiteSpace(data.Id))
             {
                 var isUnicId = await _repositoryDeliverier.CheckIsUnicById(data.Id);
+
                 if (!isUnicId)
                 {
                     message.Append($"{nameof(data.Id)}: {data.Id} already exists; ");
@@ -110,10 +118,18 @@ namespace CoreGoDelivery.Application.Services.Internal.Deliverier
             else
             {
                 var isValidLicense = CnhValidation.Validate(data.LicenseNumber);
-                if (!isValidLicense) message.Append($"{nameof(data.LicenseNumber)}: {data.LicenseNumber} is invalid; ");
+
+                if (!isValidLicense)
+                {
+                    message.Append($"{nameof(data.LicenseNumber)}: {data.LicenseNumber} is invalid; ");
+                }
 
                 var isUnicLicence = await _repositoryLicence.CheckIsUnicByLicence(data.LicenseNumber);
-                if (!isUnicLicence) message.Append($"{nameof(data.LicenseNumber)}: {data.LicenseNumber} already exists; ");
+
+                if (!isUnicLicence)
+                {
+                    message.Append($"{nameof(data.LicenseNumber)}: {data.LicenseNumber} already exists; ");
+                }
             }
             #endregion
 
@@ -121,10 +137,6 @@ namespace CoreGoDelivery.Application.Services.Internal.Deliverier
             if (string.IsNullOrWhiteSpace(data.FullName))
             {
                 message.Append($"Empty: {nameof(data.FullName)}; ");
-            }
-            else
-            {
-
             }
             #endregion
 
@@ -139,7 +151,6 @@ namespace CoreGoDelivery.Application.Services.Internal.Deliverier
                 {
                     var age = DateTime.Today.Year - birthDate.Year;
 
-                    // Se o aniversário ainda não ocorreu neste ano, subtrair 1 da idade
                     if (birthDate.Date > DateTime.Today.AddYears(-age))
                     {
                         age--;
@@ -161,20 +172,23 @@ namespace CoreGoDelivery.Application.Services.Internal.Deliverier
             #endregion
 
             #region Finaly
-            if (message.Length > 0) return message.ToString();
+            if (message.Length > 0)
+            {
+                return message.ToString();
+            }
             #endregion
 
             return null;
         }
 
-        private static string? FinalMessageBuild(bool resultDeliverier, ApiResponse apiReponse)
+        private static string? FinalMessageBuild(bool resultCreate, ApiResponse apiReponse)
         {
             if (!string.IsNullOrEmpty(apiReponse.Message))
             {
                 return null;
             }
 
-            return resultDeliverier
+            return resultCreate
                 ? null
                 : MESSAGE_INVALID_DATA;
         }
@@ -182,12 +196,12 @@ namespace CoreGoDelivery.Application.Services.Internal.Deliverier
 
         private static string FileNameNormalize(DeliverierDto data)
         {
-            return $"CNPJ_{data.CNPJ}.jpg";
+            return $"CNH_{data.LicenseNumber}.png";
         }
 
-        // TODO: HEAVY MISSION
         public async Task<ApiResponse> UploadCnh(string id)
         {
+            // TODO: HEAVY MISSION IMAGE FILE
             var apiReponse = new ApiResponse()
             {
                 Data = null,

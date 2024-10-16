@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CoreGoDelivery.Domain.Entities.GoDelivery.Motocycle
 {
-    public sealed class MotocycleEntity
+    public class MotocycleEntity
     {
         [Key]
         public string Id { get; set; }
@@ -13,12 +13,6 @@ namespace CoreGoDelivery.Domain.Entities.GoDelivery.Motocycle
 
         public string PlateIdNormalized { get; set; }
 
-        #region Relationship
-
-        [ForeignKey(nameof(ModelMotocycle))]
         public string ModelMotocycleId { get; set; }
-        public ModelMotocycleEntity ModelMotocycle { get; set; }
-
-        #endregion
     }
 }
