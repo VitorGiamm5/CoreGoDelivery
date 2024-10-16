@@ -3,24 +3,64 @@
   "WorkspaceRootPath": "C:\\Projetos\\CoreGoDelivery\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{C3CBF9A3-8269-49FC-92F2-FE97DDA6838A}|src\\CoreGoDelivery.Application\\CoreGoDelivery.Application.csproj|c:\\projetos\\coregodelivery\\src\\coregodelivery.application\\services\\internal\\motocycle\\motocycleservicebase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C3CBF9A3-8269-49FC-92F2-FE97DDA6838A}|src\\CoreGoDelivery.Application\\CoreGoDelivery.Application.csproj|solutionrelative:src\\coregodelivery.application\\services\\internal\\motocycle\\motocycleservicebase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{913B8928-DB53-4BAE-9806-503A929B4E79}|src\\CoreGoDelivery.Infrastructure\\CoreGoDelivery.Infrastructure.csproj|c:\\projetos\\coregodelivery\\src\\coregodelivery.infrastructure\\repositories\\godelivery\\rentalrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{913B8928-DB53-4BAE-9806-503A929B4E79}|src\\CoreGoDelivery.Infrastructure\\CoreGoDelivery.Infrastructure.csproj|solutionrelative:src\\coregodelivery.infrastructure\\repositories\\godelivery\\rentalrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C3CBF9A3-8269-49FC-92F2-FE97DDA6838A}|src\\CoreGoDelivery.Application\\CoreGoDelivery.Application.csproj|c:\\projetos\\coregodelivery\\src\\coregodelivery.application\\services\\internal\\rental\\rentalservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C3CBF9A3-8269-49FC-92F2-FE97DDA6838A}|src\\CoreGoDelivery.Application\\CoreGoDelivery.Application.csproj|solutionrelative:src\\coregodelivery.application\\services\\internal\\rental\\rentalservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{48B385D5-1C0D-46E0-AFFF-13A8BAF21226}|src\\CoreGoDelivery.API\\CoreGoDelivery.Api.csproj|c:\\projetos\\coregodelivery\\src\\coregodelivery.api\\controllers\\motocyclecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{48B385D5-1C0D-46E0-AFFF-13A8BAF21226}|src\\CoreGoDelivery.API\\CoreGoDelivery.Api.csproj|solutionrelative:src\\coregodelivery.api\\controllers\\motocyclecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{C3CBF9A3-8269-49FC-92F2-FE97DDA6838A}|src\\CoreGoDelivery.Application\\CoreGoDelivery.Application.csproj|c:\\projetos\\coregodelivery\\src\\coregodelivery.application\\services\\internal\\motocycle\\motocycleservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{C3CBF9A3-8269-49FC-92F2-FE97DDA6838A}|src\\CoreGoDelivery.Application\\CoreGoDelivery.Application.csproj|solutionrelative:src\\coregodelivery.application\\services\\internal\\motocycle\\motocycleservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{C3CBF9A3-8269-49FC-92F2-FE97DDA6838A}|src\\CoreGoDelivery.Application\\CoreGoDelivery.Application.csproj|c:\\projetos\\coregodelivery\\src\\coregodelivery.application\\services\\internal\\interface\\imotocycleservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C3CBF9A3-8269-49FC-92F2-FE97DDA6838A}|src\\CoreGoDelivery.Application\\CoreGoDelivery.Application.csproj|solutionrelative:src\\coregodelivery.application\\services\\internal\\interface\\imotocycleservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{913B8928-DB53-4BAE-9806-503A929B4E79}|src\\CoreGoDelivery.Infrastructure\\CoreGoDelivery.Infrastructure.csproj|c:\\projetos\\coregodelivery\\src\\coregodelivery.infrastructure\\repositories\\godelivery\\motocyclerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{913B8928-DB53-4BAE-9806-503A929B4E79}|src\\CoreGoDelivery.Infrastructure\\CoreGoDelivery.Infrastructure.csproj|solutionrelative:src\\coregodelivery.infrastructure\\repositories\\godelivery\\motocyclerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C3CBF9A3-8269-49FC-92F2-FE97DDA6838A}|src\\CoreGoDelivery.Application\\CoreGoDelivery.Application.csproj|c:\\projetos\\coregodelivery\\src\\coregodelivery.application\\services\\internal\\motocycle\\motocycleservicebase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C3CBF9A3-8269-49FC-92F2-FE97DDA6838A}|src\\CoreGoDelivery.Application\\CoreGoDelivery.Application.csproj|solutionrelative:src\\coregodelivery.application\\services\\internal\\motocycle\\motocycleservicebase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0AA16454-C745-48F0-9B8A-64860B9391D8}|src\\CoreGoDelivery.Domain\\CoreGoDelivery.Domain.csproj|c:\\projetos\\coregodelivery\\src\\coregodelivery.domain\\repositories\\godelivery\\irentalrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0AA16454-C745-48F0-9B8A-64860B9391D8}|src\\CoreGoDelivery.Domain\\CoreGoDelivery.Domain.csproj|solutionrelative:src\\coregodelivery.domain\\repositories\\godelivery\\irentalrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C3CBF9A3-8269-49FC-92F2-FE97DDA6838A}|src\\CoreGoDelivery.Application\\CoreGoDelivery.Application.csproj|c:\\projetos\\coregodelivery\\src\\coregodelivery.application\\services\\internal\\interface\\irentalservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C3CBF9A3-8269-49FC-92F2-FE97DDA6838A}|src\\CoreGoDelivery.Application\\CoreGoDelivery.Application.csproj|solutionrelative:src\\coregodelivery.application\\services\\internal\\interface\\irentalservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{48B385D5-1C0D-46E0-AFFF-13A8BAF21226}|src\\CoreGoDelivery.API\\CoreGoDelivery.Api.csproj|c:\\projetos\\coregodelivery\\src\\coregodelivery.api\\controllers\\rentalcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{48B385D5-1C0D-46E0-AFFF-13A8BAF21226}|src\\CoreGoDelivery.API\\CoreGoDelivery.Api.csproj|solutionrelative:src\\coregodelivery.api\\controllers\\rentalcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{48B385D5-1C0D-46E0-AFFF-13A8BAF21226}|src\\CoreGoDelivery.API\\CoreGoDelivery.Api.csproj|c:\\projetos\\coregodelivery\\src\\coregodelivery.api\\controllers\\deliverierscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{48B385D5-1C0D-46E0-AFFF-13A8BAF21226}|src\\CoreGoDelivery.API\\CoreGoDelivery.Api.csproj|solutionrelative:src\\coregodelivery.api\\controllers\\deliverierscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C3CBF9A3-8269-49FC-92F2-FE97DDA6838A}|src\\CoreGoDelivery.Application\\CoreGoDelivery.Application.csproj|c:\\projetos\\coregodelivery\\src\\coregodelivery.application\\services\\internal\\rental\\rentalservicebase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C3CBF9A3-8269-49FC-92F2-FE97DDA6838A}|src\\CoreGoDelivery.Application\\CoreGoDelivery.Application.csproj|solutionrelative:src\\coregodelivery.application\\services\\internal\\rental\\rentalservicebase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{C3CBF9A3-8269-49FC-92F2-FE97DDA6838A}|src\\CoreGoDelivery.Application\\CoreGoDelivery.Application.csproj|c:\\projetos\\coregodelivery\\src\\coregodelivery.application\\services\\internal\\deliverier\\deliverierservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{C3CBF9A3-8269-49FC-92F2-FE97DDA6838A}|src\\CoreGoDelivery.Application\\CoreGoDelivery.Application.csproj|solutionrelative:src\\coregodelivery.application\\services\\internal\\deliverier\\deliverierservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C3CBF9A3-8269-49FC-92F2-FE97DDA6838A}|src\\CoreGoDelivery.Application\\CoreGoDelivery.Application.csproj|c:\\projetos\\coregodelivery\\src\\coregodelivery.application\\services\\internal\\deliverier\\deliverierservicebase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C3CBF9A3-8269-49FC-92F2-FE97DDA6838A}|src\\CoreGoDelivery.Application\\CoreGoDelivery.Application.csproj|solutionrelative:src\\coregodelivery.application\\services\\internal\\deliverier\\deliverierservicebase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{913B8928-DB53-4BAE-9806-503A929B4E79}|src\\CoreGoDelivery.Infrastructure\\CoreGoDelivery.Infrastructure.csproj|c:\\projetos\\coregodelivery\\src\\coregodelivery.infrastructure\\database\\configuration\\godelivery\\modelmotocycleconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{913B8928-DB53-4BAE-9806-503A929B4E79}|src\\CoreGoDelivery.Infrastructure\\CoreGoDelivery.Infrastructure.csproj|solutionrelative:src\\coregodelivery.infrastructure\\database\\configuration\\godelivery\\modelmotocycleconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{913B8928-DB53-4BAE-9806-503A929B4E79}|src\\CoreGoDelivery.Infrastructure\\CoreGoDelivery.Infrastructure.csproj|c:\\projetos\\coregodelivery\\src\\coregodelivery.infrastructure\\database\\aplicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{913B8928-DB53-4BAE-9806-503A929B4E79}|src\\CoreGoDelivery.Infrastructure\\CoreGoDelivery.Infrastructure.csproj|solutionrelative:src\\coregodelivery.infrastructure\\database\\aplicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -29,72 +69,202 @@
       "VerticalTabListWidth": 256,
       "DocumentGroups": [
         {
-          "DockedWidth": 237,
-          "SelectedChildIndex": 0,
+          "DockedWidth": 401,
+          "SelectedChildIndex": 8,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 6,
               "Title": "MotocycleServiceBase.cs",
               "DocumentMoniker": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.Application\\Services\\Internal\\Motocycle\\MotocycleServiceBase.cs",
               "RelativeDocumentMoniker": "src\\CoreGoDelivery.Application\\Services\\Internal\\Motocycle\\MotocycleServiceBase.cs",
               "ToolTip": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.Application\\Services\\Internal\\Motocycle\\MotocycleServiceBase.cs",
               "RelativeToolTip": "src\\CoreGoDelivery.Application\\Services\\Internal\\Motocycle\\MotocycleServiceBase.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAUAAAAAAAAAAAAMwBcAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-16T03:14:32.443Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "MotocycleService.cs",
-              "DocumentMoniker": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.Application\\Services\\Internal\\Motocycle\\MotocycleService.cs",
-              "RelativeDocumentMoniker": "src\\CoreGoDelivery.Application\\Services\\Internal\\Motocycle\\MotocycleService.cs",
-              "ToolTip": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.Application\\Services\\Internal\\Motocycle\\MotocycleService.cs",
-              "RelativeToolTip": "src\\CoreGoDelivery.Application\\Services\\Internal\\Motocycle\\MotocycleService.cs",
-              "ViewState": "AgIAALUAAAAAAAAAAAAuwM8AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-16T03:12:11.847Z",
+              "WhenOpened": "2024-10-16T16:25:51.089Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 4,
-              "Title": "DeliverierServiceBase.cs",
-              "DocumentMoniker": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.Application\\Services\\Internal\\Deliverier\\DeliverierServiceBase.cs",
-              "RelativeDocumentMoniker": "src\\CoreGoDelivery.Application\\Services\\Internal\\Deliverier\\DeliverierServiceBase.cs",
-              "ToolTip": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.Application\\Services\\Internal\\Deliverier\\DeliverierServiceBase.cs",
-              "RelativeToolTip": "src\\CoreGoDelivery.Application\\Services\\Internal\\Deliverier\\DeliverierServiceBase.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAADEAAAAJAAAAAAAAAA==",
+              "Title": "IMotocycleService.cs",
+              "DocumentMoniker": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.Application\\Services\\Internal\\Interface\\IMotocycleService.cs",
+              "RelativeDocumentMoniker": "src\\CoreGoDelivery.Application\\Services\\Internal\\Interface\\IMotocycleService.cs",
+              "ToolTip": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.Application\\Services\\Internal\\Interface\\IMotocycleService.cs",
+              "RelativeToolTip": "src\\CoreGoDelivery.Application\\Services\\Internal\\Interface\\IMotocycleService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAqwAgAAAAlAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-16T03:01:47.89Z",
+              "WhenOpened": "2024-10-16T09:22:39.291Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "DeliverierService.cs",
-              "DocumentMoniker": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.Application\\Services\\Internal\\Deliverier\\DeliverierService.cs",
-              "RelativeDocumentMoniker": "src\\CoreGoDelivery.Application\\Services\\Internal\\Deliverier\\DeliverierService.cs",
-              "ToolTip": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.Application\\Services\\Internal\\Deliverier\\DeliverierService.cs",
-              "RelativeToolTip": "src\\CoreGoDelivery.Application\\Services\\Internal\\Deliverier\\DeliverierService.cs",
-              "ViewState": "AgIAAIYAAAAAAAAAAAAIwAwAAAA6AAAAAAAAAA==",
+              "DocumentIndex": 8,
+              "Title": "IRentalService.cs",
+              "DocumentMoniker": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.Application\\Services\\Internal\\Interface\\IRentalService.cs",
+              "RelativeDocumentMoniker": "src\\CoreGoDelivery.Application\\Services\\Internal\\Interface\\IRentalService.cs",
+              "ToolTip": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.Application\\Services\\Internal\\Interface\\IRentalService.cs",
+              "RelativeToolTip": "src\\CoreGoDelivery.Application\\Services\\Internal\\Interface\\IRentalService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-16T02:59:18.903Z",
+              "WhenOpened": "2024-10-16T09:04:53.672Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 9,
               "Title": "RentalController.cs",
               "DocumentMoniker": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.API\\Controllers\\RentalController.cs",
               "RelativeDocumentMoniker": "src\\CoreGoDelivery.API\\Controllers\\RentalController.cs",
               "ToolTip": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.API\\Controllers\\RentalController.cs",
               "RelativeToolTip": "src\\CoreGoDelivery.API\\Controllers\\RentalController.cs",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAnAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-16T02:58:38.089Z",
+              "WhenOpened": "2024-10-16T09:04:47.488Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "MotocycleRepository.cs",
+              "DocumentMoniker": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.Infrastructure\\Repositories\\GoDelivery\\MotocycleRepository.cs",
+              "RelativeDocumentMoniker": "src\\CoreGoDelivery.Infrastructure\\Repositories\\GoDelivery\\MotocycleRepository.cs",
+              "ToolTip": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.Infrastructure\\Repositories\\GoDelivery\\MotocycleRepository.cs",
+              "RelativeToolTip": "src\\CoreGoDelivery.Infrastructure\\Repositories\\GoDelivery\\MotocycleRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAqwA0AAAAyAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-16T08:45:10.408Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "MotocycleService.cs",
+              "DocumentMoniker": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.Application\\Services\\Internal\\Motocycle\\MotocycleService.cs",
+              "RelativeDocumentMoniker": "src\\CoreGoDelivery.Application\\Services\\Internal\\Motocycle\\MotocycleService.cs",
+              "ToolTip": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.Application\\Services\\Internal\\Motocycle\\MotocycleService.cs",
+              "RelativeToolTip": "src\\CoreGoDelivery.Application\\Services\\Internal\\Motocycle\\MotocycleService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-16T08:44:13.27Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "MotocycleController.cs",
+              "DocumentMoniker": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.API\\Controllers\\MotocycleController.cs",
+              "RelativeDocumentMoniker": "src\\CoreGoDelivery.API\\Controllers\\MotocycleController.cs",
+              "ToolTip": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.API\\Controllers\\MotocycleController.cs",
+              "RelativeToolTip": "src\\CoreGoDelivery.API\\Controllers\\MotocycleController.cs",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAiwBMAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-16T08:37:16.098Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "DeliveriersController.cs",
+              "DocumentMoniker": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.API\\Controllers\\DeliveriersController.cs",
+              "RelativeDocumentMoniker": "src\\CoreGoDelivery.API\\Controllers\\DeliveriersController.cs",
+              "ToolTip": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.API\\Controllers\\DeliveriersController.cs",
+              "RelativeToolTip": "src\\CoreGoDelivery.API\\Controllers\\DeliveriersController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-16T08:43:54.949Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "RentalRepository.cs",
+              "DocumentMoniker": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.Infrastructure\\Repositories\\GoDelivery\\RentalRepository.cs",
+              "RelativeDocumentMoniker": "src\\CoreGoDelivery.Infrastructure\\Repositories\\GoDelivery\\RentalRepository.cs",
+              "ToolTip": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.Infrastructure\\Repositories\\GoDelivery\\RentalRepository.cs",
+              "RelativeToolTip": "src\\CoreGoDelivery.Infrastructure\\Repositories\\GoDelivery\\RentalRepository.cs",
+              "ViewState": "AgIAACAAAAAAAAAAAAAwwA4AAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-16T08:29:28.539Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "IRentalRepository.cs",
+              "DocumentMoniker": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.Domain\\Repositories\\GoDelivery\\IRentalRepository.cs",
+              "RelativeDocumentMoniker": "src\\CoreGoDelivery.Domain\\Repositories\\GoDelivery\\IRentalRepository.cs",
+              "ToolTip": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.Domain\\Repositories\\GoDelivery\\IRentalRepository.cs",
+              "RelativeToolTip": "src\\CoreGoDelivery.Domain\\Repositories\\GoDelivery\\IRentalRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAqwAcAAAAtAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-16T08:28:58.04Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "ModelMotocycleConfiguration.cs",
+              "DocumentMoniker": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.Infrastructure\\Database\\Configuration\\GoDelivery\\ModelMotocycleConfiguration.cs",
+              "RelativeDocumentMoniker": "src\\CoreGoDelivery.Infrastructure\\Database\\Configuration\\GoDelivery\\ModelMotocycleConfiguration.cs",
+              "ToolTip": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.Infrastructure\\Database\\Configuration\\GoDelivery\\ModelMotocycleConfiguration.cs",
+              "RelativeToolTip": "src\\CoreGoDelivery.Infrastructure\\Database\\Configuration\\GoDelivery\\ModelMotocycleConfiguration.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-16T08:13:55.632Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "RentalService.cs",
+              "DocumentMoniker": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.Application\\Services\\Internal\\Rental\\RentalService.cs",
+              "RelativeDocumentMoniker": "src\\CoreGoDelivery.Application\\Services\\Internal\\Rental\\RentalService.cs",
+              "ToolTip": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.Application\\Services\\Internal\\Rental\\RentalService.cs*",
+              "RelativeToolTip": "src\\CoreGoDelivery.Application\\Services\\Internal\\Rental\\RentalService.cs*",
+              "ViewState": "AgIAAEEAAAAAAAAAAAAAAFcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-16T07:56:07.875Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "AplicationDbContext.cs",
+              "DocumentMoniker": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.Infrastructure\\Database\\AplicationDbContext.cs",
+              "RelativeDocumentMoniker": "src\\CoreGoDelivery.Infrastructure\\Database\\AplicationDbContext.cs",
+              "ToolTip": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.Infrastructure\\Database\\AplicationDbContext.cs",
+              "RelativeToolTip": "src\\CoreGoDelivery.Infrastructure\\Database\\AplicationDbContext.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAABHAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-16T08:18:20.315Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "DeliverierService.cs",
+              "DocumentMoniker": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.Application\\Services\\Internal\\Deliverier\\DeliverierService.cs",
+              "RelativeDocumentMoniker": "src\\CoreGoDelivery.Application\\Services\\Internal\\Deliverier\\DeliverierService.cs",
+              "ToolTip": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.Application\\Services\\Internal\\Deliverier\\DeliverierService.cs",
+              "RelativeToolTip": "src\\CoreGoDelivery.Application\\Services\\Internal\\Deliverier\\DeliverierService.cs",
+              "ViewState": "AgIAAGUAAAAAAAAAAAAvwJEAAAAqAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-16T08:09:06.774Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "RentalServiceBase.cs",
+              "DocumentMoniker": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.Application\\Services\\Internal\\Rental\\RentalServiceBase.cs",
+              "RelativeDocumentMoniker": "src\\CoreGoDelivery.Application\\Services\\Internal\\Rental\\RentalServiceBase.cs",
+              "ToolTip": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.Application\\Services\\Internal\\Rental\\RentalServiceBase.cs",
+              "RelativeToolTip": "src\\CoreGoDelivery.Application\\Services\\Internal\\Rental\\RentalServiceBase.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABoAAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-16T07:55:41.456Z",
               "EditorCaption": ""
             }
           ]

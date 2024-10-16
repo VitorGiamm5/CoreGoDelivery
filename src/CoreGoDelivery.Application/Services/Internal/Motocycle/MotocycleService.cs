@@ -9,8 +9,9 @@ namespace CoreGoDelivery.Application.Services.Internal.Motocycle
 {
     public class MotocycleService : MotocycleServiceBase, IMotocycleService
     {
-        private readonly IMotocycleRepository _repositoryMotocycle;
-        private readonly IModelMotocycleRepository _modelMotocycleRepository;
+        private readonly IMotocycleRepository _repositoryMotorcycle;
+        private readonly IModelMotocycleRepository _repositoryModelMotorcycle;
+        private readonly IRentalRepository _rentalRepository;
 
         private const int NOTIFICATION_YEAR_MANUFACTORY = 2024;
 
@@ -18,13 +19,15 @@ namespace CoreGoDelivery.Application.Services.Internal.Motocycle
             IMotocycleRepository repositoryMotocycle,
             IModelMotocycleRepository modelMotocycleRepository)
         {
-            _repositoryMotocycle = repositoryMotocycle;
-            _modelMotocycleRepository = modelMotocycleRepository;
+            _repositoryMotorcycle = repositoryMotocycle;
+            _repositoryModelMotorcycle = modelMotocycleRepository;
         }
 
         #region Public
-        public async Task<ApiResponse> ChangePlate(string id, PlateIdDto data)
+        public async Task<ApiResponse> ChangePlate(string id, PlateIdDto plate)
         {
+            var plateNormalized = RemoveCharacteres(plate?.Placa ?? "");
+
             var apiReponse = new ApiResponse()
             {
                 Message = null
@@ -48,7 +51,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Motocycle
 
             var motocycle = CreateToEntity(data);
 
-            var resultCreate = await _repositoryMotocycle.Create(motocycle);
+            var resultCreate = await _repositoryMotorcycle.Create(motocycle);
 
             apiReponse.Message = FinalMessageBuild(resultCreate, apiReponse);
 
@@ -57,25 +60,9 @@ namespace CoreGoDelivery.Application.Services.Internal.Motocycle
             return apiReponse;
         }
 
-        public async Task<ApiResponse> Delete(PlateIdDto id)
+        public async Task<ApiResponse> GetOne(string id)
         {
-            var apiReponse = new ApiResponse()
-            {
-                Message = null
-            };
-
-            return apiReponse;
-        }
-
-        public async Task<ApiResponse> GetOne(string data)
-        {
-            var result = new MotocycleDto()
-            {
-                Id = "moto123",
-                YearManufacture = 2020,
-                ModelName = "Mottu Sport",
-                PlateId = "CDX-0101"
-            };
+            var result = await _repositoryMotorcycle.GetOneById(id);
 
             var apiReponse = new ApiResponse()
             {
@@ -86,23 +73,35 @@ namespace CoreGoDelivery.Application.Services.Internal.Motocycle
             return apiReponse;
         }
 
-        public async Task<ApiResponse> List(PlateIdDto? data)
+        public async Task<ApiResponse> List(string? plate)
         {
-            List<MotocycleDto> result = [
-                new MotocycleDto()
-                {
-                    Id = "moto123",
-                    YearManufacture = 2020,
-                    ModelName = "Mottu Sport",
-                    PlateId = "CDX-0101"
-                }
-            ];
+            string plateNormalized = RemoveCharacteres(plate);
+
+            var result = await _repositoryMotorcycle.List(plateNormalized);
 
             var apiReponse = new ApiResponse()
             {
-                Data = result,
-                Message = null
+                Data = result?.Count != 0 ? result : null,
+                Message = result?.Count == 0 ? "Dados inválidos" : null
             };
+
+            return apiReponse;
+        }
+
+        public async Task<ApiResponse> Delete(string id)
+        {
+            var apiReponse = new ApiResponse()
+            {
+                Message = await ValidateDelete(id)
+            };
+
+            if (!string.IsNullOrEmpty(apiReponse.Message))
+            {
+                return apiReponse;
+            }
+
+            var result = await _repositoryMotorcycle.DeleteById(id);
+
 
             return apiReponse;
         }
@@ -110,6 +109,26 @@ namespace CoreGoDelivery.Application.Services.Internal.Motocycle
         #endregion
 
         #region Private
+
+        private async Task<string?> ValidateDelete(string id)
+        {
+            var message = new StringBuilder();
+
+            var motorcycle = await _repositoryMotorcycle.GetOneById(id);
+            if (motorcycle == null)
+            {
+                message.Append($"Invalid: {nameof(motorcycle)} id: {id} does not exist; ");
+            }
+
+            var motorcycleIsInUse = await _rentalRepository.FindByMotorcycleId(id);
+            if (motorcycleIsInUse != null)
+            {
+                message.Append($"Invalid: {nameof(motorcycle)} id: {id} is in use; ");
+            }
+
+            return message.ToString();
+        }
+
         private async Task<string?> ValidatorCreateAsync(MotocycleDto data)
         {
             var message = new StringBuilder();
@@ -117,7 +136,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Motocycle
             #region Id validator
             if (!string.IsNullOrWhiteSpace(data.Id))
             {
-                var isUnicId = await _repositoryMotocycle.CheckIsUnicById(data.Id);
+                var isUnicId = await _repositoryMotorcycle.CheckIsUnicById(data.Id);
 
                 if (!isUnicId)
                 {
@@ -137,7 +156,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Motocycle
                 if (isValidPlate)
                 {
                     var normalizedPlate = RemoveCharacteres(data.PlateId);
-                    var isUnicId = await _repositoryMotocycle.CheckIsUnicByPlateId(normalizedPlate);
+                    var isUnicId = await _repositoryMotorcycle.CheckIsUnicByPlateId(normalizedPlate);
 
                     if (!isUnicId)
                     {
@@ -196,7 +215,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Motocycle
 
         private async Task<string> GetModelId(string modelNormalized)
         {
-            var result = await _modelMotocycleRepository.GetIdByModelName(modelNormalized);
+            var result = await _repositoryModelMotorcycle.GetIdByModelName(modelNormalized);
 
             return result;
         }
@@ -208,7 +227,6 @@ namespace CoreGoDelivery.Application.Services.Internal.Motocycle
                 //TODO: HEAVY MISSION NOTIFICATION
             }
         }
-
         #endregion
     }
 }

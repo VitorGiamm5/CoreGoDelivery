@@ -11,6 +11,24 @@ namespace CoreGoDelivery.Infrastructure.Repositories.GoDelivery
         {
         }
 
+        public async Task<List<MotocycleEntity>?> List(string? plate)
+        {
+            var result = await _context.Set<MotocycleEntity>()
+                .Where(x => plate != null || plate != "" ? x.Id == plate : x.Id != null)
+                .Take(100)
+                .ToListAsync();
+
+            return result;
+        }
+
+        public async Task<MotocycleEntity?> GetOneById(string id)
+        {
+            var result = await _context.Set<MotocycleEntity>()
+                .FirstOrDefaultAsync(x => x.Id == id);
+
+            return result;
+        }
+
         public async Task<bool> CheckIsUnicById(string id)
         {
             var result = await _context.Set<MotocycleEntity>()
@@ -36,6 +54,11 @@ namespace CoreGoDelivery.Infrastructure.Repositories.GoDelivery
             await _context.SaveChangesAsync();
 
             return IsSuccessCreate(result);
+        }
+
+        public Task<bool> DeleteById(string id)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -18,7 +18,7 @@ namespace CoreGoDelivery.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> Get([FromQuery] PlateIdDto? request)
         {
-            var result = await _motocycleService.List(request);
+            var result = await _motocycleService.List(request?.Placa);
 
             return Response(result);
         }
@@ -50,7 +50,7 @@ namespace CoreGoDelivery.Api.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(PlateIdDto id)
         {
-            var result = await _motocycleService.Delete(id);
+            var result = await _motocycleService.Delete(id?.Placa!);
 
             return Response(result);
         }

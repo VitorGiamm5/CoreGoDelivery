@@ -1,6 +1,4 @@
-﻿using CoreGoDelivery.Domain.DTO.Rental;
-using CoreGoDelivery.Domain.Entities.GoDelivery.Motocycle;
-using CoreGoDelivery.Domain.Entities.GoDelivery.Rental;
+﻿using CoreGoDelivery.Domain.Entities.GoDelivery.Rental;
 using CoreGoDelivery.Domain.Repositories.GoDelivery;
 using CoreGoDelivery.Infrastructure.Database;
 using Microsoft.EntityFrameworkCore;
@@ -40,7 +38,7 @@ namespace CoreGoDelivery.Infrastructure.Repositories.GoDelivery
             return result;
         }
 
-        public async Task<bool> UpdateReturnedToBaseDate(string id, ReturnedToBaseDateDto date)
+        public async Task<bool> UpdateReturnedToBaseDate(string id, DateTime date)
         {
             var rentalEntity = await _context.Set<RentalEntity>()
                 .FirstOrDefaultAsync(x => x.Id == id);
@@ -50,7 +48,7 @@ namespace CoreGoDelivery.Infrastructure.Repositories.GoDelivery
                 return false;
             }
 
-            rentalEntity.ReturnedToBaseDate = date.ReturnedToBaseDate;
+            rentalEntity.ReturnedToBaseDate = date;
 
             await _context.SaveChangesAsync();
 

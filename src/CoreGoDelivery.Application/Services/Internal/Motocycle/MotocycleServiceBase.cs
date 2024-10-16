@@ -20,9 +20,11 @@ namespace CoreGoDelivery.Application.Services.Internal.Motocycle
             };
         }
 
-        public static string RemoveCharacteres(string plateId)
+        public static string RemoveCharacteres(string? plateId)
         {
-            var result = Regex.Replace(plateId, @"[\s\-\.\,]", "").ToUpper();
+            var result = !string.IsNullOrEmpty(plateId) 
+                ? Regex.Replace(plateId, @"[\s\-\.\,]", "").ToUpper()
+                : "";
 
             return result;
         }

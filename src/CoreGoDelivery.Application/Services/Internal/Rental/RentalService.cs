@@ -13,8 +13,6 @@ namespace CoreGoDelivery.Application.Services.Internal.Rental
         private readonly IMotocycleRepository _repositoryMotocyle;
         private readonly IDeliverierRepository _repositoryDeliverier;
 
-        private const string MESSAGE_INVALID_DATA = "Dados inválidos";
-
         public RentalService(
             IRentalRepository repositoryRental,
             IRentalPlanRepository repositoryPlan,
@@ -55,17 +53,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Rental
 
         public async Task<ApiResponse> GetById(string id)
         {
-            var results = new RentalDto()
-            {
-                RentalId = "locacao123",
-                DayliCost = 10,
-                DeliverierId = "valor_diaria",
-                MotorcycleId = "moto123",
-                StartDate = "DateTime.Now.AddDays(-20)",
-                EndDate = "DateTime.Now",
-                EstimatedReturnDate = "DateTime.Now",
-                ReturnedToBaseDate = DateTime.Now,
-            };
+            var results = _repositoryRental.GetById(id);
 
             var apiReponse = new ApiResponse()
             {
@@ -78,9 +66,15 @@ namespace CoreGoDelivery.Application.Services.Internal.Rental
 
         public async Task<ApiResponse> UpdateReturnedToBaseDate(string id, ReturnedToBaseDateDto data)
         {
+            DateTime dateTime = data.ReturnedToBaseDate ?? (DateTime)data.ReturnedToBaseDate;
+
+            var success = await _repositoryRental.UpdateReturnedToBaseDate(id, dateTime);
+
             var results = new ResponseMessageDto()
             {
-                Message = "Data de devolução informada com sucesso"
+                Message = success
+                    ? "Data de devolução informada com sucesso"
+                    : "Dados inválidos"
             };
 
             var apiReponse = new ApiResponse()
@@ -90,6 +84,13 @@ namespace CoreGoDelivery.Application.Services.Internal.Rental
             };
 
             return apiReponse;
+        }
+
+        public async Task<bool> CheckMotorcycleIsAvaliavleById(string id)
+        {
+            var motocycleIsAvaliable = await _repositoryRental.FindByMotorcycleId(id);
+
+            return motocycleIsAvaliable != null;
         }
 
         #region Private
@@ -134,8 +135,8 @@ namespace CoreGoDelivery.Application.Services.Internal.Rental
                     message.Append($"Invalid: {nameof(data.MotorcycleId)}: {data.MotorcycleId} not exist; ");
                 }
 
-                var motocycleIsAvaliable = await _repositoryRental.FindByMotorcycleId(data.MotorcycleId);
-                if (motocycleIsAvaliable != null)
+                var motocycleIsAvaliable = await CheckMotorcycleIsAvaliavleById(data.MotorcycleId);
+                if (!motocycleIsAvaliable)
                 {
                     message.Append($"Invalid: {nameof(data.MotorcycleId)}: {data.MotorcycleId} is not avaliable; ");
                 }
