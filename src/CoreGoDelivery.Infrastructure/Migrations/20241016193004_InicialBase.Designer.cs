@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace CoreGoDelivery.Infrastructure.Migrations
 {
     [DbContext(typeof(AplicationDbContext))]
-    [Migration("20241016190249_InicialBase")]
+    [Migration("20241016193004_InicialBase")]
     partial class InicialBase
     {
         /// <inheritdoc />
@@ -47,12 +47,9 @@ namespace CoreGoDelivery.Infrastructure.Migrations
                         .HasColumnName("FULL_NAME");
 
                     b.Property<string>("LicenceDriverId")
-                        .HasColumnType("text");
-
-                    b.Property<string>("LicenseNumberId")
                         .IsRequired()
                         .HasColumnType("text")
-                        .HasColumnName("ID_FK_LICENSE_NUMBER");
+                        .HasColumnName("ID_FK_LICENSE_DRIVER");
 
                     b.HasKey("Id");
 
@@ -116,7 +113,7 @@ namespace CoreGoDelivery.Infrastructure.Migrations
                     b.Property<string>("PlateNormalized")
                         .IsRequired()
                         .HasColumnType("text")
-                        .HasColumnName("ID_PLATE_NORMALIZED");
+                        .HasColumnName("PLATE_NORMALIZED");
 
                     b.Property<int>("YearManufacture")
                         .HasColumnType("integer")
@@ -200,7 +197,9 @@ namespace CoreGoDelivery.Infrastructure.Migrations
                 {
                     b.HasOne("CoreGoDelivery.Domain.Entities.GoDelivery.LicenceDriver.LicenceDriverEntity", "LicenceDriver")
                         .WithMany()
-                        .HasForeignKey("LicenceDriverId");
+                        .HasForeignKey("LicenceDriverId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("LicenceDriver");
                 });

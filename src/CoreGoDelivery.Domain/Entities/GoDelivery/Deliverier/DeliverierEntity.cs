@@ -11,7 +11,7 @@ namespace CoreGoDelivery.Domain.Entities.GoDelivery.Deliverier
 
         #region relationships
 
-        public string LicenseNumberId { get; set; }
+        public string LicenceDriverId { get; set; }
         public LicenceDriverEntity LicenceDriver { get; set; }
 
         #endregion

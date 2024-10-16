@@ -45,6 +45,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Rental
 
             var refence = CalculateDatesByPlan(plan);
 
+            #region StartDate validate
             if (!string.IsNullOrEmpty(data.StartDate))
             {
                 data.StartDate = refence.StartDate.ToString();
@@ -54,7 +55,9 @@ namespace CoreGoDelivery.Application.Services.Internal.Rental
                     message.Append($"Invalid: {nameof(data.StartDate)}: {DateTime.Parse(data.StartDate)}, expected: {refence.StartDate}; ");
                 }
             }
+            #endregion
 
+            #region EndDate validate
             if (!string.IsNullOrEmpty(data.EndDate))
             {
                 data.EndDate = refence.EndDate.ToString();
@@ -64,7 +67,9 @@ namespace CoreGoDelivery.Application.Services.Internal.Rental
                     message.Append($"Invalid: {nameof(data.EndDate)}: {DateTime.Parse(data.EndDate)}, expected: {refence.EndDate}; ");
                 }
             }
+            #endregion
 
+            #region EstimatedReturnDate validate
             if (!string.IsNullOrEmpty(data.EstimatedReturnDate))
             {
                 data.StartDate = refence.EstimatedReturnDate.ToString();
@@ -74,7 +79,9 @@ namespace CoreGoDelivery.Application.Services.Internal.Rental
                     message.Append($"Invalid: {nameof(data.EstimatedReturnDate)}: {DateTime.Parse(data.EstimatedReturnDate)}, expected: {refence.EstimatedReturnDate}; ");
                 }
             }
+            #endregion
 
+            #region DayliCost validate
             if (data.DayliCost == null)
             {
                 data.DayliCost = plan.DayliCost;
@@ -84,6 +91,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Rental
                     message.Append($"Invalid: {nameof(data.DayliCost)}: {data.DayliCost}, expected: {plan.DayliCost}; ");
                 }
             }
+            #endregion
 
             return message.ToString();
         }

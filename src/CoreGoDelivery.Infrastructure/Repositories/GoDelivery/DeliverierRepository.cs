@@ -19,6 +19,14 @@ namespace CoreGoDelivery.Infrastructure.Repositories.GoDelivery
             return Ok(result);
         }
 
+        public async Task<DeliverierEntity?> GetOneById(string id)
+        {
+            var result = await _context.Set<DeliverierEntity>()
+                .FirstOrDefaultAsync(x => x.Id == id);
+
+            return result;
+        }
+
         public async Task<bool> CheckIsUnicByCnpj(string id)
         {
             var result = await _context.Set<DeliverierEntity>()

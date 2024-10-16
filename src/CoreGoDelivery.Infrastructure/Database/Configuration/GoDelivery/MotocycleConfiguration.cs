@@ -13,7 +13,7 @@ namespace CoreGoDelivery.Infrastructure.Database.Configuration.GoDelivery
 
             builder.Property(t => t.Id).HasColumnName("ID_MOTOCYCLE");
             builder.Property(t => t.YearManufacture).HasColumnName("YEAR_MANUFACTURE");
-            builder.Property(t => t.PlateNormalized).HasColumnName("ID_PLATE_NORMALIZED");
+            builder.Property(t => t.PlateNormalized).HasColumnName("PLATE_NORMALIZED");
             builder.Property(t => t.ModelMotorcycleId).HasColumnName("ID_FK_MODEL_MOTOCYCLE");
         }
     }

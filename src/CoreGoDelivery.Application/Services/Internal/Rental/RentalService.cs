@@ -90,7 +90,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Rental
         {
             var motocycleIsAvaliable = await _repositoryRental.FindByMotorcycleId(id);
 
-            return motocycleIsAvaliable != null;
+            return motocycleIsAvaliable == null;
         }
 
         #region Private
@@ -129,8 +129,8 @@ namespace CoreGoDelivery.Application.Services.Internal.Rental
             }
             else
             {
-                var existMotocycleId = !await _repositoryMotocyle.CheckIsUnicById(data.MotorcycleId);
-                if (!existMotocycleId)
+                var existMotocycleId = await _repositoryMotocyle.GetOneById(data.MotorcycleId);
+                if (existMotocycleId == null)
                 {
                     message.Append($"Invalid: {nameof(data.MotorcycleId)}: {data.MotorcycleId} not exist; ");
                 }

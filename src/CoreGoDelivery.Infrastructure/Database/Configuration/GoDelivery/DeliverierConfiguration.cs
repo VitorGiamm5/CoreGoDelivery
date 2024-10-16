@@ -15,8 +15,7 @@ namespace CoreGoDelivery.Infrastructure.Database.Configuration.GoDelivery
             builder.Property(t => t.FullName).HasColumnName("FULL_NAME");
             builder.Property(t => t.CNPJ).HasColumnName("CNPJ");
             builder.Property(t => t.BirthDate).HasColumnName("DATE_BIRTH");
-
-            builder.Property(t => t.LicenseNumberId).HasColumnName("ID_FK_LICENSE_NUMBER");
+            builder.Property(t => t.LicenceDriverId).HasColumnName("ID_FK_LICENSE_DRIVER");
         }
     }
 }

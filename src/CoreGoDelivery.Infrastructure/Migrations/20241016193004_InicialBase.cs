@@ -50,7 +50,7 @@ namespace CoreGoDelivery.Infrastructure.Migrations
                 {
                     ID_MOTOCYCLE = table.Column<string>(type: "text", nullable: false),
                     YEAR_MANUFACTURE = table.Column<int>(type: "integer", nullable: false),
-                    ID_PLATE_NORMALIZED = table.Column<string>(type: "text", nullable: false),
+                    PLATE_NORMALIZED = table.Column<string>(type: "text", nullable: false),
                     ID_FK_MODEL_MOTOCYCLE = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
@@ -82,18 +82,18 @@ namespace CoreGoDelivery.Infrastructure.Migrations
                     FULL_NAME = table.Column<string>(type: "text", nullable: false),
                     CNPJ = table.Column<string>(type: "text", nullable: false),
                     DATE_BIRTH = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    ID_FK_LICENSE_NUMBER = table.Column<string>(type: "text", nullable: false),
-                    LicenceDriverId = table.Column<string>(type: "text", nullable: true)
+                    ID_FK_LICENSE_DRIVER = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_tb_deliverier", x => x.ID_DELIVERIER);
                     table.ForeignKey(
-                        name: "FK_tb_deliverier_tb_licenceDriver_LicenceDriverId",
-                        column: x => x.LicenceDriverId,
+                        name: "FK_tb_deliverier_tb_licenceDriver_ID_FK_LICENSE_DRIVER",
+                        column: x => x.ID_FK_LICENSE_DRIVER,
                         principalSchema: "dbgodelivery",
                         principalTable: "tb_licenceDriver",
-                        principalColumn: "ID_LICENSE_DRIVER");
+                        principalColumn: "ID_LICENSE_DRIVER",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -137,10 +137,10 @@ namespace CoreGoDelivery.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_tb_deliverier_LicenceDriverId",
+                name: "IX_tb_deliverier_ID_FK_LICENSE_DRIVER",
                 schema: "dbgodelivery",
                 table: "tb_deliverier",
-                column: "LicenceDriverId");
+                column: "ID_FK_LICENSE_DRIVER");
 
             migrationBuilder.CreateIndex(
                 name: "IX_tb_rental_ID_FK_DELIVERIER",
