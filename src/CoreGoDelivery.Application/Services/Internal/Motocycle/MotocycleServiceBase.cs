@@ -1,5 +1,6 @@
 ﻿using CoreGoDelivery.Domain.DTO.Motocycle;
 using CoreGoDelivery.Domain.DTO.Response;
+using CoreGoDelivery.Domain.Entities.GoDelivery.Motocycle;
 using System.Text.RegularExpressions;
 
 namespace CoreGoDelivery.Application.Services.Internal.Motocycle
@@ -7,6 +8,17 @@ namespace CoreGoDelivery.Application.Services.Internal.Motocycle
     public class MotocycleServiceBase
     {
         private const string MESSAGE_INVALID_DATA = "Dados inválidos";
+
+        public static MotocycleEntity CreateToEntity(MotocycleDto data)
+        {
+            return new MotocycleEntity()
+            {
+                Id = SelectId(data),
+                YearManufacture = data.YearManufacture,
+                ModelMotocycleId = data.ModelName,
+                PlateIdNormalized = RemoveCharacteres(data.PlateId)
+            };
+        }
 
         public static string RemoveCharacteres(string plateId)
         {

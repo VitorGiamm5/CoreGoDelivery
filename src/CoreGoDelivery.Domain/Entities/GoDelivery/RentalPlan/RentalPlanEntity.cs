@@ -9,6 +9,6 @@ namespace CoreGoDelivery.Domain.Entities.GoDelivery.RentalPlan
 
         public int DaysQuantity { get; set; }
 
-        public double DailyCost { get; set; }
+        public double DayliCost { get; set; }
     }
 }

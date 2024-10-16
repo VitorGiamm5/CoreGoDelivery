@@ -14,7 +14,6 @@ namespace CoreGoDelivery.Application.Services.Internal.Deliverier
     {
         private readonly IDeliverierRepository _repositoryDeliverier;
         private readonly ILicenceDriverRepository _repositoryLicence;
-        private const string MESSAGE_INVALID_DATA = "Dados inválidos";
 
         public DeliverierService(
             IDeliverierRepository repositoryDeliverier,
@@ -26,11 +25,10 @@ namespace CoreGoDelivery.Application.Services.Internal.Deliverier
 
         public async Task<ApiResponse> Create(DeliverierDto data)
         {
-
             var apiReponse = new ApiResponse()
             {
                 Data = null,
-                Message = await ValidatorDeliverierAsync(data)
+                Message = await ValidatorCreateAsync(data)
             };
 
             if (!string.IsNullOrEmpty(apiReponse.Message))
@@ -38,19 +36,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Deliverier
                 return apiReponse;
             }
 
-            var deliverier = new DeliverierEntity()
-            {
-                Id = SelectId(data.Id),
-                FullName = data.FullName,
-                CNPJ = CnpjNormalize(data),
-                BirthDate = data.BirthDate,
-                LicenceDriver = new LicenceDriverEntity()
-                {
-                    Id = data.LicenseNumber,
-                    Type = ParseLicenseType(data),
-                    FileNameImageNormalized = FileNameNormalize(data)
-                }
-            };
+            var deliverier = CreateToEntity(data);
 
             var resultCreate = await _repositoryDeliverier.Create(deliverier);
 
@@ -73,7 +59,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Deliverier
 
         #region Private
 
-        private async Task<string?> ValidatorDeliverierAsync(DeliverierDto data)
+        private async Task<string?> ValidatorCreateAsync(DeliverierDto data)
         {
             var message = new StringBuilder();
 

@@ -12,7 +12,7 @@ namespace CoreGoDelivery.Infrastructure.Database.Configuration.GoDelivery
             builder.HasKey(t => t.Id);
 
             builder.Property(t => t.Id).HasColumnName("ID_RENTAL_PLAN");
-            builder.Property(t => t.DailyCost).HasColumnName("DAYLI_COST");
+            builder.Property(t => t.DayliCost).HasColumnName("DAYLI_COST");
             builder.Property(t => t.DaysQuantity).HasColumnName("DAYS_QUANTITY");
         }
     }

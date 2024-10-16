@@ -3,6 +3,7 @@ using System;
 using CoreGoDelivery.Infrastructure.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace CoreGoDelivery.Infrastructure.Migrations
 {
     [DbContext(typeof(AplicationDbContext))]
-    partial class AplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241016081230_InicialBase2")]
+    partial class InicialBase2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -79,7 +82,7 @@ namespace CoreGoDelivery.Infrastructure.Migrations
                 {
                     b.Property<string>("Id")
                         .HasColumnType("text")
-                        .HasColumnName("ID_MODEL_MOTOCYCLE");
+                        .HasColumnName("ID_FK_MODEL_MOTOCYCLE");
 
                     b.Property<string>("Name")
                         .IsRequired()

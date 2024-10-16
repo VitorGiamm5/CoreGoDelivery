@@ -5,16 +5,19 @@ namespace CoreGoDelivery.Domain.DTO.Rental
 {
     public sealed class RentalDto : ReturnedToBaseDateDto
     {
+        [JsonIgnore]
         [DefaultValue("locacao123")]
-        public string RentalId { get; set; }
+        [JsonPropertyName("identification")]
+
+        public string? RentalId { get; set; }
 
         [DefaultValue(10)]
         [JsonPropertyName("valor_diaria")]
-        public decimal DayliRate { get; set; }
+        public double? DayliCost { get; set; }
 
         [DefaultValue("entregador123")]
         [JsonPropertyName("entregador_id")]
-        public string DeliveryPersonId { get; set; }
+        public string DeliverierId { get; set; }
 
         [DefaultValue("moto123")]
         [JsonPropertyName("moto_id")]
@@ -22,15 +25,15 @@ namespace CoreGoDelivery.Domain.DTO.Rental
 
         [DefaultValue("2024-01-01T00:00:00Z")]
         [JsonPropertyName("data_inicio")]
-        public DateTime StartDate { get; set; }
+        public string? StartDate { get; set; }
 
         [DefaultValue("2024-01-07T23:59:59Z")]
         [JsonPropertyName("data_termino")]
-        public DateTime? EndDate { get; set; }
+        public string? EndDate { get; set; }
 
         [DefaultValue("2024-01-07T23:59:59Z")]
         [JsonPropertyName("data_previsao_termino")]
-        public DateTime EstimatedEndDate { get; set; }
+        public string? EstimatedReturnDate { get; set; }
 
         [DefaultValue(1)]
         [JsonPropertyName("plano")]

@@ -19,7 +19,6 @@ namespace CoreGoDelivery.Domain.Entities.GoDelivery.Rental
 
         public DateTime? ReturnedToBaseDate { get; set; }
 
-
         #region Relationships
 
         [ForeignKey(nameof(Deliverier))]

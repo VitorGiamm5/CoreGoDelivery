@@ -4,7 +4,6 @@ using CoreGoDelivery.Domain.DTO.Response;
 using CoreGoDelivery.Domain.Entities.GoDelivery.Motocycle;
 using CoreGoDelivery.Domain.Repositories.GoDelivery;
 using System.Text;
-using System.Text.RegularExpressions;
 
 namespace CoreGoDelivery.Application.Services.Internal.Motocycle
 {
@@ -15,7 +14,9 @@ namespace CoreGoDelivery.Application.Services.Internal.Motocycle
 
         private const int NOTIFICATION_YEAR_MANUFACTORY = 2024;
 
-        public MotocycleService(IMotocycleRepository repositoryMotocycle, IModelMotocycleRepository modelMotocycleRepository)
+        public MotocycleService(
+            IMotocycleRepository repositoryMotocycle,
+            IModelMotocycleRepository modelMotocycleRepository)
         {
             _repositoryMotocycle = repositoryMotocycle;
             _modelMotocycleRepository = modelMotocycleRepository;
@@ -37,7 +38,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Motocycle
             var apiReponse = new ApiResponse()
             {
                 Data = null,
-                Message = await ValidatorMotocycleAsync(data)
+                Message = await ValidatorCreateAsync(data)
             };
 
             if (!string.IsNullOrEmpty(apiReponse.Message))
@@ -45,13 +46,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Motocycle
                 return apiReponse;
             }
 
-            var motocycle = new MotocycleEntity()
-            {
-                Id = SelectId(data),
-                YearManufacture = data.YearManufacture,
-                ModelMotocycleId = data.ModelName,
-                PlateIdNormalized = RemoveCharacteres(data.PlateId)
-            };
+            var motocycle = CreateToEntity(data);
 
             var resultCreate = await _repositoryMotocycle.Create(motocycle);
 
@@ -115,7 +110,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Motocycle
         #endregion
 
         #region Private
-        private async Task<string?> ValidatorMotocycleAsync(MotocycleDto data)
+        private async Task<string?> ValidatorCreateAsync(MotocycleDto data)
         {
             var message = new StringBuilder();
 

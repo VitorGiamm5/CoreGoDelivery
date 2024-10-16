@@ -1,38 +1,69 @@
 ﻿using CoreGoDelivery.Application.Services.Internal.Interface;
 using CoreGoDelivery.Domain.DTO.Rental;
 using CoreGoDelivery.Domain.DTO.Response;
-using CoreGoDelivery.Domain.Entities.GoDelivery.Deliverier;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
-using Microsoft.EntityFrameworkCore;
+using CoreGoDelivery.Domain.Repositories.GoDelivery;
+using System.Text;
 
 namespace CoreGoDelivery.Application.Services.Internal.Rental
 {
-    public class RentalService : IRentalService
+    public class RentalService : RentalServiceBase, IRentalService
     {
+        private readonly IRentalRepository _repositoryRental;
+        private readonly IRentalPlanRepository _repositoryPlan;
+        private readonly IMotocycleRepository _repositoryMotocyle;
+        private readonly IDeliverierRepository _repositoryDeliverier;
+
         private const string MESSAGE_INVALID_DATA = "Dados inválidos";
 
-        public Task<ApiResponse> Create(RentalDto data)
+        public RentalService(
+            IRentalRepository repositoryRental,
+            IRentalPlanRepository repositoryPlan,
+            IMotocycleRepository repositoryMotocyle,
+            IDeliverierRepository repositoryDeliverier)
+        {
+            _repositoryRental = repositoryRental;
+            _repositoryPlan = repositoryPlan;
+            _repositoryMotocyle = repositoryMotocyle;
+            _repositoryDeliverier = repositoryDeliverier;
+        }
+
+        public async Task<ApiResponse> Create(RentalDto data)
         {
             var apiReponse = new ApiResponse()
             {
                 Data = null,
-                Message = null
+                Message = await ValidatorCreateAsync(data)
             };
 
-            return Task.FromResult(apiReponse);
+            if (!string.IsNullOrEmpty(apiReponse.Message))
+            {
+                return apiReponse;
+            }
+
+            var plan = await _repositoryPlan.GetById(data.PlanId);
+
+            var calculatedDates = CalculateDatesByPlan(plan!);
+
+            var rental = CreateToEntity(data, calculatedDates);
+
+            var resultCreate = await _repositoryRental.Create(rental);
+
+            apiReponse.Message = FinalMessageBuild(resultCreate, apiReponse);
+
+            return apiReponse;
         }
 
-        public Task<ApiResponse> GetOne(string id)
+        public async Task<ApiResponse> GetById(string id)
         {
             var results = new RentalDto()
             {
                 RentalId = "locacao123",
-                DayliRate = 10,
-                DeliveryPersonId = "valor_diaria",
+                DayliCost = 10,
+                DeliverierId = "valor_diaria",
                 MotorcycleId = "moto123",
-                StartDate = DateTime.Now.AddDays(-20),
-                EndDate = DateTime.Now,
-                EstimatedEndDate = DateTime.Now,
+                StartDate = "DateTime.Now.AddDays(-20)",
+                EndDate = "DateTime.Now",
+                EstimatedReturnDate = "DateTime.Now",
                 ReturnedToBaseDate = DateTime.Now,
             };
 
@@ -42,10 +73,10 @@ namespace CoreGoDelivery.Application.Services.Internal.Rental
                 Message = null
             };
 
-            return Task.FromResult(apiReponse);
+            return apiReponse;
         }
 
-        public Task<ApiResponse> UpdateReturnedToBaseDate(string id, ReturnedToBaseDateDto data)
+        public async Task<ApiResponse> UpdateReturnedToBaseDate(string id, ReturnedToBaseDateDto data)
         {
             var results = new ResponseMessageDto()
             {
@@ -58,12 +89,77 @@ namespace CoreGoDelivery.Application.Services.Internal.Rental
                 Message = null
             };
 
-            return Task.FromResult(apiReponse);
+            return apiReponse;
         }
 
-        private static bool WasSuccessStatus(EntityEntry<DeliverierEntity> result)
+        #region Private
+
+        private async Task<string?> ValidatorCreateAsync(RentalDto data)
         {
-            return result.State == EntityState.Added || result.State == EntityState.Unchanged;
+            var message = new StringBuilder();
+
+            #region PlanId validator
+            if (string.IsNullOrWhiteSpace(data.PlanId.ToString()))
+            {
+                message.Append($"Empty: {nameof(data.PlanId)}; ");
+            }
+            else
+            {
+                var plan = await _repositoryPlan.GetById(data.PlanId);
+                if (plan == null)
+                {
+                    message.Append($"Invalid: {nameof(data.PlanId)}: {data.PlanId} not exist; ");
+                }
+                else
+                {
+                    var resultValidateDates = ValidadeToPlan(ref data, plan);
+                    if (!string.IsNullOrWhiteSpace(resultValidateDates))
+                    {
+                        message.Append(resultValidateDates);
+                    }
+                }
+            }
+            #endregion
+
+            #region MotorcycleId validator
+            if (string.IsNullOrWhiteSpace(data.MotorcycleId))
+            {
+                message.Append($"Empty: {nameof(data.MotorcycleId)}; ");
+            }
+            else
+            {
+                var existMotocycleId = !await _repositoryMotocyle.CheckIsUnicById(data.MotorcycleId);
+                if (!existMotocycleId)
+                {
+                    message.Append($"Invalid: {nameof(data.MotorcycleId)}: {data.MotorcycleId} not exist; ");
+                }
+
+                var motocycleIsAvaliable = await _repositoryRental.FindByMotorcycleId(data.MotorcycleId);
+                if (motocycleIsAvaliable != null)
+                {
+                    message.Append($"Invalid: {nameof(data.MotorcycleId)}: {data.MotorcycleId} is not avaliable; ");
+                }
+            }
+            #endregion
+
+            #region DeliverierId validator
+            if (string.IsNullOrWhiteSpace(data.DeliverierId))
+            {
+                message.Append($"Empty:  {nameof(data.DeliverierId)}; ");
+            }
+            else
+            {
+                var existDeliverierId = !await _repositoryDeliverier.CheckIsUnicById(data.DeliverierId);
+                if (!existDeliverierId)
+                {
+                    message.Append($"Invalid: {nameof(data.DeliverierId)}: {data.DeliverierId} not exist; ");
+                }
+            }
+            #endregion
+
+            return message.ToString();
         }
+
+        #endregion
     }
 }

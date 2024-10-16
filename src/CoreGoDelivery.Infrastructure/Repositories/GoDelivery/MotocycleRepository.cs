@@ -2,7 +2,6 @@
 using CoreGoDelivery.Domain.Repositories.GoDelivery;
 using CoreGoDelivery.Infrastructure.Database;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace CoreGoDelivery.Infrastructure.Repositories.GoDelivery
 {
@@ -17,7 +16,7 @@ namespace CoreGoDelivery.Infrastructure.Repositories.GoDelivery
             var result = await _context.Set<MotocycleEntity>()
                 .FirstOrDefaultAsync(x => x.Id == id);
 
-            return result == null;
+            return Ok(result);
         }
 
         public async Task<bool> CheckIsUnicByPlateId(string plate)
@@ -25,7 +24,7 @@ namespace CoreGoDelivery.Infrastructure.Repositories.GoDelivery
             var result = await _context.Set<MotocycleEntity>()
                 .FirstOrDefaultAsync(x => x.PlateIdNormalized == plate);
 
-            return result == null;
+            return Ok(result);
         }
 
         public async Task<bool> Create(MotocycleEntity data)
@@ -36,12 +35,7 @@ namespace CoreGoDelivery.Infrastructure.Repositories.GoDelivery
 
             await _context.SaveChangesAsync();
 
-            return WasSuccessStatus(result);
-        }
-
-        private static bool WasSuccessStatus(EntityEntry<MotocycleEntity> result)
-        {
-            return result.State == EntityState.Added || result.State == EntityState.Unchanged;
+            return IsSuccessCreate(result);
         }
     }
 }

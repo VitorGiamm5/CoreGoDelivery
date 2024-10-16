@@ -17,7 +17,7 @@ namespace CoreGoDelivery.Infrastructure.Repositories.GoDelivery
                 .Set<LicenceDriverEntity>()
                 .FirstOrDefaultAsync(x => x.Id == licence);
 
-            return result == null;
+            return Ok(result);
         }
 
         public async Task<bool> Create(LicenceDriverEntity data)
@@ -28,7 +28,7 @@ namespace CoreGoDelivery.Infrastructure.Repositories.GoDelivery
 
             await _context.SaveChangesAsync();
 
-            return result != null;
+            return IsSuccessCreate(result);
         }
     }
 }

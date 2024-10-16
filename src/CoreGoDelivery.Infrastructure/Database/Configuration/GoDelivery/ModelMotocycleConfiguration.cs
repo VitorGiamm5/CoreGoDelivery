@@ -14,7 +14,6 @@ namespace CoreGoDelivery.Infrastructure.Database.Configuration.GoDelivery
             builder.Property(t => t.Id).HasColumnName("ID_MODEL_MOTOCYCLE");
             builder.Property(t => t.Name).HasColumnName("NAME");
             builder.Property(t => t.NormalizedName).HasColumnName("NORMALIZED_NAME");
-            builder.Property(t => t.Id).HasColumnName("ID_FK_MODEL_MOTOCYCLE");
         }
     }
 }

@@ -1,5 +1,7 @@
 ﻿using CoreGoDelivery.Domain.DTO.Deliverier;
 using CoreGoDelivery.Domain.DTO.Response;
+using CoreGoDelivery.Domain.Entities.GoDelivery.Deliverier;
+using CoreGoDelivery.Domain.Entities.GoDelivery.LicenceDriver;
 using CoreGoDelivery.Domain.Enums.LicenceDriverType;
 using System.Text.RegularExpressions;
 
@@ -8,6 +10,23 @@ namespace CoreGoDelivery.Application.Services.Internal.Deliverier
     public class DeliverierServiceBase
     {
         private const string MESSAGE_INVALID_DATA = "Dados inválidos";
+
+        public static DeliverierEntity CreateToEntity(DeliverierDto data)
+        {
+            return new DeliverierEntity()
+            {
+                Id = SelectId(data.Id),
+                FullName = data.FullName,
+                CNPJ = CnpjNormalize(data),
+                BirthDate = data.BirthDate,
+                LicenceDriver = new LicenceDriverEntity()
+                {
+                    Id = data.LicenseNumber,
+                    Type = ParseLicenseType(data),
+                    FileNameImageNormalized = FileNameNormalize(data)
+                }
+            };
+        }
 
         public static string CnpjNormalize(DeliverierDto data)
         {
@@ -20,7 +39,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Deliverier
         {
             var result = $"CNH_{data.LicenseNumber}.png";
 
-            return result ;
+            return result;
         }
 
         public static string? FinalMessageBuild(bool resultCreate, ApiResponse apiReponse)
