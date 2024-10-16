@@ -7,11 +7,10 @@ using CoreGoDelivery.Domain.Enums.LicenceDriverType;
 using CoreGoDelivery.Domain.Repositories.GoDelivery;
 using DocumentValidator;
 using System.Text;
-using System.Text.RegularExpressions;
 
 namespace CoreGoDelivery.Application.Services.Internal.Deliverier
 {
-    public class DeliverierService : IDeliverierService
+    public class DeliverierService : DeliverierServiceBase, IDeliverierService
     {
         private readonly IDeliverierRepository _repositoryDeliverier;
         private readonly ILicenceDriverRepository _repositoryLicence;
@@ -25,7 +24,6 @@ namespace CoreGoDelivery.Application.Services.Internal.Deliverier
             _repositoryLicence = repositoryLicence;
         }
 
-        #region Create
         public async Task<ApiResponse> Create(DeliverierDto data)
         {
 
@@ -61,24 +59,19 @@ namespace CoreGoDelivery.Application.Services.Internal.Deliverier
             return apiReponse;
         }
 
-        private string SelectId(string id)
+        public async Task<ApiResponse> UploadCnh(string id)
         {
-            var result = string.IsNullOrEmpty(id) ? Ulid.NewUlid().ToString() : id;
+            // TODO: HEAVY MISSION IMAGE FILE
+            var apiReponse = new ApiResponse()
+            {
+                Data = null,
+                Message = null
+            };
 
-            return result;
+            return apiReponse;
         }
 
-        private static LicenceTypeEnum ParseLicenseType(DeliverierDto data)
-        {
-            Enum.TryParse(data.LicenseType, ignoreCase: true, out LicenceTypeEnum licenseType);
-
-            return licenseType;
-        }
-
-        private static string CnpjNormalize(DeliverierDto data)
-        {
-            return Regex.Replace(data.CNPJ, @"[./\s-]", "");
-        }
+        #region Private
 
         private async Task<string?> ValidatorDeliverierAsync(DeliverierDto data)
         {
@@ -181,34 +174,6 @@ namespace CoreGoDelivery.Application.Services.Internal.Deliverier
             return null;
         }
 
-        private static string? FinalMessageBuild(bool resultCreate, ApiResponse apiReponse)
-        {
-            if (!string.IsNullOrEmpty(apiReponse.Message))
-            {
-                return null;
-            }
-
-            return resultCreate
-                ? null
-                : MESSAGE_INVALID_DATA;
-        }
         #endregion
-
-        private static string FileNameNormalize(DeliverierDto data)
-        {
-            return $"CNH_{data.LicenseNumber}.png";
-        }
-
-        public async Task<ApiResponse> UploadCnh(string id)
-        {
-            // TODO: HEAVY MISSION IMAGE FILE
-            var apiReponse = new ApiResponse()
-            {
-                Data = null,
-                Message = null
-            };
-
-            return apiReponse;
-        }
     }
 }

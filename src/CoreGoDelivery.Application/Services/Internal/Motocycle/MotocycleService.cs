@@ -8,13 +8,12 @@ using System.Text.RegularExpressions;
 
 namespace CoreGoDelivery.Application.Services.Internal.Motocycle
 {
-    public class MotocycleService : IMotocycleService
+    public class MotocycleService : MotocycleServiceBase, IMotocycleService
     {
         private readonly IMotocycleRepository _repositoryMotocycle;
         private readonly IModelMotocycleRepository _modelMotocycleRepository;
 
         private const int NOTIFICATION_YEAR_MANUFACTORY = 2024;
-        private const string MESSAGE_INVALID_DATA = "Dados inválidos";
 
         public MotocycleService(IMotocycleRepository repositoryMotocycle, IModelMotocycleRepository modelMotocycleRepository)
         {
@@ -116,46 +115,6 @@ namespace CoreGoDelivery.Application.Services.Internal.Motocycle
         #endregion
 
         #region Private
-
-        private async Task SendNotification(MotocycleEntity motocycle)
-        {
-            if (motocycle.YearManufacture == NOTIFICATION_YEAR_MANUFACTORY)
-            {
-                //TODO: HEAVY MISSION NOTIFICATION
-            }
-        }
-
-        private static string SelectId(MotocycleDto data)
-        {
-            var result = string.IsNullOrEmpty(data.Id) ? Ulid.NewUlid().ToString() : data.Id;
-
-            return result;
-        }
-
-        private async Task<string> GetModelMotocycle(string modelName)
-        {
-            throw new NotImplementedException();
-        }
-
-        private static string RemoveCharacteres(string plateId)
-        {
-            var result = Regex.Replace(plateId, @"[\s\-\.\,]", "").ToUpper();
-
-            return result;
-        }
-
-        private string? FinalMessageBuild(bool resultCreate, ApiResponse apiReponse)
-        {
-            if (!string.IsNullOrEmpty(apiReponse.Message))
-            {
-                return null;
-            }
-
-            return resultCreate
-                ? null
-                : MESSAGE_INVALID_DATA;
-        }
-
         private async Task<string?> ValidatorMotocycleAsync(MotocycleDto data)
         {
             var message = new StringBuilder();
@@ -231,25 +190,13 @@ namespace CoreGoDelivery.Application.Services.Internal.Motocycle
             #endregion
 
             #region Finaly
-            if (message.Length > 0) return message.ToString();
+            if (message.Length > 0)
+            {
+                return message.ToString();
+            }
             #endregion
 
             return null;
-        }
-
-        private static bool ValidatePlate(string plateId)
-        {
-            var plate = Regex.Replace(plateId, @"[\s\-\.\,]", "").ToUpper();
-
-            if (Regex.IsMatch(plate, @"^[A-Z]{3}\d{4}$") ||    // old format
-                Regex.IsMatch(plate, @"^[A-Z]{3}\d{1}[A-Z]{1}\d{2}$")) // new format
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
         }
 
         private async Task<string> GetModelId(string modelNormalized)
@@ -257,6 +204,14 @@ namespace CoreGoDelivery.Application.Services.Internal.Motocycle
             var result = await _modelMotocycleRepository.GetIdByModelName(modelNormalized);
 
             return result;
+        }
+
+        private async Task SendNotification(MotocycleEntity motocycle)
+        {
+            if (motocycle.YearManufacture == NOTIFICATION_YEAR_MANUFACTORY)
+            {
+                //TODO: HEAVY MISSION NOTIFICATION
+            }
         }
 
         #endregion
