@@ -32,10 +32,10 @@ Nome de usuário: randandan
 Senha: randandan_XLR
 
 Depois de conectado e com as tables criadas, necessário injetar dados diretamente no banco
-Na raiz do projeto a pasta "dataInjection" possui dois arquivos .csv
+Na raiz do projeto a pasta "sqlScriptImportar" possui dois arquivos .csv
 $ cd ..
-$ cd dataInjection
-Cada arquivo é nomeado com o nome da table para ser importada: _tb_modelMotocycle__202410152223_importar.csv e _tb_rentalPlan__202410152221_importar.csv
+$ cd sqlScriptImportar
+Cada arquivo é nomeado com o nome da table para ser importada: _tb_modelMotocycle_importar.csv e _tb_rentalPlan_importar.csv
 Clicando com o botão direito no nome da table, terá a opção de importar, basta selecionar o arquivo correspondente à table
 
 Para chamar os recursos da API, está disponível na raís do projeto a pasta "postmanCollection"

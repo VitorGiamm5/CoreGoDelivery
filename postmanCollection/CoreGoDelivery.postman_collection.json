@@ -1,0 +1,303 @@
+{
+	"info": {
+		"_postman_id": "d1bf37d3-5d77-40fa-aef3-8ef1f4fa4b71",
+		"name": "CoreGoDelivery",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "39035584"
+	},
+	"item": [
+		{
+			"name": "Entregadores",
+			"item": [
+				{
+					"name": "entregadores",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"imagem_cnh\": \"base64string\",\r\n  \"identificador\": \"\",\r\n  \"nome\": \"João da Silva\",\r\n  \"cnpj\": \"28185005000155\",\r\n  \"data_nascimento\": \"2000-01-01T00:00:00Z\",\r\n  \"numero_cnh\": \"31531315524\",\r\n  \"tipo_cnh\": \"ab\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5273/entregadores",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5273",
+							"path": [
+								"entregadores"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": ":id/cnh",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"imagem_cnh\": \"base64string\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5273/entregadores",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5273",
+							"path": [
+								"entregadores"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Motos",
+			"item": [
+				{
+					"name": "motos",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"identificador\": \"\",\r\n  \"ano\": 2024,\r\n  \"modelo\": \"Mottu Sport\",\r\n  \"placa\": \"CDf-0104\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5273/motos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5273",
+							"path": [
+								"motos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "motos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5273/motos?placa",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5273",
+							"path": [
+								"motos"
+							],
+							"query": [
+								{
+									"key": "placa",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "motos/:id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5273/motos/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5273",
+							"path": [
+								"motos",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "motos/:id",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5273/motos/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5273",
+							"path": [
+								"motos",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "motos/:id/placa",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5273/motos/:id/placa",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5273",
+							"path": [
+								"motos",
+								":id",
+								"placa"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Locacao",
+			"item": [
+				{
+					"name": "locacao/:id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5273/locacao/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5273",
+							"path": [
+								"locacao",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "locacao",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"data_devolucao\": \"\",\r\n  \"rentalId\": \"locacao123\",\r\n  \"valor_diaria\": 10,\r\n  \"entregador_id\": \"entregador123\",\r\n  \"moto_id\": \"moto123\",\r\n  \"data_inicio\": \"\",\r\n  \"data_termino\": \"\",\r\n  \"data_previsao_termino\": \"\",\r\n  \"plano\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5273/locacao",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5273",
+							"path": [
+								"locacao"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "locacao/:id/devolucao",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"data_devolucao\": \"2024-01-07T18:00:00Z\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5273/locacao/:id/devolucao",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5273",
+							"path": [
+								"locacao",
+								":id",
+								"devolucao"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
