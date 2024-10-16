@@ -9,20 +9,20 @@ namespace CoreGoDelivery.Application.Services.Internal.Motocycle
     {
         private const string MESSAGE_INVALID_DATA = "Dados inválidos";
 
-        public static MotocycleEntity CreateToEntity(MotocycleDto data)
+        public static MotorcycleEntity CreateToEntity(MotocycleDto data)
         {
-            return new MotocycleEntity()
+            return new MotorcycleEntity()
             {
                 Id = SelectId(data),
                 YearManufacture = data.YearManufacture,
-                ModelMotocycleId = data.ModelName,
-                PlateIdNormalized = RemoveCharacteres(data.PlateId)
+                ModelMotorcycleId = data.ModelName,
+                PlateNormalized = RemoveCharacteres(data.PlateId)
             };
         }
 
         public static string RemoveCharacteres(string? plateId)
         {
-            var result = !string.IsNullOrEmpty(plateId) 
+            var result = !string.IsNullOrEmpty(plateId)
                 ? Regex.Replace(plateId, @"[\s\-\.\,]", "").ToUpper()
                 : "";
 

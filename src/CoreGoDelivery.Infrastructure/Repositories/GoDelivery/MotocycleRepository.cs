@@ -5,25 +5,35 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CoreGoDelivery.Infrastructure.Repositories.GoDelivery
 {
-    public class MotocycleRepository : BaseRepository<MotocycleEntity>, IMotocycleRepository
+    public class MotocycleRepository : BaseRepository<MotorcycleEntity>, IMotocycleRepository
     {
         public MotocycleRepository(AplicationDbContext context) : base(context)
         {
         }
 
-        public async Task<List<MotocycleEntity>?> List(string? plate)
+        public async Task<List<MotorcycleEntity>?> List(string? plate)
         {
-            var result = await _context.Set<MotocycleEntity>()
-                .Where(x => plate != null || plate != "" ? x.Id == plate : x.Id != null)
-                .Take(100)
-                .ToListAsync();
+            if (!string.IsNullOrEmpty(plate))
+            {
+                var resultWithParam = await _context.Set<MotorcycleEntity>()
+                    .Where(x => x.Id == plate)
+                    .ToListAsync();
 
-            return result;
+                return resultWithParam;
+            }
+            else
+            {
+                var result = await _context.Set<MotorcycleEntity>()
+                    .Take(100)
+                    .ToListAsync();
+
+                return result;
+            }
         }
 
-        public async Task<MotocycleEntity?> GetOneById(string id)
+        public async Task<MotorcycleEntity?> GetOneById(string id)
         {
-            var result = await _context.Set<MotocycleEntity>()
+            var result = await _context.Set<MotorcycleEntity>()
                 .FirstOrDefaultAsync(x => x.Id == id);
 
             return result;
@@ -31,7 +41,7 @@ namespace CoreGoDelivery.Infrastructure.Repositories.GoDelivery
 
         public async Task<bool> CheckIsUnicById(string id)
         {
-            var result = await _context.Set<MotocycleEntity>()
+            var result = await _context.Set<MotorcycleEntity>()
                 .FirstOrDefaultAsync(x => x.Id == id);
 
             return Ok(result);
@@ -39,16 +49,16 @@ namespace CoreGoDelivery.Infrastructure.Repositories.GoDelivery
 
         public async Task<bool> CheckIsUnicByPlateId(string plate)
         {
-            var result = await _context.Set<MotocycleEntity>()
-                .FirstOrDefaultAsync(x => x.PlateIdNormalized == plate);
+            var result = await _context.Set<MotorcycleEntity>()
+                .FirstOrDefaultAsync(x => x.PlateNormalized == plate);
 
             return Ok(result);
         }
 
-        public async Task<bool> Create(MotocycleEntity data)
+        public async Task<bool> Create(MotorcycleEntity data)
         {
             var result = await _context
-                .Set<MotocycleEntity>()
+                .Set<MotorcycleEntity>()
                 .AddAsync(data);
 
             await _context.SaveChangesAsync();

@@ -1,8 +1,6 @@
 ﻿using CoreGoDelivery.Application.Services.Internal.Interface;
 using CoreGoDelivery.Domain.DTO.Deliverier;
 using CoreGoDelivery.Domain.DTO.Response;
-using CoreGoDelivery.Domain.Entities.GoDelivery.Deliverier;
-using CoreGoDelivery.Domain.Entities.GoDelivery.LicenceDriver;
 using CoreGoDelivery.Domain.Enums.LicenceDriverType;
 using CoreGoDelivery.Domain.Repositories.GoDelivery;
 using DocumentValidator;
@@ -144,7 +142,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Deliverier
             #endregion
 
             #region License Type validator
-            if (!Enum.TryParse(data.LicenseType, ignoreCase: true, out LicenceTypeEnum _))
+            if (!Enum.TryParse(data.LicenseType, ignoreCase: true, out LicenseTypeEnum _))
             {
                 message.Append($"Invalid: {nameof(data.LicenseType)}: {data.LicenseType}; ");
             }

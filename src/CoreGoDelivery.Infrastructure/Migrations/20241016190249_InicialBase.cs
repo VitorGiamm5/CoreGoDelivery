@@ -30,17 +30,17 @@ namespace CoreGoDelivery.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "tb_modelMotocycle",
+                name: "tb_modelMotorcycle",
                 schema: "dbgodelivery",
                 columns: table => new
                 {
-                    ID_FK_MODEL_MOTOCYCLE = table.Column<string>(type: "text", nullable: false),
+                    ID_MODEL_MOTORCYCLE = table.Column<string>(type: "text", nullable: false),
                     NAME = table.Column<string>(type: "text", nullable: false),
                     NORMALIZED_NAME = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_tb_modelMotocycle", x => x.ID_FK_MODEL_MOTOCYCLE);
+                    table.PrimaryKey("PK_tb_modelMotorcycle", x => x.ID_MODEL_MOTORCYCLE);
                 });
 
             migrationBuilder.CreateTable(
@@ -51,7 +51,7 @@ namespace CoreGoDelivery.Infrastructure.Migrations
                     ID_MOTOCYCLE = table.Column<string>(type: "text", nullable: false),
                     YEAR_MANUFACTURE = table.Column<int>(type: "integer", nullable: false),
                     ID_PLATE_NORMALIZED = table.Column<string>(type: "text", nullable: false),
-                    ID_FK_NODEL_MOTOCYCLE = table.Column<string>(type: "text", nullable: false)
+                    ID_FK_MODEL_MOTOCYCLE = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -82,18 +82,18 @@ namespace CoreGoDelivery.Infrastructure.Migrations
                     FULL_NAME = table.Column<string>(type: "text", nullable: false),
                     CNPJ = table.Column<string>(type: "text", nullable: false),
                     DATE_BIRTH = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    ID_FK_LICENSE_NUMBER = table.Column<string>(type: "text", nullable: false)
+                    ID_FK_LICENSE_NUMBER = table.Column<string>(type: "text", nullable: false),
+                    LicenceDriverId = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_tb_deliverier", x => x.ID_DELIVERIER);
                     table.ForeignKey(
-                        name: "FK_tb_deliverier_tb_licenceDriver_ID_FK_LICENSE_NUMBER",
-                        column: x => x.ID_FK_LICENSE_NUMBER,
+                        name: "FK_tb_deliverier_tb_licenceDriver_LicenceDriverId",
+                        column: x => x.LicenceDriverId,
                         principalSchema: "dbgodelivery",
                         principalTable: "tb_licenceDriver",
-                        principalColumn: "ID_LICENSE_DRIVER",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "ID_LICENSE_DRIVER");
                 });
 
             migrationBuilder.CreateTable(
@@ -137,10 +137,10 @@ namespace CoreGoDelivery.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_tb_deliverier_ID_FK_LICENSE_NUMBER",
+                name: "IX_tb_deliverier_LicenceDriverId",
                 schema: "dbgodelivery",
                 table: "tb_deliverier",
-                column: "ID_FK_LICENSE_NUMBER");
+                column: "LicenceDriverId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_tb_rental_ID_FK_DELIVERIER",
@@ -165,7 +165,7 @@ namespace CoreGoDelivery.Infrastructure.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "tb_modelMotocycle",
+                name: "tb_modelMotorcycle",
                 schema: "dbgodelivery");
 
             migrationBuilder.DropTable(

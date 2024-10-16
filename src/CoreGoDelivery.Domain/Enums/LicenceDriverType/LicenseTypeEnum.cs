@@ -1,7 +1,7 @@
 ﻿namespace CoreGoDelivery.Domain.Enums.LicenceDriverType
 {
     [Flags]
-    public enum LicenceTypeEnum
+    public enum LicenseTypeEnum
     {
         None = 0,
         A = 1 << 0,

@@ -25,7 +25,7 @@ namespace CoreGoDelivery.Infrastructure.Repositories.GoDelivery
         public async Task<RentalEntity> FindByMotorcycleId(string id)
         {
             var result = await _context.Set<RentalEntity>()
-                .FirstOrDefaultAsync(x => x.MotocycleId == id);
+                .FirstOrDefaultAsync(x => x.MotorcycleId == id);
 
             return result;
         }

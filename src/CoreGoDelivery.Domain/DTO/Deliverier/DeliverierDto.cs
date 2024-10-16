@@ -1,7 +1,4 @@
-﻿using CoreGoDelivery.Domain.Enums.LicenceDriverType;
-using CoreGoDelivery.Domain.Validators.Attributes;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
 using System.Text.Json.Serialization;
 
 namespace CoreGoDelivery.Domain.DTO.Deliverier

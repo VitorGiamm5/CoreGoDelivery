@@ -220,7 +220,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Motocycle
             return result;
         }
 
-        private async Task SendNotification(MotocycleEntity motocycle)
+        private async Task SendNotification(MotorcycleEntity motocycle)
         {
             if (motocycle.YearManufacture == NOTIFICATION_YEAR_MANUFACTORY)
             {

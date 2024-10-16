@@ -23,7 +23,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Deliverier
                 {
                     Id = data.LicenseNumber,
                     Type = ParseLicenseType(data),
-                    FileNameImageNormalized = FileNameNormalize(data)
+                    ImageUrlReference = FileNameNormalize(data)
                 }
             };
         }
@@ -54,9 +54,9 @@ namespace CoreGoDelivery.Application.Services.Internal.Deliverier
                 : MESSAGE_INVALID_DATA;
         }
 
-        public static LicenceTypeEnum ParseLicenseType(DeliverierDto data)
+        public static LicenseTypeEnum ParseLicenseType(DeliverierDto data)
         {
-            Enum.TryParse(data.LicenseType, ignoreCase: true, out LicenceTypeEnum licenseType);
+            Enum.TryParse(data.LicenseType, ignoreCase: true, out LicenseTypeEnum licenseType);
 
             return licenseType;
         }

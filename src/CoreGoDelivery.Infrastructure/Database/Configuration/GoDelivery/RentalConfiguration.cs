@@ -17,7 +17,7 @@ namespace CoreGoDelivery.Infrastructure.Database.Configuration.GoDelivery
             builder.Property(t => t.EstimatedReturnDate).HasColumnName("DATE_ESTIMATED_RETURN");
             builder.Property(t => t.ReturnedToBaseDate).HasColumnName("DATE_RETURNED_TO_BASE");
             builder.Property(t => t.DeliverierId).HasColumnName("ID_FK_DELIVERIER");
-            builder.Property(t => t.MotocycleId).HasColumnName("ID_FK_MOTOCYCLE");
+            builder.Property(t => t.MotorcycleId).HasColumnName("ID_FK_MOTOCYCLE");
             builder.Property(t => t.RentalPlanId).HasColumnName("ID_FK_RENTAL_PLAN");
         }
     }

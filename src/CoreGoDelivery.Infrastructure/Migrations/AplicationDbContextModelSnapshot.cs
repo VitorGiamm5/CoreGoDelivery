@@ -43,6 +43,9 @@ namespace CoreGoDelivery.Infrastructure.Migrations
                         .HasColumnType("text")
                         .HasColumnName("FULL_NAME");
 
+                    b.Property<string>("LicenceDriverId")
+                        .HasColumnType("text");
+
                     b.Property<string>("LicenseNumberId")
                         .IsRequired()
                         .HasColumnType("text")
@@ -50,7 +53,7 @@ namespace CoreGoDelivery.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("LicenseNumberId");
+                    b.HasIndex("LicenceDriverId");
 
                     b.ToTable("tb_deliverier", "dbgodelivery");
                 });
@@ -61,7 +64,7 @@ namespace CoreGoDelivery.Infrastructure.Migrations
                         .HasColumnType("text")
                         .HasColumnName("ID_LICENSE_DRIVER");
 
-                    b.Property<string>("FileNameImageNormalized")
+                    b.Property<string>("ImageUrlReference")
                         .IsRequired()
                         .HasColumnType("text")
                         .HasColumnName("IMAGE_URL_REFERENCE");
@@ -75,11 +78,11 @@ namespace CoreGoDelivery.Infrastructure.Migrations
                     b.ToTable("tb_licenceDriver", "dbgodelivery");
                 });
 
-            modelBuilder.Entity("CoreGoDelivery.Domain.Entities.GoDelivery.ModelMotocycle.ModelMotocycleEntity", b =>
+            modelBuilder.Entity("CoreGoDelivery.Domain.Entities.GoDelivery.ModelMotocycle.ModelMotorcycleEntity", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("text")
-                        .HasColumnName("ID_MODEL_MOTOCYCLE");
+                        .HasColumnName("ID_MODEL_MOTORCYCLE");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -93,21 +96,21 @@ namespace CoreGoDelivery.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("tb_modelMotocycle", "dbgodelivery");
+                    b.ToTable("tb_modelMotorcycle", "dbgodelivery");
                 });
 
-            modelBuilder.Entity("CoreGoDelivery.Domain.Entities.GoDelivery.Motocycle.MotocycleEntity", b =>
+            modelBuilder.Entity("CoreGoDelivery.Domain.Entities.GoDelivery.Motocycle.MotorcycleEntity", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("text")
                         .HasColumnName("ID_MOTOCYCLE");
 
-                    b.Property<string>("ModelMotocycleId")
+                    b.Property<string>("ModelMotorcycleId")
                         .IsRequired()
                         .HasColumnType("text")
-                        .HasColumnName("ID_FK_NODEL_MOTOCYCLE");
+                        .HasColumnName("ID_FK_MODEL_MOTOCYCLE");
 
-                    b.Property<string>("PlateIdNormalized")
+                    b.Property<string>("PlateNormalized")
                         .IsRequired()
                         .HasColumnType("text")
                         .HasColumnName("ID_PLATE_NORMALIZED");
@@ -132,15 +135,15 @@ namespace CoreGoDelivery.Infrastructure.Migrations
                         .HasColumnType("text")
                         .HasColumnName("ID_FK_DELIVERIER");
 
-                    b.Property<DateTime?>("EndDate")
+                    b.Property<DateTime>("EndDate")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("DATE_END");
 
-                    b.Property<DateTime?>("EstimatedReturnDate")
+                    b.Property<DateTime>("EstimatedReturnDate")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("DATE_ESTIMATED_RETURN");
 
-                    b.Property<string>("MotocycleId")
+                    b.Property<string>("MotorcycleId")
                         .IsRequired()
                         .HasColumnType("text")
                         .HasColumnName("ID_FK_MOTOCYCLE");
@@ -153,7 +156,7 @@ namespace CoreGoDelivery.Infrastructure.Migrations
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("DATE_RETURNED_TO_BASE");
 
-                    b.Property<DateTime?>("StartDate")
+                    b.Property<DateTime>("StartDate")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("DATE_START");
 
@@ -161,7 +164,7 @@ namespace CoreGoDelivery.Infrastructure.Migrations
 
                     b.HasIndex("DeliverierId");
 
-                    b.HasIndex("MotocycleId");
+                    b.HasIndex("MotorcycleId");
 
                     b.HasIndex("RentalPlanId");
 
@@ -194,9 +197,7 @@ namespace CoreGoDelivery.Infrastructure.Migrations
                 {
                     b.HasOne("CoreGoDelivery.Domain.Entities.GoDelivery.LicenceDriver.LicenceDriverEntity", "LicenceDriver")
                         .WithMany()
-                        .HasForeignKey("LicenseNumberId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("LicenceDriverId");
 
                     b.Navigation("LicenceDriver");
                 });
@@ -209,9 +210,9 @@ namespace CoreGoDelivery.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("CoreGoDelivery.Domain.Entities.GoDelivery.Motocycle.MotocycleEntity", "Motocycle")
+                    b.HasOne("CoreGoDelivery.Domain.Entities.GoDelivery.Motocycle.MotorcycleEntity", "Motorcycle")
                         .WithMany()
-                        .HasForeignKey("MotocycleId")
+                        .HasForeignKey("MotorcycleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -223,7 +224,7 @@ namespace CoreGoDelivery.Infrastructure.Migrations
 
                     b.Navigation("Deliverier");
 
-                    b.Navigation("Motocycle");
+                    b.Navigation("Motorcycle");
 
                     b.Navigation("RentalPlan");
                 });

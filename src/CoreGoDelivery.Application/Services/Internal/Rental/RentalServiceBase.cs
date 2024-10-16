@@ -20,7 +20,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Rental
                 EstimatedReturnDate = RentalDates.EstimatedReturnDate,
                 ReturnedToBaseDate = null,
                 DeliverierId = data.DeliverierId,
-                MotocycleId = data.MotorcycleId,
+                MotorcycleId = data.MotorcycleId,
                 RentalPlanId = data.PlanId
             };
 

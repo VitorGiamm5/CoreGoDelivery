@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CoreGoDelivery.Infrastructure.Repositories.GoDelivery
 {
-    public class LicenceDriverRepository :BaseRepository<LicenceDriverEntity>, ILicenceDriverRepository
+    public class LicenceDriverRepository : BaseRepository<LicenceDriverEntity>, ILicenceDriverRepository
     {
         public LicenceDriverRepository(AplicationDbContext context) : base(context)
         {

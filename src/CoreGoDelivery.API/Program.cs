@@ -22,7 +22,7 @@ builder.Services.AddControllers().AddJsonOptions(options =>
     options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
     options.JsonSerializerOptions.WriteIndented = true;
     options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
-    options.JsonSerializerOptions.DefaultBufferSize= 4096;
+    options.JsonSerializerOptions.DefaultBufferSize = 4096;
 
     options.JsonSerializerOptions.Converters.Add(new TrimStringJsonConverter());
     options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
