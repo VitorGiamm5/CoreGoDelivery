@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Text.Json.Serialization;
 
-namespace CoreGoDelivery.Domain.DTO.Motocycle
+namespace CoreGoDelivery.Domain.DTO.Motorcycle
 {
     public class PlateIdDto
     {

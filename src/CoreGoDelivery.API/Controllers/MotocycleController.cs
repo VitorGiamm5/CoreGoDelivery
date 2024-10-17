@@ -1,5 +1,5 @@
 ﻿using CoreGoDelivery.Application.Services.Internal.Interface;
-using CoreGoDelivery.Domain.DTO.Motocycle;
+using CoreGoDelivery.Domain.DTO.Motorcycle;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CoreGoDelivery.Api.Controllers
@@ -32,7 +32,7 @@ namespace CoreGoDelivery.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] MotocycleDto request)
+        public async Task<IActionResult> Post([FromBody] MotorcycleDto request)
         {
             var result = await _motocycleService.Create(request);
 

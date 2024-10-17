@@ -1,5 +1,6 @@
 ﻿using CoreGoDelivery.Application.Services.Internal.Deliverier;
 using CoreGoDelivery.Domain.DTO.Deliverier;
+using CoreGoDelivery.Domain.Enums.LicenceDriverType;
 using Xunit;
 using Assert = Xunit.Assert;
 
@@ -8,49 +9,33 @@ namespace CoreGoDelivery.ApplicationTests.Services.Internal.Deliverier
     public class DeliverierServiceBaseTests
     {
         [Theory]
-        [InlineData("12.345.678/0001-95", "12345678000195")]
-        [InlineData("12 345 678/0001 95", "12345678000195")]
-        [InlineData("12345678/0001-95", "12345678000195")]
-        [InlineData("12.345.678.0001-95", "12345678000195")]
-        [InlineData("12 345 678 0001 95", "12345678000195")]
-        public void CnpjNormalize_ShouldRemoveSpecialCharacters(string input, string expected)
+        [InlineData("1234567890", "CNH_1234567890.png")]
+        [InlineData("0987654321", "CNH_0987654321.png")]
+        [InlineData("", "CNH_.png")]
+        [InlineData("ABC123", "CNH_ABC123.png")]
+        public void FileNameNormalize_ShouldFormatFileNameCorrectly(string licenseNumber, string expected)
         {
-            var data = new DeliverierDto { CNPJ = input };
+            var data = new DeliverierDto { LicenseNumber = licenseNumber };
 
-            var result = DeliverierServiceBase.CnpjNormalize(data);
+            var result = DeliverierServiceBase.FileNameNormalize(data);
 
             Assert.Equal(expected, result);
         }
-        /*
-        [TestMethod()]
-        public void CnpjNormalizeTest()
-        {
-            Assert.Fail();
-        }
 
-        [TestMethod()]
-        public void FileNameNormalizeTest()
+        [Theory]
+        [InlineData("A", LicenseTypeEnum.A)]
+        [InlineData("AB", LicenseTypeEnum.AB)]
+        [InlineData("None", LicenseTypeEnum.None)]
+        [InlineData("a", LicenseTypeEnum.A)]
+        [InlineData("ab", LicenseTypeEnum.AB)]
+        [InlineData("", LicenseTypeEnum.None)]
+        public void ParseLicenseType_ShouldReturnCorrectEnumValue(string input, LicenseTypeEnum expected)
         {
-            Assert.Fail();
-        }
+            var data = new DeliverierDto { LicenseType = input };
 
-        [TestMethod()]
-        public void FinalMessageBuildTest()
-        {
-            Assert.Fail();
-        }
+            var result = DeliverierServiceBase.ParseLicenseType(data);
 
-        [TestMethod()]
-        public void ParseLicenseTypeTest()
-        {
-            Assert.Fail();
+            Assert.Equal(expected, result);
         }
-
-        [TestMethod()]
-        public void SelectIdTest()
-        {
-            Assert.Fail();
-        }
-        */
     }
 }

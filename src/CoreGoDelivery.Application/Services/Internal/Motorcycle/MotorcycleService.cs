@@ -1,13 +1,13 @@
 ﻿using CoreGoDelivery.Application.Services.Internal.Interface;
-using CoreGoDelivery.Domain.DTO.Motocycle;
+using CoreGoDelivery.Domain.DTO.Motorcycle;
 using CoreGoDelivery.Domain.DTO.Response;
 using CoreGoDelivery.Domain.Entities.GoDelivery.Motorcycle;
 using CoreGoDelivery.Domain.Repositories.GoDelivery;
 using System.Text;
 
-namespace CoreGoDelivery.Application.Services.Internal.Motocycle
+namespace CoreGoDelivery.Application.Services.Internal.Motorcycle
 {
-    public class MotocycleService : MotocycleServiceBase, IMotocycleService
+    public class MotorcycleService : MotorcycleServiceBase, IMotocycleService
     {
         private readonly IMotocycleRepository _repositoryMotorcycle;
         private readonly IModelMotocycleRepository _repositoryModelMotorcycle;
@@ -15,7 +15,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Motocycle
 
         public const int NOTIFICATION_YEAR_MANUFACTORY = 2024;
 
-        public MotocycleService(
+        public MotorcycleService(
             IMotocycleRepository repositoryMotorcycle,
             IModelMotocycleRepository repositoryModelMotorcycle,
             IRentalRepository rentalRepository)
@@ -94,7 +94,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Motocycle
             return message.ToString();
         }
 
-        public async Task<ApiResponse> Create(MotocycleDto data)
+        public async Task<ApiResponse> Create(MotorcycleDto data)
         {
             var apiReponse = new ApiResponse()
             {
@@ -169,34 +169,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Motocycle
 
         #endregion
 
-        #region Private
-
-        public static List<MotocycleDto> EntityListToDto(List<MotorcycleEntity>? result)
-        {
-            List<MotocycleDto> motocycleDtos = [];
-
-            if (result != null)
-            {
-                motocycleDtos = result
-                    .Select(motorcycle => EntityToDto(motorcycle))
-                    .ToList();
-            }
-
-            return motocycleDtos;
-        }
-
-        public static MotocycleDto EntityToDto(MotorcycleEntity motorcycle)
-        {
-            var restult = new MotocycleDto
-            {
-                Id = motorcycle.Id,
-                YearManufacture = motorcycle.YearManufacture,
-                ModelName = motorcycle.ModelMotorcycle.Name,
-                PlateId = motorcycle.PlateNormalized
-            };
-
-            return restult;
-        }
+        #region Internal
 
         public async Task<string?> ValidateDelete(string? id)
         {
@@ -224,7 +197,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Motocycle
             return message.ToString();
         }
 
-        public async Task<string?> ValidatorCreateAsync(MotocycleDto data)
+        public async Task<string?> ValidatorCreateAsync(MotorcycleDto data)
         {
             var message = new StringBuilder();
 

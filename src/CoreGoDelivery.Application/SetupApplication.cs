@@ -1,6 +1,6 @@
 ﻿using CoreGoDelivery.Application.Services.Internal.Deliverier;
 using CoreGoDelivery.Application.Services.Internal.Interface;
-using CoreGoDelivery.Application.Services.Internal.Motocycle;
+using CoreGoDelivery.Application.Services.Internal.Motorcycle;
 using CoreGoDelivery.Application.Services.Internal.Rental;
 using CoreGoDelivery.Infrastructure;
 using Microsoft.Extensions.Configuration;
@@ -27,7 +27,7 @@ namespace CoreGoDelivery.Application
                 .AddScoped<IDeliverierService, DeliverierService>();
 
             services
-                .AddScoped<IMotocycleService, MotocycleService>();
+                .AddScoped<IMotocycleService, MotorcycleService>();
 
             services
                 .AddScoped<IRentalService, RentalService>();

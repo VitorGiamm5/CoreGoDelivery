@@ -3,16 +3,36 @@
   "WorkspaceRootPath": "C:\\Projetos\\CoreGoDelivery\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{1C9FE095-BC02-4099-A24A-38CE006EDB1D}|src\\CoreGoDelivery.ApplicationTests\\CoreGoDelivery.ApplicationTests.csproj|c:\\projetos\\coregodelivery\\src\\coregodelivery.applicationtests\\coregodelivery.applicationtests.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
-      "RelativeMoniker": "D:0:0:{1C9FE095-BC02-4099-A24A-38CE006EDB1D}|src\\CoreGoDelivery.ApplicationTests\\CoreGoDelivery.ApplicationTests.csproj|solutionrelative:src\\coregodelivery.applicationtests\\coregodelivery.applicationtests.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+      "AbsoluteMoniker": "D:0:0:{1C9FE095-BC02-4099-A24A-38CE006EDB1D}|src\\CoreGoDelivery.ApplicationTests\\CoreGoDelivery.ApplicationTests.csproj|c:\\projetos\\coregodelivery\\src\\coregodelivery.applicationtests\\services\\internal\\motorcycle\\motorcycleservicebasetests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1C9FE095-BC02-4099-A24A-38CE006EDB1D}|src\\CoreGoDelivery.ApplicationTests\\CoreGoDelivery.ApplicationTests.csproj|solutionrelative:src\\coregodelivery.applicationtests\\services\\internal\\motorcycle\\motorcycleservicebasetests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{1C9FE095-BC02-4099-A24A-38CE006EDB1D}|src\\CoreGoDelivery.ApplicationTests\\CoreGoDelivery.ApplicationTests.csproj|c:\\projetos\\coregodelivery\\src\\coregodelivery.applicationtests\\services\\internal\\deliverier\\deliverierservicebasetests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1C9FE095-BC02-4099-A24A-38CE006EDB1D}|src\\CoreGoDelivery.ApplicationTests\\CoreGoDelivery.ApplicationTests.csproj|solutionrelative:src\\coregodelivery.applicationtests\\services\\internal\\deliverier\\deliverierservicebasetests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{C3CBF9A3-8269-49FC-92F2-FE97DDA6838A}|src\\CoreGoDelivery.Application\\CoreGoDelivery.Application.csproj|c:\\projetos\\coregodelivery\\src\\coregodelivery.application\\services\\internal\\motorcycle\\motorcycleservicebase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C3CBF9A3-8269-49FC-92F2-FE97DDA6838A}|src\\CoreGoDelivery.Application\\CoreGoDelivery.Application.csproj|solutionrelative:src\\coregodelivery.application\\services\\internal\\motorcycle\\motorcycleservicebase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C9FE095-BC02-4099-A24A-38CE006EDB1D}|src\\CoreGoDelivery.ApplicationTests\\CoreGoDelivery.ApplicationTests.csproj|c:\\projetos\\coregodelivery\\src\\coregodelivery.applicationtests\\services\\internal\\baseinternalservicestests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1C9FE095-BC02-4099-A24A-38CE006EDB1D}|src\\CoreGoDelivery.ApplicationTests\\CoreGoDelivery.ApplicationTests.csproj|solutionrelative:src\\coregodelivery.applicationtests\\services\\internal\\baseinternalservicestests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C3CBF9A3-8269-49FC-92F2-FE97DDA6838A}|src\\CoreGoDelivery.Application\\CoreGoDelivery.Application.csproj|c:\\projetos\\coregodelivery\\src\\coregodelivery.application\\services\\internal\\motorcycle\\motorcycleservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C3CBF9A3-8269-49FC-92F2-FE97DDA6838A}|src\\CoreGoDelivery.Application\\CoreGoDelivery.Application.csproj|solutionrelative:src\\coregodelivery.application\\services\\internal\\motorcycle\\motorcycleservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0AA16454-C745-48F0-9B8A-64860B9391D8}|src\\CoreGoDelivery.Domain\\CoreGoDelivery.Domain.csproj|c:\\projetos\\coregodelivery\\src\\coregodelivery.domain\\dto\\motorcycle\\motorcycledto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0AA16454-C745-48F0-9B8A-64860B9391D8}|src\\CoreGoDelivery.Domain\\CoreGoDelivery.Domain.csproj|solutionrelative:src\\coregodelivery.domain\\dto\\motorcycle\\motorcycledto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{C3CBF9A3-8269-49FC-92F2-FE97DDA6838A}|src\\CoreGoDelivery.Application\\CoreGoDelivery.Application.csproj|c:\\projetos\\coregodelivery\\src\\coregodelivery.application\\services\\internal\\deliverier\\deliverierservicebase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{C3CBF9A3-8269-49FC-92F2-FE97DDA6838A}|src\\CoreGoDelivery.Application\\CoreGoDelivery.Application.csproj|solutionrelative:src\\coregodelivery.application\\services\\internal\\deliverier\\deliverierservicebase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C3CBF9A3-8269-49FC-92F2-FE97DDA6838A}|src\\CoreGoDelivery.Application\\CoreGoDelivery.Application.csproj|c:\\projetos\\coregodelivery\\src\\coregodelivery.application\\services\\internal\\baseinternalservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C3CBF9A3-8269-49FC-92F2-FE97DDA6838A}|src\\CoreGoDelivery.Application\\CoreGoDelivery.Application.csproj|solutionrelative:src\\coregodelivery.application\\services\\internal\\baseinternalservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1C9FE095-BC02-4099-A24A-38CE006EDB1D}|src\\CoreGoDelivery.ApplicationTests\\CoreGoDelivery.ApplicationTests.csproj|c:\\projetos\\coregodelivery\\src\\coregodelivery.applicationtests\\services\\internal\\deliverier\\deliverierservicebasetests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1C9FE095-BC02-4099-A24A-38CE006EDB1D}|src\\CoreGoDelivery.ApplicationTests\\CoreGoDelivery.ApplicationTests.csproj|solutionrelative:src\\coregodelivery.applicationtests\\services\\internal\\deliverier\\deliverierservicebasetests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -21,52 +41,117 @@
       "VerticalTabListWidth": 256,
       "DocumentGroups": [
         {
-          "DockedWidth": 401,
-          "SelectedChildIndex": 0,
-          "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "DeliverierServiceBase.cs",
-              "DocumentMoniker": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.Application\\Services\\Internal\\Deliverier\\DeliverierServiceBase.cs",
-              "RelativeDocumentMoniker": "src\\CoreGoDelivery.Application\\Services\\Internal\\Deliverier\\DeliverierServiceBase.cs",
-              "ToolTip": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.Application\\Services\\Internal\\Deliverier\\DeliverierServiceBase.cs",
-              "RelativeToolTip": "src\\CoreGoDelivery.Application\\Services\\Internal\\Deliverier\\DeliverierServiceBase.cs",
-              "ViewState": "AgIAAAoAAAAAAAAAAAASwBEAAAAnAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-17T18:58:40.395Z",
-              "EditorCaption": ""
-            }
-          ]
-        },
-        {
-          "DockedWidth": 401,
+          "DockedWidth": 481,
           "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "CoreGoDelivery.ApplicationTests.csproj",
-              "DocumentMoniker": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.ApplicationTests\\CoreGoDelivery.ApplicationTests.csproj",
-              "RelativeDocumentMoniker": "src\\CoreGoDelivery.ApplicationTests\\CoreGoDelivery.ApplicationTests.csproj",
-              "ToolTip": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.ApplicationTests\\CoreGoDelivery.ApplicationTests.csproj",
-              "RelativeToolTip": "src\\CoreGoDelivery.ApplicationTests\\CoreGoDelivery.ApplicationTests.csproj",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAABIAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2024-10-17T20:09:56.641Z",
+              "Title": "MotorcycleServiceBaseTests.cs",
+              "DocumentMoniker": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.ApplicationTests\\Services\\Internal\\Motorcycle\\MotorcycleServiceBaseTests.cs",
+              "RelativeDocumentMoniker": "src\\CoreGoDelivery.ApplicationTests\\Services\\Internal\\Motorcycle\\MotorcycleServiceBaseTests.cs",
+              "ToolTip": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.ApplicationTests\\Services\\Internal\\Motorcycle\\MotorcycleServiceBaseTests.cs",
+              "RelativeToolTip": "src\\CoreGoDelivery.ApplicationTests\\Services\\Internal\\Motorcycle\\MotorcycleServiceBaseTests.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAAsAAABfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-17T21:58:17.723Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 6,
+              "Title": "BaseInternalServices.cs",
+              "DocumentMoniker": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.Application\\Services\\Internal\\BaseInternalServices.cs",
+              "RelativeDocumentMoniker": "src\\CoreGoDelivery.Application\\Services\\Internal\\BaseInternalServices.cs",
+              "ToolTip": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.Application\\Services\\Internal\\BaseInternalServices.cs",
+              "RelativeToolTip": "src\\CoreGoDelivery.Application\\Services\\Internal\\BaseInternalServices.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAqwA8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-17T22:08:47.187Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
               "Title": "DeliverierServiceBaseTests.cs",
               "DocumentMoniker": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.ApplicationTests\\Services\\Internal\\Deliverier\\DeliverierServiceBaseTests.cs",
               "RelativeDocumentMoniker": "src\\CoreGoDelivery.ApplicationTests\\Services\\Internal\\Deliverier\\DeliverierServiceBaseTests.cs",
               "ToolTip": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.ApplicationTests\\Services\\Internal\\Deliverier\\DeliverierServiceBaseTests.cs",
               "RelativeToolTip": "src\\CoreGoDelivery.ApplicationTests\\Services\\Internal\\Deliverier\\DeliverierServiceBaseTests.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAA8AAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-17T19:03:33.732Z",
+              "WhenOpened": "2024-10-17T21:58:23.996Z",
+              "EditorCaption": ""
+            }
+          ]
+        },
+        {
+          "DockedWidth": 321,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "BaseInternalServicesTests.cs",
+              "DocumentMoniker": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.ApplicationTests\\Services\\Internal\\BaseInternalServicesTests.cs",
+              "RelativeDocumentMoniker": "src\\CoreGoDelivery.ApplicationTests\\Services\\Internal\\BaseInternalServicesTests.cs",
+              "ToolTip": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.ApplicationTests\\Services\\Internal\\BaseInternalServicesTests.cs",
+              "RelativeToolTip": "src\\CoreGoDelivery.ApplicationTests\\Services\\Internal\\BaseInternalServicesTests.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAA8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-17T22:19:35.783Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "MotorcycleServiceBase.cs",
+              "DocumentMoniker": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.Application\\Services\\Internal\\Motorcycle\\MotorcycleServiceBase.cs",
+              "RelativeDocumentMoniker": "src\\CoreGoDelivery.Application\\Services\\Internal\\Motorcycle\\MotorcycleServiceBase.cs",
+              "ToolTip": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.Application\\Services\\Internal\\Motorcycle\\MotorcycleServiceBase.cs",
+              "RelativeToolTip": "src\\CoreGoDelivery.Application\\Services\\Internal\\Motorcycle\\MotorcycleServiceBase.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAqwAgAAAAnAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-17T22:36:36.433Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "DeliverierServiceBase.cs",
+              "DocumentMoniker": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.Application\\Services\\Internal\\Deliverier\\DeliverierServiceBase.cs",
+              "RelativeDocumentMoniker": "src\\CoreGoDelivery.Application\\Services\\Internal\\Deliverier\\DeliverierServiceBase.cs",
+              "ToolTip": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.Application\\Services\\Internal\\Deliverier\\DeliverierServiceBase.cs",
+              "RelativeToolTip": "src\\CoreGoDelivery.Application\\Services\\Internal\\Deliverier\\DeliverierServiceBase.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAAOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-17T22:22:28.397Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "MotorcycleService.cs",
+              "DocumentMoniker": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.Application\\Services\\Internal\\Motorcycle\\MotorcycleService.cs",
+              "RelativeDocumentMoniker": "src\\CoreGoDelivery.Application\\Services\\Internal\\Motorcycle\\MotorcycleService.cs",
+              "ToolTip": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.Application\\Services\\Internal\\Motorcycle\\MotorcycleService.cs",
+              "RelativeToolTip": "src\\CoreGoDelivery.Application\\Services\\Internal\\Motorcycle\\MotorcycleService.cs",
+              "ViewState": "AgIAABMAAAAAAAAAAAAgwBoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-17T22:45:51.225Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "MotorcycleDto.cs",
+              "DocumentMoniker": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.Domain\\DTO\\Motorcycle\\MotorcycleDto.cs",
+              "RelativeDocumentMoniker": "src\\CoreGoDelivery.Domain\\DTO\\Motorcycle\\MotorcycleDto.cs",
+              "ToolTip": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.Domain\\DTO\\Motorcycle\\MotorcycleDto.cs",
+              "RelativeToolTip": "src\\CoreGoDelivery.Domain\\DTO\\Motorcycle\\MotorcycleDto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAqwBYAAAAjAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-17T22:37:28.422Z",
               "EditorCaption": ""
             }
           ]

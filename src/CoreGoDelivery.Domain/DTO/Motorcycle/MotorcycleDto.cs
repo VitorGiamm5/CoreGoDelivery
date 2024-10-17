@@ -2,9 +2,9 @@
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
-namespace CoreGoDelivery.Domain.DTO.Motocycle
+namespace CoreGoDelivery.Domain.DTO.Motorcycle
 {
-    public sealed class MotocycleDto
+    public sealed class MotorcycleDto
     {
         [Key]
         [DefaultValue("moto123")]
