@@ -10,8 +10,6 @@ namespace CoreGoDelivery.Application
 {
     public static class SetupApplication
     {
-        private static IConfigurationRoot _config;
-
         public static IServiceCollection AddApplication(this IServiceCollection services, IConfiguration configuration)
         {
             services

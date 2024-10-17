@@ -53,6 +53,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Motocycle
         {
             var message = new StringBuilder();
 
+            #region Id validator
             if (id == ":id" || string.IsNullOrEmpty(id))
             {
                 message.Append($"Empty: {nameof(id)}; ");
@@ -65,19 +66,30 @@ namespace CoreGoDelivery.Application.Services.Internal.Motocycle
                     message.Append($"Invalid: {nameof(id)} : {id} not exists; ");
                 }
             }
+            #endregion
 
+            #region Plate validator
             if (string.IsNullOrEmpty(plate))
             {
                 message.Append($"Empty: {nameof(plate)}; ");
             }
             else
             {
-                var plateIsUnic = await _repositoryMotorcycle.CheckIsUnicByPlateAsync(plate);
-                if (!plateIsUnic)
+                var isValidPlate = ValidatePlate(plate!);
+                if (!isValidPlate)
                 {
-                    message.Append($"Invalid: {nameof(plate)}: {plate} must be unic; ");
+                    message.Append($"Invalid: {nameof(plate)}: {plate} format; ");
+                }
+                else
+                {
+                    var plateIsUnic = await _repositoryMotorcycle.CheckIsUnicByPlateAsync(plate);
+                    if (!plateIsUnic)
+                    {
+                        message.Append($"Invalid: {nameof(plate)}: {plate} must be unic; ");
+                    }
                 }
             }
+            #endregion
 
             return message.ToString();
         }
@@ -99,7 +111,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Motocycle
 
             var resultCreate = await _repositoryMotorcycle.Create(motocycle);
 
-            apiReponse.Message = FinalMessageBuild(resultCreate, apiReponse);
+            apiReponse!.Message = FinalMessageBuild(resultCreate, apiReponse);
 
             await SendNotification(motocycle);
 
@@ -152,8 +164,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Motocycle
 
             var result = await _repositoryMotorcycle.DeleteById(id);
 
-
-            return apiReponse;
+            return apiReponse!;
         }
 
         #endregion

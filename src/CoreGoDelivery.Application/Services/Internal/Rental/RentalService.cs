@@ -71,9 +71,21 @@ namespace CoreGoDelivery.Application.Services.Internal.Rental
                 }
             }
 
+            var rentalDto = new
+            {
+                identificador = rental!.Id,
+                valor_diaria = rental.RentalPlan!.DayliCost,
+                entregador_id = rental.DeliverierId,
+                moto_id = rental.MotorcycleId,
+                data_inicio = rental.StartDate,
+                data_termino = rental.EndDate,
+                data_previsao_termino = rental.EstimatedReturnDate,
+                data_devolucao = rental.ReturnedToBaseDate,
+            };
+
             var apiReponse = new ApiResponse()
             {
-                Data = rental,
+                Data = rentalDto,
                 Message = message != null ? message.ToString() : null
             };
 
@@ -107,11 +119,12 @@ namespace CoreGoDelivery.Application.Services.Internal.Rental
                 return apiReponse;
             }
 
-            apiReponse.Data = new { message = result };
+            apiReponse.Data = new { messagem = result };
 
             return apiReponse;
         }
 
+        #region Internal
         public async Task<string> ValidatorUpdateAsync(string id, ReturnedToBaseDateDto? data)
         {
             var message = new StringBuilder();
@@ -165,8 +178,6 @@ namespace CoreGoDelivery.Application.Services.Internal.Rental
 
             return motocycleIsAvaliable == null;
         }
-
-        #region Internal
 
         public async Task<string?> ValidatorCreateAsync(RentalDto data)
         {
@@ -223,7 +234,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Rental
             }
             else
             {
-                var existDeliverierId = !await _repositoryDeliverier.CheckIsUnicById(data.DeliverierId);
+                var existDeliverierId = await _repositoryDeliverier.CheckIsUnicById(data.DeliverierId);
                 if (!existDeliverierId)
                 {
                     message.Append($"Invalid: {nameof(data.DeliverierId)}: {data.DeliverierId} not exist; ");
