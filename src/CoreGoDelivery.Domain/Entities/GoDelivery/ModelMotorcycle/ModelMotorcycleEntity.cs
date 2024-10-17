@@ -1,4 +1,4 @@
-﻿namespace CoreGoDelivery.Domain.Entities.GoDelivery.ModelMotocycle
+﻿namespace CoreGoDelivery.Domain.Entities.GoDelivery.ModelMotorcycle
 {
     public sealed class ModelMotorcycleEntity
     {

@@ -1,5 +1,5 @@
 ﻿using CoreGoDelivery.Domain.Entities.GoDelivery.Deliverier;
-using CoreGoDelivery.Domain.Entities.GoDelivery.Motocycle;
+using CoreGoDelivery.Domain.Entities.GoDelivery.Motorcycle;
 using CoreGoDelivery.Domain.Entities.GoDelivery.RentalPlan;
 
 namespace CoreGoDelivery.Domain.Entities.GoDelivery.Rental

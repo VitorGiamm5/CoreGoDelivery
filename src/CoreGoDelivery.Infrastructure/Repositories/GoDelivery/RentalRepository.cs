@@ -30,7 +30,7 @@ namespace CoreGoDelivery.Infrastructure.Repositories.GoDelivery
             {
                 var result = await _context.Set<RentalEntity>()
                     .FirstOrDefaultAsync(x => x.MotorcycleId == id && x.ReturnedToBaseDate == null);
-                
+
                 return Ok(result);
             }
 

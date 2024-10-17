@@ -1,6 +1,6 @@
-﻿using CoreGoDelivery.Domain.Entities.GoDelivery.ModelMotocycle;
+﻿using CoreGoDelivery.Domain.Entities.GoDelivery.ModelMotorcycle;
 
-namespace CoreGoDelivery.Domain.Entities.GoDelivery.Motocycle
+namespace CoreGoDelivery.Domain.Entities.GoDelivery.Motorcycle
 {
     public class MotorcycleEntity
     {

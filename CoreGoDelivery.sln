@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoreGoDelivery.Infrastructu
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoreGoDelivery.Application", "src\CoreGoDelivery.Application\CoreGoDelivery.Application.csproj", "{C3CBF9A3-8269-49FC-92F2-FE97DDA6838A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreGoDelivery.xUnitTest", "src\CoreGoDelivery.xUnitTest\CoreGoDelivery.xUnitTest.csproj", "{4A2F5627-9FDC-4223-9756-EAF16BACD9AB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoreGoDelivery.xUnitTest", "src\CoreGoDelivery.xUnitTest\CoreGoDelivery.xUnitTest.csproj", "{4A2F5627-9FDC-4223-9756-EAF16BACD9AB}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{9CD24020-DF0B-4081-855D-413E41390739}"
 	ProjectSection(SolutionItems) = preProject
@@ -22,6 +22,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "logs", "logs", "{028AD4B8-5
 	ProjectSection(SolutionItems) = preProject
 		logs\logs20241013.txt = logs\logs20241013.txt
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreGoDelivery.ApplicationTests", "src\CoreGoDelivery.ApplicationTests\CoreGoDelivery.ApplicationTests.csproj", "{1C9FE095-BC02-4099-A24A-38CE006EDB1D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "unitTests", "unitTests", "{60E82573-FDE6-4298-9BBB-C9228FC6E85C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -49,12 +53,18 @@ Global
 		{0AA16454-C745-48F0-9B8A-64860B9391D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0AA16454-C745-48F0-9B8A-64860B9391D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0AA16454-C745-48F0-9B8A-64860B9391D8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1C9FE095-BC02-4099-A24A-38CE006EDB1D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1C9FE095-BC02-4099-A24A-38CE006EDB1D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1C9FE095-BC02-4099-A24A-38CE006EDB1D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1C9FE095-BC02-4099-A24A-38CE006EDB1D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{4A2F5627-9FDC-4223-9756-EAF16BACD9AB} = {60E82573-FDE6-4298-9BBB-C9228FC6E85C}
 		{028AD4B8-5A3C-499B-9756-90A2C94D83E4} = {9CD24020-DF0B-4081-855D-413E41390739}
+		{1C9FE095-BC02-4099-A24A-38CE006EDB1D} = {60E82573-FDE6-4298-9BBB-C9228FC6E85C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C2EA87DE-3BFE-4E0B-ABD0-0744F49E3E88}

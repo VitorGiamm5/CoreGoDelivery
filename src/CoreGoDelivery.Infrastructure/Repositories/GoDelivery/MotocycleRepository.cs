@@ -1,5 +1,4 @@
-﻿using CoreGoDelivery.Domain.Entities.GoDelivery.Motocycle;
-using CoreGoDelivery.Domain.Entities.GoDelivery.Rental;
+﻿using CoreGoDelivery.Domain.Entities.GoDelivery.Motorcycle;
 using CoreGoDelivery.Domain.Repositories.GoDelivery;
 using CoreGoDelivery.Infrastructure.Database;
 using Microsoft.EntityFrameworkCore;
@@ -72,7 +71,7 @@ namespace CoreGoDelivery.Infrastructure.Repositories.GoDelivery
 
         public async Task<bool> DeleteById(string? id)
         {
-            if(id == null)
+            if (id == null)
             {
                 return false;
             }

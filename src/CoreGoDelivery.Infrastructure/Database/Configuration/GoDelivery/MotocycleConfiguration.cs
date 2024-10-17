@@ -1,4 +1,4 @@
-﻿using CoreGoDelivery.Domain.Entities.GoDelivery.Motocycle;
+﻿using CoreGoDelivery.Domain.Entities.GoDelivery.Motorcycle;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

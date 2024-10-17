@@ -1,7 +1,7 @@
 ﻿using CoreGoDelivery.Application.Services.Internal.Interface;
 using CoreGoDelivery.Domain.DTO.Motocycle;
 using CoreGoDelivery.Domain.DTO.Response;
-using CoreGoDelivery.Domain.Entities.GoDelivery.Motocycle;
+using CoreGoDelivery.Domain.Entities.GoDelivery.Motorcycle;
 using CoreGoDelivery.Domain.Repositories.GoDelivery;
 using System.Text;
 

@@ -1,4 +1,4 @@
-﻿using CoreGoDelivery.Domain.Entities.GoDelivery.ModelMotocycle;
+﻿using CoreGoDelivery.Domain.Entities.GoDelivery.ModelMotorcycle;
 using CoreGoDelivery.Domain.Repositories.GoDelivery;
 using CoreGoDelivery.Infrastructure.Database;
 using Microsoft.EntityFrameworkCore;
