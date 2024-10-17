@@ -9,7 +9,7 @@ namespace CoreGoDelivery.Domain.Repositories.GoDelivery
         Task<bool> CheckIsUnicById(string id);
         Task<bool> CheckIsUnicByPlateAsync(string id);
         Task<bool> Create(MotorcycleEntity data);
-        Task<bool> DeleteById(string id);
+        Task<bool> DeleteById(string? id);
         Task<bool> ChangePlateByIdAsync(string? id, string? plate);
     }
 }

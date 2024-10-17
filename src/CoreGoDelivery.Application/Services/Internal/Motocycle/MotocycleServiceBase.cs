@@ -7,7 +7,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Motocycle
 {
     public class MotocycleServiceBase
     {
-        private const string MESSAGE_INVALID_DATA = "Dados inválidos";
+        public const string MESSAGE_INVALID_DATA = "Dados inválidos";
 
         public static MotorcycleEntity CreateToEntity(MotocycleDto data)
         {

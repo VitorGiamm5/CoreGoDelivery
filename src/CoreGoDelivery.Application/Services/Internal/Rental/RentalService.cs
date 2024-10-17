@@ -3,17 +3,16 @@ using CoreGoDelivery.Domain.DTO.Rental;
 using CoreGoDelivery.Domain.DTO.Response;
 using CoreGoDelivery.Domain.Entities.GoDelivery.Rental;
 using CoreGoDelivery.Domain.Repositories.GoDelivery;
-using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
 namespace CoreGoDelivery.Application.Services.Internal.Rental
 {
     public class RentalService : RentalServiceBase, IRentalService
     {
-        private readonly IRentalRepository _repositoryRental;
-        private readonly IRentalPlanRepository _repositoryPlan;
-        private readonly IMotocycleRepository _repositoryMotocyle;
-        private readonly IDeliverierRepository _repositoryDeliverier;
+        public readonly IRentalRepository _repositoryRental;
+        public readonly IRentalPlanRepository _repositoryPlan;
+        public readonly IMotocycleRepository _repositoryMotocyle;
+        public readonly IDeliverierRepository _repositoryDeliverier;
 
         public RentalService(
             IRentalRepository repositoryRental,
@@ -83,24 +82,81 @@ namespace CoreGoDelivery.Application.Services.Internal.Rental
 
         public async Task<ApiResponse> UpdateReturnedToBaseDate(string id, ReturnedToBaseDateDto data)
         {
-            DateTime dateTime = data.ReturnedToBaseDate ?? (DateTime)data.ReturnedToBaseDate;
-
-            var success = await _repositoryRental.UpdateReturnedToBaseDate(id, dateTime);
-
-            var results = new ResponseMessageDto()
-            {
-                Message = success
-                    ? "Data de devolução informada com sucesso"
-                    : "Dados inválidos"
-            };
-
             var apiReponse = new ApiResponse()
             {
-                Data = results,
-                Message = null
+                Data = null,
+                Message = await ValidatorUpdateAsync(id, data)
             };
 
+            if (!string.IsNullOrEmpty(apiReponse.Message))
+            {
+                return apiReponse;
+            }
+
+            var rental = await _repositoryRental.GetByIdAsync(id);
+
+            var returnedDate = data!.ReturnedToBaseDate!.Value;
+
+            string result = CalculatePenalty(returnedDate, rental);
+
+            var successUpdate = await _repositoryRental.UpdateReturnedToBaseDate(id, returnedDate);
+
+            if (!successUpdate)
+            {
+                apiReponse.Message = $"Error: fail to update {nameof(data.ReturnedToBaseDate)}; ";
+                return apiReponse;
+            }
+
+            apiReponse.Data = new { message = result };
+
             return apiReponse;
+        }
+
+        public async Task<string> ValidatorUpdateAsync(string id, ReturnedToBaseDateDto? data)
+        {
+            var message = new StringBuilder();
+
+            #region Id validator
+            if (string.IsNullOrEmpty(id) || id == ":id")
+            {
+                message.Append($"Invalid: {nameof(id)} is empty; ");
+                return message.ToString();
+            }
+
+            RentalEntity? rentalEntity = await _repositoryRental.GetByIdAsync(id);
+
+            if (rentalEntity == null)
+            {
+                message.Append($"Invalid: {nameof(id)} no data found; ");
+            }
+            else
+            {
+                if (rentalEntity.ReturnedToBaseDate != null)
+                {
+                    message.Append($"Invalid: {nameof(rentalEntity.ReturnedToBaseDate)} was returned previously at {rentalEntity.ReturnedToBaseDate}; ");
+                }
+            }
+
+            #endregion
+
+            #region ReturnedToBaseDate validator
+
+            if (data?.ReturnedToBaseDate == null)
+            {
+                message.Append($"Invalid: {nameof(data.ReturnedToBaseDate)} is empty; ");
+            }
+            else
+            {
+                var isAfterDateStart = data?.ReturnedToBaseDate >= rentalEntity?.StartDate;
+                if (!isAfterDateStart)
+                {
+                    message.Append($"Invalid: {nameof(data.ReturnedToBaseDate)} : {data?.ReturnedToBaseDate} must be after {nameof(rentalEntity.StartDate)} : {rentalEntity?.StartDate}; ");
+                }
+            }
+
+            #endregion
+
+            return message.ToString();
         }
 
         public async Task<bool> CheckMotorcycleIsAvaliavleById(string id)
@@ -110,9 +166,9 @@ namespace CoreGoDelivery.Application.Services.Internal.Rental
             return motocycleIsAvaliable == null;
         }
 
-        #region Private
+        #region Internal
 
-        private async Task<string?> ValidatorCreateAsync(RentalDto data)
+        public async Task<string?> ValidatorCreateAsync(RentalDto data)
         {
             var message = new StringBuilder();
 

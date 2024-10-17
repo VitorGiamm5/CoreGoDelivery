@@ -70,8 +70,13 @@ namespace CoreGoDelivery.Infrastructure.Repositories.GoDelivery
             return IsSuccessCreate(result);
         }
 
-        public async Task<bool> DeleteById(string id)
+        public async Task<bool> DeleteById(string? id)
         {
+            if(id == null)
+            {
+                return false;
+            }
+
             var motorcycle = await GetOneByIdAsync(id);
 
             if (motorcycle != null)

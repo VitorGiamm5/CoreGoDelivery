@@ -32,7 +32,7 @@ namespace CoreGoDelivery.Api.Controllers
         }
 
         [HttpPut("{id}/devolucao")]
-        public async Task<IActionResult> UpdateReturnedToBaseDate(string id, [FromBody] ReturnedToBaseDateDto request)
+        public async Task<IActionResult> UpdateReturnedToBaseDate(string id, [FromBody] ReturnedToBaseDateDto? request)
         {
             var result = await _rentalService.UpdateReturnedToBaseDate(id, request);
 

@@ -9,7 +9,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Deliverier
 {
     public class DeliverierServiceBase
     {
-        private const string MESSAGE_INVALID_DATA = "Dados inválidos";
+        public const string MESSAGE_INVALID_DATA = "Dados inválidos";
 
         public static DeliverierEntity CreateToEntity(DeliverierDto data)
         {

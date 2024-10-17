@@ -10,8 +10,8 @@ namespace CoreGoDelivery.Application.Services.Internal.Deliverier
 {
     public class DeliverierService : DeliverierServiceBase, IDeliverierService
     {
-        private readonly IDeliverierRepository _repositoryDeliverier;
-        private readonly ILicenceDriverRepository _repositoryLicence;
+        public readonly IDeliverierRepository _repositoryDeliverier;
+        public readonly ILicenceDriverRepository _repositoryLicence;
 
         public DeliverierService(
             IDeliverierRepository repositoryDeliverier,
@@ -57,9 +57,9 @@ namespace CoreGoDelivery.Application.Services.Internal.Deliverier
         }
         #endregion
 
-        #region Private
+        #region Internal
 
-        private async Task<string?> ValidatorCreateAsync(DeliverierDto data)
+        public async Task<string?> ValidatorCreateAsync(DeliverierDto data)
         {
             var message = new StringBuilder();
 

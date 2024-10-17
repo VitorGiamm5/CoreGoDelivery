@@ -13,7 +13,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Motocycle
         private readonly IModelMotocycleRepository _repositoryModelMotorcycle;
         private readonly IRentalRepository _rentalRepository;
 
-        private const int NOTIFICATION_YEAR_MANUFACTORY = 2024;
+        public const int NOTIFICATION_YEAR_MANUFACTORY = 2024;
 
         public MotocycleService(
             IMotocycleRepository repositoryMotorcycle,
@@ -49,7 +49,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Motocycle
             return apiReponse;
         }
 
-        private async Task<string?> ChangePlateValidator(string? id, string? plate)
+        public async Task<string?> ChangePlateValidator(string? id, string? plate)
         {
             var message = new StringBuilder();
 
@@ -160,7 +160,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Motocycle
 
         #region Private
 
-        private static List<MotocycleDto> EntityListToDto(List<MotorcycleEntity>? result)
+        public static List<MotocycleDto> EntityListToDto(List<MotorcycleEntity>? result)
         {
             List<MotocycleDto> motocycleDtos = [];
 
@@ -174,7 +174,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Motocycle
             return motocycleDtos;
         }
 
-        private static MotocycleDto EntityToDto(MotorcycleEntity motorcycle)
+        public static MotocycleDto EntityToDto(MotorcycleEntity motorcycle)
         {
             var restult = new MotocycleDto
             {
@@ -187,7 +187,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Motocycle
             return restult;
         }
 
-        private async Task<string?> ValidateDelete(string? id)
+        public async Task<string?> ValidateDelete(string? id)
         {
             var message = new StringBuilder();
 
@@ -213,7 +213,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Motocycle
             return message.ToString();
         }
 
-        private async Task<string?> ValidatorCreateAsync(MotocycleDto data)
+        public async Task<string?> ValidatorCreateAsync(MotocycleDto data)
         {
             var message = new StringBuilder();
 
@@ -298,14 +298,14 @@ namespace CoreGoDelivery.Application.Services.Internal.Motocycle
             return null;
         }
 
-        private async Task<string> GetModelId(string modelNormalized)
+        public async Task<string> GetModelId(string modelNormalized)
         {
             var result = await _repositoryModelMotorcycle.GetIdByModelName(modelNormalized);
 
             return result;
         }
 
-        private async Task SendNotification(MotorcycleEntity motocycle)
+        public async Task SendNotification(MotorcycleEntity motocycle)
         {
             if (motocycle.YearManufacture == NOTIFICATION_YEAR_MANUFACTORY)
             {
