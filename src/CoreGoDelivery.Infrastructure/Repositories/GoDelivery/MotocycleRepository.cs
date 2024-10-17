@@ -1,4 +1,5 @@
 ﻿using CoreGoDelivery.Domain.Entities.GoDelivery.Motocycle;
+using CoreGoDelivery.Domain.Entities.GoDelivery.Rental;
 using CoreGoDelivery.Domain.Repositories.GoDelivery;
 using CoreGoDelivery.Infrastructure.Database;
 using Microsoft.EntityFrameworkCore;
@@ -16,7 +17,8 @@ namespace CoreGoDelivery.Infrastructure.Repositories.GoDelivery
             if (!string.IsNullOrEmpty(plate))
             {
                 var resultWithParam = await _context.Set<MotorcycleEntity>()
-                    .Where(x => x.Id == plate)
+                    .Include(x => x.ModelMotorcycle)
+                    .Where(x => x.PlateNormalized == plate)
                     .ToListAsync();
 
                 return resultWithParam;
@@ -24,6 +26,7 @@ namespace CoreGoDelivery.Infrastructure.Repositories.GoDelivery
             else
             {
                 var result = await _context.Set<MotorcycleEntity>()
+                    .Include(x => x.ModelMotorcycle)
                     .Take(100)
                     .ToListAsync();
 
@@ -31,9 +34,10 @@ namespace CoreGoDelivery.Infrastructure.Repositories.GoDelivery
             }
         }
 
-        public async Task<MotorcycleEntity?> GetOneById(string id)
+        public async Task<MotorcycleEntity?> GetOneByIdAsync(string id)
         {
             var result = await _context.Set<MotorcycleEntity>()
+                .Include(x => x.ModelMotorcycle)
                 .FirstOrDefaultAsync(x => x.Id == id);
 
             return result;
@@ -44,15 +48,15 @@ namespace CoreGoDelivery.Infrastructure.Repositories.GoDelivery
             var result = await _context.Set<MotorcycleEntity>()
                 .FirstOrDefaultAsync(x => x.Id == id);
 
-            return Ok(result);
+            return !Ok(result);
         }
 
-        public async Task<bool> CheckIsUnicByPlateId(string plate)
+        public async Task<bool> CheckIsUnicByPlateAsync(string plate)
         {
             var result = await _context.Set<MotorcycleEntity>()
                 .FirstOrDefaultAsync(x => x.PlateNormalized == plate);
 
-            return Ok(result);
+            return !Ok(result);
         }
 
         public async Task<bool> Create(MotorcycleEntity data)
@@ -66,9 +70,41 @@ namespace CoreGoDelivery.Infrastructure.Repositories.GoDelivery
             return IsSuccessCreate(result);
         }
 
-        public Task<bool> DeleteById(string id)
+        public async Task<bool> DeleteById(string id)
         {
-            throw new NotImplementedException();
+            var motorcycle = await GetOneByIdAsync(id);
+
+            if (motorcycle != null)
+            {
+                _context.Set<MotorcycleEntity>()
+                    .Remove(motorcycle);
+
+                await _context.SaveChangesAsync();
+
+                return true;
+            }
+
+            return false;
+        }
+
+        public async Task<bool> ChangePlateByIdAsync(string? id, string? plate)
+        {
+            var entity = await _context.Set<MotorcycleEntity>()
+                .AsTracking()
+                .FirstOrDefaultAsync(x => x.Id == id);
+
+            if (entity == null || plate == null)
+            {
+                return false;
+            }
+            else
+            {
+                entity.PlateNormalized = plate;
+
+                await _context.SaveChangesAsync();
+
+                return true;
+            }
         }
     }
 }

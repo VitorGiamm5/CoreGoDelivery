@@ -129,7 +129,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Rental
             }
             else
             {
-                var existMotocycleId = await _repositoryMotocyle.GetOneById(data.MotorcycleId);
+                var existMotocycleId = await _repositoryMotocyle.GetOneByIdAsync(data.MotorcycleId);
                 if (existMotocycleId == null)
                 {
                     message.Append($"Invalid: {nameof(data.MotorcycleId)}: {data.MotorcycleId} not exist; ");

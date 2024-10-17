@@ -16,24 +16,70 @@ namespace CoreGoDelivery.Application.Services.Internal.Motocycle
         private const int NOTIFICATION_YEAR_MANUFACTORY = 2024;
 
         public MotocycleService(
-            IMotocycleRepository repositoryMotocycle,
-            IModelMotocycleRepository modelMotocycleRepository)
+            IMotocycleRepository repositoryMotorcycle,
+            IModelMotocycleRepository repositoryModelMotorcycle,
+            IRentalRepository rentalRepository)
         {
-            _repositoryMotorcycle = repositoryMotocycle;
-            _repositoryModelMotorcycle = modelMotocycleRepository;
+            _repositoryMotorcycle = repositoryMotorcycle;
+            _repositoryModelMotorcycle = repositoryModelMotorcycle;
+            _rentalRepository = rentalRepository;
         }
 
         #region Public
-        public async Task<ApiResponse> ChangePlate(string id, PlateIdDto plate)
+        public async Task<ApiResponse> ChangePlateById(string? id, string? plate)
         {
-            var plateNormalized = RemoveCharacteres(plate?.Placa ?? "");
-
             var apiReponse = new ApiResponse()
             {
-                Message = null
+                Data = null,
+                Message = await ChangePlateValidator(id, plate)
             };
 
+            if (!string.IsNullOrEmpty(apiReponse.Message))
+            {
+                return apiReponse;
+            }
+
+            var plateNormalized = RemoveCharacteres(plate);
+
+            var success = await _repositoryMotorcycle.ChangePlateByIdAsync(id, plateNormalized);
+
+            apiReponse.Data = success ? new { mensagem = "Placa modificada com sucesso" } : null;
+            apiReponse.Message = success ? null : "Dados inválidos";
+
             return apiReponse;
+        }
+
+        private async Task<string?> ChangePlateValidator(string? id, string? plate)
+        {
+            var message = new StringBuilder();
+
+            if (id == ":id" || string.IsNullOrEmpty(id))
+            {
+                message.Append($"Empty: {nameof(id)}; ");
+            }
+            else
+            {
+                var motorcycle = await _repositoryMotorcycle.GetOneByIdAsync(id);
+                if (motorcycle == null)
+                {
+                    message.Append($"Invalid: {nameof(id)} : {id} not exists; ");
+                }
+            }
+
+            if (string.IsNullOrEmpty(plate))
+            {
+                message.Append($"Empty: {nameof(plate)}; ");
+            }
+            else
+            {
+                var plateIsUnic = await _repositoryMotorcycle.CheckIsUnicByPlateAsync(plate);
+                if (!plateIsUnic)
+                {
+                    message.Append($"Invalid: {nameof(plate)}: {plate} must be unic; ");
+                }
+            }
+
+            return message.ToString();
         }
 
         public async Task<ApiResponse> Create(MotocycleDto data)
@@ -62,12 +108,14 @@ namespace CoreGoDelivery.Application.Services.Internal.Motocycle
 
         public async Task<ApiResponse> GetOne(string id)
         {
-            var result = await _repositoryMotorcycle.GetOneById(id);
+            var result = await _repositoryMotorcycle.GetOneByIdAsync(id);
+
+            var motocycleDtos = result != null ? EntityToDto(result) : null;
 
             var apiReponse = new ApiResponse()
             {
-                Data = result,
-                Message = null
+                Data = motocycleDtos,
+                Message = result == null ? "Moto não encontrada" : null
             };
 
             return apiReponse;
@@ -79,16 +127,18 @@ namespace CoreGoDelivery.Application.Services.Internal.Motocycle
 
             var result = await _repositoryMotorcycle.List(plateNormalized);
 
+            var motocycleDtos = EntityListToDto(result);
+
             var apiReponse = new ApiResponse()
             {
-                Data = result?.Count != 0 ? result : null,
+                Data = motocycleDtos?.Count != 0 ? motocycleDtos : null,
                 Message = result?.Count == 0 ? "Dados inválidos" : null
             };
 
             return apiReponse;
         }
 
-        public async Task<ApiResponse> Delete(string id)
+        public async Task<ApiResponse> DeleteById(string? id)
         {
             var apiReponse = new ApiResponse()
             {
@@ -110,20 +160,54 @@ namespace CoreGoDelivery.Application.Services.Internal.Motocycle
 
         #region Private
 
-        private async Task<string?> ValidateDelete(string id)
+        private static List<MotocycleDto> EntityListToDto(List<MotorcycleEntity>? result)
+        {
+            List<MotocycleDto> motocycleDtos = [];
+
+            if (result != null)
+            {
+                motocycleDtos = result
+                    .Select(motorcycle => EntityToDto(motorcycle))
+                    .ToList();
+            }
+
+            return motocycleDtos;
+        }
+
+        private static MotocycleDto EntityToDto(MotorcycleEntity motorcycle)
+        {
+            var restult = new MotocycleDto
+            {
+                Id = motorcycle.Id,
+                YearManufacture = motorcycle.YearManufacture,
+                ModelName = motorcycle.ModelMotorcycle.Name,
+                PlateId = motorcycle.PlateNormalized
+            };
+
+            return restult;
+        }
+
+        private async Task<string?> ValidateDelete(string? id)
         {
             var message = new StringBuilder();
 
-            var motorcycle = await _repositoryMotorcycle.GetOneById(id);
-            if (motorcycle == null)
+            if (string.IsNullOrEmpty(id))
             {
-                message.Append($"Invalid: {nameof(motorcycle)} id: {id} does not exist; ");
+                message.Append($"Invalid: {nameof(id)} plate: {id} does not exist; ");
             }
-
-            var motorcycleIsInUse = await _rentalRepository.FindByMotorcycleId(id);
-            if (motorcycleIsInUse != null)
+            else
             {
-                message.Append($"Invalid: {nameof(motorcycle)} id: {id} is in use; ");
+                var motorcycle = await _repositoryMotorcycle.GetOneByIdAsync(id);
+                if (motorcycle == null)
+                {
+                    message.Append($"Invalid: {nameof(id)} plate: {id} does not exist; ");
+                }
+
+                var motorcycleIsInUse = await _rentalRepository.FindByMotorcycleId(id);
+                if (motorcycleIsInUse != null)
+                {
+                    message.Append($"Invalid: {nameof(id)} has rental is in use; ");
+                }
             }
 
             return message.ToString();
@@ -156,7 +240,8 @@ namespace CoreGoDelivery.Application.Services.Internal.Motocycle
                 if (isValidPlate)
                 {
                     var normalizedPlate = RemoveCharacteres(data.PlateId);
-                    var isUnicId = await _repositoryMotorcycle.CheckIsUnicByPlateId(normalizedPlate);
+
+                    var isUnicId = await _repositoryMotorcycle.CheckIsUnicByPlateAsync(normalizedPlate);
 
                     if (!isUnicId)
                     {

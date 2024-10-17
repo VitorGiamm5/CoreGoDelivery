@@ -16,7 +16,7 @@ namespace CoreGoDelivery.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Get([FromQuery] PlateIdDto? request)
+        public async Task<IActionResult> List([FromQuery] PlateIdDto? request)
         {
             var result = await _motocycleService.List(request?.Placa);
 
@@ -24,7 +24,7 @@ namespace CoreGoDelivery.Api.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> Get(string id)
+        public async Task<IActionResult> GetOne(string id)
         {
             var result = await _motocycleService.GetOne(id);
 
@@ -42,15 +42,17 @@ namespace CoreGoDelivery.Api.Controllers
         [HttpPut("{id}/placa")]
         public async Task<IActionResult> Put(string id, [FromBody] PlateIdDto request)
         {
-            var result = await _motocycleService.ChangePlate(id, request);
+            string? plate = request.Placa;
+
+            var result = await _motocycleService.ChangePlateById(id, plate);
 
             return Response(result);
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(PlateIdDto id)
+        public async Task<IActionResult> Delete(string id)
         {
-            var result = await _motocycleService.Delete(id?.Placa!);
+            var result = await _motocycleService.DeleteById(id);
 
             return Response(result);
         }
