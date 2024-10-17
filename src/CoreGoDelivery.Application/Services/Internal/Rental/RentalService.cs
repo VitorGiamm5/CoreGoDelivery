@@ -136,7 +136,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Rental
                 return message.ToString();
             }
 
-            RentalEntity? rentalEntity = await _repositoryRental.GetByIdAsync(id);
+            var rentalEntity = await _repositoryRental.GetByIdAsync(id);
 
             if (rentalEntity == null)
             {
@@ -144,7 +144,8 @@ namespace CoreGoDelivery.Application.Services.Internal.Rental
             }
             else
             {
-                if (rentalEntity.ReturnedToBaseDate != null)
+                var motorcycleIsAvaliable = await _repositoryRental.CheckMotorcycleIsAvaliableAsync(rentalEntity.MotorcycleId);
+                if (!motorcycleIsAvaliable)
                 {
                     message.Append($"Invalid: {nameof(rentalEntity.ReturnedToBaseDate)} was returned previously at {rentalEntity.ReturnedToBaseDate}; ");
                 }
@@ -174,9 +175,9 @@ namespace CoreGoDelivery.Application.Services.Internal.Rental
 
         public async Task<bool> CheckMotorcycleIsAvaliavleById(string id)
         {
-            var motocycleIsAvaliable = await _repositoryRental.FindByMotorcycleId(id);
+            var motocycleIsAvaliable = await _repositoryRental.CheckMotorcycleIsAvaliableAsync(id);
 
-            return motocycleIsAvaliable == null;
+            return motocycleIsAvaliable;
         }
 
         public async Task<string?> ValidatorCreateAsync(RentalDto data)
@@ -219,7 +220,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Rental
                     message.Append($"Invalid: {nameof(data.MotorcycleId)}: {data.MotorcycleId} not exist; ");
                 }
 
-                var motocycleIsAvaliable = await CheckMotorcycleIsAvaliavleById(data.MotorcycleId);
+                var motocycleIsAvaliable = await _repositoryRental.CheckMotorcycleIsAvaliableAsync(data.MotorcycleId);
                 if (!motocycleIsAvaliable)
                 {
                     message.Append($"Invalid: {nameof(data.MotorcycleId)}: {data.MotorcycleId} is not avaliable; ");

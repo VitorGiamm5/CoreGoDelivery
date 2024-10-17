@@ -214,8 +214,8 @@ namespace CoreGoDelivery.Application.Services.Internal.Motocycle
                     message.Append($"Invalid: {nameof(id)} plate: {id} does not exist; ");
                 }
 
-                var motorcycleIsInUse = await _rentalRepository.FindByMotorcycleId(id);
-                if (motorcycleIsInUse != null)
+                var motorcycleIsInUse = await _rentalRepository.CheckMotorcycleIsAvaliableAsync(id);
+                if (motorcycleIsInUse)
                 {
                     message.Append($"Invalid: {nameof(id)} has rental is in use; ");
                 }

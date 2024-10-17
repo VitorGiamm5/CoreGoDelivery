@@ -21,7 +21,7 @@ namespace CoreGoDelivery.Infrastructure.Repositories.GoDelivery
             return success;
         }
 
-        public static bool Ok(object result)
+        public static bool Ok(object? result)
         {
             var success = result != null;
 

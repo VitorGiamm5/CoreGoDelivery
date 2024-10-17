@@ -22,12 +22,19 @@ namespace CoreGoDelivery.Infrastructure.Repositories.GoDelivery
             return IsSuccessCreate(result);
         }
 
-        public async Task<RentalEntity?> FindByMotorcycleId(string id)
+        public async Task<bool> CheckMotorcycleIsAvaliableAsync(string id)
         {
-            var result = await _context.Set<RentalEntity>()
-                .FirstOrDefaultAsync(x => x.MotorcycleId == id);
+            var motorcycleExists = Ok(await FindByMotorcycleId(id));
 
-            return result;
+            if (motorcycleExists)
+            {
+                var result = await _context.Set<RentalEntity>()
+                    .FirstOrDefaultAsync(x => x.MotorcycleId == id && x.ReturnedToBaseDate == null);
+                
+                return Ok(result);
+            }
+
+            return false;
         }
 
         public async Task<RentalEntity?> GetByIdAsync(string id)
@@ -54,14 +61,20 @@ namespace CoreGoDelivery.Infrastructure.Repositories.GoDelivery
             {
                 return false;
             }
- 
-                rentalEntity.ReturnedToBaseDate = date;
 
-                await _context.SaveChangesAsync();
+            rentalEntity.ReturnedToBaseDate = date;
 
-                return true;
+            await _context.SaveChangesAsync();
 
-            
+            return true;
+        }
+
+        public async Task<RentalEntity?> FindByMotorcycleId(string id)
+        {
+            var result = await _context.Set<RentalEntity>()
+                .FirstOrDefaultAsync(x => x.MotorcycleId == id);
+
+            return result;
         }
     }
 }
