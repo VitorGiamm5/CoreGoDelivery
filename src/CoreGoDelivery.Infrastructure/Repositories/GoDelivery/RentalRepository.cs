@@ -30,7 +30,7 @@ namespace CoreGoDelivery.Infrastructure.Repositories.GoDelivery
             return result;
         }
 
-        public async Task<RentalEntity?> GetById(string id)
+        public async Task<RentalEntity?> GetByIdAsync(string id)
         {
             var result = await _context.Set<RentalEntity>()
                 .FirstOrDefaultAsync(x => x.Id == id);

@@ -21,6 +21,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Deliverier
             _repositoryLicence = repositoryLicence;
         }
 
+        #region Public
         public async Task<ApiResponse> Create(DeliverierDto data)
         {
             var apiReponse = new ApiResponse()
@@ -54,6 +55,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Deliverier
 
             return apiReponse;
         }
+        #endregion
 
         #region Private
 

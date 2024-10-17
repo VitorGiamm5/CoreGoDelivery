@@ -1,7 +1,9 @@
 ﻿using CoreGoDelivery.Application.Services.Internal.Interface;
 using CoreGoDelivery.Domain.DTO.Rental;
 using CoreGoDelivery.Domain.DTO.Response;
+using CoreGoDelivery.Domain.Entities.GoDelivery.Rental;
 using CoreGoDelivery.Domain.Repositories.GoDelivery;
+using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
 namespace CoreGoDelivery.Application.Services.Internal.Rental
@@ -51,14 +53,29 @@ namespace CoreGoDelivery.Application.Services.Internal.Rental
             return apiReponse;
         }
 
-        public async Task<ApiResponse> GetById(string id)
+        public async Task<ApiResponse> GetById(string? id)
         {
-            var results = _repositoryRental.GetById(id);
+            var message = new StringBuilder();
+            RentalEntity? rental = null;
+
+            if (string.IsNullOrEmpty(id) || id == ":id")
+            {
+                message.Append($"Invalid: {nameof(id)} is empty; ");
+            }
+            else
+            {
+                rental = await _repositoryRental.GetByIdAsync(id);
+
+                if (rental == null)
+                {
+                    message.Append($"Invalid: {nameof(id)} no data found; ");
+                }
+            }
 
             var apiReponse = new ApiResponse()
             {
-                Data = results,
-                Message = null
+                Data = rental,
+                Message = message != null ? message.ToString() : null
             };
 
             return apiReponse;

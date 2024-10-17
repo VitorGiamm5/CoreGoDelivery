@@ -17,7 +17,7 @@ namespace CoreGoDelivery.Infrastructure.Repositories.GoDelivery
                 .Set<LicenceDriverEntity>()
                 .FirstOrDefaultAsync(x => x.Id == licence);
 
-            return Ok(result);
+            return !Ok(result);
         }
 
         public async Task<bool> Create(LicenceDriverEntity data)

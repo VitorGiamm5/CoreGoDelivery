@@ -16,7 +16,7 @@ namespace CoreGoDelivery.Api.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetOne(string id)
+        public async Task<IActionResult> GetOne(string? id)
         {
             var result = await _rentalService.GetById(id);
 
