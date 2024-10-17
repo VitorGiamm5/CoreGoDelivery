@@ -8,7 +8,7 @@ namespace CoreGoDelivery.Domain.Interceptor
         public override ValueTask<int> SavedChangesAsync(SaveChangesCompletedEventData eventData, int result, CancellationToken cancellationToken = default)
         {
             // Intercepta todas as entidades que estão sendo salvas
-            foreach (var entry in eventData.Context.ChangeTracker.Entries())
+            foreach (var entry in eventData!.Context!.ChangeTracker.Entries())
             {
                 // Verifica se o tipo da entidade tem uma propriedade DateTime
                 foreach (var property in entry.Properties)
