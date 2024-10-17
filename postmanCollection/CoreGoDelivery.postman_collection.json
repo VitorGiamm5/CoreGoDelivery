@@ -16,7 +16,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"imagem_cnh\": \"base64string\",\r\n  \"identificador\": \"\",\r\n  \"nome\": \"João da Silva\",\r\n  \"cnpj\": \"28185005000155\",\r\n  \"data_nascimento\": \"2000-01-01T00:00:00Z\",\r\n  \"numero_cnh\": \"31531315524\",\r\n  \"tipo_cnh\": \"ab\"\r\n}",
+							"raw": "{\r\n  \"imagem_cnh\": \"base64string\",\r\n  \"identificador\": \"\",\r\n  \"nome\": \"João da Silva\",\r\n  \"cnpj\": \"03456607000179\",\r\n  \"data_nascimento\": \"1990-01-01T00:00:00Z\",\r\n  \"numero_cnh\": \"12345678900\",\r\n  \"tipo_cnh\": \"A\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -52,14 +52,22 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:5273/entregadores",
+							"raw": "http://localhost:5273/entregadores/:id/cnh",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "5273",
 							"path": [
-								"entregadores"
+								"entregadores",
+								":id",
+								"cnh"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": ""
+								}
 							]
 						}
 					},
@@ -77,7 +85,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"identificador\": \"\",\r\n  \"ano\": 2024,\r\n  \"modelo\": \"Mottu Sport\",\r\n  \"placa\": \"CDf-0104\"\r\n}",
+							"raw": "{\r\n  \"identificador\": \"\",\r\n  \"ano\": 2020,\r\n  \"modelo\": \"Mottu Pop\",\r\n  \"placa\": \"acf-0104\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -104,7 +112,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:5273/motos?placa",
+							"raw": "http://localhost:5273/motos?placa=ABC-1235",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -116,7 +124,7 @@
 							"query": [
 								{
 									"key": "placa",
-									"value": null
+									"value": "ABC-1235"
 								}
 							]
 						}
@@ -142,7 +150,7 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": ""
+									"value": "01JABBTBDSR9VGKMCTYVB6CT1X"
 								}
 							]
 						}
@@ -168,7 +176,7 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": ""
+									"value": "01JABZYBPJJKB5M7MJCDSJB2PK"
 								}
 							]
 						}
@@ -180,6 +188,15 @@
 					"request": {
 						"method": "PUT",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"placa\": \"ABC-1234\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
 							"raw": "http://localhost:5273/motos/:id/placa",
 							"protocol": "http",
@@ -195,7 +212,7 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": ""
+									"value": "01JABBV74CMEPDV0846H3X5K06"
 								}
 							]
 						}
@@ -226,7 +243,7 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": ""
+									"value": "01JABECMCZMH6PQV1W3W1TPM48"
 								}
 							]
 						}
@@ -268,7 +285,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"data_devolucao\": \"2024-01-07T18:00:00Z\"\r\n}",
+							"raw": "{\r\n  \"data_devolucao\": \"2024-10-31 00:00:00\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -290,7 +307,7 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": ""
+									"value": "01JABEECV3SN0DWPD9KBWZ7VDX"
 								}
 							]
 						}
