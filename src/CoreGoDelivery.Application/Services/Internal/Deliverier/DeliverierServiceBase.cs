@@ -67,14 +67,14 @@ namespace CoreGoDelivery.Application.Services.Internal.Deliverier
             BuildMessageLicenseType(data, message);
 
             await Task.WhenAll(
-                 MessageBuilderCreate(data, message),
+                 BuildMessageCreate(data, message),
                  BuildMessageCnh(data, message)
              );
 
             return BuildMessageValidator(message);
         }
 
-        public async Task MessageBuilderCreate(DeliverierDto data, StringBuilder message)
+        public async Task BuildMessageCreate(DeliverierDto data, StringBuilder message)
         {
             if (!string.IsNullOrWhiteSpace(data.Id))
             {
