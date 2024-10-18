@@ -21,6 +21,8 @@ namespace CoreGoDelivery.Application.Services.Internal.Deliverier
             _repositoryLicence = repositoryLicence;
         }
 
+        #region Mappers
+
         public static DeliverierEntity MapCreateToEntity(DeliverierDto data)
         {
             var result = new DeliverierEntity()
@@ -40,20 +42,9 @@ namespace CoreGoDelivery.Application.Services.Internal.Deliverier
             return result;
         }
 
-        public static string FileNameLicenseNormalize(DeliverierDto data)
-        {
-            var result = $"CNH_{data.LicenseNumber}.png";
+        #endregion
 
-            return result;
-        }
-
-        public static LicenseTypeEnum ParseLicenseType(DeliverierDto data)
-        {
-            Enum.TryParse(data.LicenseType, ignoreCase: true, out LicenseTypeEnum licenseType);
-
-            return licenseType;
-        }
-
+        #region Create validator
         public async Task<string?> BuilderValidatorCreateAsync(DeliverierDto data)
         {
             var message = new StringBuilder();
@@ -72,43 +63,6 @@ namespace CoreGoDelivery.Application.Services.Internal.Deliverier
              );
 
             return BuildMessageValidator(message);
-        }
-
-        public async Task BuildMessageCreate(DeliverierDto data, StringBuilder message)
-        {
-            if (!string.IsNullOrWhiteSpace(data.Id))
-            {
-                var isUnicId = await _repositoryDeliverier.CheckIsUnicById(data.Id);
-
-                if (!isUnicId)
-                {
-                    message.Append($"{nameof(data.Id)}: {data.Id} already exists; ");
-                }
-            }
-        }
-
-        public async Task BuildMessageCnh(DeliverierDto data, StringBuilder message)
-        {
-            if (string.IsNullOrWhiteSpace(data.LicenseNumber))
-            {
-                message.Append($"Empty: {nameof(data.LicenseNumber)}; ");
-            }
-            else
-            {
-                var isValidLicense = CnhValidation.Validate(data.LicenseNumber);
-
-                if (!isValidLicense)
-                {
-                    message.Append($"{nameof(data.LicenseNumber)}: {data.LicenseNumber} is invalid; ");
-                }
-
-                var isUnicLicence = await _repositoryLicence.CheckIsUnicByLicence(data.LicenseNumber);
-
-                if (!isUnicLicence)
-                {
-                    message.Append($"{nameof(data.LicenseNumber)}: {data.LicenseNumber} already exists; ");
-                }
-            }
         }
 
         public static void BuildMessageCnpj(StringBuilder message, string cnpj)
@@ -166,5 +120,62 @@ namespace CoreGoDelivery.Application.Services.Internal.Deliverier
                 message.Append($"Invalid: {nameof(data.LicenseType)}: {data.LicenseType}; ");
             }
         }
+
+        public async Task BuildMessageCreate(DeliverierDto data, StringBuilder message)
+        {
+            if (!string.IsNullOrWhiteSpace(data.Id))
+            {
+                var isUnicId = await _repositoryDeliverier.CheckIsUnicById(data.Id);
+
+                if (!isUnicId)
+                {
+                    message.Append($"{nameof(data.Id)}: {data.Id} already exists; ");
+                }
+            }
+        }
+
+        public async Task BuildMessageCnh(DeliverierDto data, StringBuilder message)
+        {
+            if (string.IsNullOrWhiteSpace(data.LicenseNumber))
+            {
+                message.Append($"Empty: {nameof(data.LicenseNumber)}; ");
+            }
+            else
+            {
+                var isValidLicense = CnhValidation.Validate(data.LicenseNumber);
+
+                if (!isValidLicense)
+                {
+                    message.Append($"{nameof(data.LicenseNumber)}: {data.LicenseNumber} is invalid; ");
+                }
+
+                var isUnicLicence = await _repositoryLicence.CheckIsUnicByLicence(data.LicenseNumber);
+
+                if (!isUnicLicence)
+                {
+                    message.Append($"{nameof(data.LicenseNumber)}: {data.LicenseNumber} already exists; ");
+                }
+            }
+        }
+
+        #endregion
+
+        #region Internal features
+
+        public static string FileNameLicenseNormalize(DeliverierDto data)
+        {
+            var result = $"CNH_{data.LicenseNumber}.png";
+
+            return result;
+        }
+
+        public static LicenseTypeEnum ParseLicenseType(DeliverierDto data)
+        {
+            Enum.TryParse(data.LicenseType, ignoreCase: true, out LicenseTypeEnum licenseType);
+
+            return licenseType;
+        }
+
+        #endregion
     }
 }
