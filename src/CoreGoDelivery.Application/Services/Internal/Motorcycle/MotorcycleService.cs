@@ -25,7 +25,8 @@ namespace CoreGoDelivery.Application.Services.Internal.Motorcycle
             _rentalRepository = rentalRepository;
         }
 
-        #region Public
+        #region To Controller
+
         public async Task<ApiResponse> ChangePlateById(string? id, string? plate)
         {
             var apiReponse = new ApiResponse()
@@ -44,7 +45,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Motorcycle
             var success = await _repositoryMotorcycle.ChangePlateByIdAsync(id, plateNormalized);
 
             apiReponse.Data = success ? new { mensagem = "Placa modificada com sucesso" } : null;
-            apiReponse.Message = success ? null : "Dados inválidos";
+            apiReponse.Message = success ? null : MESSAGE_INVALID_DATA;
 
             return apiReponse;
         }
@@ -75,7 +76,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Motorcycle
             }
             else
             {
-                var isValidPlate = ValidatePlate(plate!);
+                var isValidPlate = PlateValidator(plate!);
                 if (!isValidPlate)
                 {
                     message.Append($"Invalid: {nameof(plate)}: {plate} format; ");
@@ -99,7 +100,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Motorcycle
             var apiReponse = new ApiResponse()
             {
                 Data = null,
-                Message = await ValidatorCreateAsync(data)
+                Message = await CreateValidator(data)
             };
 
             if (!string.IsNullOrEmpty(apiReponse.Message))
@@ -144,7 +145,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Motorcycle
             var apiReponse = new ApiResponse()
             {
                 Data = motocycleDtos?.Count != 0 ? motocycleDtos : null,
-                Message = result?.Count == 0 ? "Dados inválidos" : null
+                Message = result?.Count == 0 ? MESSAGE_INVALID_DATA : null
             };
 
             return apiReponse;
@@ -154,7 +155,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Motorcycle
         {
             var apiReponse = new ApiResponse()
             {
-                Message = await ValidateDelete(id)
+                Message = await DeleteValidator(id)
             };
 
             if (!string.IsNullOrEmpty(apiReponse.Message))
@@ -162,16 +163,16 @@ namespace CoreGoDelivery.Application.Services.Internal.Motorcycle
                 return apiReponse;
             }
 
-            var result = await _repositoryMotorcycle.DeleteById(id);
+            _ = await _repositoryMotorcycle.DeleteById(id);
 
             return apiReponse!;
         }
 
         #endregion
 
-        #region Internal
+        #region Validators
 
-        public async Task<string?> ValidateDelete(string? id)
+        public async Task<string?> DeleteValidator(string? id)
         {
             var message = new StringBuilder();
 
@@ -197,7 +198,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Motorcycle
             return message.ToString();
         }
 
-        public async Task<string?> ValidatorCreateAsync(MotorcycleDto data)
+        public async Task<string?> CreateValidator(MotorcycleDto data)
         {
             var message = new StringBuilder();
 
@@ -220,7 +221,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Motorcycle
             }
             else
             {
-                var isValidPlate = ValidatePlate(data.PlateId);
+                var isValidPlate = PlateValidator(data.PlateId);
                 if (isValidPlate)
                 {
                     var normalizedPlate = RemoveCharacteres(data.PlateId);
@@ -261,7 +262,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Motorcycle
             else
             {
                 var modelNormalized = RemoveCharacteres(data.ModelName);
-                var modelId = await GetModelId(modelNormalized);
+                var modelId = await _repositoryModelMotorcycle.GetIdByModelName(modelNormalized);
 
                 if (string.IsNullOrEmpty(modelId))
                 {
@@ -272,22 +273,12 @@ namespace CoreGoDelivery.Application.Services.Internal.Motorcycle
             }
             #endregion
 
-            #region Finaly
-            if (message.Length > 0)
-            {
-                return message.ToString();
-            }
-            #endregion
-
-            return null;
+            return BuildMessageValidator(message);
         }
 
-        public async Task<string> GetModelId(string modelNormalized)
-        {
-            var result = await _repositoryModelMotorcycle.GetIdByModelName(modelNormalized);
+        #endregion
 
-            return result;
-        }
+        #region External Service
 
         public async Task SendNotification(MotorcycleEntity motocycle)
         {
@@ -296,6 +287,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Motorcycle
                 //TODO: HEAVY MISSION NOTIFICATION
             }
         }
+
         #endregion
     }
 }

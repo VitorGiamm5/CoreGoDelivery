@@ -19,18 +19,20 @@ namespace CoreGoDelivery.Application.Services.Internal.Motorcycle
             return result;
         }
 
-        public static List<MotorcycleDto> EntityListToDto(List<MotorcycleEntity>? result)
+        public static List<MotorcycleDto> EntityListToDto(List<MotorcycleEntity>? entity)
         {
             List<MotorcycleDto> motocycleDtos = [];
 
-            if (result != null)
+            if (entity != null)
             {
-                motocycleDtos = result
+               var resultDto = motocycleDtos = entity
                     .Select(motorcycle => EntityToDto(motorcycle))
                     .ToList();
+
+                return resultDto;
             }
 
-            return motocycleDtos;
+            return new List<MotorcycleDto>();
         }
 
         public static MotorcycleDto EntityToDto(MotorcycleEntity motorcycle)
@@ -46,7 +48,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Motorcycle
             return restult;
         }
 
-        public static bool ValidatePlate(string? plateId)
+        public static bool PlateValidator(string? plateId)
         {
             if (plateId == null)
             {

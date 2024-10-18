@@ -1,4 +1,5 @@
 ﻿using CoreGoDelivery.Domain.DTO.Response;
+using System.Text;
 using System.Text.RegularExpressions;
 
 namespace CoreGoDelivery.Application.Services.Internal
@@ -35,5 +36,21 @@ namespace CoreGoDelivery.Application.Services.Internal
                 : MESSAGE_INVALID_DATA;
         }
 
+        public static string? BuildMessageValidator(StringBuilder message)
+        {
+            if (message.Length > 0)
+            {
+                return message.ToString();
+            }
+
+            return null;
+        }
+
+        public static bool HasMessageError(ApiResponse apiReponse)
+        {
+            var hasMessage = !string.IsNullOrEmpty(apiReponse.Message);
+
+            return hasMessage;
+        }
     }
 }

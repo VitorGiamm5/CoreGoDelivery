@@ -11,7 +11,7 @@ namespace CoreGoDelivery.Domain.Entities.GoDelivery.Motorcycle
         #region relationships
 
         public string ModelMotorcycleId { get; set; }
-        public ModelMotorcycleEntity ModelMotorcycle { get; set; }
+        public ModelMotorcycleEntity? ModelMotorcycle { get; set; }
 
         #endregion
     }

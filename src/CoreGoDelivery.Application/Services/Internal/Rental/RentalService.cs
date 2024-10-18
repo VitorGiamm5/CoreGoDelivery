@@ -26,12 +26,14 @@ namespace CoreGoDelivery.Application.Services.Internal.Rental
             _repositoryDeliverier = repositoryDeliverier;
         }
 
+        #region To Controller
+
         public async Task<ApiResponse> Create(RentalDto data)
         {
             var apiReponse = new ApiResponse()
             {
                 Data = null,
-                Message = await ValidatorCreateAsync(data)
+                Message = await CreateValidator(data)
             };
 
             if (!string.IsNullOrEmpty(apiReponse.Message))
@@ -97,7 +99,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Rental
             var apiReponse = new ApiResponse()
             {
                 Data = null,
-                Message = await ValidatorUpdateAsync(id, data)
+                Message = await UpdateValidator(id, data)
             };
 
             if (!string.IsNullOrEmpty(apiReponse.Message))
@@ -109,7 +111,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Rental
 
             var returnedDate = data!.ReturnedToBaseDate!.Value;
 
-            string result = CalculatePenalty(returnedDate, rental);
+            string result = CalculatePenalty(returnedDate, rental) ?? MESSAGE_INVALID_DATA;
 
             var successUpdate = await _repositoryRental.UpdateReturnedToBaseDate(id, returnedDate);
 
@@ -124,8 +126,11 @@ namespace CoreGoDelivery.Application.Services.Internal.Rental
             return apiReponse;
         }
 
-        #region Internal
-        public async Task<string> ValidatorUpdateAsync(string id, ReturnedToBaseDateDto? data)
+        #endregion
+
+        #region Validators
+
+        public async Task<string?> UpdateValidator(string id, ReturnedToBaseDateDto? data)
         {
             var message = new StringBuilder();
 
@@ -153,7 +158,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Rental
 
             #endregion
 
-            #region ReturnedToBaseDate validator
+            #region Returned To Base Date validator
 
             if (data?.ReturnedToBaseDate == null)
             {
@@ -170,17 +175,18 @@ namespace CoreGoDelivery.Application.Services.Internal.Rental
 
             #endregion
 
-            return message.ToString();
+            return BuildMessageValidator(message);
+
         }
 
-        public async Task<bool> CheckMotorcycleIsAvaliavleById(string id)
+        public async Task<bool> MotorcycleIsAvaliableValidator(string id)
         {
             var motocycleIsAvaliable = await _repositoryRental.CheckMotorcycleIsAvaliableAsync(id);
 
             return motocycleIsAvaliable;
         }
 
-        public async Task<string?> ValidatorCreateAsync(RentalDto data)
+        public async Task<string?> CreateValidator(RentalDto data)
         {
             var message = new StringBuilder();
 
@@ -243,7 +249,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Rental
             }
             #endregion
 
-            return message.ToString();
+            return BuildMessageValidator(message);
         }
 
         #endregion

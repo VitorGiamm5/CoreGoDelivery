@@ -1,14 +1,12 @@
 ﻿using CoreGoDelivery.Domain.DTO.Rental;
-using CoreGoDelivery.Domain.DTO.Response;
 using CoreGoDelivery.Domain.Entities.GoDelivery.Rental;
 using CoreGoDelivery.Domain.Entities.GoDelivery.RentalPlan;
 using System.Text;
 
 namespace CoreGoDelivery.Application.Services.Internal.Rental
 {
-    public class RentalServiceBase
+    public class RentalServiceBase : BaseInternalServices
     {
-        public const string MESSAGE_INVALID_DATA = "Dados inválidos";
         public const string CURRENCY_BRL = "R$";
 
         public const double PENALTY_VALUE_PER_DAY = 50;
@@ -16,7 +14,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Rental
         public const double MINIMAL_FEE_PERCENTAGE = 20;
         public const double DEFAULT_FEE_PERCENTAGE = 40;
 
-        public static string CalculatePenalty(DateTime returnedToBaseDate, RentalEntity? rental)
+        public static string? CalculatePenalty(DateTime returnedToBaseDate, RentalEntity? rental)
         {
             TimeSpan buildDiffDays = returnedToBaseDate - rental!.EstimatedReturnDate;
 
@@ -57,7 +55,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Rental
                 message.Append($"{penaltyValue}");
             }
 
-            return message.ToString();
+            return BuildMessageValidator(message);
         }
 
         public static RentalEntity CreateToEntity(RentalDto data, RentalEntity RentalDates)
@@ -75,18 +73,6 @@ namespace CoreGoDelivery.Application.Services.Internal.Rental
             };
 
             return result;
-        }
-
-        public static string? FinalMessageBuild(bool resultCreate, ApiResponse apiReponse)
-        {
-            if (!string.IsNullOrEmpty(apiReponse.Message))
-            {
-                return null;
-            }
-
-            return resultCreate
-                ? null
-                : MESSAGE_INVALID_DATA;
         }
 
         public static string? ValidadeToPlan(ref RentalDto data, RentalPlanEntity plan)
@@ -143,7 +129,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Rental
             }
             #endregion
 
-            return message.ToString();
+            return BuildMessageValidator(message);
         }
 
         public static RentalEntity CalculateDatesByPlan(RentalPlanEntity plan)

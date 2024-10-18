@@ -1,5 +1,6 @@
 ﻿using CoreGoDelivery.Application.Services.Internal.Motorcycle;
 using CoreGoDelivery.Domain.DTO.Motorcycle;
+using CoreGoDelivery.Domain.Entities.GoDelivery.ModelMotorcycle;
 using CoreGoDelivery.Domain.Entities.GoDelivery.Motorcycle;
 using Xunit;
 
@@ -27,11 +28,31 @@ namespace CoreGoDelivery.ApplicationTests.Services.Internal.Motorcycle
             Assert.Equal(expectedPlate, result.PlateNormalized);
         }
 
-        //        Rastreamento de Pilha: 
-        //MotorcycleServiceBaseTests.CreateToEntity_ShouldConvertDtoToEntity(String id, Int32 year, String model, String plate, String expectedId, Int32 expectedYear, String expectedModel, String expectedPlate) linha 26
-        //InvokeStub_MotorcycleServiceBaseTests.CreateToEntity_ShouldConvertDtoToEntity(Object, Span`1)
-        //MethodBaseInvoker.InvokeWithManyArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+        [Theory]
+        [InlineData("1", 2020, "Model A", "ABC-1234")]
+        [InlineData("2", 2021, "Model B", "DEF-5678")]
+        [InlineData("3", 2022, "Model C", "GHI-9012")]
+        [InlineData("4", 2019, "Model D", "JKL-3456")]
+        public void EntityToDto_ShouldMapMotorcycleEntityToMotorcycleDto(
+             string id, int yearManufacture, string modelName, string plateId)
+        {
+            var modelMotorcycle = new ModelMotorcycleEntity { Name = modelName };
 
+            var motorcycleEntity = new MotorcycleEntity
+            {
+                Id = id,
+                YearManufacture = yearManufacture,
+                PlateNormalized = plateId,
+                ModelMotorcycle = modelMotorcycle
+            };
+
+            var result = MotorcycleServiceBase.EntityToDto(motorcycleEntity);
+
+            Assert.Equal(id, result.Id);
+            Assert.Equal(yearManufacture, result.YearManufacture);
+            Assert.Equal(modelName, result.ModelName);
+            Assert.Equal(plateId, result.PlateId);
+        }
 
         [Theory]
         [InlineData("ABC-1234", true)]
@@ -45,11 +66,9 @@ namespace CoreGoDelivery.ApplicationTests.Services.Internal.Motorcycle
         [InlineData("     ", false)]
         public void ValidatePlate_ShouldValidatePlateCorrectly(string plateId, bool expected)
         {
-            var result = MotorcycleServiceBase.ValidatePlate(plateId);
+            var result = MotorcycleServiceBase.PlateValidator(plateId);
 
             Assert.Equal(expected, result);
         }
-
-
     }
 }
