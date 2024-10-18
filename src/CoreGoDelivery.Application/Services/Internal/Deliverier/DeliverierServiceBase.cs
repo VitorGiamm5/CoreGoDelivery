@@ -160,7 +160,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Deliverier
 
         #endregion
 
-        #region Internal features
+        #region Features used in Mappers
 
         public static string FileNameLicenseNormalize(DeliverierDto data)
         {
