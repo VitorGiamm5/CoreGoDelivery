@@ -27,7 +27,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Deliverier
                 return apiReponse;
             }
 
-            var deliverier = CreateToEntity(data);
+            var deliverier = MapCreateToEntity(data);
 
             var resultCreate = await _repositoryDeliverier.Create(deliverier);
 

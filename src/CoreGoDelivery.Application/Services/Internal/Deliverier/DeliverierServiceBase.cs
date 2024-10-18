@@ -21,7 +21,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Deliverier
             _repositoryLicence = repositoryLicence;
         }
 
-        public static DeliverierEntity CreateToEntity(DeliverierDto data)
+        public static DeliverierEntity MapCreateToEntity(DeliverierDto data)
         {
             var result = new DeliverierEntity()
             {
@@ -33,14 +33,14 @@ namespace CoreGoDelivery.Application.Services.Internal.Deliverier
                 {
                     Id = data.LicenseNumber,
                     Type = ParseLicenseType(data),
-                    ImageUrlReference = FileNameNormalize(data)
+                    ImageUrlReference = FileNameLicenseNormalize(data)
                 }
             };
 
             return result;
         }
 
-        public static string FileNameNormalize(DeliverierDto data)
+        public static string FileNameLicenseNormalize(DeliverierDto data)
         {
             var result = $"CNH_{data.LicenseNumber}.png";
 

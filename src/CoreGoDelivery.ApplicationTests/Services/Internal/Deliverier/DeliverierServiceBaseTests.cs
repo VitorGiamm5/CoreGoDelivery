@@ -27,7 +27,7 @@ namespace CoreGoDelivery.ApplicationTests.Services.Internal.Deliverier
                 LicenseNumber = licenseNumber
             };
 
-            var result = DeliverierServiceBase.CreateToEntity(data);
+            var result = DeliverierServiceBase.MapCreateToEntity(data);
 
             Assert.Equal(id, result.Id);
             Assert.Equal(fullName, result.FullName);
@@ -47,7 +47,7 @@ namespace CoreGoDelivery.ApplicationTests.Services.Internal.Deliverier
         {
             var data = new DeliverierDto { LicenseNumber = licenseNumber };
 
-            var result = DeliverierServiceBase.FileNameNormalize(data);
+            var result = DeliverierServiceBase.FileNameLicenseNormalize(data);
 
             Assert.Equal(expected, result);
         }
