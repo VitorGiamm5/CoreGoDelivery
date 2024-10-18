@@ -1,7 +1,9 @@
-﻿using CoreGoDelivery.Domain.DTO.Deliverier;
+﻿using CoreGoDelivery.Application.Extensions;
+using CoreGoDelivery.Domain.DTO.Deliverier;
 using CoreGoDelivery.Domain.Entities.GoDelivery.Deliverier;
 using CoreGoDelivery.Domain.Entities.GoDelivery.LicenceDriver;
 using CoreGoDelivery.Domain.Enums.LicenceDriverType;
+using CoreGoDelivery.Domain.Enums.ServiceErrorMessage;
 using CoreGoDelivery.Domain.Repositories.GoDelivery;
 using DocumentValidator;
 using System.Text;
@@ -69,13 +71,13 @@ namespace CoreGoDelivery.Application.Services.Internal.Deliverier
         {
             if (string.IsNullOrWhiteSpace(cnpj))
             {
-                message.Append($"Empty: {nameof(cnpj)}: {cnpj}; ");
+                message.AppendError(message, cnpj, AdditionalMessageEnum.None);
             }
             else
             {
                 if (!CnpjValidation.Validate(cnpj))
                 {
-                    message.Append($"{nameof(cnpj)}: {cnpj} is invalid; ");
+                    message.AppendError(message, cnpj, AdditionalMessageEnum.None);
                 }
             }
         }
@@ -84,7 +86,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Deliverier
         {
             if (string.IsNullOrWhiteSpace(data.FullName))
             {
-                message.Append($"Empty: {nameof(data.FullName)}; ");
+                message.AppendError(message, data.FullName);
             }
         }
 
@@ -92,7 +94,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Deliverier
         {
             if (string.IsNullOrWhiteSpace(data.BirthDate.ToString()))
             {
-                message.Append($"Invalid: {nameof(data.BirthDate)}: {data.BirthDate}; ");
+                message.AppendError(message, data.BirthDate);
             }
             else
             {
@@ -107,7 +109,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Deliverier
 
                     if (age < 18)
                     {
-                        message.Append("The person must be at least 18 years old.");
+                        message.AppendLine("The person must be at least 18 years old.");
                     }
                 }
             }
@@ -117,7 +119,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Deliverier
         {
             if (!Enum.TryParse(data.LicenseType, ignoreCase: true, out LicenseTypeEnum _))
             {
-                message.Append($"Invalid: {nameof(data.LicenseType)}: {data.LicenseType}; ");
+                message.AppendError(message, data.LicenseType);
             }
         }
 
@@ -129,7 +131,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Deliverier
 
                 if (!isUnicId)
                 {
-                    message.Append($"{nameof(data.Id)}: {data.Id} already exists; ");
+                    message.AppendError(message, data.Id, AdditionalMessageEnum.AlreadyExist);
                 }
             }
         }
@@ -138,7 +140,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Deliverier
         {
             if (string.IsNullOrWhiteSpace(data.LicenseNumber))
             {
-                message.Append($"Empty: {nameof(data.LicenseNumber)}; ");
+                message.AppendError(message, data.LicenseNumber);
             }
             else
             {
@@ -146,21 +148,21 @@ namespace CoreGoDelivery.Application.Services.Internal.Deliverier
 
                 if (!isValidLicense)
                 {
-                    message.Append($"{nameof(data.LicenseNumber)}: {data.LicenseNumber} is invalid; ");
+                    message.AppendError(message, data.LicenseNumber);
                 }
 
                 var isUnicLicence = await _repositoryLicence.CheckIsUnicByLicence(data.LicenseNumber);
 
                 if (!isUnicLicence)
                 {
-                    message.Append($"{nameof(data.LicenseNumber)}: {data.LicenseNumber} already exists; ");
+                    message.AppendError(message, data.LicenseNumber, AdditionalMessageEnum.AlreadyExist);
                 }
             }
         }
 
         #endregion
 
-        #region Features used in Mappers
+        #region Features to Mappers
 
         public static string FileNameLicenseNormalize(DeliverierDto data)
         {

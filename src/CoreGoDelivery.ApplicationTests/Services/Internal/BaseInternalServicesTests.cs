@@ -1,5 +1,6 @@
 ﻿using CoreGoDelivery.Application.Services.Internal;
 using CoreGoDelivery.Domain.DTO.Response;
+using System.Text;
 using Xunit;
 
 namespace CoreGoDelivery.ApplicationTests.Services.Internal
@@ -41,13 +42,53 @@ namespace CoreGoDelivery.ApplicationTests.Services.Internal
         [Theory]
         [InlineData(true, null, null)]
         [InlineData(false, null, "Dados inválidos")]
-        [InlineData(true, "Erro ao processar a requisição", null)]
-        [InlineData(false, "Erro ao processar a requisição", null)]
+        [InlineData(true, "Error processing request", null)]
+        [InlineData(false, "Error processing request", null)]
         public void FinalMessageBuild_ShouldReturnExpectedMessage(bool resultCreate, string apiMessage, string expected)
         {
             var apiReponse = new ApiResponse { Message = apiMessage };
 
             var result = BaseInternalServices.FinalMessageBuild(resultCreate, apiReponse);
+
+            Assert.Equal(expected, result);
+        }
+
+        [Theory]
+        [InlineData("Error: Missing plate", "Error: Missing plate")]
+        [InlineData("Warning: Year is too old", "Warning: Year is too old")]
+        [InlineData("", null)]
+        [InlineData("Error: InvalidFormat model name", "Error: InvalidFormat model name")]
+        public void BuildMessageValidator_ShouldReturnCorrectMessage(string inputMessage, string expected)
+        {
+            var message = new StringBuilder(inputMessage);
+
+            var result = BaseInternalServices.BuildMessageValidator(message);
+
+            Assert.Equal(expected, result);
+        }
+
+        [Theory]
+        [InlineData("Error occurred", true)]
+        [InlineData("", false)]
+        [InlineData(null, false)]
+        public void HasMessageError_ShouldReturnCorrectResult(string message, bool expected)
+        {
+            var apiResponse = new ApiResponse { Message = message };
+
+            var result = BaseInternalServices.HasMessageError(apiResponse);
+
+            Assert.Equal(expected, result);
+        }
+
+        [Theory]
+        [InlineData(":id", true)]
+        [InlineData(null, true)]
+        [InlineData("", true)]
+        [InlineData("validId", false)]
+        [InlineData("12345", false)]
+        public void RequestIdParamValidator_ShouldReturnCorrectResult(string id, bool expected)
+        {
+            var result = BaseInternalServices.RequestIdParamValidator(id);
 
             Assert.Equal(expected, result);
         }

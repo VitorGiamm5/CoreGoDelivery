@@ -1,8 +1,11 @@
-﻿using CoreGoDelivery.Domain.DTO.Motorcycle;
+﻿using CoreGoDelivery.Application.Extensions;
+using CoreGoDelivery.Domain.DTO.Motorcycle;
 using CoreGoDelivery.Domain.Entities.GoDelivery.Motorcycle;
+using CoreGoDelivery.Domain.Enums.ServiceErrorMessage;
 using CoreGoDelivery.Domain.Repositories.GoDelivery;
 using System.Text;
 using System.Text.RegularExpressions;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace CoreGoDelivery.Application.Services.Internal.Motorcycle
 {
@@ -97,20 +100,20 @@ namespace CoreGoDelivery.Application.Services.Internal.Motorcycle
 
             if (string.IsNullOrEmpty(id))
             {
-                message.Append($"Invalid: {nameof(id)} plate: {id} does not exist; ");
+                message.AppendError(message, id, AdditionalMessageEnum.Required);
             }
             else
             {
                 var motorcycle = await _repositoryMotorcycle.GetOneByIdAsync(id);
                 if (motorcycle == null)
                 {
-                    message.Append($"Invalid: {nameof(id)} plate: {id} does not exist; ");
+                    message.AppendError(message, id, AdditionalMessageEnum.NotFound);
                 }
 
                 var motorcycleIsInUse = await _rentalRepository.CheckMotorcycleIsAvaliableAsync(id);
                 if (motorcycleIsInUse)
                 {
-                    message.Append($"Invalid: {nameof(id)} has a rental is in use; ");
+                    message.AppendError(message, id, AdditionalMessageEnum.Unavailable);
                 }
             }
 
@@ -140,13 +143,13 @@ namespace CoreGoDelivery.Application.Services.Internal.Motorcycle
         {
             if (string.IsNullOrWhiteSpace(data.YearManufacture.ToString()))
             {
-                message.Append($"Empty: {nameof(data.YearManufacture)}; ");
+                message.AppendError(message, data.YearManufacture, AdditionalMessageEnum.Required);
             }
             else
             {
                 if (data.YearManufacture <= 1903)
                 {
-                    message.Append($"Invalid: {nameof(data.YearManufacture)}: {data.YearManufacture}; ");
+                    message.AppendError(message, data.YearManufacture, AdditionalMessageEnum.Unavailable);
                 }
             }
         }
@@ -155,7 +158,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Motorcycle
         {
             if (string.IsNullOrWhiteSpace(data.PlateId))
             {
-                message.Append($"Empty: {nameof(data.PlateId)}; ");
+                message.AppendError(message, data.PlateId, AdditionalMessageEnum.Required);
             }
             else
             {
@@ -168,12 +171,12 @@ namespace CoreGoDelivery.Application.Services.Internal.Motorcycle
 
                     if (!isUnicId)
                     {
-                        message.Append($"{nameof(data.PlateId)}: {data.PlateId} already exists; ");
+                        message.AppendError(message, data.PlateId, AdditionalMessageEnum.AlreadyExist);
                     }
                 }
                 else
                 {
-                    message.Append($"Invalid: {nameof(data.PlateId)}: {data.PlateId} format; ");
+                    message.AppendError(message, data.PlateId, AdditionalMessageEnum.InvalidFormat);
                 }
             }
         }
@@ -186,7 +189,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Motorcycle
 
                 if (!isUnicId)
                 {
-                    message.Append($"{nameof(data.Id)}: {data.Id} already exists; ");
+                    message.AppendError(message, data.Id, AdditionalMessageEnum.AlreadyExist);
                 }
             }
         }
@@ -195,7 +198,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Motorcycle
         {
             if (string.IsNullOrWhiteSpace(data.ModelName))
             {
-                message.Append($"Empty: {nameof(data.ModelName)}; ");
+                message.AppendError(message, data.Id, AdditionalMessageEnum.Required);
             }
             else
             {
@@ -204,7 +207,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Motorcycle
 
                 if (string.IsNullOrEmpty(modelId))
                 {
-                    message.Append($"Invalid: {nameof(data.ModelName)}: {data.ModelName} not exist; ");
+                    message.AppendError(message, data.Id, AdditionalMessageEnum.NotFound);
                 }
 
                 data.ModelName = modelId;
@@ -232,14 +235,14 @@ namespace CoreGoDelivery.Application.Services.Internal.Motorcycle
 
             if (!isValidId)
             {
-                message.Append($"Invalid: {nameof(id)}, type: {nameof(id.GetType)}, value: {id}; ");
+                message.AppendError(message, id, AdditionalMessageEnum.Required);
             }
             else
             {
-                var motorcycle = await _repositoryMotorcycle.GetOneByIdAsync(id);
+                var motorcycle = await _repositoryMotorcycle.GetOneByIdAsync(id!);
                 if (motorcycle == null)
                 {
-                    message.Append($"Invalid: {nameof(id)} : {id} not exists; ");
+                    message.AppendError(message, id, AdditionalMessageEnum.NotFound);
                 }
             }
         }
@@ -248,30 +251,25 @@ namespace CoreGoDelivery.Application.Services.Internal.Motorcycle
         {
             if (string.IsNullOrEmpty(plate))
             {
-                message.Append($"Empty: {nameof(plate)}; ");
+                message.AppendError(message, plate, AdditionalMessageEnum.Required);
             }
             else
             {
                 var isValidPlate = PlateValidator(plate!);
                 if (!isValidPlate)
                 {
-                    message.Append($"Invalid: {nameof(plate)}: {plate} format; ");
+                    message.AppendError(message, plate, AdditionalMessageEnum.InvalidFormat);
                 }
                 else
                 {
                     var plateIsUnic = await _repositoryMotorcycle.CheckIsUnicByPlateAsync(plate);
                     if (!plateIsUnic)
                     {
-                        message.Append($"Invalid: {nameof(plate)}: {plate} must be unic; ");
+                        message.AppendError(message, plate, AdditionalMessageEnum.MustBeUnic);
                     }
                 }
             }
         }
-
-        //RequestIdParamValidator
-
-
-
 
         #endregion
 

@@ -1,6 +1,8 @@
-﻿using CoreGoDelivery.Domain.DTO.Rental;
+﻿using CoreGoDelivery.Application.Extensions;
+using CoreGoDelivery.Domain.DTO.Rental;
 using CoreGoDelivery.Domain.Entities.GoDelivery.Rental;
 using CoreGoDelivery.Domain.Entities.GoDelivery.RentalPlan;
+using CoreGoDelivery.Domain.Enums.ServiceErrorMessage;
 using CoreGoDelivery.Domain.Repositories.GoDelivery;
 using System.Text;
 
@@ -21,8 +23,8 @@ namespace CoreGoDelivery.Application.Services.Internal.Rental
         public const double DEFAULT_FEE_PERCENTAGE = 40;
 
         public RentalServiceBase(
-            IRentalRepository repositoryRental, 
-            IRentalPlanRepository repositoryPlan, 
+            IRentalRepository repositoryRental,
+            IRentalPlanRepository repositoryPlan,
             IMotocycleRepository repositoryMotocyle,
             IDeliverierRepository repositoryDeliverier)
         {
@@ -32,7 +34,34 @@ namespace CoreGoDelivery.Application.Services.Internal.Rental
             _repositoryDeliverier = repositoryDeliverier;
         }
 
-        public static string? CalculatePenalty(DateTime returnedToBaseDate, RentalEntity? rental)
+        #region Mappers
+
+        public static RentalEntity MapCreateToEntity(RentalDto data, RentalEntity RentalDates)
+        {
+            var result = new RentalEntity()
+            {
+                Id = Ulid.NewUlid().ToString(),
+                StartDate = RentalDates.StartDate,
+                EndDate = RentalDates.EndDate,
+                EstimatedReturnDate = RentalDates.EstimatedReturnDate,
+                ReturnedToBaseDate = null,
+                DeliverierId = data.DeliverierId,
+                MotorcycleId = data.MotorcycleId,
+                RentalPlanId = data.PlanId
+            };
+
+            return result;
+        }
+
+        #endregion
+
+        /// <summary>
+        /// used to UpdateReturnedToBaseDate
+        /// </summary>
+        /// <param name="data"></param>
+        /// <param name="plan"></param>
+        /// <returns></returns>
+        public static string? BuildCalculatePenalty(DateTime returnedToBaseDate, RentalEntity? rental)
         {
             TimeSpan buildDiffDays = returnedToBaseDate - rental!.EstimatedReturnDate;
 
@@ -45,7 +74,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Rental
 
             var message = new StringBuilder();
 
-            message.Append($"Value to pay: {CURRENCY_BRL} ");
+            message.AppendLine($"Value to pay: {CURRENCY_BRL} ");
 
 
             if (diffDays < 0)
@@ -76,24 +105,13 @@ namespace CoreGoDelivery.Application.Services.Internal.Rental
             return BuildMessageValidator(message);
         }
 
-        public static RentalEntity CreateToEntity(RentalDto data, RentalEntity RentalDates)
-        {
-            var result = new RentalEntity()
-            {
-                Id = Ulid.NewUlid().ToString(),
-                StartDate = RentalDates.StartDate,
-                EndDate = RentalDates.EndDate,
-                EstimatedReturnDate = RentalDates.EstimatedReturnDate,
-                ReturnedToBaseDate = null,
-                DeliverierId = data.DeliverierId,
-                MotorcycleId = data.MotorcycleId,
-                RentalPlanId = data.PlanId
-            };
-
-            return result;
-        }
-
-        public static string? ValidadeToPlan(ref RentalDto data, RentalPlanEntity plan)
+        /// <summary>
+        /// used to UpdateReturnedToBaseDate
+        /// </summary>
+        /// <param name="data"></param>
+        /// <param name="plan"></param>
+        /// <returns></returns>
+        public static string? ValidadeToPlan(RentalDto data, RentalPlanEntity plan)
         {
             var message = new StringBuilder();
 
@@ -106,7 +124,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Rental
 
                 if (DateTime.Parse(data.StartDate) != refence.StartDate)
                 {
-                    message.Append($"Invalid: {nameof(data.StartDate)}: {DateTime.Parse(data.StartDate)}, expected: {refence.StartDate}; ");
+                    message.AppendErrorWithExpexted(message, data.StartDate, refence.StartDate.ToString());
                 }
             }
             #endregion
@@ -118,7 +136,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Rental
 
                 if (DateTime.Parse(data.EndDate) != refence.EndDate)
                 {
-                    message.Append($"Invalid: {nameof(data.EndDate)}: {DateTime.Parse(data.EndDate)}, expected: {refence.EndDate}; ");
+                    message.AppendErrorWithExpexted(message, data.EndDate, refence.EndDate.ToString());
                 }
             }
             #endregion
@@ -130,7 +148,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Rental
 
                 if (DateTime.Parse(data.EstimatedReturnDate) != refence.EstimatedReturnDate)
                 {
-                    message.Append($"Invalid: {nameof(data.EstimatedReturnDate)}: {DateTime.Parse(data.EstimatedReturnDate)}, expected: {refence.EstimatedReturnDate}; ");
+                    message.AppendErrorWithExpexted(message, data.EstimatedReturnDate, refence.EstimatedReturnDate.ToString());
                 }
             }
             #endregion
@@ -142,7 +160,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Rental
 
                 if (data.DayliCost != plan.DayliCost)
                 {
-                    message.Append($"Invalid: {nameof(data.DayliCost)}: {data.DayliCost}, expected: {plan.DayliCost}; ");
+                    message.AppendErrorWithExpexted(message, data.DayliCost, plan.DayliCost.ToString());
                 }
             }
             #endregion
@@ -150,6 +168,11 @@ namespace CoreGoDelivery.Application.Services.Internal.Rental
             return BuildMessageValidator(message);
         }
 
+        /// <summary>
+        /// used to: CalculateDatesByPlan
+        /// </summary>
+        /// <param name="plan"></param>
+        /// <returns></returns>
         public static RentalEntity CalculateDatesByPlan(RentalPlanEntity plan)
         {
             var result = new RentalEntity()
@@ -162,8 +185,14 @@ namespace CoreGoDelivery.Application.Services.Internal.Rental
             return result;
         }
 
-        #region Validators
+        #region Update Validators
 
+        /// <summary>
+        /// used to UpdateReturnedToBaseDate
+        /// </summary>
+        /// <param name="data"></param>
+        /// <param name="plan"></param>
+        /// <returns></returns>
         public async Task<string?> BuilderUpdateValidator(string id, ReturnedToBaseDateDto? data)
         {
             var message = new StringBuilder();
@@ -171,7 +200,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Rental
             #region Id validator
             if (RequestIdParamValidator(id))
             {
-                message.Append($"Invalid: {nameof(id)} is empty; ");
+                message.AppendError(message, id, AdditionalMessageEnum.Required);
                 return message.ToString();
             }
 
@@ -179,14 +208,14 @@ namespace CoreGoDelivery.Application.Services.Internal.Rental
 
             if (rentalEntity == null)
             {
-                message.Append($"Invalid: {nameof(id)} no data found; ");
+                message.AppendError(message, id, AdditionalMessageEnum.NotFound);
             }
             else
             {
                 var motorcycleIsAvaliable = await _repositoryRental.CheckMotorcycleIsAvaliableAsync(rentalEntity.MotorcycleId);
                 if (!motorcycleIsAvaliable)
                 {
-                    message.Append($"Invalid: {nameof(rentalEntity.ReturnedToBaseDate)} was returned previously at {rentalEntity.ReturnedToBaseDate}; ");
+                    message.AppendLine($"Invalid field: {nameof(rentalEntity.ReturnedToBaseDate)} was returned previously at {rentalEntity.ReturnedToBaseDate}; ");
                 }
             }
 
@@ -196,14 +225,14 @@ namespace CoreGoDelivery.Application.Services.Internal.Rental
 
             if (data?.ReturnedToBaseDate == null)
             {
-                message.Append($"Invalid: {nameof(data.ReturnedToBaseDate)} is empty; ");
+                message.AppendError(message, data.ReturnedToBaseDate, AdditionalMessageEnum.Required);
             }
             else
             {
                 var isAfterDateStart = data?.ReturnedToBaseDate >= rentalEntity?.StartDate;
                 if (!isAfterDateStart)
                 {
-                    message.Append($"Invalid: {nameof(data.ReturnedToBaseDate)} : {data?.ReturnedToBaseDate} must be after {nameof(rentalEntity.StartDate)} : {rentalEntity?.StartDate}; ");
+                    message.Append($"Invalid field: {nameof(data.ReturnedToBaseDate)} : {data?.ReturnedToBaseDate} must be after {nameof(rentalEntity.StartDate)} : {rentalEntity?.StartDate}; ");
                 }
             }
 
@@ -213,32 +242,35 @@ namespace CoreGoDelivery.Application.Services.Internal.Rental
 
         }
 
-        public async Task<bool> MotorcycleIsAvaliableValidator(string id)
-        {
-            var motocycleIsAvaliable = await _repositoryRental.CheckMotorcycleIsAvaliableAsync(id);
+        #endregion
 
-            return motocycleIsAvaliable;
-        }
+        #region Create validator
 
-        public async Task<string?> CreateValidator(RentalDto data)
+        /// <summary>
+        /// used to: Create Rental
+        /// </summary>
+        /// <param name="data"></param>
+        /// <param name="plan"></param>
+        /// <returns></returns>
+        public async Task<string?> BuilderCreateValidator(RentalDto data)
         {
             var message = new StringBuilder();
 
             #region PlanId validator
             if (string.IsNullOrWhiteSpace(data.PlanId.ToString()))
             {
-                message.Append($"Empty: {nameof(data.PlanId)}; ");
+                message.AppendError(message, data.PlanId, AdditionalMessageEnum.Required);
             }
             else
             {
                 var plan = await _repositoryPlan.GetById(data.PlanId);
                 if (plan == null)
                 {
-                    message.Append($"Invalid: {nameof(data.PlanId)}: {data.PlanId} not exist; ");
+                    message.AppendError(message, data.PlanId, AdditionalMessageEnum.NotFound);
                 }
                 else
                 {
-                    var resultValidateDates = ValidadeToPlan(ref data, plan);
+                    var resultValidateDates = ValidadeToPlan(data, plan);
                     if (!string.IsNullOrWhiteSpace(resultValidateDates))
                     {
                         message.Append(resultValidateDates);
@@ -250,20 +282,20 @@ namespace CoreGoDelivery.Application.Services.Internal.Rental
             #region MotorcycleId validator
             if (string.IsNullOrWhiteSpace(data.MotorcycleId))
             {
-                message.Append($"Empty: {nameof(data.MotorcycleId)}; ");
+                message.AppendError(message, data.MotorcycleId, AdditionalMessageEnum.Required);
             }
             else
             {
                 var existMotocycleId = await _repositoryMotocyle.GetOneByIdAsync(data.MotorcycleId);
                 if (existMotocycleId == null)
                 {
-                    message.Append($"Invalid: {nameof(data.MotorcycleId)}: {data.MotorcycleId} not exist; ");
+                    message.AppendError(message, data.MotorcycleId, AdditionalMessageEnum.NotFound);
                 }
 
                 var motocycleIsAvaliable = await _repositoryRental.CheckMotorcycleIsAvaliableAsync(data.MotorcycleId);
                 if (!motocycleIsAvaliable)
                 {
-                    message.Append($"Invalid: {nameof(data.MotorcycleId)}: {data.MotorcycleId} is not avaliable; ");
+                    message.AppendError(message, data.MotorcycleId, AdditionalMessageEnum.Unavailable);
                 }
             }
             #endregion
@@ -271,14 +303,14 @@ namespace CoreGoDelivery.Application.Services.Internal.Rental
             #region DeliverierId validator
             if (string.IsNullOrWhiteSpace(data.DeliverierId))
             {
-                message.Append($"Empty:  {nameof(data.DeliverierId)}; ");
+                message.AppendError(message, data.DeliverierId, AdditionalMessageEnum.Required);
             }
             else
             {
                 var existDeliverierId = await _repositoryDeliverier.CheckIsUnicById(data.DeliverierId);
                 if (!existDeliverierId)
                 {
-                    message.Append($"Invalid: {nameof(data.DeliverierId)}: {data.DeliverierId} not exist; ");
+                    message.AppendError(message, data.DeliverierId, AdditionalMessageEnum.NotFound);
                 }
             }
             #endregion

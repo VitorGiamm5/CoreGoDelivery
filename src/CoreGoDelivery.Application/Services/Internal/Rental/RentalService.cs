@@ -1,7 +1,9 @@
-﻿using CoreGoDelivery.Application.Services.Internal.Interface;
+﻿using CoreGoDelivery.Application.Extensions;
+using CoreGoDelivery.Application.Services.Internal.Interface;
 using CoreGoDelivery.Domain.DTO.Rental;
 using CoreGoDelivery.Domain.DTO.Response;
 using CoreGoDelivery.Domain.Entities.GoDelivery.Rental;
+using CoreGoDelivery.Domain.Enums.ServiceErrorMessage;
 using CoreGoDelivery.Domain.Repositories.GoDelivery;
 using System.Text;
 
@@ -23,7 +25,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Rental
             var apiReponse = new ApiResponse()
             {
                 Data = null,
-                Message = await CreateValidator(data)
+                Message = await BuilderCreateValidator(data)
             };
 
             if (!string.IsNullOrEmpty(apiReponse.Message))
@@ -35,7 +37,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Rental
 
             var calculatedDates = CalculateDatesByPlan(plan!);
 
-            var rental = CreateToEntity(data, calculatedDates);
+            var rental = MapCreateToEntity(data, calculatedDates);
 
             var resultCreate = await _repositoryRental.Create(rental);
 
@@ -51,15 +53,15 @@ namespace CoreGoDelivery.Application.Services.Internal.Rental
 
             if (!RequestIdParamValidator(id))
             {
-                message.Append($"Invalid: {nameof(id)} is empty; ");
+                message.AppendError(message, id, AdditionalMessageEnum.Required);
             }
             else
             {
-                rental = await _repositoryRental.GetByIdAsync(id);
+                rental = await _repositoryRental.GetByIdAsync(id!);
 
                 if (rental == null)
                 {
-                    message.Append($"Invalid: {nameof(id)} no data found; ");
+                    message.AppendError(message, id, AdditionalMessageEnum.NotFound);
                 }
             }
 
@@ -101,7 +103,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Rental
 
             var returnedDate = data!.ReturnedToBaseDate!.Value;
 
-            string result = CalculatePenalty(returnedDate, rental) ?? MESSAGE_INVALID_DATA;
+            string result = BuildCalculatePenalty(returnedDate, rental) ?? MESSAGE_INVALID_DATA;
 
             var successUpdate = await _repositoryRental.UpdateReturnedToBaseDate(id, returnedDate);
 
