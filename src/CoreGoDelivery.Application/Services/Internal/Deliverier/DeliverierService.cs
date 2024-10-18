@@ -19,7 +19,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Deliverier
             var apiReponse = new ApiResponse()
             {
                 Data = null,
-                Message = await ValidatorCreateAsync(data)
+                Message = await BuilderValidatorCreateAsync(data)
             };
             
             if (HasMessageError(apiReponse))

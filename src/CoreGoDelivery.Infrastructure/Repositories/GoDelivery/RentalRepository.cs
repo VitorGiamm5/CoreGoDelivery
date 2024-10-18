@@ -48,11 +48,6 @@ namespace CoreGoDelivery.Infrastructure.Repositories.GoDelivery
 
         public async Task<bool> UpdateReturnedToBaseDate(string id, DateTime date)
         {
-            if (string.IsNullOrEmpty(id) || id == ":id")
-            {
-                return false;
-            }
-
             var rentalEntity = await _context.Set<RentalEntity>()
                 .AsTracking()
                 .FirstOrDefaultAsync(x => x.Id == id);

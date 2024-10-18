@@ -52,5 +52,12 @@ namespace CoreGoDelivery.Application.Services.Internal
 
             return hasMessage;
         }
+
+        public static bool RequestIdParamValidator(string? id)
+        {
+            bool isValid = id == ":id" || string.IsNullOrEmpty(id);
+
+            return isValid;
+        }
     }
 }

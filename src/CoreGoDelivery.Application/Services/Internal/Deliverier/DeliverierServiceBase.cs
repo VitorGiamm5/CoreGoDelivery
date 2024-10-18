@@ -54,7 +54,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Deliverier
             return licenseType;
         }
 
-        public async Task<string?> ValidatorCreateAsync(DeliverierDto data)
+        public async Task<string?> BuilderValidatorCreateAsync(DeliverierDto data)
         {
             var message = new StringBuilder();
 

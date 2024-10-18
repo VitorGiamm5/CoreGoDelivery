@@ -20,7 +20,7 @@ namespace CoreGoDelivery.ApplicationTests.Services.Internal.Motorcycle
                 PlateId = plate
             };
 
-            MotorcycleEntity result = MotorcycleServiceBase.CreateToEntity(data);
+            MotorcycleEntity result = MotorcycleServiceBase.MapCreateToEntity(data);
 
             Assert.Equal(expectedId, result.Id);
             Assert.Equal(expectedYear, result.YearManufacture);
@@ -46,7 +46,7 @@ namespace CoreGoDelivery.ApplicationTests.Services.Internal.Motorcycle
                 ModelMotorcycle = modelMotorcycle
             };
 
-            var result = MotorcycleServiceBase.EntityToDto(motorcycleEntity);
+            var result = MotorcycleServiceBase.MapEntityToDto(motorcycleEntity);
 
             Assert.Equal(id, result.Id);
             Assert.Equal(yearManufacture, result.YearManufacture);
