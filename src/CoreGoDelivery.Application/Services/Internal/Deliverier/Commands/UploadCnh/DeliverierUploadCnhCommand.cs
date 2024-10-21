@@ -12,6 +12,6 @@ namespace CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.Uploa
         public string LicenseImageBase64 { get; set; }
 
         [JsonIgnore]
-        public string Id { get; set; }
+        public string? IdLicense { get; set; }
     }
 }

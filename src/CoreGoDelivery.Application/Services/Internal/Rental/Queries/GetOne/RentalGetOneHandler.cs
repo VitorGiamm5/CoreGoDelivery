@@ -6,6 +6,7 @@ using CoreGoDelivery.Domain.Enums.ServiceErrorMessage;
 using CoreGoDelivery.Domain.Repositories.GoDelivery;
 using MediatR;
 using System.Text;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace CoreGoDelivery.Application.Services.Internal.Rental.Queries.GetOne
 {
@@ -29,21 +30,21 @@ namespace CoreGoDelivery.Application.Services.Internal.Rental.Queries.GetOne
         public async Task<ApiResponse> Handle(RentalGetOneCommand request, CancellationToken cancellationToken)
         {
             var message = new StringBuilder();
-            var id = request?.Id;
+            var idRental = request?.Id;
 
             RentalEntity? rental = null;
 
-            if (!_baseInternalServices.RequestIdParamValidator(id))
+            if (!_baseInternalServices.RequestIdParamValidator(idRental))
             {
-                message.AppendError(message, id);
+                message.AppendError(message, "idRental");
             }
             else
             {
-                rental = await _repositoryRental.GetByIdAsync(id!);
+                rental = await _repositoryRental.GetByIdAsync(idRental!);
 
                 if (rental == null)
                 {
-                    message.AppendError(message, id, AdditionalMessageEnum.NotFound);
+                    message.AppendError(message, "idRental", AdditionalMessageEnum.NotFound);
                 }
             }
 

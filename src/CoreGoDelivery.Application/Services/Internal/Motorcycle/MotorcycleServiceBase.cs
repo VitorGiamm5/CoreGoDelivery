@@ -6,6 +6,7 @@ using CoreGoDelivery.Domain.Enums.ServiceErrorMessage;
 using CoreGoDelivery.Domain.Repositories.GoDelivery;
 using System.Text;
 using System.Text.RegularExpressions;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace CoreGoDelivery.Application.Services.Internal.Motorcycle
 {
@@ -97,26 +98,26 @@ namespace CoreGoDelivery.Application.Services.Internal.Motorcycle
             }
         }
 
-        public async Task<string?> BuilderDeleteValidator(string? id)
+        public async Task<string?> BuilderDeleteValidator(string? idMotorcycle)
         {
             var message = new StringBuilder();
 
-            if (string.IsNullOrEmpty(id))
+            if (string.IsNullOrEmpty(idMotorcycle))
             {
-                message.AppendError(message, id);
+                message.AppendError(message, nameof(idMotorcycle));
             }
             else
             {
-                var motorcycle = await _repositoryMotorcycle.GetOneByIdAsync(id);
+                var motorcycle = await _repositoryMotorcycle.GetOneByIdAsync(idMotorcycle);
                 if (motorcycle == null)
                 {
-                    message.AppendError(message, id, AdditionalMessageEnum.NotFound);
+                    message.AppendError(message, nameof(idMotorcycle), AdditionalMessageEnum.NotFound);
                 }
 
-                var motorcycleIsInUse = await _rentalRepository.CheckMotorcycleIsAvaliableAsync(id);
+                var motorcycleIsInUse = await _rentalRepository.CheckMotorcycleIsAvaliableAsync(idMotorcycle);
                 if (motorcycleIsInUse)
                 {
-                    message.AppendError(message, id, AdditionalMessageEnum.Unavailable);
+                    message.AppendError(message, nameof(idMotorcycle), AdditionalMessageEnum.Unavailable);
                 }
             }
 
@@ -133,11 +134,9 @@ namespace CoreGoDelivery.Application.Services.Internal.Motorcycle
 
             BuildMessageYear(data, message);
 
-            await Task.WhenAll(
-                BuildMessageIdMotorcycle(data, message),
-                BuildMessagePlate(data.PlateId, message),
-                BuildMessageModelMotorcycle(data, message)
-            );
+            await BuildMessageIdMotorcycle(data, message);
+            await BuildMessagePlate(data.PlateId, message);
+            await BuildMessageModelMotorcycle(data, message);
 
             return _baseInternalServices.BuildMessageValidator(message);
         }
@@ -146,22 +145,22 @@ namespace CoreGoDelivery.Application.Services.Internal.Motorcycle
         {
             if (string.IsNullOrWhiteSpace(data.YearManufacture.ToString()))
             {
-                message.AppendError(message, data.YearManufacture);
+                message.AppendError(message, nameof(data.YearManufacture));
             }
             else
             {
                 if (data.YearManufacture <= 1903)
                 {
-                    message.AppendError(message, data.YearManufacture, AdditionalMessageEnum.Unavailable);
+                    message.AppendError(message, nameof(data.YearManufacture), AdditionalMessageEnum.Unavailable);
                 }
             }
         }
 
-        public async Task BuildMessagePlate(string plate, StringBuilder message)
+        public async Task BuildMessagePlate(string? plate, StringBuilder message)
         {
             if (string.IsNullOrWhiteSpace(plate))
             {
-                message.AppendError(message, plate);
+                message.AppendError(message, nameof(plate));
             }
             else
             {
@@ -175,43 +174,47 @@ namespace CoreGoDelivery.Application.Services.Internal.Motorcycle
 
                     if (!isUnicId)
                     {
-                        message.AppendError(message, plate, AdditionalMessageEnum.AlreadyExist);
+                        message.AppendError(message, nameof(plate), AdditionalMessageEnum.AlreadyExist);
                     }
                 }
                 else
                 {
-                    message.AppendError(message, plate, AdditionalMessageEnum.InvalidFormat);
+                    message.AppendError(message, nameof(plate), AdditionalMessageEnum.InvalidFormat);
                 }
             }
         }
 
         public async Task BuildMessageIdMotorcycle(MotorcycleCreateCommand data, StringBuilder message)
         {
-            if (!string.IsNullOrWhiteSpace(data.Id))
+            var idMotorcycle = data.Id;
+            if (!string.IsNullOrWhiteSpace(idMotorcycle))
             {
-                var isUnicId = await _repositoryMotorcycle.CheckIsUnicById(data.Id);
+                var isUnicId = await _repositoryMotorcycle.CheckIsUnicById(idMotorcycle);
 
                 if (!isUnicId)
                 {
-                    message.AppendError(message, data.Id, AdditionalMessageEnum.AlreadyExist);
+                    message.AppendError(message, nameof(idMotorcycle), AdditionalMessageEnum.AlreadyExist);
                 }
             }
         }
 
         public async Task BuildMessageModelMotorcycle(MotorcycleCreateCommand data, StringBuilder message)
         {
+            var idMotorcycle = data.Id;
+
             if (string.IsNullOrWhiteSpace(data.ModelName))
             {
-                message.AppendError(message, data.Id);
+                message.AppendError(message, nameof(data.ModelName));
             }
             else
             {
                 var modelNormalized = _baseInternalServices.RemoveCharacteres(data.ModelName);
+
                 var modelId = await _repositoryModelMotorcycle.GetIdByModelName(modelNormalized);
 
                 if (string.IsNullOrEmpty(modelId))
                 {
-                    message.AppendError(message, data.Id, AdditionalMessageEnum.NotFound);
+                    message.AppendError(message, nameof(idMotorcycle), AdditionalMessageEnum.NotFound);
                 }
 
                 data.ModelName = modelId;
@@ -234,20 +237,21 @@ namespace CoreGoDelivery.Application.Services.Internal.Motorcycle
             return _baseInternalServices.BuildMessageValidator(message);
         }
 
-        public async Task BuildMessageChangePlateId(string? id, StringBuilder message)
+        public async Task BuildMessageChangePlateId(string? idMotorcycle, StringBuilder message)
         {
-            var isValidId = _baseInternalServices.RequestIdParamValidator(id);
+            var isValidId = _baseInternalServices.RequestIdParamValidator(idMotorcycle);
 
             if (!isValidId)
             {
-                message.AppendError(message, id);
+                message.AppendError(message, nameof(idMotorcycle));
             }
             else
             {
-                var motorcycle = await _repositoryMotorcycle.GetOneByIdAsync(id!);
+                var motorcycle = await _repositoryMotorcycle.GetOneByIdAsync(idMotorcycle!);
+
                 if (motorcycle == null)
                 {
-                    message.AppendError(message, id, AdditionalMessageEnum.NotFound);
+                    message.AppendError(message, nameof(idMotorcycle), AdditionalMessageEnum.NotFound);
                 }
             }
         }
@@ -256,21 +260,21 @@ namespace CoreGoDelivery.Application.Services.Internal.Motorcycle
         {
             if (string.IsNullOrEmpty(plate))
             {
-                message.AppendError(message, plate);
+                message.AppendError(message, nameof(plate));
             }
             else
             {
                 var isValidPlate = PlateValidator(plate!);
                 if (!isValidPlate)
                 {
-                    message.AppendError(message, plate, AdditionalMessageEnum.InvalidFormat);
+                    message.AppendError(message, nameof(plate), AdditionalMessageEnum.InvalidFormat);
                 }
                 else
                 {
                     var plateIsUnic = await _repositoryMotorcycle.CheckIsUnicByPlateAsync(plate);
                     if (!plateIsUnic)
                     {
-                        message.AppendError(message, plate, AdditionalMessageEnum.MustBeUnic);
+                        message.AppendError(message, nameof(plate), AdditionalMessageEnum.MustBeUnic);
                     }
                 }
             }

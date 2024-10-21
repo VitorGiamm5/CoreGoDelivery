@@ -12,13 +12,13 @@ namespace CoreGoDelivery.Application.Validators.MessageBuildValidator
         {
             if (string.IsNullOrWhiteSpace(cnpj))
             {
-                message.AppendError(message, cnpj, AdditionalMessageEnum.None);
+                message.AppendError(message, nameof(cnpj), AdditionalMessageEnum.None);
             }
             else
             {
                 if (!CnpjValidation.Validate(cnpj))
                 {
-                    message.AppendError(message, cnpj, AdditionalMessageEnum.None);
+                    message.AppendError(message, nameof(cnpj), AdditionalMessageEnum.None);
                 }
             }
 

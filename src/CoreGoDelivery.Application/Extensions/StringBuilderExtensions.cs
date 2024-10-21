@@ -10,11 +10,11 @@ namespace CoreGoDelivery.Application.Extensions
         {
             if (paramName == null)
             {
-                sb.Append($"Invalid field: '{nameof(paramName)}', type: '{paramName?.GetType()}', Value: 'null', Detail: '{additionalMessage.GetMessage()}'; ");
+                sb.Append($"Invalid field: '{paramName}', Detail: '{additionalMessage.GetMessage()}'; ");
             }
             else
             {
-                sb.Append($"Invalid field: '{nameof(paramName)}', type: {paramName?.GetType()}, value: '{data}', Detail: '{additionalMessage.GetMessage()}'; ");
+                sb.Append($"Invalid field: '{paramName}', Detail: '{additionalMessage.GetMessage()}'; ");
             }
 
             return sb;

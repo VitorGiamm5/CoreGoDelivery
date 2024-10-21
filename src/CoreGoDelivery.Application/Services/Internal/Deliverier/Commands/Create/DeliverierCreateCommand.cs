@@ -8,16 +8,6 @@ namespace CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.Creat
 {
     public class DeliverierCreateCommand : DeliverierUploadCnhCommand, IRequest<ApiResponse>
     {
-        public DeliverierCreateCommand(string id, string fullName, string cnpj, DateTime birthDate, string licenseNumber, string licenseType)
-        {
-            Id = id;
-            FullName = fullName;
-            Cnpj = cnpj;
-            BirthDate = birthDate;
-            LicenseNumber = licenseNumber;
-            LicenseType = licenseType;
-        }
-
         [DefaultValue("entregador123")]
         [JsonPropertyName("identificador")]
         public string Id { get; set; }

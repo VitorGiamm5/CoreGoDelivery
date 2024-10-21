@@ -73,32 +73,38 @@ namespace CoreGoDelivery.Application.Services.Internal.Deliverier.Commands
 
         public static void BuildMessageCnpj(StringBuilder message, string cnpj)
         {
+            var paramName = nameof(cnpj);
+
             if (string.IsNullOrWhiteSpace(cnpj))
             {
-                message.AppendError(message, cnpj, AdditionalMessageEnum.None);
+                message.AppendError(message, paramName, AdditionalMessageEnum.None);
             }
             else
             {
                 if (!CnpjValidation.Validate(cnpj))
                 {
-                    message.AppendError(message, cnpj, AdditionalMessageEnum.None);
+                    message.AppendError(message, paramName, AdditionalMessageEnum.None);
                 }
             }
         }
 
         public static void BuildMessageFullName(DeliverierCreateCommand data, StringBuilder message)
         {
+            var paramName = nameof(data.FullName);
+
             if (string.IsNullOrWhiteSpace(data.FullName))
             {
-                message.AppendError(message, data.FullName);
+                message.AppendError(message, paramName);
             }
         }
 
         public static void BuildMessageBirthDate(DeliverierCreateCommand data, StringBuilder message)
         {
+            var paramName = nameof(data.BirthDate);
+
             if (string.IsNullOrWhiteSpace(data.BirthDate.ToString()))
             {
-                message.AppendError(message, data.BirthDate);
+                message.AppendError(message, paramName);
             }
             else
             {
@@ -121,45 +127,52 @@ namespace CoreGoDelivery.Application.Services.Internal.Deliverier.Commands
 
         public static void BuildMessageLicenseType(DeliverierCreateCommand data, StringBuilder message)
         {
+            var paramName = nameof(data.LicenseType);
+
             if (!Enum.TryParse(data.LicenseType, ignoreCase: true, out LicenseTypeEnum _))
             {
-                message.AppendError(message, data.LicenseType);
+                message.AppendError(message, paramName);
             }
         }
 
         public async Task BuildMessageCreate(DeliverierCreateCommand data, StringBuilder message)
         {
+            var paramName = "idDaliverier";
+
             if (!string.IsNullOrWhiteSpace(data.Id))
             {
                 var isUnicId = await _repositoryDeliverier.CheckIsUnicById(data.Id);
 
                 if (!isUnicId)
                 {
-                    message.AppendError(message, data.Id, AdditionalMessageEnum.AlreadyExist);
+                    message.AppendError(message, paramName, AdditionalMessageEnum.AlreadyExist);
                 }
             }
         }
 
         public async Task BuildMessageCnh(DeliverierCreateCommand data, StringBuilder message)
         {
-            if (string.IsNullOrWhiteSpace(data.LicenseNumber))
+            var licenseNumber = data.LicenseNumber;
+            var paramName = nameof(licenseNumber);
+
+            if (string.IsNullOrWhiteSpace(licenseNumber))
             {
-                message.AppendError(message, data.LicenseNumber);
+                message.AppendError(message, paramName);
             }
             else
             {
-                var isValidLicense = CnhValidation.Validate(data.LicenseNumber);
+                var isValidLicense = CnhValidation.Validate(licenseNumber);
 
                 if (!isValidLicense)
                 {
-                    message.AppendError(message, data.LicenseNumber);
+                    message.AppendError(message, paramName);
                 }
 
-                var isUnicLicence = await _repositoryLicence.CheckIsUnicByLicence(data.LicenseNumber);
+                var isUnicLicence = await _repositoryLicence.CheckIsUnicByLicence(licenseNumber);
 
                 if (!isUnicLicence)
                 {
-                    message.AppendError(message, data.LicenseNumber, AdditionalMessageEnum.AlreadyExist);
+                    message.AppendError(message, paramName, AdditionalMessageEnum.AlreadyExist);
                 }
             }
         }

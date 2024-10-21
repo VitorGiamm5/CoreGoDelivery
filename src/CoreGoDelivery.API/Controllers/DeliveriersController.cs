@@ -21,7 +21,7 @@ namespace CoreGoDelivery.Api.Controllers
         [HttpPost("{id}/cnh")]
         public async Task<IActionResult> Upload(string id, [FromBody] DeliverierUploadCnhCommand request)
         {
-            request.Id = id;
+            request.IdLicense = id;
 
             var apiReponse = await _mediator.Send(id);
 

@@ -203,30 +203,30 @@ namespace CoreGoDelivery.Application.Services.Internal.Rental
         public async Task<string?> BuilderUpdateValidator(RentalReturnedToBaseDateCommand? data)
         {
             var message = new StringBuilder();
-            var id = data!.Id;
+            var idRental = data!.Id;
 
             #region Id validator
 
-            var isValidIdParam = _baseInternalServices.RequestIdParamValidator(id);
+            var isValidIdParam = _baseInternalServices.RequestIdParamValidator(idRental);
 
             if (!isValidIdParam)
             {
-                message.AppendError(message, id);
+                message.AppendError(message, "idRental");
                 return message.ToString();
             }
 
-            var rentalEntity = await _repositoryRental.GetByIdAsync(id);
+            var rentalEntity = await _repositoryRental.GetByIdAsync(idRental);
 
             if (rentalEntity == null)
             {
-                message.AppendError(message, id, AdditionalMessageEnum.NotFound);
+                message.AppendError(message, "idRental", AdditionalMessageEnum.NotFound);
             }
             else
             {
                 var motorcycleIsAvaliable = await _repositoryRental.CheckMotorcycleIsAvaliableAsync(rentalEntity.MotorcycleId);
                 if (!motorcycleIsAvaliable)
                 {
-                    message.AppendLine($"Invalid field: {nameof(rentalEntity.ReturnedToBaseDate)} was returned previously at {rentalEntity.ReturnedToBaseDate}; ");
+                    message.AppendLine($"Invalid field: 'ReturnedToBaseDate' was returned previously at {rentalEntity.ReturnedToBaseDate}; ");
                 }
             }
 
@@ -236,14 +236,14 @@ namespace CoreGoDelivery.Application.Services.Internal.Rental
 
             if (data?.ReturnedToBaseDate == null)
             {
-                message.AppendError(message, data?.ReturnedToBaseDate);
+                message.AppendError(message, "ReturnedToBaseDate");
             }
             else
             {
                 var isAfterDateStart = data?.ReturnedToBaseDate >= rentalEntity?.StartDate;
                 if (!isAfterDateStart)
                 {
-                    message.Append($"Invalid field: {nameof(data.ReturnedToBaseDate)} : {data?.ReturnedToBaseDate} must be after {nameof(rentalEntity.StartDate)} : {rentalEntity?.StartDate}; ");
+                    message.Append($"Invalid field: {"ReturnedToBaseDate"} : {data?.ReturnedToBaseDate} must be after 'StartDate' : {rentalEntity?.StartDate}; ");
                 }
             }
 
@@ -270,14 +270,14 @@ namespace CoreGoDelivery.Application.Services.Internal.Rental
             #region PlanId validator
             if (string.IsNullOrWhiteSpace(data.PlanId.ToString()))
             {
-                message.AppendError(message, data.PlanId);
+                message.AppendError(message, "PlanId");
             }
             else
             {
                 var plan = await _repositoryPlan.GetById(data.PlanId);
                 if (plan == null)
                 {
-                    message.AppendError(message, data.PlanId, AdditionalMessageEnum.NotFound);
+                    message.AppendError(message, "PlanId", AdditionalMessageEnum.NotFound);
                 }
                 else
                 {
@@ -293,20 +293,20 @@ namespace CoreGoDelivery.Application.Services.Internal.Rental
             #region MotorcycleId validator
             if (string.IsNullOrWhiteSpace(data.MotorcycleId))
             {
-                message.AppendError(message, data.MotorcycleId);
+                message.AppendError(message, "MotorcycleId" );
             }
             else
             {
                 var existMotocycleId = await _repositoryMotocyle.GetOneByIdAsync(data.MotorcycleId);
                 if (existMotocycleId == null)
                 {
-                    message.AppendError(message, data.MotorcycleId, AdditionalMessageEnum.NotFound);
+                    message.AppendError(message, nameof(data.MotorcycleId), AdditionalMessageEnum.NotFound);
                 }
 
                 var motocycleIsAvaliable = await _repositoryRental.CheckMotorcycleIsAvaliableAsync(data.MotorcycleId);
                 if (!motocycleIsAvaliable)
                 {
-                    message.AppendError(message, data.MotorcycleId, AdditionalMessageEnum.Unavailable);
+                    message.AppendError(message, nameof(data.MotorcycleId), AdditionalMessageEnum.Unavailable);
                 }
             }
             #endregion
@@ -314,7 +314,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Rental
             #region DeliverierId validator
             if (string.IsNullOrWhiteSpace(data.DeliverierId))
             {
-                message.AppendError(message, data.DeliverierId);
+                message.AppendError(message, "DeliverierId");
             }
             else
             {
