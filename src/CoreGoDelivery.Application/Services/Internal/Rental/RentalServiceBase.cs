@@ -209,7 +209,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Rental
 
             var isValidIdParam = _baseInternalServices.RequestIdParamValidator(id);
 
-            if (isValidIdParam)
+            if (!isValidIdParam)
             {
                 message.AppendError(message, id);
                 return message.ToString();

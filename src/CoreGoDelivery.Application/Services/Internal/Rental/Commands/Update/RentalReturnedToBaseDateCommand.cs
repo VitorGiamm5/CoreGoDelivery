@@ -12,6 +12,6 @@ namespace CoreGoDelivery.Application.Services.Internal.Rental.Commands.Update
         public DateTime? ReturnedToBaseDate { get; set; }
 
         [JsonIgnore]
-        public string Id { get; set; }
+        public string Id { get; set; } = string.Empty;
     }
 }

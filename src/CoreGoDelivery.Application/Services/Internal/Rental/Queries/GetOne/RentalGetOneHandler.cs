@@ -62,7 +62,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Rental.Queries.GetOne
             var apiReponse = new ApiResponse()
             {
                 Data = rentalDto,
-                Message = message != null ? message.ToString() : null
+                Message = _baseInternalServices.BuildMessageValidator(message)
             };
 
             return apiReponse;

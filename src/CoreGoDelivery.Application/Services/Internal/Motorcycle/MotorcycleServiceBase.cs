@@ -135,7 +135,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Motorcycle
 
             await Task.WhenAll(
                 BuildMessageIdMotorcycle(data, message),
-                BuildMessagePlate(data, message),
+                BuildMessagePlate(data.PlateId, message),
                 BuildMessageModelMotorcycle(data, message)
             );
 
@@ -157,29 +157,30 @@ namespace CoreGoDelivery.Application.Services.Internal.Motorcycle
             }
         }
 
-        public async Task BuildMessagePlate(MotorcycleCreateCommand data, StringBuilder message)
+        public async Task BuildMessagePlate(string plate, StringBuilder message)
         {
-            if (string.IsNullOrWhiteSpace(data.PlateId))
+            if (string.IsNullOrWhiteSpace(plate))
             {
-                message.AppendError(message, data.PlateId);
+                message.AppendError(message, plate);
             }
             else
             {
-                var isValidPlate = PlateValidator(data.PlateId);
+                var isValidPlate = PlateValidator(plate);
+
                 if (isValidPlate)
                 {
-                    var normalizedPlate = _baseInternalServices.RemoveCharacteres(data.PlateId);
+                    var normalizedPlate = _baseInternalServices.RemoveCharacteres(plate);
 
                     var isUnicId = await _repositoryMotorcycle.CheckIsUnicByPlateAsync(normalizedPlate);
 
                     if (!isUnicId)
                     {
-                        message.AppendError(message, data.PlateId, AdditionalMessageEnum.AlreadyExist);
+                        message.AppendError(message, plate, AdditionalMessageEnum.AlreadyExist);
                     }
                 }
                 else
                 {
-                    message.AppendError(message, data.PlateId, AdditionalMessageEnum.InvalidFormat);
+                    message.AppendError(message, plate, AdditionalMessageEnum.InvalidFormat);
                 }
             }
         }
@@ -225,7 +226,8 @@ namespace CoreGoDelivery.Application.Services.Internal.Motorcycle
         {
             var message = new StringBuilder();
 
-            await BuildMessageChangePlateId(id, message);
+
+            await BuildMessagePlate(id, message);
 
             await MessageBuildChangePlate(plate, message);
 

@@ -46,9 +46,12 @@ namespace CoreGoDelivery.Application.Services.Internal.Base
 
         public string RemoveCharacteres(string? plateId)
         {
-            var result = !string.IsNullOrEmpty(plateId)
-                ? Regex.Replace(plateId, @"[\s\-\.\,]", "").ToUpper()
-                : "";
+            if (string.IsNullOrEmpty(plateId))
+            {
+                return "";
+            }
+
+            var result = Regex.Replace(plateId, @"[\s\-\.\,]", "").ToUpper();
 
             return result;
         }

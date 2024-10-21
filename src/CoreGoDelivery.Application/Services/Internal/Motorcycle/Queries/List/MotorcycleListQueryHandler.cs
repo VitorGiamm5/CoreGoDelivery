@@ -29,15 +29,11 @@ namespace CoreGoDelivery.Application.Services.Internal.Motorcycle.Queries.List
                 Message = CommomMessagesService.MESSAGE_INVALID_DATA
             };
 
-            if (string.IsNullOrEmpty(request.Plate))
-            {
-                return apiReponse;
-            }
+            request.Plate = _baseInternalServices.RemoveCharacteres(request.Plate);
 
-            string plateNormalized = _baseInternalServices.RemoveCharacteres(request.Plate);
+            var result = await _repositoryMotorcycle.List(request?.Plate);
 
-            var result = await _repositoryMotorcycle.List(plateNormalized);
-            if (result == null || result?.Count == 0)
+            if ((result == null || result?.Count == 0) && !string.IsNullOrEmpty(request?.Plate))
             {
                 return apiReponse;
             }

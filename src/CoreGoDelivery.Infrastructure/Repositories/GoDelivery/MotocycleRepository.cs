@@ -9,6 +9,7 @@ namespace CoreGoDelivery.Infrastructure.Repositories.GoDelivery
     {
         public MotocycleRepository(AplicationDbContext context) : base(context)
         {
+            _context.Set<MotorcycleEntity>();
         }
 
         public async Task<List<MotorcycleEntity>?> List(string? plate)

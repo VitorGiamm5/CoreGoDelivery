@@ -5,7 +5,7 @@ namespace CoreGoDelivery.Api.Conveters
 {
     public class TrimStringJsonConverter : JsonConverter<string>
     {
-        public override string Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+        public override string? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
             var value = reader.GetString();
             return value?.Trim();
