@@ -1,5 +1,5 @@
 ﻿using CoreGoDelivery.Application.Services.Internal.Base;
-using CoreGoDelivery.Domain.DTO.Response;
+using CoreGoDelivery.Domain.Response;
 using System.Text;
 using Xunit;
 

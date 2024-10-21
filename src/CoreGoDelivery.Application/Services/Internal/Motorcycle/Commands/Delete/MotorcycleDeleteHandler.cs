@@ -1,6 +1,7 @@
-﻿using CoreGoDelivery.Application.Services.Internal.Base;
-using CoreGoDelivery.Domain.DTO.Response;
+﻿using CoreGoDelivery.Application.RabbitMQ.NotificationMotorcycle.Publisher;
+using CoreGoDelivery.Application.Services.Internal.Base;
 using CoreGoDelivery.Domain.Repositories.GoDelivery;
+using CoreGoDelivery.Domain.Response;
 using MediatR;
 
 namespace CoreGoDelivery.Application.Services.Internal.Motorcycle.Commands.Delete
@@ -8,15 +9,17 @@ namespace CoreGoDelivery.Application.Services.Internal.Motorcycle.Commands.Delet
     public class MotorcycleDeleteHandler : MotorcycleServiceBase, IRequestHandler<MotorcycleDeleteCommand, ApiResponse>
     {
         public MotorcycleDeleteHandler(
-            IMotocycleRepository repositoryMotorcycle,
-            IModelMotocycleRepository repositoryModelMotorcycle,
-            IRentalRepository rentalRepository,
-            IBaseInternalServices baseInternalServices)
-        : base(
-            repositoryMotorcycle,
-            repositoryModelMotorcycle,
-            rentalRepository,
-            baseInternalServices)
+            IMotocycleRepository repositoryMotorcycle, 
+            IModelMotocycleRepository repositoryModelMotorcycle, 
+            IRentalRepository rentalRepository, 
+            IBaseInternalServices baseInternalServices, 
+            RabbitMQPublisher publisher) 
+            : base(
+                  repositoryMotorcycle, 
+                  repositoryModelMotorcycle, 
+                  rentalRepository, 
+                  baseInternalServices, 
+                  publisher)
         {
         }
 

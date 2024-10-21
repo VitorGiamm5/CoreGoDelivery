@@ -1,4 +1,6 @@
 ﻿using CoreGoDelivery.Application.Extensions;
+using CoreGoDelivery.Application.RabbitMQ.NotificationMotorcycle.Dto;
+using CoreGoDelivery.Application.RabbitMQ.NotificationMotorcycle.Publisher;
 using CoreGoDelivery.Application.Services.Internal.Base;
 using CoreGoDelivery.Application.Services.Internal.Motorcycle.Commands.Create;
 using CoreGoDelivery.Domain.Entities.GoDelivery.Motorcycle;
@@ -6,7 +8,6 @@ using CoreGoDelivery.Domain.Enums.ServiceErrorMessage;
 using CoreGoDelivery.Domain.Repositories.GoDelivery;
 using System.Text;
 using System.Text.RegularExpressions;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace CoreGoDelivery.Application.Services.Internal.Motorcycle
 {
@@ -17,18 +18,22 @@ namespace CoreGoDelivery.Application.Services.Internal.Motorcycle
         public readonly IRentalRepository _rentalRepository;
         public readonly IBaseInternalServices _baseInternalServices;
 
+        public readonly RabbitMQPublisher _publisher;
+
         public const int YEAR_MANUFACTORY_TO_SEND_MESSAGE = 2024;
 
         public MotorcycleServiceBase(
-            IMotocycleRepository repositoryMotorcycle,
-            IModelMotocycleRepository repositoryModelMotorcycle,
-            IRentalRepository rentalRepository,
-            IBaseInternalServices baseInternalServices)
+            IMotocycleRepository repositoryMotorcycle, 
+            IModelMotocycleRepository repositoryModelMotorcycle, 
+            IRentalRepository rentalRepository, 
+            IBaseInternalServices baseInternalServices, 
+            RabbitMQPublisher publisher)
         {
             _repositoryMotorcycle = repositoryMotorcycle;
             _repositoryModelMotorcycle = repositoryModelMotorcycle;
             _rentalRepository = rentalRepository;
             _baseInternalServices = baseInternalServices;
+            _publisher = publisher;
         }
 
         #region Mappers
@@ -288,7 +293,17 @@ namespace CoreGoDelivery.Application.Services.Internal.Motorcycle
         {
             if (motocycle.YearManufacture == YEAR_MANUFACTORY_TO_SEND_MESSAGE)
             {
-                //TODO: HEAVY MISSION NOTIFICATION
+                var motorcycleNotification = new NotificationMotorcycleDto()
+                {
+                    Id = Ulid.NewUlid().ToString(),
+                    IdMotorcycle = motocycle.Id,
+                    YearManufacture = motocycle.YearManufacture,
+                    CreatedAt = DateTime.UtcNow
+                };
+
+                _publisher.PublishMotorcycle(motorcycleNotification);
+
+                Console.WriteLine("Motocicleta publicada na fila.");
             }
         }
 

@@ -7,7 +7,7 @@ namespace CoreGoDelivery.Infrastructure.Repositories.GoDelivery
 {
     public class LicenceDriverRepository : BaseRepository<LicenceDriverEntity>, ILicenceDriverRepository
     {
-        public LicenceDriverRepository(AplicationDbContext context) : base(context)
+        public LicenceDriverRepository(ApplicationDbContext context) : base(context)
         {
         }
 

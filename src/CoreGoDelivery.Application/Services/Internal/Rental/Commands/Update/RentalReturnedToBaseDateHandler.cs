@@ -1,7 +1,7 @@
 ﻿using CoreGoDelivery.Application.Services.Internal.Base;
 using CoreGoDelivery.Domain.Consts;
-using CoreGoDelivery.Domain.DTO.Response;
 using CoreGoDelivery.Domain.Repositories.GoDelivery;
+using CoreGoDelivery.Domain.Response;
 using MediatR;
 
 namespace CoreGoDelivery.Application.Services.Internal.Rental.Commands.Update

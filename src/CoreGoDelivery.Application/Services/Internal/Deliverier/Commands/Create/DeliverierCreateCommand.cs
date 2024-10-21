@@ -1,5 +1,5 @@
 ﻿using CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.UploadCnh;
-using CoreGoDelivery.Domain.DTO.Response;
+using CoreGoDelivery.Domain.Response;
 using MediatR;
 using System.ComponentModel;
 using System.Text.Json.Serialization;

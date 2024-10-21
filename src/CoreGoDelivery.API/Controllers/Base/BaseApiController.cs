@@ -1,5 +1,5 @@
 ﻿using CoreGoDelivery.Domain.Consts;
-using CoreGoDelivery.Domain.DTO.Response;
+using CoreGoDelivery.Domain.Response;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
@@ -10,12 +10,6 @@ namespace CoreGoDelivery.Api.Controllers.Base
     [Consumes("application/json")]
     public class BaseApiController : ControllerBase
     {
-
-        protected new IActionResult Response(object? result)
-        {
-            throw new NotImplementedException();
-        }
-
         protected new IActionResult Response(ApiResponse response)
         {
             if (response.HasError())

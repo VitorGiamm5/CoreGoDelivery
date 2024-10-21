@@ -1,4 +1,4 @@
-﻿using CoreGoDelivery.Domain.DTO.Response;
+﻿using CoreGoDelivery.Domain.Response;
 using System.Text;
 
 namespace CoreGoDelivery.Application.Services.Internal.Base

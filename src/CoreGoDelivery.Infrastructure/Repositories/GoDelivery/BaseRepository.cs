@@ -7,9 +7,9 @@ namespace CoreGoDelivery.Infrastructure.Repositories.GoDelivery
 {
     public abstract class BaseRepository<T> : IBaseRepository where T : class
     {
-        public readonly AplicationDbContext _context;
+        public readonly ApplicationDbContext _context;
 
-        protected BaseRepository(AplicationDbContext context)
+        protected BaseRepository(ApplicationDbContext context)
         {
             _context = context;
         }

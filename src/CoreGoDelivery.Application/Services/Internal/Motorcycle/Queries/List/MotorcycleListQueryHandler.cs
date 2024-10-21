@@ -1,7 +1,8 @@
-﻿using CoreGoDelivery.Application.Services.Internal.Base;
+﻿using CoreGoDelivery.Application.RabbitMQ.NotificationMotorcycle.Publisher;
+using CoreGoDelivery.Application.Services.Internal.Base;
 using CoreGoDelivery.Domain.Consts;
-using CoreGoDelivery.Domain.DTO.Response;
 using CoreGoDelivery.Domain.Repositories.GoDelivery;
+using CoreGoDelivery.Domain.Response;
 using MediatR;
 
 namespace CoreGoDelivery.Application.Services.Internal.Motorcycle.Queries.List
@@ -9,15 +10,17 @@ namespace CoreGoDelivery.Application.Services.Internal.Motorcycle.Queries.List
     public class MotorcycleListQueryHandler : MotorcycleServiceBase, IRequestHandler<MotorcycleListQueryCommand, ApiResponse>
     {
         public MotorcycleListQueryHandler(
-            IMotocycleRepository repositoryMotorcycle,
+            IMotocycleRepository repositoryMotorcycle, 
             IModelMotocycleRepository repositoryModelMotorcycle,
-            IRentalRepository rentalRepository,
-            IBaseInternalServices baseInternalServices)
-        : base(
-            repositoryMotorcycle,
-            repositoryModelMotorcycle,
-            rentalRepository,
-            baseInternalServices)
+            IRentalRepository rentalRepository, 
+            IBaseInternalServices baseInternalServices, 
+            RabbitMQPublisher publisher) 
+            : base(
+                  repositoryMotorcycle, 
+                  repositoryModelMotorcycle, 
+                  rentalRepository, 
+                  baseInternalServices, 
+                  publisher)
         {
         }
 

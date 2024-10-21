@@ -1,7 +1,8 @@
-﻿using CoreGoDelivery.Application.Services.Internal.Base;
+﻿using CoreGoDelivery.Application.RabbitMQ.NotificationMotorcycle.Publisher;
+using CoreGoDelivery.Application.Services.Internal.Base;
 using CoreGoDelivery.Domain.Consts;
-using CoreGoDelivery.Domain.DTO.Response;
 using CoreGoDelivery.Domain.Repositories.GoDelivery;
+using CoreGoDelivery.Domain.Response;
 using MediatR;
 
 namespace CoreGoDelivery.Application.Services.Internal.Motorcycle.Commands.ChangePlateById
@@ -9,15 +10,17 @@ namespace CoreGoDelivery.Application.Services.Internal.Motorcycle.Commands.Chang
     public class MotorcycleChangePlateHandler : MotorcycleServiceBase, IRequestHandler<MotorcycleChangePlateCommand, ApiResponse>
     {
         public MotorcycleChangePlateHandler(
-            IMotocycleRepository repositoryMotorcycle,
-            IModelMotocycleRepository repositoryModelMotorcycle,
-            IRentalRepository rentalRepository,
-            IBaseInternalServices baseInternalServices)
-        : base(
-            repositoryMotorcycle,
-            repositoryModelMotorcycle,
-            rentalRepository,
-            baseInternalServices)
+            IMotocycleRepository repositoryMotorcycle, 
+            IModelMotocycleRepository repositoryModelMotorcycle, 
+            IRentalRepository rentalRepository, 
+            IBaseInternalServices baseInternalServices, 
+            RabbitMQPublisher publisher) 
+            : base(
+                  repositoryMotorcycle, 
+                  repositoryModelMotorcycle, 
+                  rentalRepository, 
+                  baseInternalServices, 
+                  publisher)
         {
         }
 

@@ -7,7 +7,7 @@ namespace CoreGoDelivery.Infrastructure.Repositories.GoDelivery
 {
     public class ModelMotocycleRepository : BaseRepository<ModelMotorcycleEntity>, IModelMotocycleRepository
     {
-        public ModelMotocycleRepository(AplicationDbContext context) : base(context)
+        public ModelMotocycleRepository(ApplicationDbContext context) : base(context)
         {
         }
 

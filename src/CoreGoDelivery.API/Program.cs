@@ -14,7 +14,7 @@ builder.Logging.AddConsole();
 // Log.Logger = new LoggerConfiguration()
 //     .WriteTo.File(logFilePath, rollingInterval: RollingInterval.Day)
 //     .CreateLogger();
-builder.Host.UseSerilog();
+//builder.Host.UseSerilog();
 
 builder.Services.AddControllers().AddJsonOptions(options =>
 {

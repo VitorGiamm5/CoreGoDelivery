@@ -7,7 +7,7 @@ namespace CoreGoDelivery.Infrastructure.Repositories.GoDelivery
 {
     public class DeliverierRepository : BaseRepository<DeliverierEntity>, IDeliverierRepository
     {
-        public DeliverierRepository(AplicationDbContext context) : base(context)
+        public DeliverierRepository(ApplicationDbContext context) : base(context)
         {
         }
 

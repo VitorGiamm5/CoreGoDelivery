@@ -1,12 +1,11 @@
 ﻿using CoreGoDelivery.Application.Extensions;
 using CoreGoDelivery.Application.Services.Internal.Base;
-using CoreGoDelivery.Domain.DTO.Response;
 using CoreGoDelivery.Domain.Entities.GoDelivery.Rental;
 using CoreGoDelivery.Domain.Enums.ServiceErrorMessage;
 using CoreGoDelivery.Domain.Repositories.GoDelivery;
+using CoreGoDelivery.Domain.Response;
 using MediatR;
 using System.Text;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace CoreGoDelivery.Application.Services.Internal.Rental.Queries.GetOne
 {

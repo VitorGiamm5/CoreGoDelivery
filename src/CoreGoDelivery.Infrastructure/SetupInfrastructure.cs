@@ -15,7 +15,7 @@ namespace CoreGoDelivery.Infrastructure
         {
             services.AddDomain(configuration);
 
-            services.AddDbContextPool<AplicationDbContext>(options => options
+            services.AddDbContextPool<ApplicationDbContext>(options => options
                 .UseNpgsql(configuration.GetConnectionString("Postgre"))
                 .AddInfrastructure(configuration));
 
@@ -25,17 +25,18 @@ namespace CoreGoDelivery.Infrastructure
             services.TryAddScoped<IMotocycleRepository, MotocycleRepository>();
             services.TryAddScoped<IRentalPlanRepository, RentalPlanRepository>();
             services.TryAddScoped<IRentalRepository, RentalRepository>();
+            services.TryAddScoped<INotificationMotorcycleRepository, NotificationMotorcycleRepository>();
 
             ExecutePendingMigration(services);
 
             return services;
         }
 
-        private static void ExecutePendingMigration(IServiceCollection services)
+        public static void ExecutePendingMigration(IServiceCollection services)
         {
             var serviceProvider = services.BuildServiceProvider();
             using var scope = serviceProvider.CreateScope();
-            var dbContext = scope.ServiceProvider.GetRequiredService<AplicationDbContext>();
+            var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
 
             try
             {

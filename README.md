@@ -56,3 +56,6 @@ Referências:
 
 - Validador de documentos
 https://www.nuget.org/packages/DocsBRValidator
+
+- Página administrativa do RabbitMQ
+http://localhost:15672/#/

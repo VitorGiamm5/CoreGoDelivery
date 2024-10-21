@@ -1,6 +1,7 @@
-﻿using CoreGoDelivery.Application.Services.Internal.Base;
-using CoreGoDelivery.Domain.DTO.Response;
+﻿using CoreGoDelivery.Application.RabbitMQ.NotificationMotorcycle.Publisher;
+using CoreGoDelivery.Application.Services.Internal.Base;
 using CoreGoDelivery.Domain.Repositories.GoDelivery;
+using CoreGoDelivery.Domain.Response;
 using MediatR;
 
 namespace CoreGoDelivery.Application.Services.Internal.Motorcycle.Queries.GetOne
@@ -11,12 +12,14 @@ namespace CoreGoDelivery.Application.Services.Internal.Motorcycle.Queries.GetOne
             IMotocycleRepository repositoryMotorcycle,
             IModelMotocycleRepository repositoryModelMotorcycle,
             IRentalRepository rentalRepository,
-            IBaseInternalServices baseInternalServices)
-        : base(
-            repositoryMotorcycle,
-            repositoryModelMotorcycle,
-            rentalRepository,
-            baseInternalServices)
+            IBaseInternalServices baseInternalServices, 
+            RabbitMQPublisher publisher) 
+            : base(
+                  repositoryMotorcycle, 
+                  repositoryModelMotorcycle, 
+                  rentalRepository, 
+                  baseInternalServices, 
+                  publisher)
         {
         }
 

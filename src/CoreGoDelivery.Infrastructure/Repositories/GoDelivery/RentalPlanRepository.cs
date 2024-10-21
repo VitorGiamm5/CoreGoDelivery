@@ -7,7 +7,7 @@ namespace CoreGoDelivery.Infrastructure.Repositories.GoDelivery
 {
     public class RentalPlanRepository : BaseRepository<RentalPlanEntity>, IRentalPlanRepository
     {
-        public RentalPlanRepository(AplicationDbContext context) : base(context)
+        public RentalPlanRepository(ApplicationDbContext context) : base(context)
         {
         }
 

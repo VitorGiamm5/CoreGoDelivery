@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace CoreGoDelivery.Domain.DTO.Response
+namespace CoreGoDelivery.Domain.Response
 {
     public sealed class ApiResponse
     {

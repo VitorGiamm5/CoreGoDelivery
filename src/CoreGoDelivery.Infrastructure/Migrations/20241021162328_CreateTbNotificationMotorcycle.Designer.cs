@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace CoreGoDelivery.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241016203825_InicialBases")]
-    partial class InicialBases
+    [Migration("20241021162328_CreateTbNotificationMotorcycle")]
+    partial class CreateTbNotificationMotorcycle
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -78,7 +78,7 @@ namespace CoreGoDelivery.Infrastructure.Migrations
                     b.ToTable("tb_licenceDriver", "dbgodelivery");
                 });
 
-            modelBuilder.Entity("CoreGoDelivery.Domain.Entities.GoDelivery.ModelMotocycle.ModelMotorcycleEntity", b =>
+            modelBuilder.Entity("CoreGoDelivery.Domain.Entities.GoDelivery.ModelMotorcycle.ModelMotorcycleEntity", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("text")
@@ -99,7 +99,7 @@ namespace CoreGoDelivery.Infrastructure.Migrations
                     b.ToTable("tb_modelMotorcycle", "dbgodelivery");
                 });
 
-            modelBuilder.Entity("CoreGoDelivery.Domain.Entities.GoDelivery.Motocycle.MotorcycleEntity", b =>
+            modelBuilder.Entity("CoreGoDelivery.Domain.Entities.GoDelivery.Motorcycle.MotorcycleEntity", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("text")
@@ -124,6 +124,30 @@ namespace CoreGoDelivery.Infrastructure.Migrations
                     b.HasIndex("ModelMotorcycleId");
 
                     b.ToTable("tb_motocycle", "dbgodelivery");
+                });
+
+            modelBuilder.Entity("CoreGoDelivery.Domain.Entities.GoDelivery.NotificationMotorcycle.NotificationMotorcycleEntity", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("text")
+                        .HasColumnName("ID_NOTIFICATION");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("DATE_CREATED");
+
+                    b.Property<string>("IdMotorcycle")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("ID_MOTORCYCLE");
+
+                    b.Property<int>("YearManufacture")
+                        .HasColumnType("integer")
+                        .HasColumnName("YEAR_MANUFACTURE");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("tb_notificationMotorcycle", "dbgodelivery");
                 });
 
             modelBuilder.Entity("CoreGoDelivery.Domain.Entities.GoDelivery.Rental.RentalEntity", b =>
@@ -206,9 +230,9 @@ namespace CoreGoDelivery.Infrastructure.Migrations
                     b.Navigation("LicenceDriver");
                 });
 
-            modelBuilder.Entity("CoreGoDelivery.Domain.Entities.GoDelivery.Motocycle.MotorcycleEntity", b =>
+            modelBuilder.Entity("CoreGoDelivery.Domain.Entities.GoDelivery.Motorcycle.MotorcycleEntity", b =>
                 {
-                    b.HasOne("CoreGoDelivery.Domain.Entities.GoDelivery.ModelMotocycle.ModelMotorcycleEntity", "ModelMotorcycle")
+                    b.HasOne("CoreGoDelivery.Domain.Entities.GoDelivery.ModelMotorcycle.ModelMotorcycleEntity", "ModelMotorcycle")
                         .WithMany()
                         .HasForeignKey("ModelMotorcycleId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -225,7 +249,7 @@ namespace CoreGoDelivery.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("CoreGoDelivery.Domain.Entities.GoDelivery.Motocycle.MotorcycleEntity", "Motorcycle")
+                    b.HasOne("CoreGoDelivery.Domain.Entities.GoDelivery.Motorcycle.MotorcycleEntity", "Motorcycle")
                         .WithMany()
                         .HasForeignKey("MotorcycleId")
                         .OnDelete(DeleteBehavior.Cascade)
