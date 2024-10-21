@@ -5,17 +5,24 @@ using MediatR;
 
 namespace CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.Create
 {
-    public class DeliverierCreateHandler : DeliverierServiceBase, IRequestHandler<DeliverierCreateCommand, ApiResponse>
+    public class DeliverierCreateHandler : IRequestHandler<DeliverierCreateCommand, ApiResponse>
     {
+        public readonly IBaseInternalServices _baseInternalServices;
+        public readonly IDeliverierRepository _repositoryDeliverier;
+
+        public readonly DeliverierCreateValidator _validator;
+        public readonly DeliverierCreateMappers _mapper;
+
         public DeliverierCreateHandler(
+            IBaseInternalServices baseInternalServices,
             IDeliverierRepository repositoryDeliverier,
-            ILicenceDriverRepository repositoryLicence,
-            IBaseInternalServices baseInternalServices)
-        : base(
-            repositoryDeliverier,
-            repositoryLicence,
-            baseInternalServices)
+            DeliverierCreateValidator validator,
+            DeliverierCreateMappers mapper)
         {
+            _baseInternalServices = baseInternalServices;
+            _repositoryDeliverier = repositoryDeliverier;
+            _validator = validator;
+            _mapper = mapper;
         }
 
         public async Task<ApiResponse> Handle(DeliverierCreateCommand request, CancellationToken cancellationToken)
@@ -23,7 +30,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.Creat
             var apiReponse = new ApiResponse()
             {
                 Data = null,
-                Message = await BuilderValidatorCreateAsync(request)
+                Message = await _validator.Validator(request)
             };
 
             if (_baseInternalServices.HasMessageError(apiReponse))
@@ -31,7 +38,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.Creat
                 return apiReponse;
             }
 
-            var deliverier = MapCreateToEntity(request);
+            var deliverier = _mapper.MapCreateToEntity(request);
 
             var resultCreate = await _repositoryDeliverier.Create(deliverier);
 

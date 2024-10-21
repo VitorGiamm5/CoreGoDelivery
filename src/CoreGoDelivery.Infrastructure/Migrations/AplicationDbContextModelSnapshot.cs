@@ -33,7 +33,7 @@ namespace CoreGoDelivery.Infrastructure.Migrations
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("DATE_BIRTH");
 
-                    b.Property<string>("CNPJ")
+                    b.Property<string>("Cnpj")
                         .IsRequired()
                         .HasColumnType("text")
                         .HasColumnName("CNPJ");

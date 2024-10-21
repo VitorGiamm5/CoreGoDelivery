@@ -11,6 +11,14 @@ namespace CoreGoDelivery.Application.Services.Internal.Rental.Commands.Create
 
         public readonly CalculateDatesByPlan _calculateDatesByPlan;
 
+        public PlanMotorcycleValidator(
+            IBaseInternalServices baseInternalServices, 
+            CalculateDatesByPlan calculateDatesByPlan)
+        {
+            _baseInternalServices = baseInternalServices;
+            _calculateDatesByPlan = calculateDatesByPlan;
+        }
+
         public string? Validade(RentalCreateCommand data, RentalPlanEntity plan)
         {
             var message = new StringBuilder();

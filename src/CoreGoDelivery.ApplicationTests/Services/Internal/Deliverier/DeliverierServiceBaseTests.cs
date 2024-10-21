@@ -1,5 +1,5 @@
-﻿using CoreGoDelivery.Application.Services.Internal.Deliverier.Commands;
-using CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.Create;
+﻿using CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.Create;
+using CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.Create.MessageValidators;
 using CoreGoDelivery.Domain.Enums.LicenceDriverType;
 using System.Text;
 using Xunit;
@@ -32,7 +32,7 @@ namespace CoreGoDelivery.ApplicationTests.Services.Internal.Deliverier
 
         //    Assert.Equal(id, result.Id);
         //    Assert.Equal(fullName, result.FullName);
-        //    Assert.Equal(DeliverierServiceBase.RemoveCharacteres(cnpj), result.CNPJ);
+        //    Assert.Equal(DeliverierServiceBase.RemoveCharacteres(cnpj), result.Cnpj);
         //    Assert.Equal(DateTime.Parse(birthDate), result.BirthDate);
         //    Assert.Equal(licenseNumber, result.LicenceDriver.Id);
         //    Assert.Equal(DeliverierServiceBase.ParseLicenseType(data), result.LicenceDriver.Type);
@@ -48,7 +48,7 @@ namespace CoreGoDelivery.ApplicationTests.Services.Internal.Deliverier
         {
             var data = new DeliverierCreateCommand { LicenseNumber = licenseNumber };
 
-            var result = DeliverierServiceBase.FileNameLicenseNormalize(data);
+            var result = BuildMessageFullName.NormalizeFileNameLicense(data);
 
             Assert.Equal(expected, result);
         }
@@ -64,7 +64,7 @@ namespace CoreGoDelivery.ApplicationTests.Services.Internal.Deliverier
         {
             var data = new DeliverierCreateCommand { LicenseType = input };
 
-            var result = DeliverierServiceBase.ParseLicenseType(data);
+            var result = BuildMessageFullName.ParseLicenseType(data);
 
             Assert.Equal(expected, result);
         }

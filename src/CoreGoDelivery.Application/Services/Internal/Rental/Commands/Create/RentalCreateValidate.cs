@@ -16,6 +16,22 @@ namespace CoreGoDelivery.Application.Services.Internal.Rental.Commands.Create
 
         public readonly PlanMotorcycleValidator _planValidator;
 
+        public RentalCreateValidate(
+            IBaseInternalServices baseInternalServices, 
+            IRentalRepository repositoryRental, 
+            IRentalPlanRepository repositoryPlan, 
+            IDeliverierRepository repositoryDeliverier, 
+            IMotocycleRepository repositoryMotorcycle, 
+            PlanMotorcycleValidator planValidator)
+        {
+            _baseInternalServices = baseInternalServices;
+            _repositoryRental = repositoryRental;
+            _repositoryPlan = repositoryPlan;
+            _repositoryDeliverier = repositoryDeliverier;
+            _repositoryMotorcycle = repositoryMotorcycle;
+            _planValidator = planValidator;
+        }
+
         public async Task<string?> BuilderCreateValidator(RentalCreateCommand data)
         {
             var message = new StringBuilder();
@@ -85,6 +101,5 @@ namespace CoreGoDelivery.Application.Services.Internal.Rental.Commands.Create
 
             return _baseInternalServices.BuildMessageValidator(message);
         }
-
     }
 }

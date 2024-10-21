@@ -6,7 +6,7 @@ namespace CoreGoDelivery.Domain.Entities.GoDelivery.Deliverier
     {
         public string Id { get; set; }
         public string FullName { get; set; }
-        public string CNPJ { get; set; }
+        public string Cnpj { get; set; }
         public DateTime BirthDate { get; set; }
 
         #region relationships

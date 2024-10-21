@@ -80,6 +80,5 @@ namespace CoreGoDelivery.Application.Services.Internal.Motorcycle.Commands.Chang
                 }
             }
         }
-
     }
 }

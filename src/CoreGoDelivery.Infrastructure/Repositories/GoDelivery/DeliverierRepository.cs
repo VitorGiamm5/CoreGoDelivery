@@ -30,7 +30,7 @@ namespace CoreGoDelivery.Infrastructure.Repositories.GoDelivery
         public async Task<bool> CheckIsUnicByCnpj(string id)
         {
             var result = await _context.Set<DeliverierEntity>()
-                .FirstOrDefaultAsync(x => x.CNPJ == id);
+                .FirstOrDefaultAsync(x => x.Cnpj == id);
 
             return Ok(result);
         }

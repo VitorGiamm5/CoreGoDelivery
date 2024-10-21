@@ -15,6 +15,22 @@ namespace CoreGoDelivery.Application.Services.Internal.Rental.Commands.Create
         public readonly CalculateDatesByPlan _calculateDatesByPlan;
         public readonly RentalCreateMappers _mappers;
 
+        public RentalCreateHandler(
+            IBaseInternalServices baseInternalServices,
+            IRentalPlanRepository repositoryPlan,
+            IRentalRepository repositoryRental,
+            RentalCreateValidate validator, 
+            CalculateDatesByPlan calculateDatesByPlan, 
+            RentalCreateMappers mappers)
+        {
+            _baseInternalServices = baseInternalServices;
+            _repositoryPlan = repositoryPlan;
+            _repositoryRental = repositoryRental;
+            _validator = validator;
+            _calculateDatesByPlan = calculateDatesByPlan;
+            _mappers = mappers;
+        }
+
         public async Task<ApiResponse> Handle(RentalCreateCommand request, CancellationToken cancellationToken)
         {
             var apiReponse = new ApiResponse()

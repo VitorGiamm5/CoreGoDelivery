@@ -5,19 +5,8 @@ using MediatR;
 
 namespace CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.UploadCnh
 {
-    public class DeliverierUploadCnhHandler : DeliverierServiceBase, IRequestHandler<DeliverierUploadCnhCommand, ApiResponse>
+    public class DeliverierUploadCnhHandler : IRequestHandler<DeliverierUploadCnhCommand, ApiResponse>
     {
-        public DeliverierUploadCnhHandler(
-            IDeliverierRepository repositoryDeliverier,
-            ILicenceDriverRepository repositoryLicence,
-            IBaseInternalServices baseInternalServices)
-        : base(
-            repositoryDeliverier,
-            repositoryLicence,
-            baseInternalServices)
-        {
-        }
-
         public async Task<ApiResponse> Handle(DeliverierUploadCnhCommand request, CancellationToken cancellationToken)
         {
             // TODO: HEAVY MISSION IMAGE FILE
