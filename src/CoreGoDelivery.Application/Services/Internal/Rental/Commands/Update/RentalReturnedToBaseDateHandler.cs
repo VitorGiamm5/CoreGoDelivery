@@ -1,4 +1,5 @@
 ﻿using CoreGoDelivery.Application.Services.Internal.Base;
+using CoreGoDelivery.Application.Services.Internal.Rental.Commands.Create;
 using CoreGoDelivery.Domain.Consts;
 using CoreGoDelivery.Domain.Repositories.GoDelivery;
 using CoreGoDelivery.Domain.Response;
@@ -6,29 +7,20 @@ using MediatR;
 
 namespace CoreGoDelivery.Application.Services.Internal.Rental.Commands.Update
 {
-    public class RentalReturnedToBaseDateHandler : RentalServiceBase, IRequestHandler<RentalReturnedToBaseDateCommand, ApiResponse>
+    public class RentalReturnedToBaseDateHandler : IRequestHandler<RentalReturnedToBaseDateCommand, ApiResponse>
     {
-        public RentalReturnedToBaseDateHandler(
-            IRentalRepository repositoryRental,
-            IRentalPlanRepository repositoryPlan,
-            IMotocycleRepository repositoryMotocyle,
-            IDeliverierRepository repositoryDeliverier,
-            IBaseInternalServices baseInternalServices)
-        : base(
-              repositoryRental,
-              repositoryPlan,
-              repositoryMotocyle,
-              repositoryDeliverier,
-              baseInternalServices)
-        {
-        }
+        public readonly IRentalRepository _repositoryRental;
+
+        public readonly RentalReturnedToBaseValidator _validator;
+        public readonly CalculateDatesByPlan _calculateDatesByPlan;
+        public readonly CalculatePenalty _calculatePenalty;
 
         public async Task<ApiResponse> Handle(RentalReturnedToBaseDateCommand request, CancellationToken cancellationToken)
         {
             var apiReponse = new ApiResponse()
             {
                 Data = null,
-                Message = await BuilderUpdateValidator(request)
+                Message = await _validator.BuilderUpdateValidator(request)
             };
 
             if (!string.IsNullOrEmpty(apiReponse.Message))
@@ -40,7 +32,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Rental.Commands.Update
 
             var returnedDate = request!.ReturnedToBaseDate!.Value;
 
-            string result = BuildCalculatePenalty(returnedDate, rental) ?? CommomMessagesConst.MESSAGE_INVALID_DATA;
+            string result = _calculatePenalty.Calculate(returnedDate, rental) ?? CommomMessagesConst.MESSAGE_INVALID_DATA;
 
             var successUpdate = await _repositoryRental.UpdateReturnedToBaseDate(request.Id, returnedDate);
 

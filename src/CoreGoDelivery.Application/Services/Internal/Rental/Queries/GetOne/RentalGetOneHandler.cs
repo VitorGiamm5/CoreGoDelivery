@@ -9,26 +9,21 @@ using System.Text;
 
 namespace CoreGoDelivery.Application.Services.Internal.Rental.Queries.GetOne
 {
-    public class RentalGetOneHandler : RentalServiceBase, IRequestHandler<RentalGetOneCommand, ApiResponse>
+    public class RentalGetOneHandler : IRequestHandler<RentalGetOneCommand, ApiResponse>
     {
-        public RentalGetOneHandler(
-            IRentalRepository repositoryRental,
-            IRentalPlanRepository repositoryPlan,
-            IMotocycleRepository repositoryMotocyle,
-            IDeliverierRepository repositoryDeliverier,
-            IBaseInternalServices baseInternalServices)
-        : base(
-            repositoryRental,
-            repositoryPlan,
-            repositoryMotocyle,
-            repositoryDeliverier,
-            baseInternalServices)
+        public readonly IBaseInternalServices _baseInternalServices;
+        public readonly IRentalRepository _repositoryRental;
+
+        public RentalGetOneHandler(IBaseInternalServices baseInternalServices, IRentalRepository repositoryRental)
         {
+            _baseInternalServices = baseInternalServices;
+            _repositoryRental = repositoryRental;
         }
 
         public async Task<ApiResponse> Handle(RentalGetOneCommand request, CancellationToken cancellationToken)
         {
             var message = new StringBuilder();
+
             var idRental = request?.Id;
 
             RentalEntity? rental = null;
