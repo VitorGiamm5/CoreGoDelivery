@@ -1,40 +1,37 @@
-﻿using CoreGoDelivery.Application.Services.Internal.Interface;
-using CoreGoDelivery.Domain.DTO.Rental;
+﻿using CoreGoDelivery.Api.Controllers.Base;
+using CoreGoDelivery.Application.Services.Internal.Rental.Commands.Create;
+using CoreGoDelivery.Application.Services.Internal.Rental.Commands.Update;
+using CoreGoDelivery.Application.Services.Internal.Rental.Queries.GetOne;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CoreGoDelivery.Api.Controllers
 {
     [Route("locacao")]
     [ApiController]
-    public class RentalController : BaseApiController
+    public class RentalController(IMediator _mediator) : BaseApiController
     {
-        private readonly IRentalService _rentalService;
-
-        public RentalController(IRentalService rentalService)
-        {
-            _rentalService = rentalService;
-        }
-
         [HttpGet("{id}")]
         public async Task<IActionResult> GetOne(string? id)
         {
-            var result = await _rentalService.GetById(id);
+            var result = await _mediator.Send(new RentalGetOneCommand(id));
 
             return Response(result);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] RentalDto request)
+        public async Task<IActionResult> Create([FromBody] RentalCreateCommand request)
         {
-            var result = await _rentalService.Create(request);
+            var result = await _mediator.Send(request);
 
             return Response(result);
         }
 
         [HttpPut("{id}/devolucao")]
-        public async Task<IActionResult> UpdateReturnedToBaseDate(string id, [FromBody] ReturnedToBaseDateDto request)
+        public async Task<IActionResult> UpdateReturnedToBaseDate(string id, [FromBody] RentalReturnedToBaseDateCommand request)
         {
-            var result = await _rentalService.UpdateReturnedToBaseDate(id, request);
+            request.Id = id;
+            var result = await _mediator.Send(request);
 
             return Response(result);
         }

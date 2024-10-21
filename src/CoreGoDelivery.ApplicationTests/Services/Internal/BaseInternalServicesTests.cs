@@ -1,5 +1,4 @@
-﻿using CoreGoDelivery.Application.Services.Internal;
-using CoreGoDelivery.Domain.DTO.Response;
+﻿using CoreGoDelivery.Application.Services.Internal.Base;
 using System.Text;
 using Xunit;
 
@@ -7,13 +6,20 @@ namespace CoreGoDelivery.ApplicationTests.Services.Internal
 {
     public class BaseInternalServicesTests
     {
+        private readonly IBaseInternalServices baseInternalServices;
+
+        public BaseInternalServicesTests(IBaseInternalServices baseInternalServices)
+        {
+            this.baseInternalServices = baseInternalServices;
+        }
+
         [Theory]
         [InlineData(null, true)]
         [InlineData("", true)]
         [InlineData("existing-id", false)]
         public void SelectId_ShouldReturnCorrectId(string input, bool expectNewId)
         {
-            var result = BaseInternalServices.IdBuild(input);
+            var result = baseInternalServices.IdBuild(input);
 
             if (expectNewId)
             {
@@ -34,7 +40,7 @@ namespace CoreGoDelivery.ApplicationTests.Services.Internal
         [InlineData("", "")]
         public void RemoveCharacteres_ShouldRemoveSpecialCharactersAndUpperCase(string input, string expected)
         {
-            var result = BaseInternalServices.RemoveCharacteres(input);
+            var result = baseInternalServices.RemoveCharacteres(input);
 
             Assert.Equal(expected, result);
         }
@@ -48,7 +54,7 @@ namespace CoreGoDelivery.ApplicationTests.Services.Internal
         {
             var apiReponse = new ApiResponse { Message = apiMessage };
 
-            var result = BaseInternalServices.FinalMessageBuild(resultCreate, apiReponse);
+            var result = baseInternalServices.FinalMessageBuild(resultCreate, apiReponse);
 
             Assert.Equal(expected, result);
         }
@@ -62,7 +68,7 @@ namespace CoreGoDelivery.ApplicationTests.Services.Internal
         {
             var message = new StringBuilder(inputMessage);
 
-            var result = BaseInternalServices.BuildMessageValidator(message);
+            var result = baseInternalServices.BuildMessageValidator(message);
 
             Assert.Equal(expected, result);
         }
@@ -75,7 +81,7 @@ namespace CoreGoDelivery.ApplicationTests.Services.Internal
         {
             var apiResponse = new ApiResponse { Message = message };
 
-            var result = BaseInternalServices.HasMessageError(apiResponse);
+            var result = baseInternalServices.HasMessageError(apiResponse);
 
             Assert.Equal(expected, result);
         }
@@ -88,7 +94,7 @@ namespace CoreGoDelivery.ApplicationTests.Services.Internal
         [InlineData("12345", false)]
         public void RequestIdParamValidator_ShouldReturnCorrectResult(string id, bool expected)
         {
-            var result = BaseInternalServices.RequestIdParamValidator(id);
+            var result = baseInternalServices.RequestIdParamValidator(id);
 
             Assert.Equal(expected, result);
         }

@@ -1,6 +1,6 @@
-﻿using CoreGoDelivery.Application.Services.Internal.Deliverier;
-using CoreGoDelivery.Domain.DTO.Deliverier;
+﻿using CoreGoDelivery.Application.Services.Internal.Deliverier.Commands;
 using CoreGoDelivery.Domain.Enums.LicenceDriverType;
+using System.Text;
 using Xunit;
 using Assert = Xunit.Assert;
 
@@ -14,7 +14,7 @@ namespace CoreGoDelivery.ApplicationTests.Services.Internal.Deliverier
         [InlineData("789", "Alan Turing", "11.111.111/0001-11", "1912-06-23", "AB", "111111111", "CNH_111111111.png")]
         [InlineData("012", "Ada Lovelace", "22.222.222/0002-22", "1815-12-10", "A", "222222222", "CNH_222222222.png")]
         public void CreateToEntity_ShouldCreateDeliverierEntityCorrectly(
-            string id, string fullName, string cnpj, string birthDate, 
+            string id, string fullName, string cnpj, string birthDate,
             string licenseType, string licenseNumber, string expectedImageUrl)
         {
             var data = new DeliverierDto
@@ -66,6 +66,26 @@ namespace CoreGoDelivery.ApplicationTests.Services.Internal.Deliverier
             var result = DeliverierServiceBase.ParseLicenseType(data);
 
             Assert.Equal(expected, result);
+        }
+
+        [Theory]
+        [InlineData(null, "Invalid field: cnpj, Type: String, Value:null Detail: ;")]
+        [InlineData("", "Invalid field: cnpj, Type: String, Value:null Detail: ;")]
+        [InlineData("12345678901234", "Invalid field: cnpj, Type: String, Value:12345678901234 Detail: ;", false)] // Cnpj inválido
+        [InlineData("12345678000195", "", true)] // Cnpj válido
+        public void BuildMessageCnpj_ShouldAppendExpectedMessage(string cnpj, string expectedMessage, bool isValid = false)
+        {
+            // Mock da validação de Cnpj
+            CnpjValidationMock.Setup(x => x.Validate(It.IsAny<string>())).Returns(isValid);
+
+            // Arrange
+            var message = new StringBuilder();
+
+            // Act
+            BuildMessageCnpj(message, cnpj);
+
+            // Assert
+            Assert.Equal(expectedMessage, message.ToString().Trim());
         }
     }
 }

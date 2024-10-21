@@ -1,15 +1,20 @@
-﻿using CoreGoDelivery.Domain.DTO.Response;
+﻿using CoreGoDelivery.Domain.Consts;
+using CoreGoDelivery.Domain.DTO.Response;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
-namespace CoreGoDelivery.Api.Controllers
+namespace CoreGoDelivery.Api.Controllers.Base
 {
     [ApiController]
     [Produces("application/json")]
     [Consumes("application/json")]
     public class BaseApiController : ControllerBase
     {
-        private const string FAULT_ERROR_MESSAGE = "Unknown error";
+
+        protected new IActionResult Response(object? result)
+        {
+            throw new NotImplementedException();
+        }
 
         protected new IActionResult Response(ApiResponse response)
         {
@@ -33,7 +38,7 @@ namespace CoreGoDelivery.Api.Controllers
             }
 
             response.Data = null;
-            response.Message = FAULT_ERROR_MESSAGE;
+            response.Message = CommomMessagesService.MESSAGE_INVALID_DATA;
 
             return StatusCode((int)HttpStatusCode.InternalServerError, response);
         }

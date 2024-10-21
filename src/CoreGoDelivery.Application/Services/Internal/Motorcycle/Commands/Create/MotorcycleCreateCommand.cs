@@ -1,12 +1,12 @@
-﻿using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
+﻿using CoreGoDelivery.Domain.DTO.Response;
+using MediatR;
+using System.ComponentModel;
 using System.Text.Json.Serialization;
 
-namespace CoreGoDelivery.Domain.DTO.Motorcycle
+namespace CoreGoDelivery.Application.Services.Internal.Motorcycle.Commands.Create
 {
-    public sealed class MotorcycleDto
+    public sealed class MotorcycleCreateCommand : IRequest<ApiResponse>
     {
-        [Key]
         [DefaultValue("moto123")]
         [JsonPropertyName("identificador")]
         public string Id { get; set; }

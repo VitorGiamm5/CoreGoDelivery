@@ -1,49 +1,52 @@
 ﻿using CoreGoDelivery.Application.Extensions;
-using CoreGoDelivery.Domain.DTO.Motorcycle;
+using CoreGoDelivery.Application.Services.Internal.Base;
+using CoreGoDelivery.Application.Services.Internal.Motorcycle.Commands.Create;
 using CoreGoDelivery.Domain.Entities.GoDelivery.Motorcycle;
 using CoreGoDelivery.Domain.Enums.ServiceErrorMessage;
 using CoreGoDelivery.Domain.Repositories.GoDelivery;
 using System.Text;
 using System.Text.RegularExpressions;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace CoreGoDelivery.Application.Services.Internal.Motorcycle
 {
-    public class MotorcycleServiceBase : BaseInternalServices
+    public class MotorcycleServiceBase
     {
         public readonly IMotocycleRepository _repositoryMotorcycle;
         public readonly IModelMotocycleRepository _repositoryModelMotorcycle;
         public readonly IRentalRepository _rentalRepository;
+        public readonly IBaseInternalServices _baseInternalServices;
 
         public const int YEAR_MANUFACTORY_TO_SEND_MESSAGE = 2024;
 
         public MotorcycleServiceBase(
             IMotocycleRepository repositoryMotorcycle,
             IModelMotocycleRepository repositoryModelMotorcycle,
-            IRentalRepository rentalRepository)
+            IRentalRepository rentalRepository,
+            IBaseInternalServices baseInternalServices)
         {
             _repositoryMotorcycle = repositoryMotorcycle;
             _repositoryModelMotorcycle = repositoryModelMotorcycle;
             _rentalRepository = rentalRepository;
+            _baseInternalServices = baseInternalServices;
         }
 
         #region Mappers
-        public static MotorcycleEntity MapCreateToEntity(MotorcycleDto data)
+        public MotorcycleEntity MapCreateToEntity(MotorcycleCreateCommand data)
         {
             var result = new MotorcycleEntity()
             {
-                Id = IdBuild(data.Id),
+                Id = _baseInternalServices.IdBuild(data.Id),
                 YearManufacture = data.YearManufacture,
                 ModelMotorcycleId = data.ModelName,
-                PlateNormalized = RemoveCharacteres(data.PlateId)
+                PlateNormalized = _baseInternalServices.RemoveCharacteres(data.PlateId)
             };
 
             return result;
         }
 
-        public static List<MotorcycleDto> MapEntityListToDto(List<MotorcycleEntity>? entity)
+        public static List<MotorcycleCreateCommand> MapEntityListToDto(List<MotorcycleEntity>? entity)
         {
-            List<MotorcycleDto> motocycleDtos = [];
+            List<MotorcycleCreateCommand> motocycleDtos = [];
 
             if (entity != null)
             {
@@ -54,16 +57,16 @@ namespace CoreGoDelivery.Application.Services.Internal.Motorcycle
                 return resultDto;
             }
 
-            return new List<MotorcycleDto>();
+            return new List<MotorcycleCreateCommand>();
         }
 
-        public static MotorcycleDto MapEntityToDto(MotorcycleEntity motorcycle)
+        public static MotorcycleCreateCommand MapEntityToDto(MotorcycleEntity motorcycle)
         {
-            var restult = new MotorcycleDto
+            var restult = new MotorcycleCreateCommand
             {
                 Id = motorcycle.Id,
                 YearManufacture = motorcycle.YearManufacture,
-                ModelName = motorcycle.ModelMotorcycle.Name,
+                ModelName = motorcycle!.ModelMotorcycle!.Name,
                 PlateId = motorcycle.PlateNormalized
             };
 
@@ -100,7 +103,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Motorcycle
 
             if (string.IsNullOrEmpty(id))
             {
-                message.AppendError(message, id, AdditionalMessageEnum.Required);
+                message.AppendError(message, id);
             }
             else
             {
@@ -117,14 +120,14 @@ namespace CoreGoDelivery.Application.Services.Internal.Motorcycle
                 }
             }
 
-            return BuildMessageValidator(message);
+            return _baseInternalServices.BuildMessageValidator(message);
         }
 
         #endregion
 
         #region Builder Create validator
 
-        public async Task<string?> BuilderCreateValidator(MotorcycleDto data)
+        public async Task<string?> BuilderCreateValidator(MotorcycleCreateCommand data)
         {
             var message = new StringBuilder();
 
@@ -136,14 +139,14 @@ namespace CoreGoDelivery.Application.Services.Internal.Motorcycle
                 BuildMessageModelMotorcycle(data, message)
             );
 
-            return BuildMessageValidator(message);
+            return _baseInternalServices.BuildMessageValidator(message);
         }
 
-        public static void BuildMessageYear(MotorcycleDto data, StringBuilder message)
+        public static void BuildMessageYear(MotorcycleCreateCommand data, StringBuilder message)
         {
             if (string.IsNullOrWhiteSpace(data.YearManufacture.ToString()))
             {
-                message.AppendError(message, data.YearManufacture, AdditionalMessageEnum.Required);
+                message.AppendError(message, data.YearManufacture);
             }
             else
             {
@@ -154,18 +157,18 @@ namespace CoreGoDelivery.Application.Services.Internal.Motorcycle
             }
         }
 
-        public async Task BuildMessagePlate(MotorcycleDto data, StringBuilder message)
+        public async Task BuildMessagePlate(MotorcycleCreateCommand data, StringBuilder message)
         {
             if (string.IsNullOrWhiteSpace(data.PlateId))
             {
-                message.AppendError(message, data.PlateId, AdditionalMessageEnum.Required);
+                message.AppendError(message, data.PlateId);
             }
             else
             {
                 var isValidPlate = PlateValidator(data.PlateId);
                 if (isValidPlate)
                 {
-                    var normalizedPlate = RemoveCharacteres(data.PlateId);
+                    var normalizedPlate = _baseInternalServices.RemoveCharacteres(data.PlateId);
 
                     var isUnicId = await _repositoryMotorcycle.CheckIsUnicByPlateAsync(normalizedPlate);
 
@@ -181,7 +184,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Motorcycle
             }
         }
 
-        public async Task BuildMessageIdMotorcycle(MotorcycleDto data, StringBuilder message)
+        public async Task BuildMessageIdMotorcycle(MotorcycleCreateCommand data, StringBuilder message)
         {
             if (!string.IsNullOrWhiteSpace(data.Id))
             {
@@ -194,15 +197,15 @@ namespace CoreGoDelivery.Application.Services.Internal.Motorcycle
             }
         }
 
-        public async Task BuildMessageModelMotorcycle(MotorcycleDto data, StringBuilder message)
+        public async Task BuildMessageModelMotorcycle(MotorcycleCreateCommand data, StringBuilder message)
         {
             if (string.IsNullOrWhiteSpace(data.ModelName))
             {
-                message.AppendError(message, data.Id, AdditionalMessageEnum.Required);
+                message.AppendError(message, data.Id);
             }
             else
             {
-                var modelNormalized = RemoveCharacteres(data.ModelName);
+                var modelNormalized = _baseInternalServices.RemoveCharacteres(data.ModelName);
                 var modelId = await _repositoryModelMotorcycle.GetIdByModelName(modelNormalized);
 
                 if (string.IsNullOrEmpty(modelId))
@@ -226,16 +229,16 @@ namespace CoreGoDelivery.Application.Services.Internal.Motorcycle
 
             await MessageBuildChangePlate(plate, message);
 
-            return BuildMessageValidator(message);
+            return _baseInternalServices.BuildMessageValidator(message);
         }
 
         public async Task BuildMessageChangePlateId(string? id, StringBuilder message)
         {
-            var isValidId = RequestIdParamValidator(id);
+            var isValidId = _baseInternalServices.RequestIdParamValidator(id);
 
             if (!isValidId)
             {
-                message.AppendError(message, id, AdditionalMessageEnum.Required);
+                message.AppendError(message, id);
             }
             else
             {
@@ -251,7 +254,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Motorcycle
         {
             if (string.IsNullOrEmpty(plate))
             {
-                message.AppendError(message, plate, AdditionalMessageEnum.Required);
+                message.AppendError(message, plate);
             }
             else
             {

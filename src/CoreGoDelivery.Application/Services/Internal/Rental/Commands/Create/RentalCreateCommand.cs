@@ -1,9 +1,11 @@
-﻿using System.ComponentModel;
+﻿using CoreGoDelivery.Domain.DTO.Response;
+using MediatR;
+using System.ComponentModel;
 using System.Text.Json.Serialization;
 
-namespace CoreGoDelivery.Domain.DTO.Rental
+namespace CoreGoDelivery.Application.Services.Internal.Rental.Commands.Create
 {
-    public sealed class RentalDto : ReturnedToBaseDateDto
+    public sealed class RentalCreateCommand : IRequest<ApiResponse>
     {
         [JsonIgnore]
         [DefaultValue("locacao123")]
@@ -38,5 +40,8 @@ namespace CoreGoDelivery.Domain.DTO.Rental
         [DefaultValue(1)]
         [JsonPropertyName("plano")]
         public int PlanId { get; set; }
+
+        [DefaultValue("2024-01-07T23:59:59Z")]
+        public DateTime? ReturnedToBaseDate { get; set; }
     }
 }

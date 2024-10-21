@@ -1,25 +1,25 @@
-﻿using CoreGoDelivery.Application.Services.Internal;
-using CoreGoDelivery.Domain.DTO.Response;
+﻿using CoreGoDelivery.Application.Extensions;
 using CoreGoDelivery.Domain.Enums.ServiceErrorMessage;
 using System.Text;
 using Xunit;
 
-namespace CoreGoDelivery.Application.Extensions.Tests
+namespace CoreGoDelivery.ApplicationTests.Extensions
 {
     public class StringBuilderExtensionsTests
     {
         [Theory]
-        [InlineData(null, "cnpj", AdditionalMessageEnum.InvalidFormat, "InvalidFormat field: cnpj, Type: String, Value:null Detail: invalid;")]
-        [InlineData("12345678901234", "cnpj", AdditionalMessageEnum.None, "InvalidFormat field: cnpj, Type: String, Value:12345678901234 Detail: ;")]
-        [InlineData(null, "birthDate", AdditionalMessageEnum.Required, "InvalidFormat field: birthDate, Type: DateTime, Value:null Detail: required;")]
-        [InlineData("2024-10-13", "birthDate", AdditionalMessageEnum.MustBeUnic, "InvalidFormat field: birthDate, Type: String, Value:2024-10-13 Detail: must be unic;")]
+        [InlineData(null, "cnpj", AdditionalMessageEnum.InvalidFormat, "Invalid field: 'paramName', type: System.String, value: '', Detail: 'invalid format'; ")]
+        [InlineData("12345678901234", "cnpj", AdditionalMessageEnum.None, "Invalid field: 'paramName', type: System.String, value: '12345678901234', Detail: ''; ")]
+        [InlineData(null, "birthDate", AdditionalMessageEnum.Required, "Invalid field: 'paramName', type: System.String, value: '', Detail: 'required'; ")]
+        [InlineData("2024-10-13", "birthDate", AdditionalMessageEnum.MustBeUnic, "Invalid field: 'paramName', type: System.String, value: '2024-10-13', Detail: 'must be unic'; ")]
         public void AppendError_ShouldAppendExpectedMessage(object data, object paramName, AdditionalMessageEnum additionalMessage, string expected)
         {
             var message = new StringBuilder();
 
             message.AppendError(data, paramName, additionalMessage);
+            var messageString = message.ToString();
 
-            Assert.Equal(expected, message.ToString());
+            Assert.Equal(expected, messageString);
         }
     }
 }

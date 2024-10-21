@@ -1,10 +1,23 @@
-﻿using System.ComponentModel;
+﻿using CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.UploadCnh;
+using CoreGoDelivery.Domain.DTO.Response;
+using MediatR;
+using System.ComponentModel;
 using System.Text.Json.Serialization;
 
-namespace CoreGoDelivery.Domain.DTO.Deliverier
+namespace CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.Create
 {
-    public class DeliverierDto : LicenseImageString
+    public class DeliverierCreateCommand : DeliverierUploadCnhCommand, IRequest<ApiResponse>
     {
+        public DeliverierCreateCommand(string id, string fullName, string cnpj, DateTime birthDate, string licenseNumber, string licenseType)
+        {
+            Id = id;
+            FullName = fullName;
+            Cnpj = cnpj;
+            BirthDate = birthDate;
+            LicenseNumber = licenseNumber;
+            LicenseType = licenseType;
+        }
+
         [DefaultValue("entregador123")]
         [JsonPropertyName("identificador")]
         public string Id { get; set; }
@@ -15,7 +28,7 @@ namespace CoreGoDelivery.Domain.DTO.Deliverier
 
         [DefaultValue("12345678901234")]
         [JsonPropertyName("cnpj")]
-        public string CNPJ { get; set; }
+        public string Cnpj { get; set; }
 
         [DefaultValue("1990-01-01T00:00:00Z")]
         [JsonPropertyName("data_nascimento")]

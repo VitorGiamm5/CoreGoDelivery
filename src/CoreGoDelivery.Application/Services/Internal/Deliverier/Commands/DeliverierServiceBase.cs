@@ -1,5 +1,6 @@
 ﻿using CoreGoDelivery.Application.Extensions;
-using CoreGoDelivery.Domain.DTO.Deliverier;
+using CoreGoDelivery.Application.Services.Internal.Base;
+using CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.Create;
 using CoreGoDelivery.Domain.Entities.GoDelivery.Deliverier;
 using CoreGoDelivery.Domain.Entities.GoDelivery.LicenceDriver;
 using CoreGoDelivery.Domain.Enums.LicenceDriverType;
@@ -8,30 +9,33 @@ using CoreGoDelivery.Domain.Repositories.GoDelivery;
 using DocumentValidator;
 using System.Text;
 
-namespace CoreGoDelivery.Application.Services.Internal.Deliverier
+namespace CoreGoDelivery.Application.Services.Internal.Deliverier.Commands
 {
-    public class DeliverierServiceBase : BaseInternalServices
+    public class DeliverierServiceBase
     {
         public readonly IDeliverierRepository _repositoryDeliverier;
         public readonly ILicenceDriverRepository _repositoryLicence;
+        public readonly IBaseInternalServices _baseInternalServices;
 
         public DeliverierServiceBase(
             IDeliverierRepository repositoryDeliverier,
-            ILicenceDriverRepository repositoryLicence)
+            ILicenceDriverRepository repositoryLicence,
+            IBaseInternalServices baseInternalServices)
         {
             _repositoryDeliverier = repositoryDeliverier;
             _repositoryLicence = repositoryLicence;
+            _baseInternalServices = baseInternalServices;
         }
 
         #region Mappers
 
-        public static DeliverierEntity MapCreateToEntity(DeliverierDto data)
+        public DeliverierEntity MapCreateToEntity(DeliverierCreateCommand data)
         {
             var result = new DeliverierEntity()
             {
-                Id = IdBuild(data.Id),
+                Id = _baseInternalServices.IdBuild(data.Id),
                 FullName = data.FullName,
-                CNPJ = RemoveCharacteres(data.CNPJ),
+                CNPJ = _baseInternalServices.RemoveCharacteres(data.Cnpj),
                 BirthDate = data.BirthDate,
                 LicenceDriver = new LicenceDriverEntity()
                 {
@@ -47,11 +51,11 @@ namespace CoreGoDelivery.Application.Services.Internal.Deliverier
         #endregion
 
         #region Create validator
-        public async Task<string?> BuilderValidatorCreateAsync(DeliverierDto data)
+        public async Task<string?> BuilderValidatorCreateAsync(DeliverierCreateCommand data)
         {
             var message = new StringBuilder();
 
-            BuildMessageCnpj(message, data.CNPJ);
+            BuildMessageCnpj(message, data.Cnpj);
 
             BuildMessageFullName(data, message);
 
@@ -64,7 +68,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Deliverier
                  BuildMessageCnh(data, message)
              );
 
-            return BuildMessageValidator(message);
+            return _baseInternalServices.BuildMessageValidator(message);
         }
 
         public static void BuildMessageCnpj(StringBuilder message, string cnpj)
@@ -82,7 +86,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Deliverier
             }
         }
 
-        public static void BuildMessageFullName(DeliverierDto data, StringBuilder message)
+        public static void BuildMessageFullName(DeliverierCreateCommand data, StringBuilder message)
         {
             if (string.IsNullOrWhiteSpace(data.FullName))
             {
@@ -90,7 +94,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Deliverier
             }
         }
 
-        public static void BuildMessageBirthDate(DeliverierDto data, StringBuilder message)
+        public static void BuildMessageBirthDate(DeliverierCreateCommand data, StringBuilder message)
         {
             if (string.IsNullOrWhiteSpace(data.BirthDate.ToString()))
             {
@@ -115,7 +119,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Deliverier
             }
         }
 
-        public static void BuildMessageLicenseType(DeliverierDto data, StringBuilder message)
+        public static void BuildMessageLicenseType(DeliverierCreateCommand data, StringBuilder message)
         {
             if (!Enum.TryParse(data.LicenseType, ignoreCase: true, out LicenseTypeEnum _))
             {
@@ -123,7 +127,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Deliverier
             }
         }
 
-        public async Task BuildMessageCreate(DeliverierDto data, StringBuilder message)
+        public async Task BuildMessageCreate(DeliverierCreateCommand data, StringBuilder message)
         {
             if (!string.IsNullOrWhiteSpace(data.Id))
             {
@@ -136,7 +140,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Deliverier
             }
         }
 
-        public async Task BuildMessageCnh(DeliverierDto data, StringBuilder message)
+        public async Task BuildMessageCnh(DeliverierCreateCommand data, StringBuilder message)
         {
             if (string.IsNullOrWhiteSpace(data.LicenseNumber))
             {
@@ -164,14 +168,14 @@ namespace CoreGoDelivery.Application.Services.Internal.Deliverier
 
         #region Features to Mappers
 
-        public static string FileNameLicenseNormalize(DeliverierDto data)
+        public static string FileNameLicenseNormalize(DeliverierCreateCommand data)
         {
             var result = $"CNH_{data.LicenseNumber}.png";
 
             return result;
         }
 
-        public static LicenseTypeEnum ParseLicenseType(DeliverierDto data)
+        public static LicenseTypeEnum ParseLicenseType(DeliverierCreateCommand data)
         {
             Enum.TryParse(data.LicenseType, ignoreCase: true, out LicenseTypeEnum licenseType);
 

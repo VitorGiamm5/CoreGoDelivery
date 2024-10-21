@@ -3,6 +3,7 @@ Go Core Delivery
 Especificações:
 Dotnet core 8.0
 - Entity Framework
+- Validador de documentos
 Postgres
 RabigMQ
 Docker compose
@@ -50,3 +51,8 @@ dotnet ef migrations add InicialBase -s .\CoreGoDelivery.API -p .\CoreGoDelivery
 Atualizar o banco
 
 dotnet ef database update -s .\CoreGoDelivery.API -p .\CoreGoDelivery.Infrastructure
+
+Referências:
+
+- Validador de documentos
+https://www.nuget.org/packages/DocsBRValidator

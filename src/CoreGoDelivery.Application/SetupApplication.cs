@@ -1,10 +1,8 @@
-﻿using CoreGoDelivery.Application.Services.Internal.Deliverier;
-using CoreGoDelivery.Application.Services.Internal.Interface;
-using CoreGoDelivery.Application.Services.Internal.Motorcycle;
-using CoreGoDelivery.Application.Services.Internal.Rental;
+﻿using CoreGoDelivery.Application.Services.Internal.Base;
 using CoreGoDelivery.Infrastructure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using System.Reflection;
 
 namespace CoreGoDelivery.Application
 {
@@ -16,21 +14,18 @@ namespace CoreGoDelivery.Application
                 .AddInfrastructure(configuration);
 
             services
-               .AddInternalServices();
+                .MessageBuildValidator();
+
+            services
+                .AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
 
             return services;
         }
 
-        private static IServiceCollection AddInternalServices(this IServiceCollection services)
+        private static IServiceCollection MessageBuildValidator(this IServiceCollection services)
         {
             services
-                .AddScoped<IDeliverierService, DeliverierService>();
-
-            services
-                .AddScoped<IMotocycleService, MotorcycleService>();
-
-            services
-                .AddScoped<IRentalService, RentalService>();
+                .AddScoped<IBaseInternalServices, BaseInternalServices>();
 
             return services;
         }

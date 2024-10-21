@@ -1,50 +1,48 @@
-﻿using CoreGoDelivery.Application.Services.Internal.Interface;
-using CoreGoDelivery.Domain.DTO.Motorcycle;
+﻿using CoreGoDelivery.Api.Controllers.Base;
+using CoreGoDelivery.Application.Services.Internal.Motorcycle.Commands.ChangePlateById;
+using CoreGoDelivery.Application.Services.Internal.Motorcycle.Commands.Create;
+using CoreGoDelivery.Application.Services.Internal.Motorcycle.Commands.Delete;
+using CoreGoDelivery.Application.Services.Internal.Motorcycle.Queries.GetOne;
+using CoreGoDelivery.Application.Services.Internal.Motorcycle.Queries.List;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CoreGoDelivery.Api.Controllers
 {
     [Route("motos")]
     [ApiController]
-    public class MotocycleController : BaseApiController
+    public class MotocycleController(IMediator _mediator) : BaseApiController
     {
-        private readonly IMotocycleService _motocycleService;
-
-        public MotocycleController(IMotocycleService motocycleService)
-        {
-            _motocycleService = motocycleService;
-        }
-
         [HttpGet]
-        public async Task<IActionResult> List([FromQuery] PlateIdDto? request)
+        public async Task<IActionResult> List([FromQuery] MotorcycleListQueryCommand request)
         {
-            var result = await _motocycleService.List(request?.Placa);
+            var result = await _mediator.Send(request);
 
             return Response(result);
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetOne(string id)
+        public async Task<IActionResult> GetOne(MotorcycleGetOneQueryCommand id)
         {
-            var result = await _motocycleService.GetOne(id);
+            var result = await _mediator.Send(id);
 
             return Response(result);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] MotorcycleDto request)
+        public async Task<IActionResult> Post([FromBody] MotorcycleCreateCommand request)
         {
-            var result = await _motocycleService.Create(request);
+            var result = await _mediator.Send(request);
 
             return Response(result);
         }
 
         [HttpPut("{id}/placa")]
-        public async Task<IActionResult> Put(string id, [FromBody] PlateIdDto request)
+        public async Task<IActionResult> Put(string id, [FromBody] MotorcycleChangePlateCommand request)
         {
-            string? plate = request.Placa;
+            request.Id = id;
 
-            var result = await _motocycleService.ChangePlateById(id, plate);
+            var result = await _mediator.Send(request);
 
             return Response(result);
         }
@@ -52,7 +50,7 @@ namespace CoreGoDelivery.Api.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(string id)
         {
-            var result = await _motocycleService.DeleteById(id);
+            var result = await _mediator.Send(new MotorcycleDeleteCommand(id));
 
             return Response(result);
         }

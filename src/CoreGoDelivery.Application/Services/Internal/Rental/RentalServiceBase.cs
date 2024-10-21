@@ -1,5 +1,7 @@
 ﻿using CoreGoDelivery.Application.Extensions;
-using CoreGoDelivery.Domain.DTO.Rental;
+using CoreGoDelivery.Application.Services.Internal.Base;
+using CoreGoDelivery.Application.Services.Internal.Rental.Commands.Create;
+using CoreGoDelivery.Application.Services.Internal.Rental.Commands.Update;
 using CoreGoDelivery.Domain.Entities.GoDelivery.Rental;
 using CoreGoDelivery.Domain.Entities.GoDelivery.RentalPlan;
 using CoreGoDelivery.Domain.Enums.ServiceErrorMessage;
@@ -8,12 +10,13 @@ using System.Text;
 
 namespace CoreGoDelivery.Application.Services.Internal.Rental
 {
-    public class RentalServiceBase : BaseInternalServices
+    public class RentalServiceBase
     {
         public readonly IRentalRepository _repositoryRental;
         public readonly IRentalPlanRepository _repositoryPlan;
         public readonly IMotocycleRepository _repositoryMotocyle;
         public readonly IDeliverierRepository _repositoryDeliverier;
+        public readonly IBaseInternalServices _baseInternalServices;
 
         public const string CURRENCY_BRL = "R$";
 
@@ -26,17 +29,19 @@ namespace CoreGoDelivery.Application.Services.Internal.Rental
             IRentalRepository repositoryRental,
             IRentalPlanRepository repositoryPlan,
             IMotocycleRepository repositoryMotocyle,
-            IDeliverierRepository repositoryDeliverier)
+            IDeliverierRepository repositoryDeliverier,
+            IBaseInternalServices baseInternalServices)
         {
             _repositoryRental = repositoryRental;
             _repositoryPlan = repositoryPlan;
             _repositoryMotocyle = repositoryMotocyle;
             _repositoryDeliverier = repositoryDeliverier;
+            _baseInternalServices = baseInternalServices;
         }
 
         #region Mappers
 
-        public static RentalEntity MapCreateToEntity(RentalDto data, RentalEntity RentalDates)
+        public static RentalEntity MapCreateToEntity(RentalCreateCommand data, RentalEntity RentalDates)
         {
             var result = new RentalEntity()
             {
@@ -56,12 +61,12 @@ namespace CoreGoDelivery.Application.Services.Internal.Rental
         #endregion
 
         /// <summary>
-        /// used to UpdateReturnedToBaseDate
+        /// used to Update
         /// </summary>
         /// <param name="data"></param>
         /// <param name="plan"></param>
         /// <returns></returns>
-        public static string? BuildCalculatePenalty(DateTime returnedToBaseDate, RentalEntity? rental)
+        public string? BuildCalculatePenalty(DateTime returnedToBaseDate, RentalEntity? rental)
         {
             TimeSpan buildDiffDays = returnedToBaseDate - rental!.EstimatedReturnDate;
 
@@ -102,16 +107,18 @@ namespace CoreGoDelivery.Application.Services.Internal.Rental
                 message.Append($"{penaltyValue}");
             }
 
-            return BuildMessageValidator(message);
+            var result = _baseInternalServices.BuildMessageValidator(message);
+
+            return result;
         }
 
         /// <summary>
-        /// used to UpdateReturnedToBaseDate
+        /// used to Update
         /// </summary>
         /// <param name="data"></param>
         /// <param name="plan"></param>
         /// <returns></returns>
-        public static string? ValidadeToPlan(RentalDto data, RentalPlanEntity plan)
+        public string? ValidadeToPlan(RentalCreateCommand data, RentalPlanEntity plan)
         {
             var message = new StringBuilder();
 
@@ -165,7 +172,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Rental
             }
             #endregion
 
-            return BuildMessageValidator(message);
+            return _baseInternalServices.BuildMessageValidator(message);
         }
 
         /// <summary>
@@ -188,19 +195,23 @@ namespace CoreGoDelivery.Application.Services.Internal.Rental
         #region Update Validators
 
         /// <summary>
-        /// used to UpdateReturnedToBaseDate
+        /// used to Update
         /// </summary>
         /// <param name="data"></param>
         /// <param name="plan"></param>
         /// <returns></returns>
-        public async Task<string?> BuilderUpdateValidator(string id, ReturnedToBaseDateDto? data)
+        public async Task<string?> BuilderUpdateValidator(RentalReturnedToBaseDateCommand? data)
         {
             var message = new StringBuilder();
+            var id = data!.Id;
 
             #region Id validator
-            if (RequestIdParamValidator(id))
+
+            var isValidIdParam = _baseInternalServices.RequestIdParamValidator(id);
+
+            if (isValidIdParam)
             {
-                message.AppendError(message, id, AdditionalMessageEnum.Required);
+                message.AppendError(message, id);
                 return message.ToString();
             }
 
@@ -225,7 +236,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Rental
 
             if (data?.ReturnedToBaseDate == null)
             {
-                message.AppendError(message, data.ReturnedToBaseDate, AdditionalMessageEnum.Required);
+                message.AppendError(message, data?.ReturnedToBaseDate);
             }
             else
             {
@@ -238,7 +249,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Rental
 
             #endregion
 
-            return BuildMessageValidator(message);
+            return _baseInternalServices.BuildMessageValidator(message);
 
         }
 
@@ -252,14 +263,14 @@ namespace CoreGoDelivery.Application.Services.Internal.Rental
         /// <param name="data"></param>
         /// <param name="plan"></param>
         /// <returns></returns>
-        public async Task<string?> BuilderCreateValidator(RentalDto data)
+        public async Task<string?> BuilderCreateValidator(RentalCreateCommand data)
         {
             var message = new StringBuilder();
 
             #region PlanId validator
             if (string.IsNullOrWhiteSpace(data.PlanId.ToString()))
             {
-                message.AppendError(message, data.PlanId, AdditionalMessageEnum.Required);
+                message.AppendError(message, data.PlanId);
             }
             else
             {
@@ -282,7 +293,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Rental
             #region MotorcycleId validator
             if (string.IsNullOrWhiteSpace(data.MotorcycleId))
             {
-                message.AppendError(message, data.MotorcycleId, AdditionalMessageEnum.Required);
+                message.AppendError(message, data.MotorcycleId);
             }
             else
             {
@@ -303,7 +314,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Rental
             #region DeliverierId validator
             if (string.IsNullOrWhiteSpace(data.DeliverierId))
             {
-                message.AppendError(message, data.DeliverierId, AdditionalMessageEnum.Required);
+                message.AppendError(message, data.DeliverierId);
             }
             else
             {
@@ -315,7 +326,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Rental
             }
             #endregion
 
-            return BuildMessageValidator(message);
+            return _baseInternalServices.BuildMessageValidator(message);
         }
 
         #endregion
