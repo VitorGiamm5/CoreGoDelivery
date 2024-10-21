@@ -23,7 +23,7 @@ namespace CoreGoDelivery.Api.Controllers
         {
             request.IdLicense = id;
 
-            var apiReponse = await _mediator.Send(id);
+            var apiReponse = await _mediator.Send(request);
 
             return Response(apiReponse);
         }

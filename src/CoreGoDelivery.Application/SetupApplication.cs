@@ -4,8 +4,6 @@ using CoreGoDelivery.Application.RabbitMQ.Settings;
 using CoreGoDelivery.Application.Services.Internal.Base;
 using CoreGoDelivery.Infrastructure;
 using CoreGoDelivery.Infrastructure.Database;
-using Fluent.Infrastructure.FluentModel;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
