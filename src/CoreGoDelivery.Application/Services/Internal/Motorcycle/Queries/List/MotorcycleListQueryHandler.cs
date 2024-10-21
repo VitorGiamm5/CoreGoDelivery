@@ -1,5 +1,5 @@
-﻿using CoreGoDelivery.Application.RabbitMQ.NotificationMotorcycle.Publisher;
-using CoreGoDelivery.Application.Services.Internal.Base;
+﻿using CoreGoDelivery.Application.Services.Internal.Base;
+using CoreGoDelivery.Application.Services.Internal.Motorcycle.Commons;
 using CoreGoDelivery.Domain.Consts;
 using CoreGoDelivery.Domain.Repositories.GoDelivery;
 using CoreGoDelivery.Domain.Response;
@@ -7,21 +7,21 @@ using MediatR;
 
 namespace CoreGoDelivery.Application.Services.Internal.Motorcycle.Queries.List
 {
-    public class MotorcycleListQueryHandler : MotorcycleServiceBase, IRequestHandler<MotorcycleListQueryCommand, ApiResponse>
+    public class MotorcycleListQueryHandler : IRequestHandler<MotorcycleListQueryCommand, ApiResponse>
     {
+        public readonly IBaseInternalServices _baseInternalServices;
+        public readonly IMotocycleRepository _repositoryMotorcycle;
+
+        private readonly MotorcycleServiceMappers _mapper;
+
         public MotorcycleListQueryHandler(
-            IMotocycleRepository repositoryMotorcycle, 
-            IModelMotocycleRepository repositoryModelMotorcycle,
-            IRentalRepository rentalRepository, 
             IBaseInternalServices baseInternalServices, 
-            RabbitMQPublisher publisher) 
-            : base(
-                  repositoryMotorcycle, 
-                  repositoryModelMotorcycle, 
-                  rentalRepository, 
-                  baseInternalServices, 
-                  publisher)
+            IMotocycleRepository repositoryMotorcycle, 
+            MotorcycleServiceMappers mapper)
         {
+            _baseInternalServices = baseInternalServices;
+            _repositoryMotorcycle = repositoryMotorcycle;
+            _mapper = mapper;
         }
 
         public async Task<ApiResponse> Handle(MotorcycleListQueryCommand request, CancellationToken cancellationToken)
@@ -29,7 +29,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Motorcycle.Queries.List
             var apiReponse = new ApiResponse()
             {
                 Data = null,
-                Message = CommomMessagesService.MESSAGE_INVALID_DATA
+                Message = CommomMessagesConst.MESSAGE_INVALID_DATA
             };
 
             request.Plate = _baseInternalServices.RemoveCharacteres(request.Plate);
@@ -41,7 +41,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Motorcycle.Queries.List
                 return apiReponse;
             }
 
-            var motocycleDtos = MapEntityListToDto(result);
+            var motocycleDtos = _mapper.MapEntityListToDto(result);
 
             apiReponse.Data = motocycleDtos;
             apiReponse.Message = null;

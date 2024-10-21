@@ -1,4 +1,5 @@
 ﻿using CoreGoDelivery.Application.RabbitMQ.Settings;
+using CoreGoDelivery.Application.Services.Internal.Motorcycle.Queries.List;
 using CoreGoDelivery.Domain.Entities.GoDelivery.NotificationMotorcycle;
 using CoreGoDelivery.Domain.Repositories.GoDelivery;
 using Microsoft.Extensions.DependencyInjection;

@@ -40,7 +40,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Rental.Commands.Update
 
             var returnedDate = request!.ReturnedToBaseDate!.Value;
 
-            string result = BuildCalculatePenalty(returnedDate, rental) ?? CommomMessagesService.MESSAGE_INVALID_DATA;
+            string result = BuildCalculatePenalty(returnedDate, rental) ?? CommomMessagesConst.MESSAGE_INVALID_DATA;
 
             var successUpdate = await _repositoryRental.UpdateReturnedToBaseDate(request.Id, returnedDate);
 

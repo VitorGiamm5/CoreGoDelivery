@@ -1,4 +1,5 @@
-﻿using CoreGoDelivery.Domain.Response;
+﻿using CoreGoDelivery.Domain.Consts;
+using CoreGoDelivery.Domain.Response;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -6,7 +7,6 @@ namespace CoreGoDelivery.Application.Services.Internal.Base
 {
     public class BaseInternalServices : IBaseInternalServices
     {
-        public const string MESSAGE_INVALID_DATA = "Dados inválidos";
 
         public string? BuildMessageValidator(StringBuilder message)
         {
@@ -27,7 +27,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Base
 
             return resultCreate
                 ? null
-                : MESSAGE_INVALID_DATA;
+                : CommomMessagesConst.MESSAGE_INVALID_DATA;
         }
 
         public bool HasMessageError(ApiResponse apiReponse)

@@ -32,7 +32,7 @@ namespace CoreGoDelivery.Api.Controllers.Base
             }
 
             response.Data = null;
-            response.Message = CommomMessagesService.MESSAGE_INVALID_DATA;
+            response.Message = CommomMessagesConst.MESSAGE_INVALID_DATA;
 
             return StatusCode((int)HttpStatusCode.InternalServerError, response);
         }

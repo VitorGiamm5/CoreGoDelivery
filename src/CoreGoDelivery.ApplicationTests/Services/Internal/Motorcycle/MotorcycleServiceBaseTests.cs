@@ -1,4 +1,4 @@
-﻿using CoreGoDelivery.Application.Services.Internal.Motorcycle;
+﻿using CoreGoDelivery.Application.Services.Internal.Motorcycle.Commons;
 using CoreGoDelivery.Domain.Entities.GoDelivery.ModelMotorcycle;
 using CoreGoDelivery.Domain.Entities.GoDelivery.Motorcycle;
 using Xunit;
@@ -65,7 +65,7 @@ namespace CoreGoDelivery.ApplicationTests.Services.Internal.Motorcycle
         [InlineData("     ", false)]
         public void ValidatePlate_ShouldValidatePlateCorrectly(string plateId, bool expected)
         {
-            var result = MotorcycleServiceBase.PlateValidator(plateId);
+            var result = PlateValidator.Validator(plateId);
 
             Assert.Equal(expected, result);
         }
