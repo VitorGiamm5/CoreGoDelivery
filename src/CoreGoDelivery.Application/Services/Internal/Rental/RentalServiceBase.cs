@@ -266,18 +266,19 @@ namespace CoreGoDelivery.Application.Services.Internal.Rental
         public async Task<string?> BuilderCreateValidator(RentalCreateCommand data)
         {
             var message = new StringBuilder();
+            var paramName = nameof(data.PlanId);
 
             #region PlanId validator
             if (string.IsNullOrWhiteSpace(data.PlanId.ToString()))
             {
-                message.AppendError(message, "PlanId");
+                message.AppendError(message, paramName);
             }
             else
             {
                 var plan = await _repositoryPlan.GetById(data.PlanId);
                 if (plan == null)
                 {
-                    message.AppendError(message, "PlanId", AdditionalMessageEnum.NotFound);
+                    message.AppendError(message, paramName, AdditionalMessageEnum.NotFound);
                 }
                 else
                 {
@@ -293,7 +294,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Rental
             #region MotorcycleId validator
             if (string.IsNullOrWhiteSpace(data.MotorcycleId))
             {
-                message.AppendError(message, "MotorcycleId" );
+                message.AppendError(message, paramName);
             }
             else
             {
@@ -314,14 +315,14 @@ namespace CoreGoDelivery.Application.Services.Internal.Rental
             #region DeliverierId validator
             if (string.IsNullOrWhiteSpace(data.DeliverierId))
             {
-                message.AppendError(message, "DeliverierId");
+                message.AppendError(message, nameof(data.DeliverierId));
             }
             else
             {
                 var existDeliverierId = await _repositoryDeliverier.CheckIsUnicById(data.DeliverierId);
                 if (!existDeliverierId)
                 {
-                    message.AppendError(message, data.DeliverierId, AdditionalMessageEnum.NotFound);
+                    message.AppendError(message, nameof(data.DeliverierId), AdditionalMessageEnum.NotFound);
                 }
             }
             #endregion
