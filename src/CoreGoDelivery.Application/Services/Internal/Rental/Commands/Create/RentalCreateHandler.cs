@@ -1,4 +1,5 @@
 ﻿using CoreGoDelivery.Application.Services.Internal.Base;
+using CoreGoDelivery.Application.Services.Internal.Rental.Commands.Create.Common;
 using CoreGoDelivery.Domain.Repositories.GoDelivery;
 using CoreGoDelivery.Domain.Response;
 using MediatR;

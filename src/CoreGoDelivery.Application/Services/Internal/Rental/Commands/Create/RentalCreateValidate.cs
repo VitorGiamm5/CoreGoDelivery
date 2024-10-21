@@ -1,5 +1,6 @@
 ﻿using CoreGoDelivery.Application.Extensions;
 using CoreGoDelivery.Application.Services.Internal.Base;
+using CoreGoDelivery.Application.Services.Internal.Rental.Commands.Create.MessageValidators;
 using CoreGoDelivery.Domain.Enums.ServiceErrorMessage;
 using CoreGoDelivery.Domain.Repositories.GoDelivery;
 using System.Text;
@@ -9,28 +10,10 @@ namespace CoreGoDelivery.Application.Services.Internal.Rental.Commands.Create
     public class RentalCreateValidate
     {
         public readonly IBaseInternalServices _baseInternalServices;
-        public readonly IRentalRepository _repositoryRental;
-        public readonly IRentalPlanRepository _repositoryPlan;
-        public readonly IDeliverierRepository _repositoryDeliverier;
-        public readonly IMotocycleRepository _repositoryMotorcycle;
 
-        public readonly PlanMotorcycleValidator _planValidator;
-
-        public RentalCreateValidate(
-            IBaseInternalServices baseInternalServices, 
-            IRentalRepository repositoryRental, 
-            IRentalPlanRepository repositoryPlan, 
-            IDeliverierRepository repositoryDeliverier, 
-            IMotocycleRepository repositoryMotorcycle, 
-            PlanMotorcycleValidator planValidator)
-        {
-            _baseInternalServices = baseInternalServices;
-            _repositoryRental = repositoryRental;
-            _repositoryPlan = repositoryPlan;
-            _repositoryDeliverier = repositoryDeliverier;
-            _repositoryMotorcycle = repositoryMotorcycle;
-            _planValidator = planValidator;
-        }
+        public readonly BuildMessagePlanId _buildMessagePlanId;
+        public readonly BuildMessageMotorcycleId _buildMessageMotorcycleId;
+        public readonly BuildMessageDeliverierId _buildMessageDeliverierId;
 
         public async Task<string?> BuilderCreateValidator(RentalCreateCommand data)
         {
@@ -38,66 +21,11 @@ namespace CoreGoDelivery.Application.Services.Internal.Rental.Commands.Create
 
             var paramName = nameof(data.PlanId);
 
-            #region PlanId validator
-            if (string.IsNullOrWhiteSpace(data.PlanId.ToString()))
-            {
-                message.AppendError(message, paramName);
-            }
-            else
-            {
-                var plan = await _repositoryPlan.GetById(data.PlanId);
+            await _buildMessagePlanId.Build(data, message, paramName);
 
-                if (plan == null)
-                {
-                    message.AppendError(message, paramName, AdditionalMessageEnum.NotFound);
-                }
-                else
-                {
-                    var resultValidateDates = _planValidator.Validade(data, plan);
+            await _buildMessageMotorcycleId.Build(data, message, paramName);
 
-                    if (!string.IsNullOrWhiteSpace(resultValidateDates))
-                    {
-                        message.Append(resultValidateDates);
-                    }
-                }
-            }
-            #endregion
-
-            #region MotorcycleId validator
-            if (string.IsNullOrWhiteSpace(data.MotorcycleId))
-            {
-                message.AppendError(message, paramName);
-            }
-            else
-            {
-                var existMotocycleId = await _repositoryMotorcycle.GetOneByIdAsync(data.MotorcycleId);
-                if (existMotocycleId == null)
-                {
-                    message.AppendError(message, nameof(data.MotorcycleId), AdditionalMessageEnum.NotFound);
-                }
-
-                var motocycleIsAvaliable = await _repositoryRental.CheckMotorcycleIsAvaliableAsync(data.MotorcycleId);
-                if (!motocycleIsAvaliable)
-                {
-                    message.AppendError(message, nameof(data.MotorcycleId), AdditionalMessageEnum.Unavailable);
-                }
-            }
-            #endregion
-
-            #region DeliverierId validator
-            if (string.IsNullOrWhiteSpace(data.DeliverierId))
-            {
-                message.AppendError(message, nameof(data.DeliverierId));
-            }
-            else
-            {
-                var existDeliverierId = await _repositoryDeliverier.CheckIsUnicById(data.DeliverierId);
-                if (!existDeliverierId)
-                {
-                    message.AppendError(message, nameof(data.DeliverierId), AdditionalMessageEnum.NotFound);
-                }
-            }
-            #endregion
+            await _buildMessageDeliverierId.Build(data, message);
 
             return _baseInternalServices.BuildMessageValidator(message);
         }

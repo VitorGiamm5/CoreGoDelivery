@@ -1,5 +1,6 @@
 ﻿using CoreGoDelivery.Application.Services.Internal.Base;
-using CoreGoDelivery.Application.Services.Internal.Rental.Commands.Create;
+using CoreGoDelivery.Application.Services.Internal.Rental.Commands.Create.Common;
+using CoreGoDelivery.Application.Services.Internal.Rental.Commands.Update.Common;
 using CoreGoDelivery.Domain.Consts;
 using CoreGoDelivery.Domain.Repositories.GoDelivery;
 using CoreGoDelivery.Domain.Response;

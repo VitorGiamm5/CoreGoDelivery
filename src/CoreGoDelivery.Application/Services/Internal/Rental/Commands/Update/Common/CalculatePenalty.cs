@@ -3,7 +3,7 @@ using CoreGoDelivery.Domain.Consts;
 using CoreGoDelivery.Domain.Entities.GoDelivery.Rental;
 using System.Text;
 
-namespace CoreGoDelivery.Application.Services.Internal.Rental.Commands.Update
+namespace CoreGoDelivery.Application.Services.Internal.Rental.Commands.Update.Common
 {
     public class CalculatePenalty
     {

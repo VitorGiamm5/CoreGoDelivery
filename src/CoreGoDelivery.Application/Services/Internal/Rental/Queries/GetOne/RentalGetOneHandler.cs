@@ -1,5 +1,6 @@
 ﻿using CoreGoDelivery.Application.Extensions;
 using CoreGoDelivery.Application.Services.Internal.Base;
+using CoreGoDelivery.Application.Services.Internal.Rental.Queries.GetOne.BuildMessage;
 using CoreGoDelivery.Domain.Entities.GoDelivery.Rental;
 using CoreGoDelivery.Domain.Enums.ServiceErrorMessage;
 using CoreGoDelivery.Domain.Repositories.GoDelivery;
@@ -14,10 +15,19 @@ namespace CoreGoDelivery.Application.Services.Internal.Rental.Queries.GetOne
         public readonly IBaseInternalServices _baseInternalServices;
         public readonly IRentalRepository _repositoryRental;
 
-        public RentalGetOneHandler(IBaseInternalServices baseInternalServices, IRentalRepository repositoryRental)
+        public readonly RentalGetOneMappers _mapper;
+        public readonly BuildMessageIdRental _buildMessageIdRental;
+
+        public RentalGetOneHandler(
+            IBaseInternalServices baseInternalServices,
+            IRentalRepository repositoryRental,
+            RentalGetOneMappers mapper, 
+            BuildMessageIdRental buildMessageIdRental)
         {
             _baseInternalServices = baseInternalServices;
             _repositoryRental = repositoryRental;
+            _mapper = mapper;
+            _buildMessageIdRental = buildMessageIdRental;
         }
 
         public async Task<ApiResponse> Handle(RentalGetOneCommand request, CancellationToken cancellationToken)
@@ -28,31 +38,9 @@ namespace CoreGoDelivery.Application.Services.Internal.Rental.Queries.GetOne
 
             RentalEntity? rental = null;
 
-            if (!_baseInternalServices.RequestIdParamValidator(idRental))
-            {
-                message.AppendError(message, "idRental");
-            }
-            else
-            {
-                rental = await _repositoryRental.GetByIdAsync(idRental!);
+            rental = await _buildMessageIdRental.Build(message, idRental, rental);
 
-                if (rental == null)
-                {
-                    message.AppendError(message, "idRental", AdditionalMessageEnum.NotFound);
-                }
-            }
-
-            var rentalDto = new
-            {
-                identificador = rental!.Id,
-                valor_diaria = rental.RentalPlan!.DayliCost,
-                entregador_id = rental.DeliverierId,
-                moto_id = rental.MotorcycleId,
-                data_inicio = rental.StartDate,
-                data_termino = rental.EndDate,
-                data_previsao_termino = rental.EstimatedReturnDate,
-                data_devolucao = rental.ReturnedToBaseDate,
-            };
+            var rentalDto = _mapper.RentalEntityToDto(rental);
 
             var apiReponse = new ApiResponse()
             {

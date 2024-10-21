@@ -1,7 +1,7 @@
 ﻿using CoreGoDelivery.Domain.Consts;
 using System.Text;
 
-namespace CoreGoDelivery.Application.Services.Internal.Rental.Commands.Update
+namespace CoreGoDelivery.Application.Services.Internal.Rental.Commands.Update.Common
 {
     public class ExpiredDateToReturn
     {

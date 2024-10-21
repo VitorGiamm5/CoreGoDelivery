@@ -7,6 +7,7 @@ using Assert = Xunit.Assert;
 
 namespace CoreGoDelivery.ApplicationTests.Services.Internal.Deliverier
 {
+
     public class DeliverierServiceBaseTests
     {
         //[Theory]

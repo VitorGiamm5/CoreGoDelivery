@@ -1,7 +1,7 @@
 ﻿using CoreGoDelivery.Domain.Entities.GoDelivery.Rental;
 using CoreGoDelivery.Domain.Entities.GoDelivery.RentalPlan;
 
-namespace CoreGoDelivery.Application.Services.Internal.Rental.Commands.Create
+namespace CoreGoDelivery.Application.Services.Internal.Rental.Commands.Create.Common
 {
     public class CalculateDatesByPlan
     {

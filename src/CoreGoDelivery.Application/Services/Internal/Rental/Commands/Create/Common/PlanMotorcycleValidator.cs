@@ -3,7 +3,7 @@ using CoreGoDelivery.Application.Services.Internal.Base;
 using CoreGoDelivery.Domain.Entities.GoDelivery.RentalPlan;
 using System.Text;
 
-namespace CoreGoDelivery.Application.Services.Internal.Rental.Commands.Create
+namespace CoreGoDelivery.Application.Services.Internal.Rental.Commands.Create.Common
 {
     public class PlanMotorcycleValidator
     {
@@ -12,7 +12,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Rental.Commands.Create
         public readonly CalculateDatesByPlan _calculateDatesByPlan;
 
         public PlanMotorcycleValidator(
-            IBaseInternalServices baseInternalServices, 
+            IBaseInternalServices baseInternalServices,
             CalculateDatesByPlan calculateDatesByPlan)
         {
             _baseInternalServices = baseInternalServices;
