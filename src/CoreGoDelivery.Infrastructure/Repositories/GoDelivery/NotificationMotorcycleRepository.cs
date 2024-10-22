@@ -10,13 +10,13 @@ namespace CoreGoDelivery.Infrastructure.Repositories.GoDelivery
         {
         }
 
-        public async Task<bool> Create(NotificationMotorcycleEntity data)
+        public bool Create(NotificationMotorcycleEntity data)
         {
-            var result = await _context
+            var result = _context
                 .Set<NotificationMotorcycleEntity>()
-                .AddAsync(data);
+                .Add(data);
 
-            await _context.SaveChangesAsync();
+            _context.SaveChanges();
 
             return IsSuccessCreate(result);
         }

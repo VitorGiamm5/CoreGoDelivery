@@ -21,6 +21,7 @@ using CoreGoDelivery.Infrastructure.Database;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using RabbitMQ.Client;
 using System.Reflection;
 
 namespace CoreGoDelivery.Application
@@ -35,19 +36,27 @@ namespace CoreGoDelivery.Application
 
             services.BuildMessageValidator();
 
-            services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));// RegisterServicesFromAssembly(Assembly.GetExecutingAssembly())); //achou
+            services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
 
             // Registrar as configurações do RabbitMQ
             services.Configure<RabbitMQSettings>(options => configuration.GetSection("RabbitMQ").Bind(options));
 
             // Registrar o RabbitMQPublisher como Singleton
+
+            services.AddSingleton<IConnection>(sp =>
+            {
+                var factory = new ConnectionFactory()
+                {
+                    HostName = configuration["RabbitMQ:Host"],
+                    UserName = configuration["RabbitMQ:Username"],
+                    Password = configuration["RabbitMQ:Password"],
+                    Port = int.Parse(configuration["RabbitMQ:Port"]!)
+                };
+                return factory.CreateConnection();
+            });
             services.TryAddSingleton<RabbitMQPublisher>();
 
-            // Registrar o RabbitMQConsumer como Singleton
-            //services.TryAddSingleton<RabbitMQConsumer>(); //quebra
-
-            // Registrar o HostedService para rodar o RabbitMQConsumer em background
-            // services.AddHostedService<RabbitMQConsumerService>(); //quebra
+            services.AddSingleton<RabbitMqConsumer>(); // Registrar o consumidor no DI
 
             // Registrar o DbContext como Scoped
 

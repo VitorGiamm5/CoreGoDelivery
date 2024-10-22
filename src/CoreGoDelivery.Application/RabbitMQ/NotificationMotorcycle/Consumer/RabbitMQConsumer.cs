@@ -1,40 +1,31 @@
-﻿using CoreGoDelivery.Application.RabbitMQ.Settings;
+﻿using CoreGoDelivery.Application.RabbitMQ.NotificationMotorcycle.Dto;
 using CoreGoDelivery.Domain.Entities.GoDelivery.NotificationMotorcycle;
 using CoreGoDelivery.Domain.Repositories.GoDelivery;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Options;
+using Newtonsoft.Json;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using System.Text;
-using System.Text.Json;
 
 namespace CoreGoDelivery.Application.RabbitMQ.NotificationMotorcycle.Consumer
 {
-    public class RabbitMQConsumer
+    public class RabbitMqConsumer
     {
-        private readonly ConnectionFactory _factory;
-        private readonly IServiceScopeFactory _serviceScopeFactory;
+        private readonly IConnection _connection;
         private readonly INotificationMotorcycleRepository _repository;
+        private readonly IServiceScopeFactory _serviceScopeFactory;
 
-        public RabbitMQConsumer(IOptions<RabbitMQSettings> options, IServiceScopeFactory serviceScopeFactory, INotificationMotorcycleRepository repository)
+        public RabbitMqConsumer(
+            IConnection connection,
+            IServiceScopeFactory serviceScopeFactory)
         {
-            var settings = options.Value;
-            _factory = new ConnectionFactory
-            {
-                HostName = settings.Host,
-                Port = settings.Port,
-                UserName = settings.Username,
-                Password = settings.Password
-            };
-
+            _connection = connection;
             _serviceScopeFactory = serviceScopeFactory;
-            _repository = repository;
         }
 
-        public void ConsumeMotorcycleQueue()
+        public void  ConsumeMessages()
         {
-            using var connection = _factory.CreateConnection();
-            using var channel = connection.CreateModel();
+            using var channel = _connection.CreateModel();
 
             channel.QueueDeclare(queue: "motorcycle_queue",
                                  durable: true,
@@ -48,28 +39,42 @@ namespace CoreGoDelivery.Application.RabbitMQ.NotificationMotorcycle.Consumer
                 var body = ea.Body.ToArray();
                 var message = Encoding.UTF8.GetString(body);
 
-                // Desserializar a mensagem
-                var motorcycle = JsonSerializer.Deserialize<NotificationMotorcycleEntity>(message);
+                NotificationMotorcycleDto notification = JsonConvert.DeserializeObject<NotificationMotorcycleDto>(message)!;
 
-                // Criar um escopo para acessar o DbContext ou qualquer serviço Scoped
+                var entityNotification = new NotificationMotorcycleEntity()
+                {
+                    Id = notification.Id,
+                    IdMotorcycle = notification.IdMotorcycle,
+                    YearManufacture = notification.YearManufacture,
+                    CreatedAt = notification.CreatedAt,
+                };
+
+                // Criar escopo temporário para usar o repositório (Scoped)
                 using (var scope = _serviceScopeFactory.CreateScope())
                 {
-                    //var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-                    if (motorcycle != null)
-                    {
-                        _repository.Create(motorcycle);
-                        // Persistir os dados no banco de dados
-                        //dbContext.NotificationMotorcycles.Add(motorcycle);
-                        //dbContext.SaveChanges();
-                    }
+                    var notificationRepository = scope.ServiceProvider.GetRequiredService<INotificationMotorcycleRepository>();
+
+                    // Chamar o método para salvar a mensagem no banco de dados
+                    notificationRepository.Create(entityNotification);
                 }
+                //var result = _repository.Create(entityNotification);
+
+                Console.WriteLine("Mensagem recebida:");
+                Console.WriteLine($"Id: {notification.Id}");
+                Console.WriteLine($"IdMotorcycle: {notification.IdMotorcycle}");
+                Console.WriteLine($"YearManufacture: {notification.YearManufacture}");
+                Console.WriteLine($"CreatedAt: {notification.CreatedAt}");
             };
 
-            channel.BasicConsume(queue: "motorcycle_queue", autoAck: true, consumer: consumer);
+            channel.BasicConsume(queue: "motorcycle_queue",
+                                 autoAck: true,
+                                 consumer: consumer);
 
-            Console.WriteLine("Aguardando mensagens...");
-            Console.ReadLine();  // Manter o consumidor ativo
+            Console.WriteLine("Consumidor aguardando mensagens da fila 'motorcycle_queue'...");
+            Console.ReadLine();
         }
     }
 }
+
+
 

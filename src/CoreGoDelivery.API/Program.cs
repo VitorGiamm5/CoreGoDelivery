@@ -1,6 +1,7 @@
 using CoreGoDelivery.Api.Conveters;
 using CoreGoDelivery.Api.Swagger;
 using CoreGoDelivery.Application;
+using CoreGoDelivery.Application.RabbitMQ.NotificationMotorcycle.Consumer;
 using Microsoft.OpenApi.Models;
 using Serilog;
 using System.Text.Json.Serialization;
@@ -52,11 +53,15 @@ EnvironmentVariablesExtensions.AddEnvironmentVariables(builder.Configuration);
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddApplicationInsightsTelemetry();
-
 builder.Services.AddApplication(builder.Configuration);
 
-
 var app = builder.Build();
+
+var consumer = app.Services.GetService<RabbitMqConsumer>();
+#pragma warning disable CS4014
+Task.Run(() => consumer!.ConsumeMessages());
+#pragma warning restore CS4014
+
 
 if (app.Environment.IsDevelopment())
 {

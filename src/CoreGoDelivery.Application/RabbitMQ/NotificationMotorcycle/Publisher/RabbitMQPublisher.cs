@@ -8,31 +8,19 @@ namespace CoreGoDelivery.Application.RabbitMQ.NotificationMotorcycle.Publisher
 {
     public class RabbitMQPublisher
     {
-        private readonly ConnectionFactory _factory;
+        private readonly IConnection _connection;
 
-        public RabbitMQPublisher(IConfiguration configuration)
+        public RabbitMQPublisher(IConnection connection)
         {
-            var rabbitMQHost = configuration["RabbitMQ:Host"];
-            var rabbitMQPort = int.Parse(configuration["RabbitMQ:Port"]!);
-            var rabbitMQUsername = configuration["RabbitMQ:Username"];
-            var rabbitMQPassword = configuration["RabbitMQ:Password"];
-
-            _factory = new ConnectionFactory
-            {
-                HostName = rabbitMQHost,
-                Port = rabbitMQPort,
-                UserName = rabbitMQUsername,
-                Password = rabbitMQPassword
-            };
+            _connection = connection;
         }
 
         public void PublishMotorcycle(NotificationMotorcycleDto motorcycle)
         {
-            using var connection = _factory.CreateConnection();
-            using var channel = connection.CreateModel();
+            using var channel = _connection.CreateModel();
 
             channel.QueueDeclare(queue: "motorcycle_queue",
-                                 durable: true,
+                                 durable: true,  // Certifique-se de que `durable` está alinhado
                                  exclusive: false,
                                  autoDelete: false,
                                  arguments: null);
