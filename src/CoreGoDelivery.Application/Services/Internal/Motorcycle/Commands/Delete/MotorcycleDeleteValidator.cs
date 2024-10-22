@@ -39,9 +39,9 @@ namespace CoreGoDelivery.Application.Services.Internal.Motorcycle.Commands.Delet
                     message.AppendError(message, nameof(idMotorcycle), AdditionalMessageEnum.NotFound);
                 }
 
-                var motorcycleIsInUse = await _rentalRepository.CheckMotorcycleIsAvaliableAsync(idMotorcycle);
+                var motorcycleIsInUse = await _rentalRepository.FindByMotorcycleId(idMotorcycle);
 
-                if (motorcycleIsInUse)
+                if (motorcycleIsInUse != null)
                 {
                     message.AppendError(message, nameof(idMotorcycle), AdditionalMessageEnum.Unavailable);
                 }
