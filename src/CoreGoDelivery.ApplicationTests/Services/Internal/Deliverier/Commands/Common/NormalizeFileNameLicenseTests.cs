@@ -1,5 +1,6 @@
 ﻿using CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.Common;
 using CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.Create;
+using CoreGoDelivery.Domain.Enums.LicenceDriverType;
 using Xunit;
 using Assert = Xunit.Assert;
 
@@ -23,7 +24,7 @@ namespace CoreGoDelivery.ApplicationTests.Services.Internal.Deliverier.Commands.
             var yourClass = new NormalizeFileNameLicense();
 
             // Act
-            var result = yourClass.Normalize(command);
+            var result = yourClass.Normalize(command.LicenseNumber, FileExtensionEnum.none);
 
             // Assert
             Assert.Equal(expectedFileName, result);

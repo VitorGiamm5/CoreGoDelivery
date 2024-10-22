@@ -2,6 +2,7 @@
 using CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.Common;
 using CoreGoDelivery.Domain.Entities.GoDelivery.Deliverier;
 using CoreGoDelivery.Domain.Entities.GoDelivery.LicenceDriver;
+using CoreGoDelivery.Domain.Enums.LicenceDriverType;
 
 namespace CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.Create
 {
@@ -34,7 +35,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.Creat
                 {
                     Id = data.LicenseNumber,
                     Type = _parseLicenseType.Parse(data),
-                    ImageUrlReference = _normalizeFileNameLicense.Normalize(data)
+                    ImageUrlReference = _normalizeFileNameLicense.Normalize(data.LicenseNumber, FileExtensionEnum.none)
                 }
             };
 
