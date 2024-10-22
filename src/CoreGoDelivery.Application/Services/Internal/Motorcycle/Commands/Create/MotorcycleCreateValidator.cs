@@ -14,7 +14,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Motorcycle.Commands.Creat
         public readonly IBaseInternalServices _baseInternalServices;
 
         public MotorcycleCreateValidator(
-            IMotocycleRepository repositoryMotorcycle, 
+            IMotocycleRepository repositoryMotorcycle,
             IModelMotocycleRepository repositoryModelMotorcycle,
             IBaseInternalServices baseInternalServices)
         {

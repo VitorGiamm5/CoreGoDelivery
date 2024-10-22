@@ -15,8 +15,8 @@ namespace CoreGoDelivery.Application.Services.Internal.Motorcycle.Queries.List
         private readonly MotorcycleServiceMappers _mapper;
 
         public MotorcycleListQueryHandler(
-            IBaseInternalServices baseInternalServices, 
-            IMotocycleRepository repositoryMotorcycle, 
+            IBaseInternalServices baseInternalServices,
+            IMotocycleRepository repositoryMotorcycle,
             MotorcycleServiceMappers mapper)
         {
             _baseInternalServices = baseInternalServices;

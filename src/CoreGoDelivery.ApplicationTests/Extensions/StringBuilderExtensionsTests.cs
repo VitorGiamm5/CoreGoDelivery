@@ -1,9 +1,4 @@
-﻿using CoreGoDelivery.Application.Extensions;
-using CoreGoDelivery.Domain.Enums.ServiceErrorMessage;
-using System.Text;
-using Xunit;
-
-namespace CoreGoDelivery.ApplicationTests.Extensions
+﻿namespace CoreGoDelivery.ApplicationTests.Extensions
 {
     //public class StringBuilderExtensionsTests
     //{

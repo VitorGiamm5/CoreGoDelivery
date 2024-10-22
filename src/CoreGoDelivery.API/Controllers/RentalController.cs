@@ -14,7 +14,9 @@ namespace CoreGoDelivery.Api.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetOne(string? id)
         {
-            var result = await _mediator.Send(new RentalGetOneCommand(id));
+            var request = new RentalGetOneCommand();
+            request.Id = id;
+            var result = await _mediator.Send(request);
 
             return Response(result);
         }

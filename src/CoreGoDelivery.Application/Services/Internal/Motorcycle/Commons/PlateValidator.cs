@@ -13,7 +13,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Motorcycle.Commons
 
             var plate = Regex.Replace(plateId, @"[\s\-\.\,]", "").ToUpper();
 
-            if (Regex.IsMatch(plate, @"^[A-Z]{3}\d{4}$") || 
+            if (Regex.IsMatch(plate, @"^[A-Z]{3}\d{4}$") ||
                 Regex.IsMatch(plate, @"^[A-Z]{3}\d{1}[A-Z]{1}\d{2}$"))
             {
                 return true;

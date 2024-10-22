@@ -12,7 +12,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.Creat
         public readonly BuildMessageFullName _buildMessageFullName;
         public readonly BuildMessageBirthDate _buildMessageBirthDate;
         public readonly BuildMessageLicenseType _buildMessageLicenseType;
-        public readonly BuildMessageCreate _buildMessageCreate;
+        public readonly BuildMessageDeliverierCreate _buildMessageCreate;
         public readonly BuildMessageCnh _buildMessageCnh;
 
 

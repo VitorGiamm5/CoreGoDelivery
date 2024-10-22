@@ -13,8 +13,8 @@ namespace CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.Creat
         public readonly ParseLicenseType _parseLicenseType;
 
         public DeliverierCreateMappers(
-            IBaseInternalServices baseInternalServices, 
-            NormalizeFileNameLicense normalizeFileNameLicense, 
+            IBaseInternalServices baseInternalServices,
+            NormalizeFileNameLicense normalizeFileNameLicense,
             ParseLicenseType parseLicenseType)
         {
             _baseInternalServices = baseInternalServices;

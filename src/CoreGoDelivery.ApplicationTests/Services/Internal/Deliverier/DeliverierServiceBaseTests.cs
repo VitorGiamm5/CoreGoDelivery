@@ -1,7 +1,6 @@
 ﻿using CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.Create;
 using CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.Create.MessageValidators;
 using CoreGoDelivery.Domain.Enums.LicenceDriverType;
-using System.Text;
 using Xunit;
 using Assert = Xunit.Assert;
 

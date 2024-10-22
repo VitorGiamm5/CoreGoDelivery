@@ -1,8 +1,5 @@
-﻿using CoreGoDelivery.Application.Extensions;
-using CoreGoDelivery.Application.Services.Internal.Base;
+﻿using CoreGoDelivery.Application.Services.Internal.Base;
 using CoreGoDelivery.Application.Services.Internal.Rental.Commands.Create.MessageValidators;
-using CoreGoDelivery.Domain.Enums.ServiceErrorMessage;
-using CoreGoDelivery.Domain.Repositories.GoDelivery;
 using System.Text;
 
 namespace CoreGoDelivery.Application.Services.Internal.Rental.Commands.Create

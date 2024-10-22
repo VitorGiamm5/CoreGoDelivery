@@ -50,9 +50,11 @@ builder.Configuration
 
 EnvironmentVariablesExtensions.AddEnvironmentVariables(builder.Configuration);
 
+builder.Services.AddControllersWithViews();
+builder.Services.AddApplicationInsightsTelemetry();
+
 builder.Services.AddApplication(builder.Configuration);
 
-builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
 
@@ -63,11 +65,12 @@ if (app.Environment.IsDevelopment())
 }
 
 app.MapControllers();
-
 try
 {
+
     Log.Information("Starting application...");
     app.Run();
+
 }
 catch (Exception ex)
 {

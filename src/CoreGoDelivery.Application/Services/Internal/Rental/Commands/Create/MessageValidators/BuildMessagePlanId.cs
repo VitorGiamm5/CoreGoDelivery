@@ -13,7 +13,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Rental.Commands.Create.Me
         public readonly PlanMotorcycleValidator _planValidator;
 
         public BuildMessagePlanId(
-            IRentalPlanRepository repositoryPlan, 
+            IRentalPlanRepository repositoryPlan,
             PlanMotorcycleValidator planValidator)
         {
             _repositoryPlan = repositoryPlan;

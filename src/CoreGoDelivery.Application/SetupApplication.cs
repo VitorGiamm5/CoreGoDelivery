@@ -2,10 +2,25 @@
 using CoreGoDelivery.Application.RabbitMQ.NotificationMotorcycle.Publisher;
 using CoreGoDelivery.Application.RabbitMQ.Settings;
 using CoreGoDelivery.Application.Services.Internal.Base;
+using CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.Common;
+using CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.Create;
+using CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.Create.MessageValidators;
+using CoreGoDelivery.Application.Services.Internal.Motorcycle.Commands.ChangePlateById;
+using CoreGoDelivery.Application.Services.Internal.Motorcycle.Commands.Create;
+using CoreGoDelivery.Application.Services.Internal.Motorcycle.Commands.Delete;
+using CoreGoDelivery.Application.Services.Internal.Motorcycle.Commons;
+using CoreGoDelivery.Application.Services.Internal.Rental.Commands.Create;
+using CoreGoDelivery.Application.Services.Internal.Rental.Commands.Create.Common;
+using CoreGoDelivery.Application.Services.Internal.Rental.Commands.Create.MessageValidators;
+using CoreGoDelivery.Application.Services.Internal.Rental.Commands.Update;
+using CoreGoDelivery.Application.Services.Internal.Rental.Commands.Update.Common;
+using CoreGoDelivery.Application.Services.Internal.Rental.Queries.GetOne;
+using CoreGoDelivery.Application.Services.Internal.Rental.Queries.GetOne.BuildMessage;
 using CoreGoDelivery.Infrastructure;
 using CoreGoDelivery.Infrastructure.Database;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using System.Reflection;
 
 namespace CoreGoDelivery.Application
@@ -14,44 +29,67 @@ namespace CoreGoDelivery.Application
     {
         public static IServiceCollection AddApplication(this IServiceCollection services, IConfiguration configuration)
         {
-            services
-                .AddInfrastructure(configuration);
+            services.AddInfrastructure(configuration);
 
-            services
-                .MessageBuildValidator();
+            services.TryAddScoped<IBaseInternalServices, BaseInternalServices>();
 
-            services
-                .AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
+            services.BuildMessageValidator();
+
+            services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));// RegisterServicesFromAssembly(Assembly.GetExecutingAssembly())); //achou
 
             // Registrar as configurações do RabbitMQ
-            services
-                .Configure<RabbitMQSettings>(options => configuration.GetSection("RabbitMQ").Bind(options));
+            services.Configure<RabbitMQSettings>(options => configuration.GetSection("RabbitMQ").Bind(options));
 
             // Registrar o RabbitMQPublisher como Singleton
-            services
-                .AddSingleton<RabbitMQPublisher>();
+            services.TryAddSingleton<RabbitMQPublisher>();
 
             // Registrar o RabbitMQConsumer como Singleton
-            services
-                .AddSingleton<RabbitMQConsumer>();
+            //services.TryAddSingleton<RabbitMQConsumer>(); //quebra
 
             // Registrar o HostedService para rodar o RabbitMQConsumer em background
-            services
-                .AddHostedService<RabbitMQConsumerService>();
+            // services.AddHostedService<RabbitMQConsumerService>(); //quebra
 
             // Registrar o DbContext como Scoped
-            //services
-            //    .AddDbContext<ApplicationDbContext>(options => options
-            //    .UseNpgsql(configuration.GetConnectionString("Postgre"))
-            //    .AddInfrastructure(configuration));
 
             return services;
         }
 
-        private static IServiceCollection MessageBuildValidator(this IServiceCollection services)
+        private static IServiceCollection BuildMessageValidator(this IServiceCollection services)
         {
-            services
-                .AddScoped<IBaseInternalServices, BaseInternalServices>();
+            services.TryAddScoped<CalculateDatesByPlan>();
+            services.TryAddScoped<PlanMotorcycleValidator>();
+            services.TryAddScoped<BuildMessageDeliverierId>();
+            services.TryAddScoped<BuildMessageMotorcycleId>();
+            services.TryAddScoped<BuildMessagePlanId>();
+            services.TryAddScoped<RentalCreateMappers>();
+            services.TryAddScoped<RentalCreateValidate>();
+
+            services.TryAddScoped<CalculatePenalty>();
+            services.TryAddScoped<ExpiredDateToReturn>();
+            services.TryAddScoped<ReturnerBeforeExpected>();
+            services.TryAddScoped<RentalReturnedToBaseValidator>();
+
+            services.TryAddScoped<BuildMessageIdRental>();
+            services.TryAddScoped<RentalGetOneMappers>();
+
+            services.TryAddScoped<BuildMessageCnh>();
+            services.TryAddScoped<BuildMessageDeliverierCreate>();
+
+            services.TryAddScoped<NormalizeFileNameLicense>();
+            services.TryAddScoped<ParseLicenseType>();
+            services.TryAddScoped<BuildMessageBirthDate>();
+            services.TryAddScoped<BuildMessageCnpj>();
+            services.TryAddScoped<BuildMessageFullName>();
+            services.TryAddScoped<BuildMessageLicenseType>();
+            services.TryAddScoped<DeliverierCreateMappers>();
+            services.TryAddScoped<DeliverierCreateValidator>();
+            services.TryAddScoped<MotorcycleChangePlateValidator>();
+            services.TryAddScoped<MotorcycleCreateNotification>();
+            services.TryAddScoped<MotorcycleCreateValidator>();
+            services.TryAddScoped<MotorcycleDeleteValidator>();
+            services.TryAddScoped<MotorcycleServiceMappers>();
+            services.TryAddScoped<PlateValidator>();
+
 
             return services;
         }

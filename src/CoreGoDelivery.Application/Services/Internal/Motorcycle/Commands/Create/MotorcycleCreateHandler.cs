@@ -1,5 +1,4 @@
-﻿using CoreGoDelivery.Application.RabbitMQ.NotificationMotorcycle.Publisher;
-using CoreGoDelivery.Application.Services.Internal.Base;
+﻿using CoreGoDelivery.Application.Services.Internal.Base;
 using CoreGoDelivery.Application.Services.Internal.Motorcycle.Commons;
 using CoreGoDelivery.Domain.Repositories.GoDelivery;
 using CoreGoDelivery.Domain.Response;
@@ -17,10 +16,10 @@ namespace CoreGoDelivery.Application.Services.Internal.Motorcycle.Commands.Creat
         private readonly MotorcycleCreateNotification _notification;
 
         public MotorcycleCreateHandler(
-            IBaseInternalServices baseInternalServices, 
-            IMotocycleRepository repositoryMotorcycle, 
-            MotorcycleCreateValidator validator, 
-            MotorcycleServiceMappers mapper, 
+            IBaseInternalServices baseInternalServices,
+            IMotocycleRepository repositoryMotorcycle,
+            MotorcycleCreateValidator validator,
+            MotorcycleServiceMappers mapper,
             MotorcycleCreateNotification notification)
         {
             _baseInternalServices = baseInternalServices;

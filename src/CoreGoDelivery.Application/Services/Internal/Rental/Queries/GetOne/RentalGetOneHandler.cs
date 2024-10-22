@@ -1,8 +1,6 @@
-﻿using CoreGoDelivery.Application.Extensions;
-using CoreGoDelivery.Application.Services.Internal.Base;
+﻿using CoreGoDelivery.Application.Services.Internal.Base;
 using CoreGoDelivery.Application.Services.Internal.Rental.Queries.GetOne.BuildMessage;
 using CoreGoDelivery.Domain.Entities.GoDelivery.Rental;
-using CoreGoDelivery.Domain.Enums.ServiceErrorMessage;
 using CoreGoDelivery.Domain.Repositories.GoDelivery;
 using CoreGoDelivery.Domain.Response;
 using MediatR;
@@ -21,7 +19,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Rental.Queries.GetOne
         public RentalGetOneHandler(
             IBaseInternalServices baseInternalServices,
             IRentalRepository repositoryRental,
-            RentalGetOneMappers mapper, 
+            RentalGetOneMappers mapper,
             BuildMessageIdRental buildMessageIdRental)
         {
             _baseInternalServices = baseInternalServices;

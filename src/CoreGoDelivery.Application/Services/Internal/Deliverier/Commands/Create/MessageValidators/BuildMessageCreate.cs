@@ -5,11 +5,11 @@ using System.Text;
 
 namespace CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.Create.MessageValidators
 {
-    public class BuildMessageCreate
+    public class BuildMessageDeliverierCreate
     {
         public readonly IDeliverierRepository _repositoryDeliverier;
 
-        public BuildMessageCreate(IDeliverierRepository repositoryDeliverier)
+        public BuildMessageDeliverierCreate(IDeliverierRepository repositoryDeliverier)
         {
             _repositoryDeliverier = repositoryDeliverier;
         }
