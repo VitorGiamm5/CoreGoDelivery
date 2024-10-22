@@ -12,7 +12,6 @@ namespace CoreGoDelivery.Application.RabbitMQ.NotificationMotorcycle.Consumer
     public class RabbitMqConsumer
     {
         private readonly IConnection _connection;
-        private readonly INotificationMotorcycleRepository _repository;
         private readonly IServiceScopeFactory _serviceScopeFactory;
 
         public RabbitMqConsumer(
@@ -49,15 +48,12 @@ namespace CoreGoDelivery.Application.RabbitMQ.NotificationMotorcycle.Consumer
                     CreatedAt = notification.CreatedAt,
                 };
 
-                // Criar escopo temporário para usar o repositório (Scoped)
                 using (var scope = _serviceScopeFactory.CreateScope())
                 {
                     var notificationRepository = scope.ServiceProvider.GetRequiredService<INotificationMotorcycleRepository>();
 
-                    // Chamar o método para salvar a mensagem no banco de dados
                     notificationRepository.Create(entityNotification);
                 }
-                //var result = _repository.Create(entityNotification);
 
                 Console.WriteLine("Mensagem recebida:");
                 Console.WriteLine($"Id: {notification.Id}");
