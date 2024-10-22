@@ -1,4 +1,5 @@
 ﻿using CoreGoDelivery.Application.Services.Internal.Base;
+using CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.UploadCnh;
 using CoreGoDelivery.Domain.Repositories.GoDelivery;
 using CoreGoDelivery.Domain.Response;
 using MediatR;
@@ -9,18 +10,21 @@ namespace CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.Creat
     {
         public readonly IBaseInternalServices _baseInternalServices;
         public readonly IDeliverierRepository _repositoryDeliverier;
-
+        public readonly IMediator _mediator;
         public readonly DeliverierCreateValidator _validator;
         public readonly DeliverierCreateMappers _mapper;
 
         public DeliverierCreateHandler(
             IBaseInternalServices baseInternalServices,
             IDeliverierRepository repositoryDeliverier,
+            IMediator mediator,
             DeliverierCreateValidator validator,
-            DeliverierCreateMappers mapper)
+            DeliverierCreateMappers mapper
+            )
         {
             _baseInternalServices = baseInternalServices;
             _repositoryDeliverier = repositoryDeliverier;
+            _mediator = mediator;
             _validator = validator;
             _mapper = mapper;
         }
@@ -42,7 +46,32 @@ namespace CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.Creat
 
             var resultCreate = await _repositoryDeliverier.Create(deliverier);
 
+            if (!resultCreate)
+            {
+                return apiReponse;
+            }
+
             apiReponse.Message = _baseInternalServices.FinalMessageBuild(resultCreate, apiReponse);
+
+            if(apiReponse.HasError())
+            {
+                apiReponse.Data = null;
+                return apiReponse;
+            }
+
+            var deliverierUpload = new DeliverierUploadCnhCommand()
+            {
+                IdLicense = deliverier.LicenceDriverId,
+                LicenseImageBase64 = request.LicenseImageBase64
+            };
+
+            apiReponse = await _mediator.Send(deliverierUpload);
+
+            if (apiReponse.HasError())
+            {
+                apiReponse.Data = null;
+                return apiReponse;
+            }
 
             return apiReponse;
         }

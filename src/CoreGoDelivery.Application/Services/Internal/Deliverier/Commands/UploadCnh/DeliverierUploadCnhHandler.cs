@@ -1,95 +1,63 @@
-﻿using CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.Common;
-using CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.Create.MessageValidators;
-using CoreGoDelivery.Domain.Enums.LicenceDriverType;
+﻿using CoreGoDelivery.Application.Services.Internal.Base;
+using CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.Common;
+using CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.UploadCnh.Common;
+using CoreGoDelivery.Domain.Repositories.GoDelivery;
 using CoreGoDelivery.Domain.Response;
 using MediatR;
+
 
 namespace CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.UploadCnh
 {
     public class DeliverierUploadCnhHandler : IRequestHandler<DeliverierUploadCnhCommand, ApiResponse>
     {
-        private readonly string _uploadFolder = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), @"..\..\uploads_cnh"));
+        public readonly IDeliverierRepository _repositoryDeliverier;
+        public readonly IBaseInternalServices _baseInternalServices;
 
         public readonly NormalizeFileNameLicense _normalizeFileNameLicense;
+        public readonly DeliverierUploadCnhValidator _deliverierUploadCnhValidator;
+        public readonly ValidateLicenseImage _validateLicenseImage;
+        public readonly SaveOrReplaceLicenseImageAsync _saveLicenseFile;
+        public readonly GetExtensionFile _getExtensionFile;
 
-        public DeliverierUploadCnhHandler(NormalizeFileNameLicense normalizeFileNameLicense)
+        public DeliverierUploadCnhHandler(
+            IDeliverierRepository repositoryDeliverier, 
+            IBaseInternalServices baseInternalServices,
+            NormalizeFileNameLicense normalizeFileNameLicense,
+            DeliverierUploadCnhValidator deliverierUploadCnhValidator, 
+            ValidateLicenseImage validateLicenseImage, 
+            SaveOrReplaceLicenseImageAsync saveLicenseFile, 
+            GetExtensionFile getExtensionFile)
         {
+            _repositoryDeliverier = repositoryDeliverier;
+            _baseInternalServices = baseInternalServices;
             _normalizeFileNameLicense = normalizeFileNameLicense;
+            _deliverierUploadCnhValidator = deliverierUploadCnhValidator;
+            _validateLicenseImage = validateLicenseImage;
+            _saveLicenseFile = saveLicenseFile;
+            _getExtensionFile = getExtensionFile;
         }
 
         public async Task<ApiResponse> Handle(DeliverierUploadCnhCommand command, CancellationToken cancellationToken)
         {
-            var (isValid, errorMessage, fileExtension) = ValidateLicenseImage(command.LicenseImageBase64);
-            
-            if (!isValid)
+            var apiReponse = new ApiResponse
             {
-                return new ApiResponse
-                {
-                    Message = errorMessage
-                };
-            }
+                Data = null,
+                Message = await _deliverierUploadCnhValidator.Build(command)
+            };
 
-            var imagePath = await SaveOrReplaceLicenseImageAsync(command, fileExtension);
+            byte[] bitArrayImage = command.LicenseImageBase64;
 
-            return new ApiResponse { Message = "Imagem da CNH salva/substituída com sucesso", Data = imagePath };
-        }
+            var (isValid, errorMessage, fileExtension) = _getExtensionFile.Get(command.LicenseImageBase64);
 
-        private async Task<string> SaveOrReplaceLicenseImageAsync(DeliverierUploadCnhCommand command, FileExtensionEnum fileExtension)
-        {
-            var imageBytes = Convert.FromBase64String(command.LicenseImageBase64);
+            var deliveier = await _repositoryDeliverier.GetOneById(command.IdDeliverier!);
 
-            if (!Directory.Exists(_uploadFolder))
-            {
-                Directory.CreateDirectory(_uploadFolder); // Cria a pasta caso ela não exista
-            }
+            command.IdLicense = deliveier.LicenceDriverId;
 
-            var fileName = _normalizeFileNameLicense.Normalize(command.IdLicense!, fileExtension);
-            
-            var filePath = Path.Combine(_uploadFolder, fileName);
+            var imagePath = await _saveLicenseFile.SaveOrReplace(command, fileExtension);
 
-            if (System.IO.File.Exists(filePath))
-            {
-                System.IO.File.Delete(filePath);
-            }
+            apiReponse.Data = $"Imagem da CNH salva/substituída com sucesso, path: {imagePath}";
 
-            await System.IO.File.WriteAllBytesAsync(filePath, imageBytes);
-
-            return filePath;
-        }
-
-        private (bool IsValid, string ErrorMessage, FileExtensionEnum FileExtension) ValidateLicenseImage(string base64Image)
-        {
-            if (string.IsNullOrEmpty(base64Image))
-                return (false, "A imagem da CNH não pode ser vazia.", FileExtensionEnum.none);
-
-            try
-            {
-                var imageBytes = Convert.FromBase64String(base64Image);
-
-                if (imageBytes.Length > 10 * 1024 * 1024)
-                    return (false, "A imagem não pode exceder 10 MB.", FileExtensionEnum.none);
-
-                using (var ms = new MemoryStream(imageBytes))
-                {
-                    var image = System.Drawing.Image.FromStream(ms);
-                    if (image.RawFormat.Equals(System.Drawing.Imaging.ImageFormat.Png))
-                    {
-                        return (true, "", FileExtensionEnum.png);
-                    }
-                    else if (image.RawFormat.Equals(System.Drawing.Imaging.ImageFormat.Bmp))
-                    {
-                        return (true, "", FileExtensionEnum.bpm);
-                    }
-                    else
-                    {
-                        return (false, "Somente imagens no formato PNG ou BMP são permitidas.", FileExtensionEnum.none);
-                    }
-                }
-            }
-            catch (FormatException)
-            {
-                return (false, "A string fornecida não é uma imagem base64 válida.", FileExtensionEnum.none);
-            }
+            return apiReponse;
         }
     }
 }

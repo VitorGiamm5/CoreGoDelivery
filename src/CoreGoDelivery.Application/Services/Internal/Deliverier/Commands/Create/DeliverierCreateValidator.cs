@@ -15,6 +15,23 @@ namespace CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.Creat
         public readonly BuildMessageDeliverierCreate _buildMessageCreate;
         public readonly BuildMessageCnh _buildMessageCnh;
 
+        public DeliverierCreateValidator(
+            IBaseInternalServices baseInternalServices, 
+            BuildMessageCnpj buildMessageCnpj, 
+            BuildMessageFullName buildMessageFullName, 
+            BuildMessageBirthDate buildMessageBirthDate, 
+            BuildMessageLicenseType buildMessageLicenseType, 
+            BuildMessageDeliverierCreate buildMessageCreate, 
+            BuildMessageCnh buildMessageCnh)
+        {
+            _baseInternalServices = baseInternalServices;
+            _buildMessageCnpj = buildMessageCnpj;
+            _buildMessageFullName = buildMessageFullName;
+            _buildMessageBirthDate = buildMessageBirthDate;
+            _buildMessageLicenseType = buildMessageLicenseType;
+            _buildMessageCreate = buildMessageCreate;
+            _buildMessageCnh = buildMessageCnh;
+        }
 
         public async Task<string?> Validator(DeliverierCreateCommand data)
         {

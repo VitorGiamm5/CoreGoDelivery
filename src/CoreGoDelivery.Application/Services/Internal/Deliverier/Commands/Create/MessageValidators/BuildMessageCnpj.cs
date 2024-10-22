@@ -13,13 +13,13 @@ namespace CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.Creat
 
             if (string.IsNullOrWhiteSpace(cnpj))
             {
-                message.AppendError(message, paramName, AdditionalMessageEnum.None);
+                message.AppendError(message, paramName);
             }
             else
             {
                 if (!CnpjValidation.Validate(cnpj))
                 {
-                    message.AppendError(message, paramName, AdditionalMessageEnum.None);
+                    message.AppendError(message, paramName, AdditionalMessageEnum.InvalidFormat);
                 }
             }
         }

@@ -5,6 +5,8 @@ using CoreGoDelivery.Application.Services.Internal.Base;
 using CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.Common;
 using CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.Create;
 using CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.Create.MessageValidators;
+using CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.UploadCnh;
+using CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.UploadCnh.Common;
 using CoreGoDelivery.Application.Services.Internal.Motorcycle.Commands.ChangePlateById;
 using CoreGoDelivery.Application.Services.Internal.Motorcycle.Commands.Create;
 using CoreGoDelivery.Application.Services.Internal.Motorcycle.Commands.Delete;
@@ -16,6 +18,7 @@ using CoreGoDelivery.Application.Services.Internal.Rental.Commands.Update;
 using CoreGoDelivery.Application.Services.Internal.Rental.Commands.Update.Common;
 using CoreGoDelivery.Application.Services.Internal.Rental.Queries.GetOne;
 using CoreGoDelivery.Application.Services.Internal.Rental.Queries.GetOne.BuildMessage;
+using CoreGoDelivery.Domain.Consts;
 using CoreGoDelivery.Infrastructure;
 using CoreGoDelivery.Infrastructure.Database;
 using Microsoft.Extensions.Configuration;
@@ -99,6 +102,11 @@ namespace CoreGoDelivery.Application
             services.TryAddScoped<MotorcycleServiceMappers>();
             services.TryAddScoped<PlateValidator>();
 
+            services.TryAddScoped<ValidateLicenseImage>();
+            services.TryAddScoped<SaveOrReplaceLicenseImageAsync>();
+            services.TryAddScoped<DeliverierUploadCnhValidator>();
+
+            services.TryAddScoped<GetExtensionFile>();
 
             return services;
         }

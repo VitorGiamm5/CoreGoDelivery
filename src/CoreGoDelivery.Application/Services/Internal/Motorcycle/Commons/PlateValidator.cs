@@ -1,4 +1,5 @@
-﻿using System.Text.RegularExpressions;
+﻿using CoreGoDelivery.Domain.Consts.Regex;
+using System.Text.RegularExpressions;
 
 namespace CoreGoDelivery.Application.Services.Internal.Motorcycle.Commons
 {
@@ -11,17 +12,11 @@ namespace CoreGoDelivery.Application.Services.Internal.Motorcycle.Commons
                 return false;
             }
 
-            var plate = Regex.Replace(plateId, @"[\s\-\.\,]", "").ToUpper();
+            var plate = Regex.Replace(plateId, RegexCollectionPatterns.SPECIAL_CHARACTER_PATTERN, "").ToUpper();
 
-            if (Regex.IsMatch(plate, @"^[A-Z]{3}\d{4}$") ||
-                Regex.IsMatch(plate, @"^[A-Z]{3}\d{1}[A-Z]{1}\d{2}$"))
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            var platePatterIsValid = Regex.IsMatch(plate, $"{RegexCollectionPatterns.PLATE_FORMAT_OLD}|{RegexCollectionPatterns.PLATE_FORMAT_NEW}");
+
+            return platePatterIsValid;
         }
     }
 }

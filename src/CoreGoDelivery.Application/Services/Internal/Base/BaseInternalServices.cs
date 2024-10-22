@@ -1,4 +1,5 @@
 ﻿using CoreGoDelivery.Domain.Consts;
+using CoreGoDelivery.Domain.Consts.Regex;
 using CoreGoDelivery.Domain.Response;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -7,7 +8,6 @@ namespace CoreGoDelivery.Application.Services.Internal.Base
 {
     public class BaseInternalServices : IBaseInternalServices
     {
-
         public string? BuildMessageValidator(StringBuilder message)
         {
             if (message.Length > 0)
@@ -51,7 +51,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Base
                 return "";
             }
 
-            var result = Regex.Replace(plateId, @"[\s\-\.\,]", "").ToUpper();
+            var result = Regex.Replace(plateId, RegexCollectionPatterns.SPECIAL_CHARACTER_PATTERN, "").ToUpper();
 
             return result;
         }

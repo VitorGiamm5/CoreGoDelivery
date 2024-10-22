@@ -45,5 +45,13 @@ namespace CoreGoDelivery.Infrastructure.Repositories.GoDelivery
 
             return IsSuccessCreate(result);
         }
+
+        public async Task<DeliverierEntity?> GetOneByIdLicense(string idLicense)
+        {
+            var result = await _context.Set<DeliverierEntity>()
+                .FirstOrDefaultAsync(x => x.LicenceDriverId == idLicense);
+
+            return result;
+        }
     }
 }
