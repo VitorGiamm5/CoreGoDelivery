@@ -102,11 +102,10 @@ namespace CoreGoDelivery.Application
             services.TryAddScoped<MotorcycleServiceMappers>();
             services.TryAddScoped<PlateValidator>();
 
-            services.TryAddScoped<ValidateLicenseImage>();
             services.TryAddScoped<SaveOrReplaceLicenseImageAsync>();
             services.TryAddScoped<DeliverierUploadCnhValidator>();
 
-            services.TryAddScoped<GetExtensionFile>();
+            services.TryAddScoped<GetFileExtensionValid>();
 
             return services;
         }

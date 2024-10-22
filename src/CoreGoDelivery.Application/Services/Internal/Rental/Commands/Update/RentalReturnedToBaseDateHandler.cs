@@ -15,6 +15,18 @@ namespace CoreGoDelivery.Application.Services.Internal.Rental.Commands.Update
         public readonly CalculateDatesByPlan _calculateDatesByPlan;
         public readonly CalculatePenalty _calculatePenalty;
 
+        public RentalReturnedToBaseDateHandler(
+            IRentalRepository repositoryRental, 
+            RentalReturnedToBaseValidator validator, 
+            CalculateDatesByPlan calculateDatesByPlan, 
+            CalculatePenalty calculatePenalty)
+        {
+            _repositoryRental = repositoryRental;
+            _validator = validator;
+            _calculateDatesByPlan = calculateDatesByPlan;
+            _calculatePenalty = calculatePenalty;
+        }
+
         public async Task<ApiResponse> Handle(RentalReturnedToBaseDateCommand request, CancellationToken cancellationToken)
         {
             var apiReponse = new ApiResponse()

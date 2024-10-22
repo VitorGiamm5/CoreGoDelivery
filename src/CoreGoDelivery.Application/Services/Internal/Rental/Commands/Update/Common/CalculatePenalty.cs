@@ -8,6 +8,11 @@ namespace CoreGoDelivery.Application.Services.Internal.Rental.Commands.Update.Co
     public class CalculatePenalty
     {
         public readonly IBaseInternalServices _baseInternalServices;
+        
+        public CalculatePenalty(IBaseInternalServices baseInternalServices)
+        {
+            _baseInternalServices = baseInternalServices;
+        }
 
         public string? Calculate(DateTime returnedToBaseDate, RentalEntity? rental)
         {
@@ -22,7 +27,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Rental.Commands.Update.Co
 
             var message = new StringBuilder();
 
-            message.AppendLine($"Value to pay: {RentalServiceConst.CURRENCY_BRL} ");
+            message.Append($"Value to pay: {RentalServiceConst.CURRENCY_BRL} ");
 
             if (diffDays < 0)
             {

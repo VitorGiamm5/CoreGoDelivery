@@ -25,13 +25,13 @@ namespace CoreGoDelivery.Application.Services.Internal.Motorcycle.Commands.Chang
             _validatorCreate = validatorCreate;
         }
 
-        public async Task<string?> ChangePlateValidator(string? id, string? plate)
+        public async Task<string?> ChangePlateValidator(MotorcycleChangePlateCommand command)
         {
             var message = new StringBuilder();
 
-            await _validatorCreate.BuildMessagePlate(id, message);
+            await _validatorCreate.BuildMessagePlate(command.Plate, message);
 
-            await MessageBuildChangePlate(plate, message);
+            await MessageBuildChangePlate(command.Plate, message);
 
             return _baseInternalServices.BuildMessageValidator(message);
         }

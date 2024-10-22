@@ -29,12 +29,11 @@ namespace CoreGoDelivery.Application.Services.Internal.Motorcycle.Commands.Chang
             _validator = validator;
         }
 
-        public async Task<ApiResponse> Handle(MotorcycleChangePlateCommand request, CancellationToken cancellationToken)
+        public async Task<ApiResponse> Handle(MotorcycleChangePlateCommand command, CancellationToken cancellationToken)
         {
             var apiReponse = new ApiResponse()
             {
-                Data = null,
-                Message = await _validator.ChangePlateValidator(request.Id, request.Plate)
+                Message = await _validator.ChangePlateValidator(command)
             };
 
             if (!string.IsNullOrEmpty(apiReponse.Message))
@@ -42,9 +41,9 @@ namespace CoreGoDelivery.Application.Services.Internal.Motorcycle.Commands.Chang
                 return apiReponse;
             }
 
-            var plateNormalized = _baseInternalServices.RemoveCharacteres(request.Plate);
+            var plateNormalized = _baseInternalServices.RemoveCharacteres(command.Plate);
 
-            var success = await _repositoryMotorcycle.ChangePlateByIdAsync(request.Id, plateNormalized);
+            var success = await _repositoryMotorcycle.ChangePlateByIdAsync(command.Id, plateNormalized);
 
             apiReponse.Data = success ? new { mensagem = CommomMessagesConst.MESSAGE_UPDATED_PLATE_SUCCESS } : null;
 

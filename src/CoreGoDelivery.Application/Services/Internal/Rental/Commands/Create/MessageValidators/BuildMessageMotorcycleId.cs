@@ -25,6 +25,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Rental.Commands.Create.Me
             else
             {
                 var existMotocycleId = await _repositoryMotorcycle.GetOneByIdAsync(data.MotorcycleId);
+
                 if (existMotocycleId == null)
                 {
                     message.AppendError(message, nameof(data.MotorcycleId), AdditionalMessageEnum.NotFound);

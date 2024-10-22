@@ -24,7 +24,7 @@ namespace CoreGoDelivery.ApplicationTests.Services.Internal.Deliverier.Commands.
             var yourClass = new NormalizeFileNameLicense();
 
             // Act
-            var result = yourClass.Normalize(command.LicenseNumber, FileExtensionEnum.none);
+            var result = yourClass.Normalize(command.LicenseNumber, GetFileExtensionValidEnum.none);
 
             // Assert
             Assert.Equal(expectedFileName, result);

@@ -22,9 +22,9 @@ namespace CoreGoDelivery.Api.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetOne(MotorcycleGetOneQueryCommand id)
+        public async Task<IActionResult> GetOne(string id)
         {
-            var result = await _mediator.Send(id);
+            var result = await _mediator.Send(new MotorcycleGetOneQueryCommand(id));
 
             return Response(result);
         }

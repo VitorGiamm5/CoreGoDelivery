@@ -15,7 +15,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.Uploa
             _normalizeFileNameLicense = normalizeFileNameLicense;
         }
 
-        public async Task<string> SaveOrReplace(DeliverierUploadCnhCommand command, FileExtensionEnum fileExtension)
+        public async Task<string> SaveOrReplace(DeliverierUploadCnhCommand command, GetFileExtensionValidEnum fileExtension)
         {
             //var imageBytes = Convert.FromBase64String(command.LicenseImageBase64);
             var imageBytes = command.LicenseImageBase64;

@@ -36,7 +36,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Motorcycle.Commands.Creat
             return _baseInternalServices.BuildMessageValidator(message);
         }
 
-        public static void BuildMessageYear(MotorcycleCreateCommand data, StringBuilder message)
+        public void BuildMessageYear(MotorcycleCreateCommand data, StringBuilder message)
         {
             if (string.IsNullOrWhiteSpace(data.YearManufacture.ToString()))
             {
@@ -59,12 +59,12 @@ namespace CoreGoDelivery.Application.Services.Internal.Motorcycle.Commands.Creat
             }
             else
             {
-                var isValidPlate = PlateValidator.Validator(plate);
+                var normalizedPlate = _baseInternalServices.RemoveCharacteres(plate);
+
+                var isValidPlate = PlateValidator.Validator(normalizedPlate);
 
                 if (isValidPlate)
                 {
-                    var normalizedPlate = _baseInternalServices.RemoveCharacteres(plate);
-
                     var isUnicId = await _repositoryMotorcycle.CheckIsUnicByPlateAsync(normalizedPlate);
 
                     if (!isUnicId)

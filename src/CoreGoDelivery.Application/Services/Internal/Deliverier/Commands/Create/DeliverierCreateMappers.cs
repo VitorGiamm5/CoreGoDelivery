@@ -35,7 +35,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.Creat
                 {
                     Id = data.LicenseNumber,
                     Type = _parseLicenseType.Parse(data),
-                    ImageUrlReference = _normalizeFileNameLicense.Normalize(data.LicenseNumber, FileExtensionEnum.none)
+                    ImageUrlReference = _normalizeFileNameLicense.Normalize(data.LicenseNumber, GetFileExtensionValidEnum.none)
                 }
             };
 

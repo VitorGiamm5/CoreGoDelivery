@@ -15,24 +15,21 @@ namespace CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.Uploa
 
         public readonly NormalizeFileNameLicense _normalizeFileNameLicense;
         public readonly DeliverierUploadCnhValidator _deliverierUploadCnhValidator;
-        public readonly ValidateLicenseImage _validateLicenseImage;
         public readonly SaveOrReplaceLicenseImageAsync _saveLicenseFile;
-        public readonly GetExtensionFile _getExtensionFile;
+        public readonly GetFileExtensionValid _getExtensionFile;
 
         public DeliverierUploadCnhHandler(
-            IDeliverierRepository repositoryDeliverier, 
+            IDeliverierRepository repositoryDeliverier,
             IBaseInternalServices baseInternalServices,
             NormalizeFileNameLicense normalizeFileNameLicense,
-            DeliverierUploadCnhValidator deliverierUploadCnhValidator, 
-            ValidateLicenseImage validateLicenseImage, 
-            SaveOrReplaceLicenseImageAsync saveLicenseFile, 
-            GetExtensionFile getExtensionFile)
+            DeliverierUploadCnhValidator deliverierUploadCnhValidator,
+            SaveOrReplaceLicenseImageAsync saveLicenseFile,
+            GetFileExtensionValid getExtensionFile)
         {
             _repositoryDeliverier = repositoryDeliverier;
             _baseInternalServices = baseInternalServices;
             _normalizeFileNameLicense = normalizeFileNameLicense;
             _deliverierUploadCnhValidator = deliverierUploadCnhValidator;
-            _validateLicenseImage = validateLicenseImage;
             _saveLicenseFile = saveLicenseFile;
             _getExtensionFile = getExtensionFile;
         }
@@ -45,17 +42,26 @@ namespace CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.Uploa
                 Message = await _deliverierUploadCnhValidator.Build(command)
             };
 
-            byte[] bitArrayImage = command.LicenseImageBase64;
+            var (_, _, fileExtension) = _getExtensionFile.Get(command.LicenseImageBase64);
 
-            var (isValid, errorMessage, fileExtension) = _getExtensionFile.Get(command.LicenseImageBase64);
+            //work area
+            if (command.HasIdDeliverier())
+            {
+                var deliveier = await _repositoryDeliverier.GetOneById(command.IdDeliverier!);
 
-            var deliveier = await _repositoryDeliverier.GetOneById(command.IdDeliverier!);
+                command.IdLicense = deliveier!.LicenceDriverId;
+            }
 
-            command.IdLicense = deliveier.LicenceDriverId;
+            if (command.HasIdLicense())
+            {
+                var deliveier = await _repositoryDeliverier.GetOneByIdLicense(command.IdLicense!);
+
+                command.IdDeliverier = deliveier!.Id;
+            }
 
             var imagePath = await _saveLicenseFile.SaveOrReplace(command, fileExtension);
 
-            apiReponse.Data = $"Imagem da CNH salva/substituída com sucesso, path: {imagePath}";
+            apiReponse.Data = new { message = $"Imagem da CNH salva/substituída com sucesso, path: {imagePath}" };
 
             return apiReponse;
         }

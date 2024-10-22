@@ -29,7 +29,7 @@ namespace CoreGoDelivery.Application.Extensions
                 $"Type: {typeof(T).Name}, " +
                 $"But was: {butValue};";
 
-            message.AppendLine(result);
+            message.Append(result);
         }
     }
 }

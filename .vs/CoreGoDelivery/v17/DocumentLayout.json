@@ -3,16 +3,124 @@
   "WorkspaceRootPath": "C:\\Projetos\\CoreGoDelivery\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{C3CBF9A3-8269-49FC-92F2-FE97DDA6838A}|src\\CoreGoDelivery.Application\\CoreGoDelivery.Application.csproj|c:\\projetos\\coregodelivery\\src\\coregodelivery.application\\rabbitmq\\notificationmotorcycle\\consumer\\rabbitmqconsumer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C3CBF9A3-8269-49FC-92F2-FE97DDA6838A}|src\\CoreGoDelivery.Application\\CoreGoDelivery.Application.csproj|solutionrelative:src\\coregodelivery.application\\rabbitmq\\notificationmotorcycle\\consumer\\rabbitmqconsumer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{C3CBF9A3-8269-49FC-92F2-FE97DDA6838A}|src\\CoreGoDelivery.Application\\CoreGoDelivery.Application.csproj|c:\\projetos\\coregodelivery\\src\\coregodelivery.application\\services\\internal\\rental\\commands\\update\\rentalreturnedtobasevalidator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C3CBF9A3-8269-49FC-92F2-FE97DDA6838A}|src\\CoreGoDelivery.Application\\CoreGoDelivery.Application.csproj|solutionrelative:src\\coregodelivery.application\\services\\internal\\rental\\commands\\update\\rentalreturnedtobasevalidator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{913B8928-DB53-4BAE-9806-503A929B4E79}|src\\CoreGoDelivery.Infrastructure\\CoreGoDelivery.Infrastructure.csproj|c:\\projetos\\coregodelivery\\src\\coregodelivery.infrastructure\\setupinfrastructure.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{913B8928-DB53-4BAE-9806-503A929B4E79}|src\\CoreGoDelivery.Infrastructure\\CoreGoDelivery.Infrastructure.csproj|solutionrelative:src\\coregodelivery.infrastructure\\setupinfrastructure.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{C3CBF9A3-8269-49FC-92F2-FE97DDA6838A}|src\\CoreGoDelivery.Application\\CoreGoDelivery.Application.csproj|c:\\projetos\\coregodelivery\\src\\coregodelivery.application\\services\\internal\\rental\\commands\\update\\common\\calculatepenalty.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C3CBF9A3-8269-49FC-92F2-FE97DDA6838A}|src\\CoreGoDelivery.Application\\CoreGoDelivery.Application.csproj|solutionrelative:src\\coregodelivery.application\\services\\internal\\rental\\commands\\update\\common\\calculatepenalty.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C3CBF9A3-8269-49FC-92F2-FE97DDA6838A}|src\\CoreGoDelivery.Application\\CoreGoDelivery.Application.csproj|c:\\projetos\\coregodelivery\\src\\coregodelivery.application\\services\\internal\\deliverier\\commands\\create\\messagevalidators\\buildmessagebirthdate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C3CBF9A3-8269-49FC-92F2-FE97DDA6838A}|src\\CoreGoDelivery.Application\\CoreGoDelivery.Application.csproj|solutionrelative:src\\coregodelivery.application\\services\\internal\\deliverier\\commands\\create\\messagevalidators\\buildmessagebirthdate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C3CBF9A3-8269-49FC-92F2-FE97DDA6838A}|src\\CoreGoDelivery.Application\\CoreGoDelivery.Application.csproj|c:\\projetos\\coregodelivery\\src\\coregodelivery.application\\services\\internal\\rental\\commands\\create\\common\\planmotorcyclevalidator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C3CBF9A3-8269-49FC-92F2-FE97DDA6838A}|src\\CoreGoDelivery.Application\\CoreGoDelivery.Application.csproj|solutionrelative:src\\coregodelivery.application\\services\\internal\\rental\\commands\\create\\common\\planmotorcyclevalidator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C3CBF9A3-8269-49FC-92F2-FE97DDA6838A}|src\\CoreGoDelivery.Application\\CoreGoDelivery.Application.csproj|c:\\projetos\\coregodelivery\\src\\coregodelivery.application\\extensions\\stringbuilderextensions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C3CBF9A3-8269-49FC-92F2-FE97DDA6838A}|src\\CoreGoDelivery.Application\\CoreGoDelivery.Application.csproj|solutionrelative:src\\coregodelivery.application\\extensions\\stringbuilderextensions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C3CBF9A3-8269-49FC-92F2-FE97DDA6838A}|src\\CoreGoDelivery.Application\\CoreGoDelivery.Application.csproj|c:\\projetos\\coregodelivery\\src\\coregodelivery.application\\services\\internal\\rental\\commands\\update\\rentalreturnedtobasedatehandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C3CBF9A3-8269-49FC-92F2-FE97DDA6838A}|src\\CoreGoDelivery.Application\\CoreGoDelivery.Application.csproj|solutionrelative:src\\coregodelivery.application\\services\\internal\\rental\\commands\\update\\rentalreturnedtobasedatehandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{48B385D5-1C0D-46E0-AFFF-13A8BAF21226}|src\\CoreGoDelivery.API\\CoreGoDelivery.Api.csproj|c:\\projetos\\coregodelivery\\src\\coregodelivery.api\\controllers\\rentalcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{48B385D5-1C0D-46E0-AFFF-13A8BAF21226}|src\\CoreGoDelivery.API\\CoreGoDelivery.Api.csproj|solutionrelative:src\\coregodelivery.api\\controllers\\rentalcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C3CBF9A3-8269-49FC-92F2-FE97DDA6838A}|src\\CoreGoDelivery.Application\\CoreGoDelivery.Application.csproj|c:\\projetos\\coregodelivery\\src\\coregodelivery.application\\services\\internal\\rental\\commands\\create\\rentalcreatevalidate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C3CBF9A3-8269-49FC-92F2-FE97DDA6838A}|src\\CoreGoDelivery.Application\\CoreGoDelivery.Application.csproj|solutionrelative:src\\coregodelivery.application\\services\\internal\\rental\\commands\\create\\rentalcreatevalidate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{913B8928-DB53-4BAE-9806-503A929B4E79}|src\\CoreGoDelivery.Infrastructure\\CoreGoDelivery.Infrastructure.csproj|c:\\projetos\\coregodelivery\\src\\coregodelivery.infrastructure\\repositories\\godelivery\\rentalrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{913B8928-DB53-4BAE-9806-503A929B4E79}|src\\CoreGoDelivery.Infrastructure\\CoreGoDelivery.Infrastructure.csproj|solutionrelative:src\\coregodelivery.infrastructure\\repositories\\godelivery\\rentalrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C3CBF9A3-8269-49FC-92F2-FE97DDA6838A}|src\\CoreGoDelivery.Application\\CoreGoDelivery.Application.csproj|c:\\projetos\\coregodelivery\\src\\coregodelivery.application\\services\\internal\\rental\\commands\\create\\messagevalidators\\buildmessagemotorcycleid.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C3CBF9A3-8269-49FC-92F2-FE97DDA6838A}|src\\CoreGoDelivery.Application\\CoreGoDelivery.Application.csproj|solutionrelative:src\\coregodelivery.application\\services\\internal\\rental\\commands\\create\\messagevalidators\\buildmessagemotorcycleid.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C3CBF9A3-8269-49FC-92F2-FE97DDA6838A}|src\\CoreGoDelivery.Application\\CoreGoDelivery.Application.csproj|c:\\projetos\\coregodelivery\\src\\coregodelivery.application\\services\\internal\\base\\baseinternalservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C3CBF9A3-8269-49FC-92F2-FE97DDA6838A}|src\\CoreGoDelivery.Application\\CoreGoDelivery.Application.csproj|solutionrelative:src\\coregodelivery.application\\services\\internal\\base\\baseinternalservices.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C3CBF9A3-8269-49FC-92F2-FE97DDA6838A}|src\\CoreGoDelivery.Application\\CoreGoDelivery.Application.csproj|c:\\projetos\\coregodelivery\\src\\coregodelivery.application\\services\\internal\\motorcycle\\commands\\create\\motorcyclecreatevalidator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C3CBF9A3-8269-49FC-92F2-FE97DDA6838A}|src\\CoreGoDelivery.Application\\CoreGoDelivery.Application.csproj|solutionrelative:src\\coregodelivery.application\\services\\internal\\motorcycle\\commands\\create\\motorcyclecreatevalidator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C3CBF9A3-8269-49FC-92F2-FE97DDA6838A}|src\\CoreGoDelivery.Application\\CoreGoDelivery.Application.csproj|c:\\projetos\\coregodelivery\\src\\coregodelivery.application\\services\\internal\\motorcycle\\commands\\changeplatebyid\\motorcyclechangeplatevalidator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C3CBF9A3-8269-49FC-92F2-FE97DDA6838A}|src\\CoreGoDelivery.Application\\CoreGoDelivery.Application.csproj|solutionrelative:src\\coregodelivery.application\\services\\internal\\motorcycle\\commands\\changeplatebyid\\motorcyclechangeplatevalidator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C3CBF9A3-8269-49FC-92F2-FE97DDA6838A}|src\\CoreGoDelivery.Application\\CoreGoDelivery.Application.csproj|c:\\projetos\\coregodelivery\\src\\coregodelivery.application\\services\\internal\\motorcycle\\commands\\changeplatebyid\\motorcyclechangeplatehandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C3CBF9A3-8269-49FC-92F2-FE97DDA6838A}|src\\CoreGoDelivery.Application\\CoreGoDelivery.Application.csproj|solutionrelative:src\\coregodelivery.application\\services\\internal\\motorcycle\\commands\\changeplatebyid\\motorcyclechangeplatehandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{48B385D5-1C0D-46E0-AFFF-13A8BAF21226}|src\\CoreGoDelivery.API\\CoreGoDelivery.Api.csproj|c:\\projetos\\coregodelivery\\src\\coregodelivery.api\\controllers\\motocyclecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{48B385D5-1C0D-46E0-AFFF-13A8BAF21226}|src\\CoreGoDelivery.API\\CoreGoDelivery.Api.csproj|solutionrelative:src\\coregodelivery.api\\controllers\\motocyclecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C3CBF9A3-8269-49FC-92F2-FE97DDA6838A}|src\\CoreGoDelivery.Application\\CoreGoDelivery.Application.csproj|c:\\projetos\\coregodelivery\\src\\coregodelivery.application\\services\\internal\\motorcycle\\queries\\getone\\motorcyclegetonequeryhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C3CBF9A3-8269-49FC-92F2-FE97DDA6838A}|src\\CoreGoDelivery.Application\\CoreGoDelivery.Application.csproj|solutionrelative:src\\coregodelivery.application\\services\\internal\\motorcycle\\queries\\getone\\motorcyclegetonequeryhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C3CBF9A3-8269-49FC-92F2-FE97DDA6838A}|src\\CoreGoDelivery.Application\\CoreGoDelivery.Application.csproj|c:\\projetos\\coregodelivery\\src\\coregodelivery.application\\services\\internal\\motorcycle\\queries\\getone\\motorcyclegetonequerycommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C3CBF9A3-8269-49FC-92F2-FE97DDA6838A}|src\\CoreGoDelivery.Application\\CoreGoDelivery.Application.csproj|solutionrelative:src\\coregodelivery.application\\services\\internal\\motorcycle\\queries\\getone\\motorcyclegetonequerycommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C3CBF9A3-8269-49FC-92F2-FE97DDA6838A}|src\\CoreGoDelivery.Application\\CoreGoDelivery.Application.csproj|c:\\projetos\\coregodelivery\\src\\coregodelivery.application\\services\\internal\\deliverier\\commands\\uploadcnh\\deliverieruploadcnhhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C3CBF9A3-8269-49FC-92F2-FE97DDA6838A}|src\\CoreGoDelivery.Application\\CoreGoDelivery.Application.csproj|solutionrelative:src\\coregodelivery.application\\services\\internal\\deliverier\\commands\\uploadcnh\\deliverieruploadcnhhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C3CBF9A3-8269-49FC-92F2-FE97DDA6838A}|src\\CoreGoDelivery.Application\\CoreGoDelivery.Application.csproj|c:\\projetos\\coregodelivery\\src\\coregodelivery.application\\services\\internal\\deliverier\\commands\\uploadcnh\\common\\saveorreplacelicenseimageasync.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C3CBF9A3-8269-49FC-92F2-FE97DDA6838A}|src\\CoreGoDelivery.Application\\CoreGoDelivery.Application.csproj|solutionrelative:src\\coregodelivery.application\\services\\internal\\deliverier\\commands\\uploadcnh\\common\\saveorreplacelicenseimageasync.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C3CBF9A3-8269-49FC-92F2-FE97DDA6838A}|src\\CoreGoDelivery.Application\\CoreGoDelivery.Application.csproj|c:\\projetos\\coregodelivery\\src\\coregodelivery.application\\services\\internal\\deliverier\\commands\\uploadcnh\\deliverieruploadcnhvalidator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C3CBF9A3-8269-49FC-92F2-FE97DDA6838A}|src\\CoreGoDelivery.Application\\CoreGoDelivery.Application.csproj|solutionrelative:src\\coregodelivery.application\\services\\internal\\deliverier\\commands\\uploadcnh\\deliverieruploadcnhvalidator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C3CBF9A3-8269-49FC-92F2-FE97DDA6838A}|src\\CoreGoDelivery.Application\\CoreGoDelivery.Application.csproj|c:\\projetos\\coregodelivery\\src\\coregodelivery.application\\services\\internal\\deliverier\\commands\\uploadcnh\\common\\getextensionfile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C3CBF9A3-8269-49FC-92F2-FE97DDA6838A}|src\\CoreGoDelivery.Application\\CoreGoDelivery.Application.csproj|solutionrelative:src\\coregodelivery.application\\services\\internal\\deliverier\\commands\\uploadcnh\\common\\getextensionfile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{C3CBF9A3-8269-49FC-92F2-FE97DDA6838A}|src\\CoreGoDelivery.Application\\CoreGoDelivery.Application.csproj|c:\\projetos\\coregodelivery\\src\\coregodelivery.application\\setupapplication.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{C3CBF9A3-8269-49FC-92F2-FE97DDA6838A}|src\\CoreGoDelivery.Application\\CoreGoDelivery.Application.csproj|solutionrelative:src\\coregodelivery.application\\setupapplication.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0AA16454-C745-48F0-9B8A-64860B9391D8}|src\\CoreGoDelivery.Domain\\CoreGoDelivery.Domain.csproj|c:\\projetos\\coregodelivery\\src\\coregodelivery.domain\\repositories\\godelivery\\ideliverierrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0AA16454-C745-48F0-9B8A-64860B9391D8}|src\\CoreGoDelivery.Domain\\CoreGoDelivery.Domain.csproj|solutionrelative:src\\coregodelivery.domain\\repositories\\godelivery\\ideliverierrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{913B8928-DB53-4BAE-9806-503A929B4E79}|src\\CoreGoDelivery.Infrastructure\\CoreGoDelivery.Infrastructure.csproj|c:\\projetos\\coregodelivery\\src\\coregodelivery.infrastructure\\repositories\\godelivery\\deliverierrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{913B8928-DB53-4BAE-9806-503A929B4E79}|src\\CoreGoDelivery.Infrastructure\\CoreGoDelivery.Infrastructure.csproj|solutionrelative:src\\coregodelivery.infrastructure\\repositories\\godelivery\\deliverierrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C3CBF9A3-8269-49FC-92F2-FE97DDA6838A}|src\\CoreGoDelivery.Application\\CoreGoDelivery.Application.csproj|c:\\projetos\\coregodelivery\\src\\coregodelivery.application\\services\\internal\\deliverier\\commands\\uploadcnh\\deliverieruploadcnhcommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C3CBF9A3-8269-49FC-92F2-FE97DDA6838A}|src\\CoreGoDelivery.Application\\CoreGoDelivery.Application.csproj|solutionrelative:src\\coregodelivery.application\\services\\internal\\deliverier\\commands\\uploadcnh\\deliverieruploadcnhcommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C3CBF9A3-8269-49FC-92F2-FE97DDA6838A}|src\\CoreGoDelivery.Application\\CoreGoDelivery.Application.csproj|c:\\projetos\\coregodelivery\\src\\coregodelivery.application\\services\\internal\\deliverier\\commands\\create\\deliveriercreatehandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C3CBF9A3-8269-49FC-92F2-FE97DDA6838A}|src\\CoreGoDelivery.Application\\CoreGoDelivery.Application.csproj|solutionrelative:src\\coregodelivery.application\\services\\internal\\deliverier\\commands\\create\\deliveriercreatehandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C3CBF9A3-8269-49FC-92F2-FE97DDA6838A}|src\\CoreGoDelivery.Application\\CoreGoDelivery.Application.csproj|c:\\projetos\\coregodelivery\\src\\coregodelivery.application\\services\\internal\\deliverier\\commands\\create\\deliveriercreatevalidator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C3CBF9A3-8269-49FC-92F2-FE97DDA6838A}|src\\CoreGoDelivery.Application\\CoreGoDelivery.Application.csproj|solutionrelative:src\\coregodelivery.application\\services\\internal\\deliverier\\commands\\create\\deliveriercreatevalidator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C3CBF9A3-8269-49FC-92F2-FE97DDA6838A}|src\\CoreGoDelivery.Application\\CoreGoDelivery.Application.csproj|c:\\projetos\\coregodelivery\\src\\coregodelivery.application\\services\\internal\\deliverier\\commands\\create\\messagevalidators\\buildmessagecreate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C3CBF9A3-8269-49FC-92F2-FE97DDA6838A}|src\\CoreGoDelivery.Application\\CoreGoDelivery.Application.csproj|solutionrelative:src\\coregodelivery.application\\services\\internal\\deliverier\\commands\\create\\messagevalidators\\buildmessagecreate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0AA16454-C745-48F0-9B8A-64860B9391D8}|src\\CoreGoDelivery.Domain\\CoreGoDelivery.Domain.csproj|c:\\projetos\\coregodelivery\\src\\coregodelivery.domain\\consts\\filepathtocnhlicence.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0AA16454-C745-48F0-9B8A-64860B9391D8}|src\\CoreGoDelivery.Domain\\CoreGoDelivery.Domain.csproj|solutionrelative:src\\coregodelivery.domain\\consts\\filepathtocnhlicence.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C3CBF9A3-8269-49FC-92F2-FE97DDA6838A}|src\\CoreGoDelivery.Application\\CoreGoDelivery.Application.csproj|c:\\projetos\\coregodelivery\\src\\coregodelivery.application\\services\\internal\\deliverier\\commands\\create\\messagevalidators\\buildmessagefullname.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C3CBF9A3-8269-49FC-92F2-FE97DDA6838A}|src\\CoreGoDelivery.Application\\CoreGoDelivery.Application.csproj|solutionrelative:src\\coregodelivery.application\\services\\internal\\deliverier\\commands\\create\\messagevalidators\\buildmessagefullname.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -22,45 +130,398 @@
       "DocumentGroups": [
         {
           "DockedWidth": 481,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 5,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "RabbitMQConsumer.cs",
-              "DocumentMoniker": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.Application\\RabbitMQ\\NotificationMotorcycle\\Consumer\\RabbitMQConsumer.cs",
-              "RelativeDocumentMoniker": "src\\CoreGoDelivery.Application\\RabbitMQ\\NotificationMotorcycle\\Consumer\\RabbitMQConsumer.cs",
-              "ToolTip": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.Application\\RabbitMQ\\NotificationMotorcycle\\Consumer\\RabbitMQConsumer.cs",
-              "RelativeToolTip": "src\\CoreGoDelivery.Application\\RabbitMQ\\NotificationMotorcycle\\Consumer\\RabbitMQConsumer.cs",
-              "ViewState": "AgIAACkAAAAAAAAAAAAgwDkAAABFAAAAAAAAAA==",
+              "DocumentIndex": 4,
+              "Title": "StringBuilderExtensions.cs",
+              "DocumentMoniker": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.Application\\Extensions\\StringBuilderExtensions.cs",
+              "RelativeDocumentMoniker": "src\\CoreGoDelivery.Application\\Extensions\\StringBuilderExtensions.cs",
+              "ToolTip": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.Application\\Extensions\\StringBuilderExtensions.cs",
+              "RelativeToolTip": "src\\CoreGoDelivery.Application\\Extensions\\StringBuilderExtensions.cs",
+              "ViewState": "AgIAABAAAAAAAAAAAADwvx8AAAAaAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-22T06:56:42.68Z",
+              "WhenOpened": "2024-10-22T17:18:45.86Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "DeliverierUploadCnhHandler.cs",
+              "DocumentMoniker": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.Application\\Services\\Internal\\Deliverier\\Commands\\UploadCnh\\DeliverierUploadCnhHandler.cs",
+              "RelativeDocumentMoniker": "src\\CoreGoDelivery.Application\\Services\\Internal\\Deliverier\\Commands\\UploadCnh\\DeliverierUploadCnhHandler.cs",
+              "ToolTip": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.Application\\Services\\Internal\\Deliverier\\Commands\\UploadCnh\\DeliverierUploadCnhHandler.cs",
+              "RelativeToolTip": "src\\CoreGoDelivery.Application\\Services\\Internal\\Deliverier\\Commands\\UploadCnh\\DeliverierUploadCnhHandler.cs",
+              "ViewState": "AgIAACEAAAAAAAAAAAAYwC8AAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-22T13:25:55.461Z",
+              "IsPinned": true,
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "SetupApplication.cs",
-              "DocumentMoniker": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.Application\\SetupApplication.cs",
-              "RelativeDocumentMoniker": "src\\CoreGoDelivery.Application\\SetupApplication.cs",
-              "ToolTip": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.Application\\SetupApplication.cs",
-              "RelativeToolTip": "src\\CoreGoDelivery.Application\\SetupApplication.cs",
-              "ViewState": "AgIAAB0AAAAAAAAAAAAQwCwAAAAAAAAAAAAAAA==",
+              "Title": "BuildMessageBirthDate.cs",
+              "DocumentMoniker": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.Application\\Services\\Internal\\Deliverier\\Commands\\Create\\MessageValidators\\BuildMessageBirthDate.cs",
+              "RelativeDocumentMoniker": "src\\CoreGoDelivery.Application\\Services\\Internal\\Deliverier\\Commands\\Create\\MessageValidators\\BuildMessageBirthDate.cs",
+              "ToolTip": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.Application\\Services\\Internal\\Deliverier\\Commands\\Create\\MessageValidators\\BuildMessageBirthDate.cs",
+              "RelativeToolTip": "src\\CoreGoDelivery.Application\\Services\\Internal\\Deliverier\\Commands\\Create\\MessageValidators\\BuildMessageBirthDate.cs",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAvwB0AAAAmAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-22T06:53:35.923Z",
+              "WhenOpened": "2024-10-22T21:46:19.208Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "PlanMotorcycleValidator.cs",
+              "DocumentMoniker": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.Application\\Services\\Internal\\Rental\\Commands\\Create\\Common\\PlanMotorcycleValidator.cs",
+              "RelativeDocumentMoniker": "src\\CoreGoDelivery.Application\\Services\\Internal\\Rental\\Commands\\Create\\Common\\PlanMotorcycleValidator.cs",
+              "ToolTip": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.Application\\Services\\Internal\\Rental\\Commands\\Create\\Common\\PlanMotorcycleValidator.cs",
+              "RelativeToolTip": "src\\CoreGoDelivery.Application\\Services\\Internal\\Rental\\Commands\\Create\\Common\\PlanMotorcycleValidator.cs",
+              "ViewState": "AgIAAAsAAAAAAAAAAADwvx4AAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-22T21:44:34.067Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "SetupInfrastructure.cs",
-              "DocumentMoniker": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.Infrastructure\\SetupInfrastructure.cs",
-              "RelativeDocumentMoniker": "src\\CoreGoDelivery.Infrastructure\\SetupInfrastructure.cs",
-              "ToolTip": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.Infrastructure\\SetupInfrastructure.cs",
-              "RelativeToolTip": "src\\CoreGoDelivery.Infrastructure\\SetupInfrastructure.cs",
-              "ViewState": "AgIAAAgAAAAAAAAAAAASwBsAAAAAAAAAAAAAAA==",
+              "Title": "CalculatePenalty.cs",
+              "DocumentMoniker": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.Application\\Services\\Internal\\Rental\\Commands\\Update\\Common\\CalculatePenalty.cs",
+              "RelativeDocumentMoniker": "src\\CoreGoDelivery.Application\\Services\\Internal\\Rental\\Commands\\Update\\Common\\CalculatePenalty.cs",
+              "ToolTip": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.Application\\Services\\Internal\\Rental\\Commands\\Update\\Common\\CalculatePenalty.cs",
+              "RelativeToolTip": "src\\CoreGoDelivery.Application\\Services\\Internal\\Rental\\Commands\\Update\\Common\\CalculatePenalty.cs",
+              "ViewState": "AgIAABIAAAAAAAAAAAAvwB0AAAAUAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-22T06:53:00.317Z",
+              "WhenOpened": "2024-10-22T21:42:41.302Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "RentalReturnedToBaseValidator.cs",
+              "DocumentMoniker": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.Application\\Services\\Internal\\Rental\\Commands\\Update\\RentalReturnedToBaseValidator.cs",
+              "RelativeDocumentMoniker": "src\\CoreGoDelivery.Application\\Services\\Internal\\Rental\\Commands\\Update\\RentalReturnedToBaseValidator.cs",
+              "ToolTip": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.Application\\Services\\Internal\\Rental\\Commands\\Update\\RentalReturnedToBaseValidator.cs",
+              "RelativeToolTip": "src\\CoreGoDelivery.Application\\Services\\Internal\\Rental\\Commands\\Update\\RentalReturnedToBaseValidator.cs",
+              "ViewState": "AgIAABwAAAAAAAAAAAAvwDAAAAAiAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-22T21:37:42.051Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "RentalReturnedToBaseDateHandler.cs",
+              "DocumentMoniker": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.Application\\Services\\Internal\\Rental\\Commands\\Update\\RentalReturnedToBaseDateHandler.cs",
+              "RelativeDocumentMoniker": "src\\CoreGoDelivery.Application\\Services\\Internal\\Rental\\Commands\\Update\\RentalReturnedToBaseDateHandler.cs",
+              "ToolTip": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.Application\\Services\\Internal\\Rental\\Commands\\Update\\RentalReturnedToBaseDateHandler.cs",
+              "RelativeToolTip": "src\\CoreGoDelivery.Application\\Services\\Internal\\Rental\\Commands\\Update\\RentalReturnedToBaseDateHandler.cs",
+              "ViewState": "AgIAABwAAAAAAAAAAADgvy4AAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-22T21:35:51.523Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "RentalCreateValidate.cs",
+              "DocumentMoniker": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.Application\\Services\\Internal\\Rental\\Commands\\Create\\RentalCreateValidate.cs",
+              "RelativeDocumentMoniker": "src\\CoreGoDelivery.Application\\Services\\Internal\\Rental\\Commands\\Create\\RentalCreateValidate.cs",
+              "ToolTip": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.Application\\Services\\Internal\\Rental\\Commands\\Create\\RentalCreateValidate.cs",
+              "RelativeToolTip": "src\\CoreGoDelivery.Application\\Services\\Internal\\Rental\\Commands\\Create\\RentalCreateValidate.cs",
+              "ViewState": "AgIAAA4AAAAAAAAAAAAQwCAAAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-22T21:23:14.998Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 26,
+              "Title": "DeliverierCreateValidator.cs",
+              "DocumentMoniker": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.Application\\Services\\Internal\\Deliverier\\Commands\\Create\\DeliverierCreateValidator.cs",
+              "RelativeDocumentMoniker": "src\\CoreGoDelivery.Application\\Services\\Internal\\Deliverier\\Commands\\Create\\DeliverierCreateValidator.cs",
+              "ToolTip": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.Application\\Services\\Internal\\Deliverier\\Commands\\Create\\DeliverierCreateValidator.cs",
+              "RelativeToolTip": "src\\CoreGoDelivery.Application\\Services\\Internal\\Deliverier\\Commands\\Create\\DeliverierCreateValidator.cs",
+              "ViewState": "AgIAABMAAAAAAAAAAAAgwDMAAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-22T18:47:14.383Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "MotorcycleChangePlateHandler.cs",
+              "DocumentMoniker": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.Application\\Services\\Internal\\Motorcycle\\Commands\\ChangePlateById\\MotorcycleChangePlateHandler.cs",
+              "RelativeDocumentMoniker": "src\\CoreGoDelivery.Application\\Services\\Internal\\Motorcycle\\Commands\\ChangePlateById\\MotorcycleChangePlateHandler.cs",
+              "ToolTip": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.Application\\Services\\Internal\\Motorcycle\\Commands\\ChangePlateById\\MotorcycleChangePlateHandler.cs",
+              "RelativeToolTip": "src\\CoreGoDelivery.Application\\Services\\Internal\\Motorcycle\\Commands\\ChangePlateById\\MotorcycleChangePlateHandler.cs",
+              "ViewState": "AgIAABEAAAAAAAAAAAAAACMAAAA/AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-22T21:05:52.507Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "RentalController.cs",
+              "DocumentMoniker": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.API\\Controllers\\RentalController.cs",
+              "RelativeDocumentMoniker": "src\\CoreGoDelivery.API\\Controllers\\RentalController.cs",
+              "ToolTip": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.API\\Controllers\\RentalController.cs",
+              "RelativeToolTip": "src\\CoreGoDelivery.API\\Controllers\\RentalController.cs",
+              "ViewState": "AgIAABIAAAAAAAAAAAAWwCAAAAB3AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-22T17:54:58.464Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "RentalRepository.cs",
+              "DocumentMoniker": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.Infrastructure\\Repositories\\GoDelivery\\RentalRepository.cs",
+              "RelativeDocumentMoniker": "src\\CoreGoDelivery.Infrastructure\\Repositories\\GoDelivery\\RentalRepository.cs",
+              "ToolTip": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.Infrastructure\\Repositories\\GoDelivery\\RentalRepository.cs",
+              "RelativeToolTip": "src\\CoreGoDelivery.Infrastructure\\Repositories\\GoDelivery\\RentalRepository.cs",
+              "ViewState": "AgIAAA0AAAAAAAAAAAAgwBoAAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-22T21:26:57.389Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "BuildMessageMotorcycleId.cs",
+              "DocumentMoniker": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.Application\\Services\\Internal\\Rental\\Commands\\Create\\MessageValidators\\BuildMessageMotorcycleId.cs",
+              "RelativeDocumentMoniker": "src\\CoreGoDelivery.Application\\Services\\Internal\\Rental\\Commands\\Create\\MessageValidators\\BuildMessageMotorcycleId.cs",
+              "ToolTip": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.Application\\Services\\Internal\\Rental\\Commands\\Create\\MessageValidators\\BuildMessageMotorcycleId.cs",
+              "RelativeToolTip": "src\\CoreGoDelivery.Application\\Services\\Internal\\Rental\\Commands\\Create\\MessageValidators\\BuildMessageMotorcycleId.cs",
+              "ViewState": "AgIAAAwAAAAAAAAAAADgvycAAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-22T21:26:31.884Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "MotorcycleChangePlateValidator.cs",
+              "DocumentMoniker": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.Application\\Services\\Internal\\Motorcycle\\Commands\\ChangePlateById\\MotorcycleChangePlateValidator.cs",
+              "RelativeDocumentMoniker": "src\\CoreGoDelivery.Application\\Services\\Internal\\Motorcycle\\Commands\\ChangePlateById\\MotorcycleChangePlateValidator.cs",
+              "ToolTip": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.Application\\Services\\Internal\\Motorcycle\\Commands\\ChangePlateById\\MotorcycleChangePlateValidator.cs",
+              "RelativeToolTip": "src\\CoreGoDelivery.Application\\Services\\Internal\\Motorcycle\\Commands\\ChangePlateById\\MotorcycleChangePlateValidator.cs",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAAAB0AAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-22T21:12:50.762Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "MotorcycleCreateValidator.cs",
+              "DocumentMoniker": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.Application\\Services\\Internal\\Motorcycle\\Commands\\Create\\MotorcycleCreateValidator.cs",
+              "RelativeDocumentMoniker": "src\\CoreGoDelivery.Application\\Services\\Internal\\Motorcycle\\Commands\\Create\\MotorcycleCreateValidator.cs",
+              "ToolTip": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.Application\\Services\\Internal\\Motorcycle\\Commands\\Create\\MotorcycleCreateValidator.cs",
+              "RelativeToolTip": "src\\CoreGoDelivery.Application\\Services\\Internal\\Motorcycle\\Commands\\Create\\MotorcycleCreateValidator.cs",
+              "ViewState": "AgIAACIAAAAAAAAAAAAhwD0AAAAQAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-22T18:31:23.335Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "BaseInternalServices.cs",
+              "DocumentMoniker": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.Application\\Services\\Internal\\Base\\BaseInternalServices.cs",
+              "RelativeDocumentMoniker": "src\\CoreGoDelivery.Application\\Services\\Internal\\Base\\BaseInternalServices.cs",
+              "ToolTip": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.Application\\Services\\Internal\\Base\\BaseInternalServices.cs",
+              "RelativeToolTip": "src\\CoreGoDelivery.Application\\Services\\Internal\\Base\\BaseInternalServices.cs",
+              "ViewState": "AgIAACEAAAAAAAAAAADgvzAAAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-22T21:08:01.01Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "MotocycleController.cs",
+              "DocumentMoniker": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.API\\Controllers\\MotocycleController.cs",
+              "RelativeDocumentMoniker": "src\\CoreGoDelivery.API\\Controllers\\MotocycleController.cs",
+              "ToolTip": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.API\\Controllers\\MotocycleController.cs",
+              "RelativeToolTip": "src\\CoreGoDelivery.API\\Controllers\\MotocycleController.cs",
+              "ViewState": "AgIAAB0AAAAAAAAAAAAWwCgAAAApAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-22T21:00:35.527Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 24,
+              "Title": "DeliverierUploadCnhCommand.cs",
+              "DocumentMoniker": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.Application\\Services\\Internal\\Deliverier\\Commands\\UploadCnh\\DeliverierUploadCnhCommand.cs",
+              "RelativeDocumentMoniker": "src\\CoreGoDelivery.Application\\Services\\Internal\\Deliverier\\Commands\\UploadCnh\\DeliverierUploadCnhCommand.cs",
+              "ToolTip": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.Application\\Services\\Internal\\Deliverier\\Commands\\UploadCnh\\DeliverierUploadCnhCommand.cs",
+              "RelativeToolTip": "src\\CoreGoDelivery.Application\\Services\\Internal\\Deliverier\\Commands\\UploadCnh\\DeliverierUploadCnhCommand.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAqwAkAAAAmAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-22T18:20:02.653Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "DeliverierUploadCnhValidator.cs",
+              "DocumentMoniker": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.Application\\Services\\Internal\\Deliverier\\Commands\\UploadCnh\\DeliverierUploadCnhValidator.cs",
+              "RelativeDocumentMoniker": "src\\CoreGoDelivery.Application\\Services\\Internal\\Deliverier\\Commands\\UploadCnh\\DeliverierUploadCnhValidator.cs",
+              "ToolTip": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.Application\\Services\\Internal\\Deliverier\\Commands\\UploadCnh\\DeliverierUploadCnhValidator.cs",
+              "RelativeToolTip": "src\\CoreGoDelivery.Application\\Services\\Internal\\Deliverier\\Commands\\UploadCnh\\DeliverierUploadCnhValidator.cs",
+              "ViewState": "AgIAABYAAAAAAAAAAAAgwEEAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-22T18:47:19.612Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "MotorcycleGetOneQueryHandler.cs",
+              "DocumentMoniker": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.Application\\Services\\Internal\\Motorcycle\\Queries\\GetOne\\MotorcycleGetOneQueryHandler.cs",
+              "RelativeDocumentMoniker": "src\\CoreGoDelivery.Application\\Services\\Internal\\Motorcycle\\Queries\\GetOne\\MotorcycleGetOneQueryHandler.cs",
+              "ToolTip": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.Application\\Services\\Internal\\Motorcycle\\Queries\\GetOne\\MotorcycleGetOneQueryHandler.cs",
+              "RelativeToolTip": "src\\CoreGoDelivery.Application\\Services\\Internal\\Motorcycle\\Queries\\GetOne\\MotorcycleGetOneQueryHandler.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-22T13:34:47.98Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "MotorcycleGetOneQueryCommand.cs",
+              "DocumentMoniker": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.Application\\Services\\Internal\\Motorcycle\\Queries\\GetOne\\MotorcycleGetOneQueryCommand.cs",
+              "RelativeDocumentMoniker": "src\\CoreGoDelivery.Application\\Services\\Internal\\Motorcycle\\Queries\\GetOne\\MotorcycleGetOneQueryCommand.cs",
+              "ToolTip": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.Application\\Services\\Internal\\Motorcycle\\Queries\\GetOne\\MotorcycleGetOneQueryCommand.cs",
+              "RelativeToolTip": "src\\CoreGoDelivery.Application\\Services\\Internal\\Motorcycle\\Queries\\GetOne\\MotorcycleGetOneQueryCommand.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-22T21:03:07.094Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "SaveOrReplaceLicenseImageAsync.cs",
+              "DocumentMoniker": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.Application\\Services\\Internal\\Deliverier\\Commands\\UploadCnh\\Common\\SaveOrReplaceLicenseImageAsync.cs",
+              "RelativeDocumentMoniker": "src\\CoreGoDelivery.Application\\Services\\Internal\\Deliverier\\Commands\\UploadCnh\\Common\\SaveOrReplaceLicenseImageAsync.cs",
+              "ToolTip": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.Application\\Services\\Internal\\Deliverier\\Commands\\UploadCnh\\Common\\SaveOrReplaceLicenseImageAsync.cs",
+              "RelativeToolTip": "src\\CoreGoDelivery.Application\\Services\\Internal\\Deliverier\\Commands\\UploadCnh\\Common\\SaveOrReplaceLicenseImageAsync.cs",
+              "ViewState": "AgIAAAUAAAAAAAAAAAA5wB0AAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-22T18:54:04.086Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "IDeliverierRepository.cs",
+              "DocumentMoniker": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.Domain\\Repositories\\GoDelivery\\IDeliverierRepository.cs",
+              "RelativeDocumentMoniker": "src\\CoreGoDelivery.Domain\\Repositories\\GoDelivery\\IDeliverierRepository.cs",
+              "ToolTip": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.Domain\\Repositories\\GoDelivery\\IDeliverierRepository.cs",
+              "RelativeToolTip": "src\\CoreGoDelivery.Domain\\Repositories\\GoDelivery\\IDeliverierRepository.cs",
+              "ViewState": "AgIAAAEAAAAAAAAAAAAhwAUAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-22T20:19:56.757Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
+              "Title": "DeliverierRepository.cs",
+              "DocumentMoniker": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.Infrastructure\\Repositories\\GoDelivery\\DeliverierRepository.cs",
+              "RelativeDocumentMoniker": "src\\CoreGoDelivery.Infrastructure\\Repositories\\GoDelivery\\DeliverierRepository.cs",
+              "ToolTip": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.Infrastructure\\Repositories\\GoDelivery\\DeliverierRepository.cs",
+              "RelativeToolTip": "src\\CoreGoDelivery.Infrastructure\\Repositories\\GoDelivery\\DeliverierRepository.cs",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAQwDAAAAA+AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-22T20:21:24.135Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "GetExtensionFile.cs",
+              "DocumentMoniker": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.Application\\Services\\Internal\\Deliverier\\Commands\\UploadCnh\\Common\\GetExtensionFile.cs",
+              "RelativeDocumentMoniker": "src\\CoreGoDelivery.Application\\Services\\Internal\\Deliverier\\Commands\\UploadCnh\\Common\\GetExtensionFile.cs",
+              "ToolTip": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.Application\\Services\\Internal\\Deliverier\\Commands\\UploadCnh\\Common\\GetExtensionFile.cs",
+              "RelativeToolTip": "src\\CoreGoDelivery.Application\\Services\\Internal\\Deliverier\\Commands\\UploadCnh\\Common\\GetExtensionFile.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAqwAYAAABcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-22T19:43:10.803Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "SetupApplication.cs",
+              "DocumentMoniker": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.Application\\SetupApplication.cs",
+              "RelativeDocumentMoniker": "src\\CoreGoDelivery.Application\\SetupApplication.cs",
+              "ToolTip": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.Application\\SetupApplication.cs",
+              "RelativeToolTip": "src\\CoreGoDelivery.Application\\SetupApplication.cs",
+              "ViewState": "AgIAAFgAAAAAAAAAAAAYwGgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-22T18:03:12.597Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 25,
+              "Title": "DeliverierCreateHandler.cs",
+              "DocumentMoniker": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.Application\\Services\\Internal\\Deliverier\\Commands\\Create\\DeliverierCreateHandler.cs",
+              "RelativeDocumentMoniker": "src\\CoreGoDelivery.Application\\Services\\Internal\\Deliverier\\Commands\\Create\\DeliverierCreateHandler.cs",
+              "ToolTip": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.Application\\Services\\Internal\\Deliverier\\Commands\\Create\\DeliverierCreateHandler.cs",
+              "RelativeToolTip": "src\\CoreGoDelivery.Application\\Services\\Internal\\Deliverier\\Commands\\Create\\DeliverierCreateHandler.cs",
+              "ViewState": "AgIAACoAAAAAAAAAAAAtwDoAAAAiAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-22T18:15:11.733Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 27,
+              "Title": "BuildMessageCreate.cs",
+              "DocumentMoniker": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.Application\\Services\\Internal\\Deliverier\\Commands\\Create\\MessageValidators\\BuildMessageCreate.cs",
+              "RelativeDocumentMoniker": "src\\CoreGoDelivery.Application\\Services\\Internal\\Deliverier\\Commands\\Create\\MessageValidators\\BuildMessageCreate.cs",
+              "ToolTip": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.Application\\Services\\Internal\\Deliverier\\Commands\\Create\\MessageValidators\\BuildMessageCreate.cs",
+              "RelativeToolTip": "src\\CoreGoDelivery.Application\\Services\\Internal\\Deliverier\\Commands\\Create\\MessageValidators\\BuildMessageCreate.cs",
+              "ViewState": "AgIAAAQAAAAAAAAAAAAtwBoAAAAcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-22T18:30:21.145Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 28,
+              "Title": "FilePathToCnhLicence.cs",
+              "DocumentMoniker": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.Domain\\Consts\\FilePathToCnhLicence.cs",
+              "RelativeDocumentMoniker": "src\\CoreGoDelivery.Domain\\Consts\\FilePathToCnhLicence.cs",
+              "ToolTip": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.Domain\\Consts\\FilePathToCnhLicence.cs",
+              "RelativeToolTip": "src\\CoreGoDelivery.Domain\\Consts\\FilePathToCnhLicence.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAABIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-22T17:58:17.358Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 29,
+              "Title": "BuildMessageFullName.cs",
+              "DocumentMoniker": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.Application\\Services\\Internal\\Deliverier\\Commands\\Create\\MessageValidators\\BuildMessageFullName.cs",
+              "RelativeDocumentMoniker": "src\\CoreGoDelivery.Application\\Services\\Internal\\Deliverier\\Commands\\Create\\MessageValidators\\BuildMessageFullName.cs",
+              "ToolTip": "C:\\Projetos\\CoreGoDelivery\\src\\CoreGoDelivery.Application\\Services\\Internal\\Deliverier\\Commands\\Create\\MessageValidators\\BuildMessageFullName.cs",
+              "RelativeToolTip": "src\\CoreGoDelivery.Application\\Services\\Internal\\Deliverier\\Commands\\Create\\MessageValidators\\BuildMessageFullName.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-22T17:33:00.14Z",
               "EditorCaption": ""
             }
           ]

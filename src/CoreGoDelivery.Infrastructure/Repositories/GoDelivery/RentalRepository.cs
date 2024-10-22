@@ -24,17 +24,10 @@ namespace CoreGoDelivery.Infrastructure.Repositories.GoDelivery
 
         public async Task<bool> CheckMotorcycleIsAvaliableAsync(string id)
         {
-            var motorcycleExists = Ok(await FindByMotorcycleId(id));
+            var result = await _context.Set<RentalEntity>()
+                .FirstOrDefaultAsync(x => x.MotorcycleId == id && x.ReturnedToBaseDate == null);
 
-            if (motorcycleExists)
-            {
-                var result = await _context.Set<RentalEntity>()
-                    .FirstOrDefaultAsync(x => x.MotorcycleId == id && x.ReturnedToBaseDate == null);
-
-                return Ok(result);
-            }
-
-            return false;
+            return !Ok(result);
         }
 
         public async Task<RentalEntity?> GetByIdAsync(string id)

@@ -5,7 +5,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.Commo
 {
     public class NormalizeFileNameLicense
     {
-        public string Normalize(string licenseNumber, FileExtensionEnum fileExtension)
+        public string Normalize(string licenseNumber, GetFileExtensionValidEnum fileExtension)
         {
             var fileName = new StringBuilder();
 

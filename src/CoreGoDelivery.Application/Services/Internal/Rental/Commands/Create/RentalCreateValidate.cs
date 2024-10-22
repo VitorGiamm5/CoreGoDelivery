@@ -12,6 +12,18 @@ namespace CoreGoDelivery.Application.Services.Internal.Rental.Commands.Create
         public readonly BuildMessageMotorcycleId _buildMessageMotorcycleId;
         public readonly BuildMessageDeliverierId _buildMessageDeliverierId;
 
+        public RentalCreateValidate(
+            IBaseInternalServices baseInternalServices, 
+            BuildMessagePlanId buildMessagePlanId, 
+            BuildMessageMotorcycleId buildMessageMotorcycleId, 
+            BuildMessageDeliverierId buildMessageDeliverierId)
+        {
+            _baseInternalServices = baseInternalServices;
+            _buildMessagePlanId = buildMessagePlanId;
+            _buildMessageMotorcycleId = buildMessageMotorcycleId;
+            _buildMessageDeliverierId = buildMessageDeliverierId;
+        }
+
         public async Task<string?> BuilderCreateValidator(RentalCreateCommand data)
         {
             var message = new StringBuilder();

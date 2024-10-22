@@ -27,7 +27,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.Creat
 
                     if (age < 18)
                     {
-                        message.AppendLine(DeliverierServiceConst.MESSAGE_INVALID_AGE);
+                        message.Append(DeliverierServiceConst.MESSAGE_INVALID_AGE);
                     }
                 }
             }

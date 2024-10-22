@@ -44,14 +44,14 @@ namespace CoreGoDelivery.Application.Services.Internal.Base
             return result;
         }
 
-        public string RemoveCharacteres(string? plateId)
+        public string RemoveCharacteres(string? plate)
         {
-            if (string.IsNullOrEmpty(plateId))
+            if (string.IsNullOrEmpty(plate))
             {
                 return "";
             }
 
-            var result = Regex.Replace(plateId, RegexCollectionPatterns.SPECIAL_CHARACTER_PATTERN, "").ToUpper();
+            var result = Regex.Replace(plate, @RegexCollectionPatterns.SPECIAL_CHARACTER_PATTERN, "").ToUpper();
 
             return result;
         }
