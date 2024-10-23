@@ -13,11 +13,6 @@ namespace CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.Creat
             {
                 message.AppendError(message, paramName);
             }
-            else
-            {
-
-                //TODO: validar regex patter
-            }
         }
     }
 }

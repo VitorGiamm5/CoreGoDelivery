@@ -20,7 +20,6 @@ namespace CoreGoDelivery.Application.Extensions
             return sb;
         }
 
-        //TODO: FIX IT
         public static void AppendErrorWithExpexted<T>(this StringBuilder message, T data, object? wantedValue, string butValue)
         {
             string result = $"" +

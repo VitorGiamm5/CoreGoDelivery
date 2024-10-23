@@ -8,4 +8,3 @@
         public const string PLATE_FORMAT_NEW = @"^[A-Z]{3}\d{1}[A-Z]{1}\d{2}$";
     }
 }
-//RegexCollectionPatterns.PLATE_FORMAT_OLD

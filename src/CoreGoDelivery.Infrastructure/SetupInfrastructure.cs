@@ -48,7 +48,6 @@ namespace CoreGoDelivery.Infrastructure
             }
             catch (Exception ex)
             {
-                // Log ou tratamento de erro
                 Console.WriteLine($"Erro ao aplicar as migrações: {ex.Message}");
                 throw;
             }

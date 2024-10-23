@@ -19,7 +19,7 @@ namespace CoreGoDelivery.Application.RabbitMQ.NotificationMotorcycle.Publisher
             using var channel = _connection.CreateModel();
 
             channel.QueueDeclare(queue: "motorcycle_queue",
-                                 durable: true,  // Certifique-se de que `durable` está alinhado
+                                 durable: true,
                                  exclusive: false,
                                  autoDelete: false,
                                  arguments: null);
