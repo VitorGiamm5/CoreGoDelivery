@@ -1,6 +1,8 @@
-﻿using CoreGoDelivery.Application.Services.Internal.Base;
+﻿using CoreGoDelivery.Application.Extensions;
+using CoreGoDelivery.Application.Services.Internal.Base;
 using CoreGoDelivery.Domain.Consts;
 using CoreGoDelivery.Domain.Entities.GoDelivery.Rental;
+using CoreGoDelivery.Domain.Enums.ServiceErrorMessage;
 using System.Text;
 
 namespace CoreGoDelivery.Application.Services.Internal.Rental.Commands.Update.Common
@@ -16,6 +18,15 @@ namespace CoreGoDelivery.Application.Services.Internal.Rental.Commands.Update.Co
 
         public string? Calculate(DateTime returnedToBaseDate, RentalEntity? rental)
         {
+            if (rental == null)
+            {
+                var messageError = new StringBuilder();
+
+                messageError.AppendError(messageError,  nameof(rental), AdditionalMessageEnum.NotFound );
+
+                return _baseInternalServices.BuildMessageValidator(messageError);
+            }
+
             TimeSpan buildDiffDays = returnedToBaseDate - rental!.EstimatedReturnDate;
 
             int diffDays = buildDiffDays.Days;
