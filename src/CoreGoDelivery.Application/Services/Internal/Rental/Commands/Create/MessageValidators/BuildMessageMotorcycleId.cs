@@ -31,8 +31,9 @@ namespace CoreGoDelivery.Application.Services.Internal.Rental.Commands.Create.Me
                     message.AppendError(message, nameof(data.MotorcycleId), AdditionalMessageEnum.NotFound);
                 }
 
-                var motocycleIsAvaliable = await _repositoryRental.CheckMotorcycleIsAvaliableAsync(data.MotorcycleId);
-                if (!motocycleIsAvaliable)
+                var motocycleIsInUse = await _repositoryRental.CheckMotorcycleIsAvaliable(data.MotorcycleId);
+
+                if (motocycleIsInUse)
                 {
                     message.AppendError(message, nameof(data.MotorcycleId), AdditionalMessageEnum.Unavailable);
                 }

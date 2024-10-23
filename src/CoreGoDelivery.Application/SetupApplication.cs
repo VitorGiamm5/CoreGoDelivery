@@ -18,7 +18,6 @@ using CoreGoDelivery.Application.Services.Internal.Rental.Commands.Update;
 using CoreGoDelivery.Application.Services.Internal.Rental.Commands.Update.Common;
 using CoreGoDelivery.Application.Services.Internal.Rental.Queries.GetOne;
 using CoreGoDelivery.Application.Services.Internal.Rental.Queries.GetOne.BuildMessage;
-using CoreGoDelivery.Domain.Consts;
 using CoreGoDelivery.Infrastructure;
 using CoreGoDelivery.Infrastructure.Database;
 using Microsoft.Extensions.Configuration;

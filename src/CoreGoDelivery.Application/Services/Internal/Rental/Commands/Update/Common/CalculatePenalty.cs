@@ -8,7 +8,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Rental.Commands.Update.Co
     public class CalculatePenalty
     {
         public readonly IBaseInternalServices _baseInternalServices;
-        
+
         public CalculatePenalty(IBaseInternalServices baseInternalServices)
         {
             _baseInternalServices = baseInternalServices;

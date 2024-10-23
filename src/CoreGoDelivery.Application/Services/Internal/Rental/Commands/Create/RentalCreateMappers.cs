@@ -13,9 +13,9 @@ namespace CoreGoDelivery.Application.Services.Internal.Rental.Commands.Create
                 EndDate = RentalDates.EndDate,
                 EstimatedReturnDate = RentalDates.EstimatedReturnDate,
                 ReturnedToBaseDate = null,
-                DeliverierId = data.DeliverierId,
-                MotorcycleId = data.MotorcycleId,
-                RentalPlanId = data.PlanId
+                DeliverierId = data?.DeliverierId,
+                MotorcycleId = data?.MotorcycleId,
+                RentalPlanId = data!.PlanId
             };
 
             return result;

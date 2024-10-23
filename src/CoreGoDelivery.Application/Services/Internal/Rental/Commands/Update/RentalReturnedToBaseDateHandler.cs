@@ -16,9 +16,9 @@ namespace CoreGoDelivery.Application.Services.Internal.Rental.Commands.Update
         public readonly CalculatePenalty _calculatePenalty;
 
         public RentalReturnedToBaseDateHandler(
-            IRentalRepository repositoryRental, 
-            RentalReturnedToBaseValidator validator, 
-            CalculateDatesByPlan calculateDatesByPlan, 
+            IRentalRepository repositoryRental,
+            RentalReturnedToBaseValidator validator,
+            CalculateDatesByPlan calculateDatesByPlan,
             CalculatePenalty calculatePenalty)
         {
             _repositoryRental = repositoryRental;

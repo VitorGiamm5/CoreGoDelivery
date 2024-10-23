@@ -14,9 +14,9 @@ namespace CoreGoDelivery.Domain.Entities.GoDelivery.Rental
 
         #region Relationships
 
-        public string DeliverierId { get; set; }
+        public string? DeliverierId { get; set; }
         public DeliverierEntity? Deliverier { get; set; }
-        public string MotorcycleId { get; set; }
+        public string? MotorcycleId { get; set; }
         public MotorcycleEntity? Motorcycle { get; set; }
         public int RentalPlanId { get; set; }
         public RentalPlanEntity? RentalPlan { get; set; }

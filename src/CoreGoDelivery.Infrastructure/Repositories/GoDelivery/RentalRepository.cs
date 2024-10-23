@@ -22,12 +22,12 @@ namespace CoreGoDelivery.Infrastructure.Repositories.GoDelivery
             return IsSuccessCreate(result);
         }
 
-        public async Task<bool> CheckMotorcycleIsAvaliableAsync(string id)
+        public async Task<bool> CheckMotorcycleIsAvaliable(string id)
         {
             var result = await _context.Set<RentalEntity>()
-                .FirstOrDefaultAsync(x => x.MotorcycleId == id && x.ReturnedToBaseDate == null);
+                .AnyAsync(x => x.MotorcycleId == id && x.ReturnedToBaseDate == null);
 
-            return !Ok(result);
+            return result;
         }
 
         public async Task<RentalEntity?> GetByIdAsync(string id)

@@ -23,6 +23,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Rental.Commands.Create.Me
             else
             {
                 var existDeliverierId = await _repositoryDeliverier.CheckIsUnicById(data.DeliverierId);
+
                 if (!existDeliverierId)
                 {
                     message.AppendError(message, nameof(data.DeliverierId), AdditionalMessageEnum.NotFound);

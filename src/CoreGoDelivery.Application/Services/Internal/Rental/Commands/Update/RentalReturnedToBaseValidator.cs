@@ -42,9 +42,9 @@ namespace CoreGoDelivery.Application.Services.Internal.Rental.Commands.Update
             }
             else
             {
-                var motorcycleIsAvaliable = await _repositoryRental.CheckMotorcycleIsAvaliableAsync(rentalEntity.MotorcycleId);
+                var motorcycleIsAvaliable = await _repositoryRental.CheckMotorcycleIsAvaliable(rentalEntity.MotorcycleId);
 
-                if (motorcycleIsAvaliable)
+                if (!motorcycleIsAvaliable)
                 {
                     message.Append($"Invalid field: {nameof(rentalEntity.ReturnedToBaseDate)} was returned previously at: {rentalEntity.ReturnedToBaseDate}; ");
                 }

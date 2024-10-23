@@ -22,7 +22,7 @@ namespace CoreGoDelivery.Application.RabbitMQ.NotificationMotorcycle.Consumer
             _serviceScopeFactory = serviceScopeFactory;
         }
 
-        public void  ConsumeMessages()
+        public void ConsumeMessages()
         {
             using var channel = _connection.CreateModel();
 

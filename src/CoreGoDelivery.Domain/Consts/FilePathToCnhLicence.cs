@@ -1,6 +1,4 @@
-﻿using CoreGoDelivery.Domain.Consts;
-
-namespace CoreGoDelivery.Domain.Consts
+﻿namespace CoreGoDelivery.Domain.Consts
 {
     public class FilePathToCnhLicence
     {

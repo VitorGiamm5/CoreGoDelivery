@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace CoreGoDelivery.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241021162328_CreateTbNotificationMotorcycle")]
-    partial class CreateTbNotificationMotorcycle
+    [Migration("20241023044244_InicialBase")]
+    partial class InicialBase
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

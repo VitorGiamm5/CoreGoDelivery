@@ -53,7 +53,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.Creat
 
             apiReponse.Message = _baseInternalServices.FinalMessageBuild(resultCreate, apiReponse);
 
-            if(apiReponse.HasError())
+            if (apiReponse.HasError())
             {
                 apiReponse.Data = null;
                 return apiReponse;

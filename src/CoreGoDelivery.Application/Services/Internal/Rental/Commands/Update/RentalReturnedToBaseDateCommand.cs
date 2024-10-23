@@ -7,7 +7,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Rental.Commands.Update
 {
     public class RentalReturnedToBaseDateCommand : IRequest<ApiResponse>
     {
-        [DefaultValue("2024-01-07T23:59:59Z")]
+        [DefaultValue("2024-01-07")]
         [JsonPropertyName("data_devolucao")]
         public DateTime? ReturnedToBaseDate { get; set; }
 

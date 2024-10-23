@@ -29,22 +29,31 @@ namespace CoreGoDelivery.Application.Services.Internal.Motorcycle.Commands.Delet
             if (string.IsNullOrEmpty(idMotorcycle))
             {
                 message.AppendError(message, nameof(idMotorcycle));
+
+                return _baseInternalServices.BuildMessageValidator(message);
             }
-            else
+
+            var motorcycle = await _repositoryMotorcycle.GetOneByIdAsync(idMotorcycle);
+
+            if (motorcycle == null)
             {
-                var motorcycle = await _repositoryMotorcycle.GetOneByIdAsync(idMotorcycle);
+                message.AppendError(message, nameof(idMotorcycle), AdditionalMessageEnum.NotFound);
 
-                if (motorcycle == null)
-                {
-                    message.AppendError(message, nameof(idMotorcycle), AdditionalMessageEnum.NotFound);
-                }
+                return _baseInternalServices.BuildMessageValidator(message);
+            }
 
-                var motorcycleIsInUse = await _rentalRepository.FindByMotorcycleId(idMotorcycle);
+            var rental = await _rentalRepository.FindByMotorcycleId(idMotorcycle);
 
-                if (motorcycleIsInUse != null)
-                {
-                    message.AppendError(message, nameof(idMotorcycle), AdditionalMessageEnum.Unavailable);
-                }
+            if (rental == null)
+            {
+                return _baseInternalServices.BuildMessageValidator(message);
+            }
+
+            var motorcycleIsAvaliable = await _rentalRepository.CheckMotorcycleIsAvaliable(idMotorcycle);
+
+            if (!motorcycleIsAvaliable)
+            {
+                message.AppendError(message, nameof(idMotorcycle), AdditionalMessageEnum.Unavailable);
             }
 
             return _baseInternalServices.BuildMessageValidator(message);

@@ -16,12 +16,12 @@ namespace CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.Creat
         public readonly BuildMessageCnh _buildMessageCnh;
 
         public DeliverierCreateValidator(
-            IBaseInternalServices baseInternalServices, 
-            BuildMessageCnpj buildMessageCnpj, 
-            BuildMessageFullName buildMessageFullName, 
-            BuildMessageBirthDate buildMessageBirthDate, 
-            BuildMessageLicenseType buildMessageLicenseType, 
-            BuildMessageDeliverierCreate buildMessageCreate, 
+            IBaseInternalServices baseInternalServices,
+            BuildMessageCnpj buildMessageCnpj,
+            BuildMessageFullName buildMessageFullName,
+            BuildMessageBirthDate buildMessageBirthDate,
+            BuildMessageLicenseType buildMessageLicenseType,
+            BuildMessageDeliverierCreate buildMessageCreate,
             BuildMessageCnh buildMessageCnh)
         {
             _baseInternalServices = baseInternalServices;

@@ -15,7 +15,9 @@ namespace CoreGoDelivery.Application.Services.Internal.Motorcycle.Commands.Creat
             _publisher = publisher;
         }
 
+#pragma warning disable CS1998 
         public async Task SendNotification(MotorcycleEntity motocycle)
+#pragma warning restore CS1998
         {
             if (motocycle.YearManufacture == YEAR_MANUFACTORY_TO_SEND_MESSAGE)
             {

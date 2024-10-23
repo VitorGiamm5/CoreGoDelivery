@@ -8,6 +8,6 @@ namespace CoreGoDelivery.Domain.Repositories.GoDelivery
         Task<RentalEntity?> GetByIdAsync(string id);
         Task<bool> Create(RentalEntity data);
         Task<bool> UpdateReturnedToBaseDate(string id, DateTime data);
-        Task<bool> CheckMotorcycleIsAvaliableAsync(string id);
+        Task<bool> CheckMotorcycleIsAvaliable(string id);
     }
 }

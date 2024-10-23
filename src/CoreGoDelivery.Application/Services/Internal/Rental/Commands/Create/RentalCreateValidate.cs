@@ -13,9 +13,9 @@ namespace CoreGoDelivery.Application.Services.Internal.Rental.Commands.Create
         public readonly BuildMessageDeliverierId _buildMessageDeliverierId;
 
         public RentalCreateValidate(
-            IBaseInternalServices baseInternalServices, 
-            BuildMessagePlanId buildMessagePlanId, 
-            BuildMessageMotorcycleId buildMessageMotorcycleId, 
+            IBaseInternalServices baseInternalServices,
+            BuildMessagePlanId buildMessagePlanId,
+            BuildMessageMotorcycleId buildMessageMotorcycleId,
             BuildMessageDeliverierId buildMessageDeliverierId)
         {
             _baseInternalServices = baseInternalServices;

@@ -43,18 +43,18 @@ namespace CoreGoDelivery.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "tb_motocycle",
+                name: "tb_notificationMotorcycle",
                 schema: "dbgodelivery",
                 columns: table => new
                 {
-                    ID_MOTOCYCLE = table.Column<string>(type: "text", nullable: false),
+                    ID_NOTIFICATION = table.Column<string>(type: "text", nullable: false),
+                    ID_MOTORCYCLE = table.Column<string>(type: "text", nullable: false),
                     YEAR_MANUFACTURE = table.Column<int>(type: "integer", nullable: false),
-                    PLATE_NORMALIZED = table.Column<string>(type: "text", nullable: false),
-                    ID_FK_MODEL_MOTOCYCLE = table.Column<string>(type: "text", nullable: false)
+                    DATE_CREATED = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_tb_motocycle", x => x.ID_MOTOCYCLE);
+                    table.PrimaryKey("PK_tb_notificationMotorcycle", x => x.ID_NOTIFICATION);
                 });
 
             migrationBuilder.CreateTable(
@@ -92,7 +92,29 @@ namespace CoreGoDelivery.Infrastructure.Migrations
                         principalSchema: "dbgodelivery",
                         principalTable: "tb_licenceDriver",
                         principalColumn: "ID_LICENSE_DRIVER",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.SetNull);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "tb_motocycle",
+                schema: "dbgodelivery",
+                columns: table => new
+                {
+                    ID_MOTOCYCLE = table.Column<string>(type: "text", nullable: false),
+                    YEAR_MANUFACTURE = table.Column<int>(type: "integer", nullable: false),
+                    PLATE_NORMALIZED = table.Column<string>(type: "text", nullable: false),
+                    ID_FK_MODEL_MOTOCYCLE = table.Column<string>(type: "text", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_tb_motocycle", x => x.ID_MOTOCYCLE);
+                    table.ForeignKey(
+                        name: "FK_tb_motocycle_tb_modelMotorcycle_ID_FK_MODEL_MOTOCYCLE",
+                        column: x => x.ID_FK_MODEL_MOTOCYCLE,
+                        principalSchema: "dbgodelivery",
+                        principalTable: "tb_modelMotorcycle",
+                        principalColumn: "ID_MODEL_MOTORCYCLE",
+                        onDelete: ReferentialAction.SetNull);
                 });
 
             migrationBuilder.CreateTable(
@@ -118,21 +140,21 @@ namespace CoreGoDelivery.Infrastructure.Migrations
                         principalSchema: "dbgodelivery",
                         principalTable: "tb_deliverier",
                         principalColumn: "ID_DELIVERIER",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.SetNull);
                     table.ForeignKey(
                         name: "FK_tb_rental_tb_motocycle_ID_FK_MOTOCYCLE",
                         column: x => x.ID_FK_MOTOCYCLE,
                         principalSchema: "dbgodelivery",
                         principalTable: "tb_motocycle",
                         principalColumn: "ID_MOTOCYCLE",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.SetNull);
                     table.ForeignKey(
                         name: "FK_tb_rental_tb_rentalPlan_ID_FK_RENTAL_PLAN",
                         column: x => x.ID_FK_RENTAL_PLAN,
                         principalSchema: "dbgodelivery",
                         principalTable: "tb_rentalPlan",
                         principalColumn: "ID_RENTAL_PLAN",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.SetNull);
                 });
 
             migrationBuilder.CreateIndex(
@@ -140,6 +162,12 @@ namespace CoreGoDelivery.Infrastructure.Migrations
                 schema: "dbgodelivery",
                 table: "tb_deliverier",
                 column: "ID_FK_LICENSE_DRIVER");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_tb_motocycle_ID_FK_MODEL_MOTOCYCLE",
+                schema: "dbgodelivery",
+                table: "tb_motocycle",
+                column: "ID_FK_MODEL_MOTOCYCLE");
 
             migrationBuilder.CreateIndex(
                 name: "IX_tb_rental_ID_FK_DELIVERIER",
@@ -164,7 +192,7 @@ namespace CoreGoDelivery.Infrastructure.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "tb_modelMotorcycle",
+                name: "tb_notificationMotorcycle",
                 schema: "dbgodelivery");
 
             migrationBuilder.DropTable(
@@ -185,6 +213,10 @@ namespace CoreGoDelivery.Infrastructure.Migrations
 
             migrationBuilder.DropTable(
                 name: "tb_licenceDriver",
+                schema: "dbgodelivery");
+
+            migrationBuilder.DropTable(
+                name: "tb_modelMotorcycle",
                 schema: "dbgodelivery");
         }
     }
