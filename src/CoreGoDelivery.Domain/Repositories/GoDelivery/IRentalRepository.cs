@@ -9,5 +9,6 @@ namespace CoreGoDelivery.Domain.Repositories.GoDelivery
         Task<bool> Create(RentalEntity data);
         Task<bool> UpdateReturnedToBaseDate(string id, DateTime data);
         Task<bool> CheckMotorcycleIsAvaliable(string id);
+        Task<bool> CheckisReturnedById(string id);
     }
 }

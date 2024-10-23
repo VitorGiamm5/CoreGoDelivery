@@ -42,9 +42,9 @@ namespace CoreGoDelivery.Application.Services.Internal.Rental.Commands.Update
             }
             else
             {
-                var motorcycleIsAvaliable = await _repositoryRental.CheckMotorcycleIsAvaliable(rentalEntity.MotorcycleId);
+                var isReturned = await _repositoryRental.CheckisReturnedById(data.Id);
 
-                if (!motorcycleIsAvaliable)
+                if (isReturned)
                 {
                     message.Append($"Invalid field: {nameof(rentalEntity.ReturnedToBaseDate)} was returned previously at: {rentalEntity.ReturnedToBaseDate}; ");
                 }
@@ -56,7 +56,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Rental.Commands.Update
 
             if (data?.ReturnedToBaseDate == null)
             {
-                message.AppendError(message, "ReturnedToBaseDate");
+                message.AppendError(message, nameof(data.ReturnedToBaseDate));
             }
             else
             {
@@ -64,7 +64,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Rental.Commands.Update
 
                 if (!isAfterDateStart)
                 {
-                    message.Append($"Invalid field: {"ReturnedToBaseDate"} : {data?.ReturnedToBaseDate} must be after 'StartDate' : {rentalEntity?.StartDate}; ");
+                    message.Append($"Invalid field: {nameof(data.ReturnedToBaseDate)} : {data?.ReturnedToBaseDate} must be after 'StartDate' : {rentalEntity?.StartDate}; ");
                 }
             }
 

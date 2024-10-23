@@ -64,5 +64,15 @@ namespace CoreGoDelivery.Infrastructure.Repositories.GoDelivery
 
             return result;
         }
+
+        public async Task<bool> CheckisReturnedById(string id)
+        {
+            var rental = await _context.Set<RentalEntity>()
+                .FirstOrDefaultAsync(x => x.Id == id);
+
+            var isReturned = rental?.ReturnedToBaseDate != null;
+
+            return isReturned;
+        }
     }
 }
