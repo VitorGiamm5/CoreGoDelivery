@@ -40,10 +40,7 @@ namespace CoreGoDelivery.Application
 
             services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
 
-            // Registrar as configurações do RabbitMQ
             services.Configure<RabbitMQSettings>(options => configuration.GetSection("RabbitMQ").Bind(options));
-
-            // Registrar o RabbitMQPublisher como Singleton
 
             services.AddSingleton<IConnection>(sp =>
             {
@@ -58,9 +55,7 @@ namespace CoreGoDelivery.Application
             });
             services.TryAddSingleton<RabbitMQPublisher>();
 
-            services.AddSingleton<RabbitMqConsumer>(); // Registrar o consumidor no DI
-
-            // Registrar o DbContext como Scoped
+            services.AddSingleton<RabbitMqConsumer>(); 
 
             return services;
         }
@@ -86,14 +81,16 @@ namespace CoreGoDelivery.Application
             services.TryAddScoped<BuildMessageCnh>();
             services.TryAddScoped<BuildMessageDeliverierCreate>();
 
-            services.TryAddScoped<NormalizeFileNameLicense>();
+            services.TryAddScoped<BuildFileName>();
             services.TryAddScoped<ParseLicenseType>();
             services.TryAddScoped<BuildMessageBirthDate>();
             services.TryAddScoped<BuildMessageCnpj>();
             services.TryAddScoped<BuildMessageFullName>();
             services.TryAddScoped<BuildMessageLicenseType>();
+
             services.TryAddScoped<DeliverierCreateMappers>();
             services.TryAddScoped<DeliverierCreateValidator>();
+
             services.TryAddScoped<MotorcycleChangePlateValidator>();
             services.TryAddScoped<MotorcycleCreateNotification>();
             services.TryAddScoped<MotorcycleCreateValidator>();
@@ -104,7 +101,9 @@ namespace CoreGoDelivery.Application
             services.TryAddScoped<SaveOrReplaceLicenseImageAsync>();
             services.TryAddScoped<DeliverierUploadCnhValidator>();
 
-            services.TryAddScoped<GetFileExtensionValid>();
+            services.TryAddScoped<BuildExtensionFile>();
+            services.TryAddScoped<BuilderCreateImage>();
+            services.TryAddScoped<BuilderUpdateImage>();
 
             return services;
         }

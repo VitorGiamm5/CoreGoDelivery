@@ -10,28 +10,20 @@ namespace CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.Uploa
 {
     public class DeliverierUploadCnhHandler : IRequestHandler<DeliverierUploadCnhCommand, ApiResponse>
     {
-        public readonly IDeliverierRepository _repositoryDeliverier;
-        public readonly IBaseInternalServices _baseInternalServices;
+        public readonly DeliverierUploadCnhValidator _validator;
+        public readonly BuilderCreateImage _builderCreateImage;
+        public readonly BuilderUpdateImage _builderUpdateImage;
 
-        public readonly NormalizeFileNameLicense _normalizeFileNameLicense;
-        public readonly DeliverierUploadCnhValidator _deliverierUploadCnhValidator;
-        public readonly SaveOrReplaceLicenseImageAsync _saveLicenseFile;
-        public readonly GetFileExtensionValid _getExtensionFile;
+        public readonly string UPLOAD_FOLDER = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), @"..\..\uploads_cnh"));
 
         public DeliverierUploadCnhHandler(
-            IDeliverierRepository repositoryDeliverier,
-            IBaseInternalServices baseInternalServices,
-            NormalizeFileNameLicense normalizeFileNameLicense,
-            DeliverierUploadCnhValidator deliverierUploadCnhValidator,
-            SaveOrReplaceLicenseImageAsync saveLicenseFile,
-            GetFileExtensionValid getExtensionFile)
+            DeliverierUploadCnhValidator validator,
+            BuilderCreateImage builderCreateImage, 
+            BuilderUpdateImage builderUpdateImage)
         {
-            _repositoryDeliverier = repositoryDeliverier;
-            _baseInternalServices = baseInternalServices;
-            _normalizeFileNameLicense = normalizeFileNameLicense;
-            _deliverierUploadCnhValidator = deliverierUploadCnhValidator;
-            _saveLicenseFile = saveLicenseFile;
-            _getExtensionFile = getExtensionFile;
+            _validator = validator;
+            _builderCreateImage = builderCreateImage;
+            _builderUpdateImage = builderUpdateImage;
         }
 
         public async Task<ApiResponse> Handle(DeliverierUploadCnhCommand command, CancellationToken cancellationToken)
@@ -39,31 +31,20 @@ namespace CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.Uploa
             var apiReponse = new ApiResponse
             {
                 Data = null,
-                Message = await _deliverierUploadCnhValidator.Build(command)
+                Message = await _validator.Build(command)
             };
 
-            var (_, _, fileExtension) = _getExtensionFile.Get(command.LicenseImageBase64);
-
-            //work area
-            if (command.HasIdDeliverier())
+            if (apiReponse.HasError())
             {
-                var deliveier = await _repositoryDeliverier.GetOneById(command.IdDeliverier!);
-
-                command.IdLicense = deliveier!.LicenceDriverId;
+                return apiReponse;
             }
 
-            if (command.HasIdLicense())
+            if (command.IsUpdate)
             {
-                var deliveier = await _repositoryDeliverier.GetOneByIdLicense(command.IdLicense!);
-
-                command.IdDeliverier = deliveier!.Id;
+                return await _builderUpdateImage.Build(UPLOAD_FOLDER, command, apiReponse);
             }
 
-            var imagePath = await _saveLicenseFile.SaveOrReplace(command, fileExtension);
-
-            apiReponse.Data = new { message = $"Imagem da CNH salva/substituída com sucesso, path: {imagePath}" };
-
-            return apiReponse;
+            return await _builderCreateImage.Build(UPLOAD_FOLDER, command, apiReponse);
         }
     }
 }

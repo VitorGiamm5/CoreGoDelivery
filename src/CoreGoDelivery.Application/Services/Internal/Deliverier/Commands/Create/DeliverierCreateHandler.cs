@@ -61,8 +61,10 @@ namespace CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.Creat
 
             var deliverierUpload = new DeliverierUploadCnhCommand()
             {
-                IdLicense = deliverier.LicenceDriverId,
-                LicenseImageBase64 = request.LicenseImageBase64
+                IdDeliverier = deliverier.Id,
+                IdLicense = deliverier.LicenceDriver.Id,
+                LicenseImageBase64 = request.LicenseImageBase64,
+                IsUpdate = false
             };
 
             apiReponse = await _mediator.Send(deliverierUpload);

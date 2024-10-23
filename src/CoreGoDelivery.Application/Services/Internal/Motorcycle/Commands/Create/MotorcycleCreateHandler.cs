@@ -9,7 +9,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Motorcycle.Commands.Creat
     public class MotorcycleCreateHandler : IRequestHandler<MotorcycleCreateCommand, ApiResponse>
     {
         public readonly IBaseInternalServices _baseInternalServices;
-        public readonly IMotocycleRepository _repositoryMotorcycle;
+        public readonly IMotorcycleRepository _repositoryMotorcycle;
 
         private readonly MotorcycleCreateValidator _validator;
         private readonly MotorcycleServiceMappers _mapper;
@@ -17,7 +17,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Motorcycle.Commands.Creat
 
         public MotorcycleCreateHandler(
             IBaseInternalServices baseInternalServices,
-            IMotocycleRepository repositoryMotorcycle,
+            IMotorcycleRepository repositoryMotorcycle,
             MotorcycleCreateValidator validator,
             MotorcycleServiceMappers mapper,
             MotorcycleCreateNotification notification)
@@ -42,13 +42,13 @@ namespace CoreGoDelivery.Application.Services.Internal.Motorcycle.Commands.Creat
                 return apiReponse;
             }
 
-            var motocycle = _mapper.MapCreateToEntity(request);
+            var motorcycle = _mapper.MapCreateToEntity(request);
 
-            var resultCreate = await _repositoryMotorcycle.Create(motocycle);
+            var resultCreate = await _repositoryMotorcycle.Create(motorcycle);
 
             apiReponse!.Message = _baseInternalServices.FinalMessageBuild(resultCreate, apiReponse);
 
-            await _notification.SendNotification(motocycle);
+            await _notification.SendNotification(motorcycle);
 
             return apiReponse;
         }

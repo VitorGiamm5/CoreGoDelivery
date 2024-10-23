@@ -8,16 +8,16 @@ namespace CoreGoDelivery.Application.Services.Internal.Motorcycle.Commands.Chang
 {
     public class MotorcycleChangePlateHandler : IRequestHandler<MotorcycleChangePlateCommand, ApiResponse>
     {
-        public readonly IMotocycleRepository _repositoryMotorcycle;
-        public readonly IModelMotocycleRepository _repositoryModelMotorcycle;
+        public readonly IMotorcycleRepository _repositoryMotorcycle;
+        public readonly IModelMotorcycleRepository _repositoryModelMotorcycle;
         public readonly IRentalRepository _rentalRepository;
         public readonly IBaseInternalServices _baseInternalServices;
 
         public readonly MotorcycleChangePlateValidator _validator;
 
         public MotorcycleChangePlateHandler(
-            IMotocycleRepository repositoryMotorcycle,
-            IModelMotocycleRepository repositoryModelMotorcycle,
+            IMotorcycleRepository repositoryMotorcycle,
+            IModelMotorcycleRepository repositoryModelMotorcycle,
             IRentalRepository rentalRepository,
             IBaseInternalServices baseInternalServices,
             MotorcycleChangePlateValidator validator)

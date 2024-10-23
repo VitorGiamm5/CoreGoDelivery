@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace CoreGoDelivery.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241023054000_UpdateRequestIdFkMotorcycle")]
-    partial class UpdateRequestIdFkMotorcycle
+    [Migration("20241023064912_InicialBase")]
+    partial class InicialBase
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -103,12 +103,12 @@ namespace CoreGoDelivery.Infrastructure.Migrations
                 {
                     b.Property<string>("Id")
                         .HasColumnType("text")
-                        .HasColumnName("ID_MOTOCYCLE");
+                        .HasColumnName("ID_MOTORCYCLE");
 
                     b.Property<string>("ModelMotorcycleId")
                         .IsRequired()
                         .HasColumnType("text")
-                        .HasColumnName("ID_FK_MODEL_MOTOCYCLE");
+                        .HasColumnName("ID_FK_MODEL_MOTORCYCLE");
 
                     b.Property<string>("PlateNormalized")
                         .IsRequired()
@@ -123,7 +123,7 @@ namespace CoreGoDelivery.Infrastructure.Migrations
 
                     b.HasIndex("ModelMotorcycleId");
 
-                    b.ToTable("tb_motocycle", "dbgodelivery");
+                    b.ToTable("tb_motorcycle", "dbgodelivery");
                 });
 
             modelBuilder.Entity("CoreGoDelivery.Domain.Entities.GoDelivery.NotificationMotorcycle.NotificationMotorcycleEntity", b =>
@@ -170,7 +170,7 @@ namespace CoreGoDelivery.Infrastructure.Migrations
 
                     b.Property<string>("MotorcycleId")
                         .HasColumnType("text")
-                        .HasColumnName("ID_FK_MOTOCYCLE");
+                        .HasColumnName("ID_FK_MOTORCYCLE");
 
                     b.Property<int>("RentalPlanId")
                         .HasColumnType("integer")

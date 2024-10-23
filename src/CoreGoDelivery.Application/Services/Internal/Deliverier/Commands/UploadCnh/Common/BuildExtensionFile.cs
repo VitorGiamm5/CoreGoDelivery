@@ -2,9 +2,9 @@
 
 namespace CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.UploadCnh.Common
 {
-    public class GetFileExtensionValid
+    public class BuildExtensionFile
     {
-        public (bool isValid, string errorMessage, GetFileExtensionValidEnum fileExtension) Get(byte[] imageBytes)
+        public (bool isValid, string errorMessage, FileExtensionValidEnum fileExtension) Build(byte[] imageBytes)
         {
             using (var ms = new MemoryStream(imageBytes))
             {
@@ -12,15 +12,15 @@ namespace CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.Uploa
 
                 if (image.RawFormat.Equals(System.Drawing.Imaging.ImageFormat.Png))
                 {
-                    return (true, "", GetFileExtensionValidEnum.png);
+                    return (true, "", FileExtensionValidEnum.png);
                 }
                 else if (image.RawFormat.Equals(System.Drawing.Imaging.ImageFormat.Bmp))
                 {
-                    return (true, "", GetFileExtensionValidEnum.bpm);
+                    return (true, "", FileExtensionValidEnum.bpm);
                 }
                 else
                 {
-                    return (false, "Somente imagens no formato PNG ou BMP são permitidas.", GetFileExtensionValidEnum.none);
+                    return (false, "Format image file is invalid", FileExtensionValidEnum.none);
                 }
             }
         }

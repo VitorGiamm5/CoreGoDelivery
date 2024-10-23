@@ -10,13 +10,13 @@ namespace CoreGoDelivery.Application.Services.Internal.Motorcycle.Queries.List
     public class MotorcycleListQueryHandler : IRequestHandler<MotorcycleListQueryCommand, ApiResponse>
     {
         public readonly IBaseInternalServices _baseInternalServices;
-        public readonly IMotocycleRepository _repositoryMotorcycle;
+        public readonly IMotorcycleRepository _repositoryMotorcycle;
 
         private readonly MotorcycleServiceMappers _mapper;
 
         public MotorcycleListQueryHandler(
             IBaseInternalServices baseInternalServices,
-            IMotocycleRepository repositoryMotorcycle,
+            IMotorcycleRepository repositoryMotorcycle,
             MotorcycleServiceMappers mapper)
         {
             _baseInternalServices = baseInternalServices;
@@ -41,9 +41,9 @@ namespace CoreGoDelivery.Application.Services.Internal.Motorcycle.Queries.List
                 return apiReponse;
             }
 
-            var motocycleDtos = _mapper.MapEntityListToDto(result);
+            var motorcycleDtos = _mapper.MapEntityListToDto(result);
 
-            apiReponse.Data = motocycleDtos;
+            apiReponse.Data = motorcycleDtos;
             apiReponse.Message = null;
 
             return apiReponse;

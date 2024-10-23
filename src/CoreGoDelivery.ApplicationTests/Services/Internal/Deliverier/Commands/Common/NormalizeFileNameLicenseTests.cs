@@ -21,10 +21,10 @@ namespace CoreGoDelivery.ApplicationTests.Services.Internal.Deliverier.Commands.
             {
                 LicenseNumber = licenseNumber
             };
-            var yourClass = new NormalizeFileNameLicense();
+            var yourClass = new BuildFileName();
 
             // Act
-            var result = yourClass.Normalize(command.LicenseNumber, GetFileExtensionValidEnum.none);
+            var result = yourClass.Build(command.LicenseNumber, FileExtensionValidEnum.none);
 
             // Assert
             Assert.Equal(expectedFileName, result);

@@ -6,12 +6,12 @@ namespace CoreGoDelivery.Application.Services.Internal.Motorcycle.Commands.Delet
 {
     public class MotorcycleDeleteHandler : IRequestHandler<MotorcycleDeleteCommand, ApiResponse>
     {
-        public readonly IMotocycleRepository _repositoryMotorcycle;
+        public readonly IMotorcycleRepository _repositoryMotorcycle;
 
         private readonly MotorcycleDeleteValidator _validator;
 
         public MotorcycleDeleteHandler(
-            IMotocycleRepository repositoryMotorcycle,
+            IMotorcycleRepository repositoryMotorcycle,
             MotorcycleDeleteValidator validator)
         {
             _repositoryMotorcycle = repositoryMotorcycle;

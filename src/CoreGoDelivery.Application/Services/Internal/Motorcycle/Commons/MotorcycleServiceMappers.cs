@@ -15,11 +15,11 @@ namespace CoreGoDelivery.Application.Services.Internal.Motorcycle.Commons
 
         public List<MotorcycleCreateCommand> MapEntityListToDto(List<MotorcycleEntity>? entity)
         {
-            List<MotorcycleCreateCommand> motocycleDtos = [];
+            List<MotorcycleCreateCommand> motorcycleDtos = [];
 
             if (entity != null)
             {
-                var resultDto = motocycleDtos = entity
+                var resultDto = motorcycleDtos = entity
                      .Select(motorcycle => MapEntityToDto(motorcycle))
                      .ToList();
 

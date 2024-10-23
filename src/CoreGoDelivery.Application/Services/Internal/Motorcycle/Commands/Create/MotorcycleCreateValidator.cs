@@ -9,13 +9,13 @@ namespace CoreGoDelivery.Application.Services.Internal.Motorcycle.Commands.Creat
 {
     public class MotorcycleCreateValidator
     {
-        public readonly IMotocycleRepository _repositoryMotorcycle;
-        public readonly IModelMotocycleRepository _repositoryModelMotorcycle;
+        public readonly IMotorcycleRepository _repositoryMotorcycle;
+        public readonly IModelMotorcycleRepository _repositoryModelMotorcycle;
         public readonly IBaseInternalServices _baseInternalServices;
 
         public MotorcycleCreateValidator(
-            IMotocycleRepository repositoryMotorcycle,
-            IModelMotocycleRepository repositoryModelMotorcycle,
+            IMotorcycleRepository repositoryMotorcycle,
+            IModelMotorcycleRepository repositoryModelMotorcycle,
             IBaseInternalServices baseInternalServices)
         {
             _repositoryMotorcycle = repositoryMotorcycle;

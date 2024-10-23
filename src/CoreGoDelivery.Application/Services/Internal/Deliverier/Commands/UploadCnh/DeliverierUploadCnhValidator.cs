@@ -3,6 +3,7 @@ using CoreGoDelivery.Application.Services.Internal.Base;
 using CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.UploadCnh.Common;
 using CoreGoDelivery.Domain.Enums.ServiceErrorMessage;
 using CoreGoDelivery.Domain.Repositories.GoDelivery;
+using CoreGoDelivery.Domain.Response;
 using System.Text;
 
 namespace CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.UploadCnh
@@ -12,12 +13,12 @@ namespace CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.Uploa
         public readonly IBaseInternalServices _baseInternalServices;
         public readonly IDeliverierRepository _repositoryDeliverier;
 
-        public readonly GetFileExtensionValid _getExtensionFile;
+        public readonly BuildExtensionFile _getExtensionFile;
 
         public DeliverierUploadCnhValidator(
             IBaseInternalServices baseInternalServices,
             IDeliverierRepository repositoryDeliverier,
-            GetFileExtensionValid getExtensionFile)
+            BuildExtensionFile getExtensionFile)
         {
             _baseInternalServices = baseInternalServices;
             _repositoryDeliverier = repositoryDeliverier;
@@ -27,6 +28,22 @@ namespace CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.Uploa
         public async Task<string?> Build(DeliverierUploadCnhCommand command)
         {
             var message = new StringBuilder();
+
+            if (command.IsUpdate)
+            {
+                var deliverier = await _repositoryDeliverier.GetOneById(command.IdDeliverier!);
+
+                if (deliverier == null)
+                {
+                    message.AppendError(message, nameof(command.IdDeliverier), AdditionalMessageEnum.NotFound);
+
+                    return _baseInternalServices.BuildMessageValidator(message);
+                }
+                else
+                {
+                    command.IdLicense = deliverier.LicenceDriverId;
+                }
+            }
 
             if (command.LicenseImageBase64.Length > 10 * 1024 * 1024)
             {
@@ -38,29 +55,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.Uploa
                 message.AppendError(message, command.StringFieldsName(), AdditionalMessageEnum.Required);
             }
 
-            if (command.HasIdDeliverier())
-            {
-                var deliverier = command?.IdDeliverier != null
-                    ? await _repositoryDeliverier.GetOneById(command.IdDeliverier)
-                    : null;
-
-                if (deliverier == null)
-                {
-                    message.AppendError(message, nameof(command.IdDeliverier), AdditionalMessageEnum.InvalidFormat);
-                }
-            }
-
-            if (command!.HasIdLicense())
-            {
-                var deliverier = await _repositoryDeliverier.GetOneByIdLicense(command.IdLicense!);
-
-                if (deliverier == null)
-                {
-                    message.AppendError(message, nameof(command.IdLicense), AdditionalMessageEnum.InvalidFormat);
-                }
-            }
-
-            var (isValid, errorMessage, fileExtension) = _getExtensionFile.Get(command.LicenseImageBase64);
+            var (isValid, errorMessage, _) = _getExtensionFile.Build(command.LicenseImageBase64);
 
             if (!isValid)
             {

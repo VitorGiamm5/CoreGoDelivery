@@ -16,16 +16,16 @@ namespace CoreGoDelivery.Application.Services.Internal.Motorcycle.Commands.Creat
         }
 
 #pragma warning disable CS1998 
-        public async Task SendNotification(MotorcycleEntity motocycle)
+        public async Task SendNotification(MotorcycleEntity motorcycle)
 #pragma warning restore CS1998
         {
-            if (motocycle.YearManufacture == YEAR_MANUFACTORY_TO_SEND_MESSAGE)
+            if (motorcycle.YearManufacture == YEAR_MANUFACTORY_TO_SEND_MESSAGE)
             {
                 var motorcycleNotification = new NotificationMotorcycleDto()
                 {
                     Id = Ulid.NewUlid().ToString(),
-                    IdMotorcycle = motocycle.Id,
-                    YearManufacture = motocycle.YearManufacture,
+                    IdMotorcycle = motorcycle.Id,
+                    YearManufacture = motorcycle.YearManufacture,
                     CreatedAt = DateTime.UtcNow
                 };
 

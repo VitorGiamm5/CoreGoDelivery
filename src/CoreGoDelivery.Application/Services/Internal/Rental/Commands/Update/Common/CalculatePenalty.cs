@@ -22,7 +22,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Rental.Commands.Update.Co
             {
                 var messageError = new StringBuilder();
 
-                messageError.AppendError(messageError,  nameof(rental), AdditionalMessageEnum.NotFound );
+                messageError.AppendError(messageError, nameof(rental), AdditionalMessageEnum.NotFound);
 
                 return _baseInternalServices.BuildMessageValidator(messageError);
             }

@@ -11,7 +11,7 @@ namespace CoreGoDelivery.Api.Controllers
 {
     [Route("motos")]
     [ApiController]
-    public class MotocycleController(IMediator _mediator) : BaseApiController
+    public class MotorcycleController(IMediator _mediator) : BaseApiController
     {
         [HttpGet]
         public async Task<IActionResult> List([FromQuery] MotorcycleListQueryCommand request)

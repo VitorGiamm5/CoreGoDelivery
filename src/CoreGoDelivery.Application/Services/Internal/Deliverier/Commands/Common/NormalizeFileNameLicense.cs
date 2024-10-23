@@ -3,9 +3,9 @@ using System.Text;
 
 namespace CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.Common
 {
-    public class NormalizeFileNameLicense
+    public class BuildFileName
     {
-        public string Normalize(string licenseNumber, GetFileExtensionValidEnum fileExtension)
+        public string Build(string licenseNumber, FileExtensionValidEnum fileExtension)
         {
             var fileName = new StringBuilder();
 

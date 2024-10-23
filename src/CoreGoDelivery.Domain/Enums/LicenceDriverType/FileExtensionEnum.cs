@@ -1,6 +1,6 @@
 ﻿namespace CoreGoDelivery.Domain.Enums.LicenceDriverType
 {
-    public enum GetFileExtensionValidEnum
+    public enum FileExtensionValidEnum
     {
         none,
         png,

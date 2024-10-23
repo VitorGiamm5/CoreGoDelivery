@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CoreGoDelivery.Infrastructure.Repositories.GoDelivery
 {
-    public class ModelMotocycleRepository : BaseRepository<ModelMotorcycleEntity>, IModelMotocycleRepository
+    public class ModelMotorcycleRepository : BaseRepository<ModelMotorcycleEntity>, IModelMotorcycleRepository
     {
-        public ModelMotocycleRepository(ApplicationDbContext context) : base(context)
+        public ModelMotorcycleRepository(ApplicationDbContext context) : base(context)
         {
         }
 

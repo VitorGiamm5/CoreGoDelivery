@@ -10,13 +10,13 @@ namespace CoreGoDelivery.Application.Services.Internal.Motorcycle.Commands.Chang
 {
     public class MotorcycleChangePlateValidator
     {
-        public readonly IMotocycleRepository _repositoryMotorcycle;
+        public readonly IMotorcycleRepository _repositoryMotorcycle;
         public readonly IBaseInternalServices _baseInternalServices;
 
         private readonly MotorcycleCreateValidator _validatorCreate;
 
         public MotorcycleChangePlateValidator(
-            IMotocycleRepository repositoryMotorcycle,
+            IMotorcycleRepository repositoryMotorcycle,
             IBaseInternalServices baseInternalServices,
             MotorcycleCreateValidator validatorCreate)
         {

@@ -7,10 +7,10 @@ namespace CoreGoDelivery.Application.Services.Internal.Rental.Commands.Create.Me
 {
     public class BuildMessageMotorcycleId
     {
-        public readonly IMotocycleRepository _repositoryMotorcycle;
+        public readonly IMotorcycleRepository _repositoryMotorcycle;
         public readonly IRentalRepository _repositoryRental;
 
-        public BuildMessageMotorcycleId(IMotocycleRepository repositoryMotorcycle, IRentalRepository repositoryRental)
+        public BuildMessageMotorcycleId(IMotorcycleRepository repositoryMotorcycle, IRentalRepository repositoryRental)
         {
             _repositoryMotorcycle = repositoryMotorcycle;
             _repositoryRental = repositoryRental;
@@ -24,16 +24,16 @@ namespace CoreGoDelivery.Application.Services.Internal.Rental.Commands.Create.Me
             }
             else
             {
-                var existMotocycleId = await _repositoryMotorcycle.GetOneByIdAsync(data.MotorcycleId);
+                var existMotorcycleId = await _repositoryMotorcycle.GetOneByIdAsync(data.MotorcycleId);
 
-                if (existMotocycleId == null)
+                if (existMotorcycleId == null)
                 {
                     message.AppendError(message, nameof(data.MotorcycleId), AdditionalMessageEnum.NotFound);
                 }
 
-                var motocycleIsInUse = await _repositoryRental.CheckMotorcycleIsAvaliable(data.MotorcycleId);
+                var motorcycleIsInUse = await _repositoryRental.CheckMotorcycleIsAvaliable(data.MotorcycleId);
 
-                if (motocycleIsInUse)
+                if (motorcycleIsInUse)
                 {
                     message.AppendError(message, nameof(data.MotorcycleId), AdditionalMessageEnum.Unavailable);
                 }

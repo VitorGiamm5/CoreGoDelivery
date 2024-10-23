@@ -8,11 +8,11 @@ namespace CoreGoDelivery.Application.Services.Internal.Motorcycle.Queries.GetOne
 {
     public class MotorcycleGetOneQueryHandler : IRequestHandler<MotorcycleGetOneQueryCommand, ApiResponse>
     {
-        public readonly IMotocycleRepository _repositoryMotorcycle;
+        public readonly IMotorcycleRepository _repositoryMotorcycle;
 
         private readonly MotorcycleServiceMappers _mapper;
 
-        public MotorcycleGetOneQueryHandler(IMotocycleRepository repositoryMotorcycle, MotorcycleServiceMappers mapper)
+        public MotorcycleGetOneQueryHandler(IMotorcycleRepository repositoryMotorcycle, MotorcycleServiceMappers mapper)
         {
             _repositoryMotorcycle = repositoryMotorcycle;
             _mapper = mapper;
@@ -22,11 +22,11 @@ namespace CoreGoDelivery.Application.Services.Internal.Motorcycle.Queries.GetOne
         {
             var result = await _repositoryMotorcycle.GetOneByIdAsync(request.Id);
 
-            var motocycleDtos = result != null ? _mapper.MapEntityToDto(result) : null;
+            var motorcycleDtos = result != null ? _mapper.MapEntityToDto(result) : null;
 
             var apiReponse = new ApiResponse()
             {
-                Data = motocycleDtos,
+                Data = motorcycleDtos,
                 Message = result == null ? CommomMessagesConst.MESSAGE_MOTORCYCLE_NOT_FOUND : null
             };
 

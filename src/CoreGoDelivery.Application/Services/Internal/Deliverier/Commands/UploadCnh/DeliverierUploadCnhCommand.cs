@@ -17,6 +17,9 @@ namespace CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.Uploa
         [JsonIgnore]
         public string? IdDeliverier { get; set; }
 
+        [JsonIgnore]
+        public bool IsUpdate { get; set; }
+
         public bool HasIdDeliverier()
         {
             if (string.IsNullOrEmpty(IdDeliverier))

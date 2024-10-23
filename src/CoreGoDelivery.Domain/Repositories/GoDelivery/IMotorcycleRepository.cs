@@ -2,7 +2,7 @@
 
 namespace CoreGoDelivery.Domain.Repositories.GoDelivery
 {
-    public interface IMotocycleRepository
+    public interface IMotorcycleRepository
     {
         Task<List<MotorcycleEntity>?> List(string? id);
         Task<MotorcycleEntity?> GetOneByIdAsync(string id);

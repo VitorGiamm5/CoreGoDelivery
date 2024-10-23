@@ -1,5 +1,6 @@
 ﻿using CoreGoDelivery.Application.Services.Internal.Base;
 using CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.Common;
+using CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.UploadCnh.Common;
 using CoreGoDelivery.Domain.Entities.GoDelivery.Deliverier;
 using CoreGoDelivery.Domain.Entities.GoDelivery.LicenceDriver;
 using CoreGoDelivery.Domain.Enums.LicenceDriverType;
@@ -10,32 +11,39 @@ namespace CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.Creat
     {
         public readonly IBaseInternalServices _baseInternalServices;
 
-        public readonly NormalizeFileNameLicense _normalizeFileNameLicense;
+        public readonly BuildFileName _buildFileName;
+        public readonly BuildExtensionFile _buildExtensionFile;
         public readonly ParseLicenseType _parseLicenseType;
 
         public DeliverierCreateMappers(
             IBaseInternalServices baseInternalServices,
-            NormalizeFileNameLicense normalizeFileNameLicense,
+            BuildFileName buildFileName,
+             BuildExtensionFile buildExtensionFile,
             ParseLicenseType parseLicenseType)
         {
             _baseInternalServices = baseInternalServices;
-            _normalizeFileNameLicense = normalizeFileNameLicense;
+            _buildFileName = buildFileName;
+            _buildExtensionFile = buildExtensionFile;
             _parseLicenseType = parseLicenseType;
         }
 
-        public DeliverierEntity MapCreateToEntity(DeliverierCreateCommand data)
+        public DeliverierEntity MapCreateToEntity(DeliverierCreateCommand command)
         {
+            var (_, _, fileExtension) = _buildExtensionFile.Build(command.LicenseImageBase64);
+
+            var fileName = _buildFileName.Build(command.LicenseNumber, fileExtension);
+
             var result = new DeliverierEntity()
             {
-                Id = _baseInternalServices.IdBuild(data.Id),
-                FullName = data.FullName,
-                Cnpj = _baseInternalServices.RemoveCharacteres(data.Cnpj),
-                BirthDate = data.BirthDate,
+                Id = _baseInternalServices.IdBuild(command.Id),
+                FullName = command.FullName,
+                Cnpj = _baseInternalServices.RemoveCharacteres(command.Cnpj),
+                BirthDate = command.BirthDate,
                 LicenceDriver = new LicenceDriverEntity()
                 {
-                    Id = data.LicenseNumber,
-                    Type = _parseLicenseType.Parse(data),
-                    ImageUrlReference = _normalizeFileNameLicense.Normalize(data.LicenseNumber, GetFileExtensionValidEnum.none)
+                    Id = command.LicenseNumber,
+                    Type = _parseLicenseType.Parse(command),
+                    ImageUrlReference = fileName
                 }
             };
 

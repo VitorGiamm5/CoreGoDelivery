@@ -21,8 +21,8 @@ namespace CoreGoDelivery.Infrastructure
 
             services.TryAddScoped<IDeliverierRepository, DeliverierRepository>();
             services.TryAddScoped<ILicenceDriverRepository, LicenceDriverRepository>();
-            services.TryAddScoped<IModelMotocycleRepository, ModelMotocycleRepository>();
-            services.TryAddScoped<IMotocycleRepository, MotocycleRepository>();
+            services.TryAddScoped<IModelMotorcycleRepository, ModelMotorcycleRepository>();
+            services.TryAddScoped<IMotorcycleRepository, MotorcycleRepository>();
             services.TryAddScoped<IRentalPlanRepository, RentalPlanRepository>();
             services.TryAddScoped<IRentalRepository, RentalRepository>();
             services.TryAddScoped<INotificationMotorcycleRepository, NotificationMotorcycleRepository>();

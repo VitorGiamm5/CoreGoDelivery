@@ -9,12 +9,12 @@ namespace CoreGoDelivery.Application.Services.Internal.Motorcycle.Commands.Delet
     public class MotorcycleDeleteValidator
     {
         public readonly IBaseInternalServices _baseInternalServices;
-        public readonly IMotocycleRepository _repositoryMotorcycle;
+        public readonly IMotorcycleRepository _repositoryMotorcycle;
         public readonly IRentalRepository _rentalRepository;
 
         public MotorcycleDeleteValidator(
             IBaseInternalServices baseInternalServices,
-            IMotocycleRepository repositoryMotorcycle,
+            IMotorcycleRepository repositoryMotorcycle,
             IRentalRepository rentalRepository)
         {
             _baseInternalServices = baseInternalServices;

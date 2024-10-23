@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace CoreGoDelivery.Infrastructure.Database.Configuration.GoDelivery
 {
-    public class ModelMotocycleConfiguration : IEntityTypeConfiguration<ModelMotorcycleEntity>
+    public class ModelMotorcycleConfiguration : IEntityTypeConfiguration<ModelMotorcycleEntity>
     {
         public void Configure(EntityTypeBuilder<ModelMotorcycleEntity> builder)
         {
