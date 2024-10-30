@@ -38,9 +38,8 @@ builder.Services.AddSwaggerGen(c =>
 });
 
 builder.Configuration
-    .SetBasePath(builder.Environment.ContentRootPath)
-    .AddJsonFile("appsettings.json", true, true)
-    .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json", true, true)
+    .SetBasePath(Directory.GetCurrentDirectory())
+    .AddJsonFile("appsettings.json", false, true)
     .AddEnvironmentVariables();
 
 EnvironmentVariablesExtensions.AddEnvironmentVariables(builder.Configuration);
@@ -52,10 +51,10 @@ builder.Services.AddApplication(builder.Configuration);
 var app = builder.Build();
 
 var consumer = app.Services.GetService<RabbitMqConsumer>();
+
 #pragma warning disable CS4014
 Task.Run(() => consumer!.ConsumeMessages());
 #pragma warning restore CS4014
-
 
 if (app.Environment.IsDevelopment())
 {

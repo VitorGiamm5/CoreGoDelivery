@@ -27,7 +27,7 @@ namespace CoreGoDelivery.Infrastructure
             services.TryAddScoped<IRentalRepository, RentalRepository>();
             services.TryAddScoped<INotificationMotorcycleRepository, NotificationMotorcycleRepository>();
 
-            ExecutePendingMigration(services);
+            //ExecutePendingMigration(services);
 
             return services;
         }

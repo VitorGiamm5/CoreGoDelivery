@@ -1,17 +1,27 @@
-#Stage 1
-FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS build
-WORKDIR /build
-COPY /src .
+# Estágio de build
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+WORKDIR /source
 
-RUN dotnet restore "CoreGoDelivery.API/CoreGoDelivery.Api.csproj"
-RUN dotnet publish "CoreGoDelivery.API/CoreGoDelivery.Api.csproj" -c Release -o "/app" --no-restore
+# Copia a solução e o projeto principal
+COPY ../CoreGoDelivery.sln .
+COPY ../src/CoreGoDelivery.API/CoreGoDelivery.Api.csproj src/CoreGoDelivery.API/
 
-#Stage 2
-FROM mcr.microsoft.com/dotnet/sdk:8.0 AS final
+# Restaura as dependências
+RUN dotnet restore src/CoreGoDelivery.API/CoreGoDelivery.Api.csproj
 
+# Copia todo o código-fonte
+COPY ../src/ src/
+
+# Compila a aplicação
+RUN dotnet publish src/CoreGoDelivery.API/CoreGoDelivery.Api.csproj -c Release -o /app/publish
+
+# Estágio de runtime
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS runtime
 WORKDIR /app
+COPY --from=build /app/publish .
 
-COPY --from=build /app .
+# Exponha a porta para a aplicação
+EXPOSE 80
 
-EXPOSE 5000
+# Comando para rodar a aplicação
 ENTRYPOINT ["dotnet", "CoreGoDelivery.Api.dll"]

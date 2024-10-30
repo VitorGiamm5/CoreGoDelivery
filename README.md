@@ -18,7 +18,9 @@ $ cd CoreGoDelivery
 $ dotnet restore
 
 Executar o docker compose:
-$ docker compose -f "deploy\docker-compose.yml" up -d --build
+Na raíz do projeto
+$ docker-compose -f deploy/docker-compose.yml down
+$ docker-compose -f deploy/docker-compose.yml up --build
 
 Necessário startar as imagens!
 o docker compose contém as imagens do Postgres e do RabbitMQ

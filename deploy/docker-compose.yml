@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   postgres:
     image: postgres:16.4
@@ -26,6 +24,27 @@ services:
       RABBITMQ_DEFAULT_PASS: guest
     volumes:
       - rabbitmq_data:/var/lib/rabbitmq
+    networks:
+      - webnet
+
+  coregodelivery:
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile
+    container_name: coregodelivery-app
+    ports:
+      - "8080:80"
+    # environment:
+      # - ASPNETCORE_ENVIRONMENT=Development
+      # - ConnectionStrings__postgre=Server=localhost; Port=5432; Database=dbgodelivery; User ID=randandan; Password=randandan_XLR;
+      # - RabbitMQ__Hostname=rabbitmq
+      # - RabbitMQ__Username=guest
+      # - RabbitMQ__Password=guest
+    depends_on:
+      - postgres
+      - rabbitmq
+    networks:
+      - webnet
 
 volumes:
   pgdata:
