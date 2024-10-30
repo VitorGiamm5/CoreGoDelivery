@@ -4,6 +4,6 @@
     {
         none,
         png,
-        bpm
+        bmp
     }
 }

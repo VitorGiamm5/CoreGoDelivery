@@ -1,4 +1,9 @@
 ﻿using CoreGoDelivery.Domain.Enums.LicenceDriverType;
+using System.IO;
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Formats;
+using SixLabors.ImageSharp.Formats.Png;
+using SixLabors.ImageSharp.Formats.Bmp;
 
 namespace CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.UploadCnh.Common
 {
@@ -8,19 +13,26 @@ namespace CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.Uploa
         {
             using (var ms = new MemoryStream(imageBytes))
             {
-                var image = System.Drawing.Image.FromStream(ms);
+                try
+                {
+                    var image = Image.Load(ms); // Carrega a imagem sem o uso de `out`
 
-                if (image.RawFormat.Equals(System.Drawing.Imaging.ImageFormat.Png))
-                {
-                    return (true, "", FileExtensionValidEnum.png);
+                    if (image.Metadata.DecodedImageFormat is PngFormat)
+                    {
+                        return (true, "", FileExtensionValidEnum.png);
+                    }
+                    else if (image.Metadata.DecodedImageFormat is BmpFormat)
+                    {
+                        return (true, "", FileExtensionValidEnum.bmp);
+                    }
+                    else
+                    {
+                        return (false, "Format image file is invalid", FileExtensionValidEnum.none);
+                    }
                 }
-                else if (image.RawFormat.Equals(System.Drawing.Imaging.ImageFormat.Bmp))
+                catch
                 {
-                    return (true, "", FileExtensionValidEnum.bpm);
-                }
-                else
-                {
-                    return (false, "Format image file is invalid", FileExtensionValidEnum.none);
+                    return (false, "Invalid image file", FileExtensionValidEnum.none);
                 }
             }
         }
