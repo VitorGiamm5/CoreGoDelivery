@@ -19,10 +19,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\..\src\CoreGoDelivery.API\CoreGoDelivery.Api.csproj" />
 	  <ProjectReference Include="..\..\src\CoreGoDelivery.Application\CoreGoDelivery.Application.csproj" />
 	  <ProjectReference Include="..\..\src\CoreGoDelivery.Domain\CoreGoDelivery.Domain.csproj" />
-	  <ProjectReference Include="..\..\src\CoreGoDelivery.Infrastructure\CoreGoDelivery.Infrastructure.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>

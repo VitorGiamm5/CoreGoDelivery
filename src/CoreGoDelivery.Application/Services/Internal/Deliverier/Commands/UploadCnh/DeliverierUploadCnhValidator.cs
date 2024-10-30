@@ -46,7 +46,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.Uploa
 
             if (command.LicenseImageBase64.Length > 10 * 1024 * 1024)
             {
-                message.AppendError(message, "A imagem não pode exceder 10 MB.", AdditionalMessageEnum.InvalidFormat);
+                message.AppendError(message, "The image size must be less than 10 MB.", AdditionalMessageEnum.InvalidFormat);
             }
 
             if (!command.IsValidDeliverierUploadCnhCommand())
