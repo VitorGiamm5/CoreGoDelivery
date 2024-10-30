@@ -1,7 +1,6 @@
 ﻿using CoreGoDelivery.Api.Controllers.Base;
 using CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.Create;
 using CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.UploadCnh;
-using CoreGoDelivery.Domain.Repositories.GoDelivery;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 

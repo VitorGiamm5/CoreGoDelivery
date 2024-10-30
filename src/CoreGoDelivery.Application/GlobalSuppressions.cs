@@ -5,4 +5,4 @@
 
 using System.Diagnostics.CodeAnalysis;
 
-[assembly: SuppressMessage("Performance", "CA1822:Marcar membros como estáticos", Justification = "<Pendente>", Scope = "member", Target = "~M:CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.UploadCnh.Common.BuildExtensionFile.Get(System.Byte[])~System.ValueTuple{System.Boolean,System.String,System.Nullable{CoreGoDelivery.Domain.Enums.LicenceDriverType.FileExtensionEnum}}")]
+[assembly: SuppressMessage("Performance", "CA1822:Marcar membros como estáticos", Justification = "<Pendente>", Scope = "member", Target = "~M:CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.UploadCnh.Common.BuildExtensionFile.Build(System.Byte[])~System.ValueTuple{System.Boolean,System.String,CoreGoDelivery.Domain.Enums.LicenceDriverType.FileExtensionValidEnum}")]

@@ -1,8 +1,9 @@
-﻿using CoreGoDelivery.Domain.Entities.GoDelivery.RentalPlan;
+﻿using CoreGoDelivery.Application.Services.Internal.Rental.Commands.Create.Common;
+using CoreGoDelivery.Domain.Entities.GoDelivery.RentalPlan;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Assert = Xunit.Assert;
 
-namespace CoreGoDelivery.Application.Services.Internal.Rental.Commands.Create.Common.Tests
+namespace CoreGoDelivery.ApplicationTests.Services.Internal.Rental.Commands.Create.Common
 {
     [TestClass()]
     public class CalculateDatesByPlanTests

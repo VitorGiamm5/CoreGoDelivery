@@ -20,11 +20,14 @@ $ dotnet restore
 Executar o docker compose:
 $ docker compose -f "deploy\docker-compose.yml" up -d --build
 
-Deepois que as imagens estiverem criadas e executando, necessário rodar a migration
+Necessário startar as imagens!
+o docker compose contém as imagens do Postgres e do RabbitMQ
+
+Depois que as imagens estiverem criadas e executando, necessário rodar a migration
 $ cd src
 $ dotnet ef database update -s .\CoreGoDelivery.API -p .\CoreGoDelivery.Infrastructure
 
-Para conectar o DBeaver (por exemplo), tanvés seja necessário instalar o recurso no DBeaver
+Para conectar o Banco recomenda-se usar o DBeaver, para facilitar a importação de dados que serão necessários
 
 Host: localhost
 Port: 5432
@@ -33,16 +36,19 @@ Nome de usuário: randandan
 Senha: randandan_XLR
 
 Depois de conectado e com as tables criadas, necessário injetar dados diretamente no banco
-Na raiz do projeto a pasta "sqlScriptImportar" possui dois arquivos .csv
-$ cd ..
-$ cd sqlScriptImportar
-Cada arquivo é nomeado com o nome da table para ser importada: _tb_modelMotocycle_importar.csv e _tb_rentalPlan_importar.csv
-Clicando com o botão direito no nome da table, terá a opção de importar, basta selecionar o arquivo correspondente à table
+Na raiz do projeto abra a poasta "Assets" e depois "SQL-Importar-Dados", veja que para cada tabela há um arquivo .csv correlato para importar
+Para importar os dados, você deve abrrir o DBeaver, ir até a collection, ver as tables e com o botão direito ir em importar dados, selecione o arquivo com o nome correlato com a tabela
 
-Para chamar os recursos da API, está disponível na raís do projeto a pasta "postmanCollection"
+ATENÇÃO CASO NÃO IMPORTE OS DADOS A APLICAÇÃO NÃO FUNCIONARÁ
 
+Para chamar os recursos da API, está disponível na raíZ do projeto Na pasta "Assets" depois em "postmanCollection" a collection para importar no postman
 
-Dicas para o desenvolcedor para as migrations:
+Para os end-points que necessitam de imagem, elas estão disponíveis na pasta "Assets" e então na pasta "ImageCNH", nela contém uma imagem .png e uma .bmp e de brinde um arquivo de texto com as imagens já em base64!
+
+===
+Notas:
+
+Caso modifique alguma entidade, esse é o comando para criar a migration
 
 Gerar migration, considere abrir o Powershell na pasta src do projeto
 

@@ -4,7 +4,6 @@
 		<TargetFramework>net8.0</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
-
 		<IsPackable>false</IsPackable>
 		<IsTestProject>true</IsTestProject>
 	</PropertyGroup>
@@ -15,22 +14,13 @@
 		<PackageReference Include="Moq" Version="4.20.72" />
 		<PackageReference Include="xunit" Version="2.5.3" />
 		<PackageReference Include="xunit.runner.visualstudio" Version="2.5.3" />
-		<PackageReference Include="coverlet.collector" Version="6.0.0" />
-		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />
-		<PackageReference Include="xunit" Version="2.5.3" />
-		<PackageReference Include="xunit.runner.visualstudio" Version="2.5.3" />
-
-		<PackageReference Include="coverlet.collector" Version="6.0.0" />
-		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />
 		<PackageReference Include="MSTest.TestAdapter" Version="3.1.1" />
 		<PackageReference Include="MSTest.TestFramework" Version="3.1.1" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\CoreGoDelivery.API\CoreGoDelivery.Api.csproj" />
-		<ProjectReference Include="..\CoreGoDelivery.Application\CoreGoDelivery.Application.csproj" />
-		<ProjectReference Include="..\CoreGoDelivery.Domain\CoreGoDelivery.Domain.csproj" />
-		<ProjectReference Include="..\CoreGoDelivery.Infrastructure\CoreGoDelivery.Infrastructure.csproj" />
+	  <ProjectReference Include="..\..\src\CoreGoDelivery.Application\CoreGoDelivery.Application.csproj" />
+	  <ProjectReference Include="..\..\src\CoreGoDelivery.Domain\CoreGoDelivery.Domain.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>

@@ -1,7 +1,4 @@
-﻿using CoreGoDelivery.Application.Services.Internal.Base;
-using CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.Common;
-using CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.UploadCnh.Common;
-using CoreGoDelivery.Domain.Repositories.GoDelivery;
+﻿using CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.UploadCnh.Common;
 using CoreGoDelivery.Domain.Response;
 using MediatR;
 
@@ -18,7 +15,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.Uploa
 
         public DeliverierUploadCnhHandler(
             DeliverierUploadCnhValidator validator,
-            BuilderCreateImage builderCreateImage, 
+            BuilderCreateImage builderCreateImage,
             BuilderUpdateImage builderUpdateImage)
         {
             _validator = validator;
