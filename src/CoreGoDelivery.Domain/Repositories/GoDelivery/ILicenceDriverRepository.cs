@@ -6,6 +6,6 @@ namespace CoreGoDelivery.Domain.Repositories.GoDelivery
     {
         Task<bool> Create(LicenceDriverEntity data);
         Task<bool> CheckIsUnicByLicence(string data);
-        Task<bool> UpdateFileName(string id, string fileName);       
+        Task<bool> UpdateFileName(string id, string fileName);
     }
 }

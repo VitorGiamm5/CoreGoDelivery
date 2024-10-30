@@ -1,5 +1,4 @@
 ﻿using CoreGoDelivery.Domain.Entities.GoDelivery.LicenceDriver;
-using CoreGoDelivery.Domain.Entities.GoDelivery.Rental;
 using CoreGoDelivery.Domain.Repositories.GoDelivery;
 using CoreGoDelivery.Infrastructure.Database;
 using Microsoft.EntityFrameworkCore;
@@ -32,7 +31,7 @@ namespace CoreGoDelivery.Infrastructure.Repositories.GoDelivery
             return IsSuccessCreate(result);
         }
 
-        public async Task<bool> UpdateFileName(string id,string fileName)
+        public async Task<bool> UpdateFileName(string id, string fileName)
         {
             var entity = await _context.Set<LicenceDriverEntity>()
                 .AsTracking()

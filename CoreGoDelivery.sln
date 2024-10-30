@@ -21,9 +21,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "logs", "logs", "{028AD4B8-5
 		logs\logs20241013.txt = logs\logs20241013.txt
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreGoDelivery.ApplicationTests", "src\CoreGoDelivery.ApplicationTests\CoreGoDelivery.ApplicationTests.csproj", "{3CF67807-55A0-44D9-87E0-6F40B3DFF553}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{5EBC6F0F-DDDE-44F2-BEED-CBAFD24B5731}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoreGoDelivery.ApplicationTests", "tests\CoreGoDelivery.ApplicationTests\CoreGoDelivery.ApplicationTests.csproj", "{3329400D-30C6-471A-8C21-1216283D18F1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -47,17 +47,17 @@ Global
 		{0AA16454-C745-48F0-9B8A-64860B9391D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0AA16454-C745-48F0-9B8A-64860B9391D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0AA16454-C745-48F0-9B8A-64860B9391D8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3CF67807-55A0-44D9-87E0-6F40B3DFF553}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3CF67807-55A0-44D9-87E0-6F40B3DFF553}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3CF67807-55A0-44D9-87E0-6F40B3DFF553}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3CF67807-55A0-44D9-87E0-6F40B3DFF553}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3329400D-30C6-471A-8C21-1216283D18F1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3329400D-30C6-471A-8C21-1216283D18F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3329400D-30C6-471A-8C21-1216283D18F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3329400D-30C6-471A-8C21-1216283D18F1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{028AD4B8-5A3C-499B-9756-90A2C94D83E4} = {9CD24020-DF0B-4081-855D-413E41390739}
-		{3CF67807-55A0-44D9-87E0-6F40B3DFF553} = {5EBC6F0F-DDDE-44F2-BEED-CBAFD24B5731}
+		{3329400D-30C6-471A-8C21-1216283D18F1} = {5EBC6F0F-DDDE-44F2-BEED-CBAFD24B5731}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C2EA87DE-3BFE-4E0B-ABD0-0744F49E3E88}

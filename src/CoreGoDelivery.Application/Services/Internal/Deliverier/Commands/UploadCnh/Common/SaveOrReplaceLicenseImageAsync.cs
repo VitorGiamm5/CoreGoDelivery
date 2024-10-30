@@ -1,5 +1,4 @@
 ﻿using CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.Common;
-using CoreGoDelivery.Domain.Enums.LicenceDriverType;
 
 namespace CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.UploadCnh.Common
 {
@@ -7,7 +6,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.Uploa
     {
         public readonly BuildFileName _normalizeFileNameLicense;
 
-        
+
 
         public SaveOrReplaceLicenseImageAsync(
             BuildFileName normalizeFileNameLicense)

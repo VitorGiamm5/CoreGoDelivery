@@ -3,7 +3,6 @@ using CoreGoDelivery.Application.Services.Internal.Base;
 using CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.UploadCnh.Common;
 using CoreGoDelivery.Domain.Enums.ServiceErrorMessage;
 using CoreGoDelivery.Domain.Repositories.GoDelivery;
-using CoreGoDelivery.Domain.Response;
 using System.Text;
 
 namespace CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.UploadCnh

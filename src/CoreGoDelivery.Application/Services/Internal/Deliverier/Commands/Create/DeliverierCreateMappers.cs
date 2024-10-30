@@ -3,7 +3,6 @@ using CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.Common;
 using CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.UploadCnh.Common;
 using CoreGoDelivery.Domain.Entities.GoDelivery.Deliverier;
 using CoreGoDelivery.Domain.Entities.GoDelivery.LicenceDriver;
-using CoreGoDelivery.Domain.Enums.LicenceDriverType;
 
 namespace CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.Create
 {

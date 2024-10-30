@@ -55,7 +55,7 @@ namespace CoreGoDelivery.Application
             });
             services.TryAddSingleton<RabbitMQPublisher>();
 
-            services.AddSingleton<RabbitMqConsumer>(); 
+            services.AddSingleton<RabbitMqConsumer>();
 
             return services;
         }
