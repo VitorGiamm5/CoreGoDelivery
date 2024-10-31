@@ -8,7 +8,13 @@ namespace CoreGoDelivery.Infrastructure.Database
     {
         public static DbContextOptionsBuilder AddInfrastructure(this DbContextOptionsBuilder optionsBuilder, IConfiguration configuration)
         {
-            var dataSourceBuilder = new NpgsqlDataSourceBuilder(configuration.GetConnectionString("postgre"));
+            var connectionString = configuration.GetConnectionString("postgres");
+
+            connectionString ??= "Server=postgres; Port=5432; Database=dbgodelivery; User ID=randandan; Password=randandan_XLR;";/// configuration.GetConnectionString("postgre");
+            
+            Console.WriteLine($"Connection String (postgres): {connectionString}");
+
+            var dataSourceBuilder = new NpgsqlDataSourceBuilder(connectionString);
 
             dataSourceBuilder!.EnableDynamicJson();
             dataSourceBuilder!.ConnectionStringBuilder.IncludeErrorDetail = true;

@@ -1,7 +1,7 @@
 services:
   postgres:
     image: postgres:16.4
-    container_name: postgres-db
+    container_name: postgres
     environment:
       POSTGRES_USER: randandan
       POSTGRES_PASSWORD: randandan_XLR
@@ -33,16 +33,17 @@ services:
       dockerfile: deploy/Dockerfile
     container_name: coregodelivery-app
     ports:
-      - "8080:80"
-    # environment:
-      # - ASPNETCORE_ENVIRONMENT=Development
-      # - ConnectionStrings__postgre=Server=localhost; Port=5432; Database=dbgodelivery; User ID=randandan; Password=randandan_XLR;
+      - "5273:5273"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      # - ConnectionStrings__postgres=Server=postgres; Port=5432; Database=dbgodelivery; User ID=randandan; Password=randandan_XLR;
       # - RabbitMQ__Hostname=rabbitmq
       # - RabbitMQ__Username=guest
       # - RabbitMQ__Password=guest
     depends_on:
       - postgres
       - rabbitmq
+    entrypoint: ["dotnet", "CoreGoDelivery.Api.dll"]
     networks:
       - webnet
 

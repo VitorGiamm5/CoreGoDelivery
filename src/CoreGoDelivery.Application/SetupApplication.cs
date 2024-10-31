@@ -49,10 +49,19 @@ namespace CoreGoDelivery.Application
                     HostName = configuration["RabbitMQ:Host"],
                     UserName = configuration["RabbitMQ:Username"],
                     Password = configuration["RabbitMQ:Password"],
-                    Port = int.Parse(configuration["RabbitMQ:Port"]!)
+                    Port = 5672
                 };
+
+                if (string.IsNullOrEmpty(factory.HostName))
+                {
+                    factory.HostName = "rabbitmq";
+                    factory.UserName = "guest";
+                    factory.Password = "guest";
+                }
+
                 return factory.CreateConnection();
             });
+
             services.TryAddSingleton<RabbitMQPublisher>();
 
             services.AddSingleton<RabbitMqConsumer>();

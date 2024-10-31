@@ -2,6 +2,7 @@ using CoreGoDelivery.Api.Conveters;
 using CoreGoDelivery.Api.Swagger;
 using CoreGoDelivery.Application;
 using CoreGoDelivery.Application.RabbitMQ.NotificationMotorcycle.Consumer;
+using CoreGoDelivery.Infrastructure.Database.Services;
 using Microsoft.OpenApi.Models;
 using Serilog;
 using System.Text.Json.Serialization;
@@ -45,8 +46,13 @@ builder.Configuration
 EnvironmentVariablesExtensions.AddEnvironmentVariables(builder.Configuration);
 
 builder.Services.AddControllersWithViews();
-builder.Services.AddApplicationInsightsTelemetry();
+
 builder.Services.AddApplication(builder.Configuration);
+
+builder.WebHost.ConfigureKestrel(options =>
+{
+    options.ListenAnyIP(5273);
+});
 
 var app = builder.Build();
 
@@ -60,13 +66,16 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+
+    ExecutePendingMigration.Execute(builder.Services);
 }
 
 app.MapControllers();
+
 try
 {
-
     Log.Information("Starting application...");
+    
     app.Run();
 
 }
