@@ -42,6 +42,8 @@ namespace CoreGoDelivery.Application
 
             services.Configure<RabbitMQSettings>(options => configuration.GetSection("RabbitMQ").Bind(options));
 
+            var isInDocker = Environment.GetEnvironmentVariable("DOTNET_RUNNING_IN_CONTAINER") == "true";
+
             services.AddSingleton<IConnection>(sp =>
             {
                 var factory = new ConnectionFactory()
@@ -52,7 +54,7 @@ namespace CoreGoDelivery.Application
                     Port = 5672
                 };
 
-                if (string.IsNullOrEmpty(factory.HostName))
+                if (isInDocker)
                 {
                     factory.HostName = "rabbitmq";
                     factory.UserName = "guest";

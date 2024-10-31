@@ -35,11 +35,7 @@ services:
     ports:
       - "5273:5273"
     environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-      # - ConnectionStrings__postgres=Server=postgres; Port=5432; Database=dbgodelivery; User ID=randandan; Password=randandan_XLR;
-      # - RabbitMQ__Hostname=rabbitmq
-      # - RabbitMQ__Username=guest
-      # - RabbitMQ__Password=guest
+      - DOTNET_RUNNING_IN_CONTAINER=true
     depends_on:
       - postgres
       - rabbitmq

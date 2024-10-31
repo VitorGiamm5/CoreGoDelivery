@@ -10,8 +10,13 @@ namespace CoreGoDelivery.Infrastructure.Database
         {
             var connectionString = configuration.GetConnectionString("postgres");
 
-            connectionString ??= "Server=postgres; Port=5432; Database=dbgodelivery; User ID=randandan; Password=randandan_XLR;";/// configuration.GetConnectionString("postgre");
-            
+            var isInDocker = Environment.GetEnvironmentVariable("DOTNET_RUNNING_IN_CONTAINER") == "true";
+
+            if (isInDocker)
+            {
+                connectionString = "Server=postgres; Port=5432; Database=dbgodelivery; User ID=randandan; Password=randandan_XLR;";/// configuration.GetConnectionString("postgre");
+            }
+
             Console.WriteLine($"Connection String (postgres): {connectionString}");
 
             var dataSourceBuilder = new NpgsqlDataSourceBuilder(connectionString);
