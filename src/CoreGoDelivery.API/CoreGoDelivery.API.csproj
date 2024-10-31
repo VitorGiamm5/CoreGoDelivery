@@ -4,7 +4,8 @@
 		<TargetFramework>net8.0</TargetFramework>
 		<Nullable>enable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
-	</PropertyGroup>
+	    <UserSecretsId>e5570021-aa0d-49c6-9ac8-a3cc867477cc</UserSecretsId>
+  </PropertyGroup>
 
 	<ItemGroup>
 		<PackageReference Include="MediatR" Version="12.4.1" />
@@ -46,4 +47,10 @@
 		<ProjectReference Include="..\CoreGoDelivery.Infrastructure\CoreGoDelivery.Infrastructure.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+		<None Update="appsettings.json">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+	</ItemGroup>
+	
 </Project>

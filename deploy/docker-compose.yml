@@ -1,9 +1,7 @@
-version: '3.8'
-
 services:
   postgres:
     image: postgres:16.4
-    container_name: postgres-db
+    container_name: postgres
     environment:
       POSTGRES_USER: randandan
       POSTGRES_PASSWORD: randandan_XLR
@@ -26,6 +24,24 @@ services:
       RABBITMQ_DEFAULT_PASS: guest
     volumes:
       - rabbitmq_data:/var/lib/rabbitmq
+    networks:
+      - webnet
+
+  coregodelivery:
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile
+    container_name: coregodelivery-app
+    ports:
+      - "5273:5273"
+    environment:
+      - DOTNET_RUNNING_IN_CONTAINER=true
+    depends_on:
+      - postgres
+      - rabbitmq
+    entrypoint: ["dotnet", "CoreGoDelivery.Api.dll"]
+    networks:
+      - webnet
 
 volumes:
   pgdata:

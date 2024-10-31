@@ -27,30 +27,7 @@ namespace CoreGoDelivery.Infrastructure
             services.TryAddScoped<IRentalRepository, RentalRepository>();
             services.TryAddScoped<INotificationMotorcycleRepository, NotificationMotorcycleRepository>();
 
-            ExecutePendingMigration(services);
-
             return services;
-        }
-
-        public static void ExecutePendingMigration(IServiceCollection services)
-        {
-            var serviceProvider = services.BuildServiceProvider();
-            using var scope = serviceProvider.CreateScope();
-            var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-
-            try
-            {
-                var migrations = dbContext.Database.GetPendingMigrations();
-                if (migrations.Any())
-                {
-                    dbContext.Database.MigrateAsync().Wait();
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Erro ao aplicar as migrações: {ex.Message}");
-                throw;
-            }
         }
     }
 }

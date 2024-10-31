@@ -2,6 +2,7 @@ using CoreGoDelivery.Api.Conveters;
 using CoreGoDelivery.Api.Swagger;
 using CoreGoDelivery.Application;
 using CoreGoDelivery.Application.RabbitMQ.NotificationMotorcycle.Consumer;
+using CoreGoDelivery.Infrastructure.Database.Services;
 using Microsoft.OpenApi.Models;
 using Serilog;
 using System.Text.Json.Serialization;
@@ -38,36 +39,43 @@ builder.Services.AddSwaggerGen(c =>
 });
 
 builder.Configuration
-    .SetBasePath(builder.Environment.ContentRootPath)
-    .AddJsonFile("appsettings.json", true, true)
-    .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json", true, true)
+    .SetBasePath(Directory.GetCurrentDirectory())
+    .AddJsonFile("appsettings.json", false, true)
     .AddEnvironmentVariables();
 
 EnvironmentVariablesExtensions.AddEnvironmentVariables(builder.Configuration);
 
 builder.Services.AddControllersWithViews();
-builder.Services.AddApplicationInsightsTelemetry();
+
 builder.Services.AddApplication(builder.Configuration);
+
+builder.WebHost.ConfigureKestrel(options =>
+{
+    options.ListenAnyIP(5273);
+});
 
 var app = builder.Build();
 
 var consumer = app.Services.GetService<RabbitMqConsumer>();
+
 #pragma warning disable CS4014
 Task.Run(() => consumer!.ConsumeMessages());
 #pragma warning restore CS4014
-
 
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+
+    ExecutePendingMigration.Execute(builder.Services);
 }
 
 app.MapControllers();
+
 try
 {
-
     Log.Information("Starting application...");
+    
     app.Run();
 
 }
