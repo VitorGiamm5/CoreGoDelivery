@@ -16,7 +16,7 @@ namespace CoreGoDelivery.Infrastructure
             services.AddDomain(configuration);
 
             services.AddDbContextPool<ApplicationDbContext>(options => options
-                .UseNpgsql(configuration.GetConnectionString("Postgre"))
+                .UseNpgsql(configuration.GetConnectionString("postgres"))
                 .AddInfrastructure(configuration));
 
             services.TryAddScoped<IDeliverierRepository, DeliverierRepository>();

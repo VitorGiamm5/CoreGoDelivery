@@ -35,11 +35,12 @@ services:
     ports:
       - "5273:5273"
     environment:
+      - ASPNETCORE_ENVIRONMENT=Production
       - DOTNET_RUNNING_IN_CONTAINER=true
     depends_on:
       - postgres
       - rabbitmq
-    entrypoint: ["dotnet", "CoreGoDelivery.Api.dll"]
+    entrypoint: ["dotnet", "CoreGoDelivery.API.dll"]
     networks:
       - webnet
 
