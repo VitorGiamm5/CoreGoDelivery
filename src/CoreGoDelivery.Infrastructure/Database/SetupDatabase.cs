@@ -14,7 +14,7 @@ namespace CoreGoDelivery.Infrastructure.Database
 
             if (isInDocker)
             {
-                connectionString = "Server=postgres; Port=5432; Database=dbgodelivery; User ID=randandan; Password=randandan_XLR;";/// configuration.GetConnectionString("postgre");
+                connectionString = "Server=postgres; Port=5432; Database=dbgodelivery; User ID=randandan; Password=randandan_XLR;";
             }
 
             Console.WriteLine($"Connection String (postgres): {connectionString}");

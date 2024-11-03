@@ -1,35 +1,42 @@
 Go Core Delivery
 
 Especificações:
-Dotnet core 8.0
+- Dotnet Core 8.0
 - Entity Framework
-- Validador de documentos
-Postgres
-RabigMQ
-Docker compose
+- DocsBRValidator (Extenção Validador de documentos)
+- Postgres
+- RabbitMQ
+- Docker
+- Docker compose
+- Polly
+- xUnit
+- IO de arquivos em HD
 
 #How to run
-Preferencialmente clonar na pasta C:/Projetos
+1. Abra o terminal, preferencialmente na raiz C:/ (opcional)
+$ mkdir Projetos
 
-No terminal clonar:
+2. No terminal clonar:
 $ git clone https://github.com/VitorGiamm5/CoreGoDelivery.git
 
+3. Entrar na raíz do projeto:
 $ cd CoreGoDelivery
-$ dotnet restore
 
-Executar o docker compose:
-Na raíz do projeto
+4. Executar o docker compose:
 $ docker-compose -f deploy/docker-compose.yml down
 $ docker-compose -f deploy/docker-compose.yml up --build
 
-Necessário startar as imagens!
-o docker compose contém as imagens do Postgres e do RabbitMQ
+Observação:
+- Depois que o docker baixar todas as imagens ele auto inicia os serviços
+- A aplicação .Net possui a injeção do Polly, isso maximiza que a conexão entre os serviços sejam realizadas dentro do docker
 
-Depois que as imagens estiverem criadas e executando, necessário rodar a migration
-$ cd src
-$ dotnet ef database update -s .\CoreGoDelivery.API -p .\CoreGoDelivery.Infrastructure
+5. Verificar se os serviços estão online (postgre, rabbitmq e deploy-coregodelivery)
+$ docker ps -a
 
-Para conectar o Banco recomenda-se usar o DBeaver, para facilitar a importação de dados que serão necessários
+7. Executar as migrations (esteja com seu terminal na raíz do projeto "c:/Projetos/CoreGoDelivery")
+$ dotnet ef database update -s src\CoreGoDelivery.API -p src\CoreGoDelivery.Infrastructure
+
+8. Para conectar o Banco recomenda-se usar o DBeaver, para facilitar a importação de dados que serão necessários!
 
 Host: localhost
 Port: 5432
@@ -37,28 +44,30 @@ Bando de dados: dbgodelivery
 Nome de usuário: randandan
 Senha: randandan_XLR
 
-Depois de conectado e com as tables criadas, necessário injetar dados diretamente no banco
-Na raiz do projeto abra a poasta "Assets" e depois "SQL-Importar-Dados", veja que para cada tabela há um arquivo .csv correlato para importar
-Para importar os dados, você deve abrrir o DBeaver, ir até a collection, ver as tables e com o botão direito ir em importar dados, selecione o arquivo com o nome correlato com a tabela
+7. Depois de conectado e com as tables criadas, necessário injetar dados diretamente no banco, seguindo o seguinte passo a passo:
+Na raiz do projeto abra a poasta "Assets" e depois "SQL-Importar-Dados", veja que para cada tabela há um arquivo .csv correlato para importar.
+Para importar os dados, você deve abrrir o DBeaver, ir até a collection, ver as tables e com o botão direito ir em "importar dados" .csv, selecione o arquivo com o nome correlato com a tabela e importar, recomenda-se fazer isso em todas as tabelas, no entanto, as principais e cruciais são: tb_modelMotorcycle e tb_RentalPlan
 
-ATENÇÃO CASO NÃO IMPORTE OS DADOS A APLICAÇÃO NÃO FUNCIONARÁ
+Atenção:
+É obrigatório importar os csv => tb_modelMotorcycle e tb_RentalPlan
+ATENÇÃO CASO NÃO IMPORTE A APLICAÇÃO NÃO FUNCIONARÁ
 
-Para chamar os recursos da API, está disponível na raíZ do projeto Na pasta "Assets" depois em "postmanCollection" a collection para importar no postman
+8. Para facilitar o consumo da API, está disponível na pasta Asset > postmanCollection, o arquivo de colection para importar no postman
 
-Para os end-points que necessitam de imagem, elas estão disponíveis na pasta "Assets" e então na pasta "ImageCNH", nela contém uma imagem .png e uma .bmp e de brinde um arquivo de texto com as imagens já em base64!
+9. Pronto para usar!
 
 ===
-Notas:
+Notas e dicas de uso:
+
+Para os end-points que necessitam de imagem base64, elas estão disponíveis na pasta "Assets" e então na pasta "ImageCNH", nela contém uma imagem .png e uma .bmp e de brinde, arquivos de texto com as imagens já em base64!
 
 Caso modifique alguma entidade, esse é o comando para criar a migration
 
-Gerar migration, considere abrir o Powershell na pasta src do projeto
+Gerar migration, considere abrir o Powershell na pasta raiz do projeto: 
+$ dotnet ef migrations add InicialBase -s src\CoreGoDelivery.API -p src\CoreGoDelivery.Infrastructure
 
-dotnet ef migrations add InicialBase -s .\CoreGoDelivery.API -p .\CoreGoDelivery.Infrastructure
-
-Atualizar o banco
-
-dotnet ef database update -s .\CoreGoDelivery.API -p .\CoreGoDelivery.Infrastructure
+Atualizar o banco:
+$ dotnet ef database update -s .\CoreGoDelivery.API -p .\CoreGoDelivery.Infrastructure
 
 Referências:
 
