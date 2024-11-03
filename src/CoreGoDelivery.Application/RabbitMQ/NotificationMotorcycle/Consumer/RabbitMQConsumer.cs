@@ -4,44 +4,65 @@ using CoreGoDelivery.Domain.Repositories.GoDelivery;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
+using Polly;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
+using RabbitMQ.Client.Exceptions;
 using System.Text;
 
 namespace CoreGoDelivery.Application.RabbitMQ.NotificationMotorcycle.Consumer;
 
 public class RabbitMQConsumer : BackgroundService
 {
-    private readonly IConnection _connection;
+    private readonly IConnectionFactory _connectionFactory;
     private readonly IServiceScopeFactory _serviceScopeFactory;
+    private IConnection? _connection;
+    private IModel? _channel;
 
     public RabbitMQConsumer(
-        IConnection connection,
+        IConnectionFactory connectionFactory,
         IServiceScopeFactory serviceScopeFactory)
     {
-        _connection = connection;
+        _connectionFactory = connectionFactory;
         _serviceScopeFactory = serviceScopeFactory;
     }
 
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
-        using var channel = _connection.CreateModel();
+        var retryPolicy = Policy
+            .Handle<BrokerUnreachableException>()
+            .WaitAndRetryAsync(
+                retryCount: 5,
+                sleepDurationProvider: attempt => TimeSpan.FromSeconds(Math.Pow(2, attempt)), // Backoff exponencial
+                onRetry: (exception, timespan, attempt, context) =>
+                {
+                    Console.WriteLine($"Tentativa {attempt} de conexão com RabbitMQ falhou: {exception.Message}. Tentando novamente em {timespan}.");
+                });
 
-        channel.QueueDeclare(queue: "motorcycle_queue",
-                             durable: true,
-                             exclusive: false,
-                             autoDelete: false,
-                             arguments: null);
+        await retryPolicy.ExecuteAsync(() =>
+        {
+            _connection = _connectionFactory.CreateConnection();
+            _channel = _connection.CreateModel();
 
-        var consumer = new EventingBasicConsumer(channel);
+            _channel.QueueDeclare(queue: "motorcycle_queue",
+                                  durable: true,
+                                  exclusive: false,
+                                  autoDelete: false,
+                                  arguments: null);
+
+            return Task.CompletedTask;
+        });
+
+        var consumer = new EventingBasicConsumer(_channel);
+
         consumer.Received += (model, ea) =>
         {
             var body = ea.Body.ToArray();
             var message = Encoding.UTF8.GetString(body);
 
-            NotificationMotorcycleDto notification = JsonConvert.DeserializeObject<NotificationMotorcycleDto>(message)!;
+            var notification = JsonConvert.DeserializeObject<NotificationMotorcycleDto>(message)!;
 
-            var entityNotification = new NotificationMotorcycleEntity()
+            var entityNotification = new NotificationMotorcycleEntity
             {
                 Id = notification.Id,
                 IdMotorcycle = notification.IdMotorcycle,
@@ -62,9 +83,9 @@ public class RabbitMQConsumer : BackgroundService
             Console.WriteLine($"CreatedAt: {notification.CreatedAt}");
         };
 
-        channel.BasicConsume(queue: "motorcycle_queue",
-                             autoAck: true,
-                             consumer: consumer);
+        _channel.BasicConsume(queue: "motorcycle_queue",
+                              autoAck: true,
+                              consumer: consumer);
 
         Console.WriteLine("Consumidor aguardando mensagens da fila 'motorcycle_queue'...");
 
@@ -73,7 +94,9 @@ public class RabbitMQConsumer : BackgroundService
 
     public override void Dispose()
     {
-        _connection?.Dispose();
+        _channel?.Close();
+        _connection?.Close();
         base.Dispose();
+        GC.SuppressFinalize(this);
     }
 }

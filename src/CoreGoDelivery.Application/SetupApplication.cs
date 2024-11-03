@@ -40,9 +40,8 @@ public static class SetupApplication
 
         services.Configure<RabbitMQSettings>(options => configuration.GetSection("RabbitMQ").Bind(options));
 
-        var isInDocker = Environment.GetEnvironmentVariable("DOTNET_RUNNING_IN_CONTAINER") == "true";
 
-        services.AddSingleton<IConnection>(sp =>
+        services.TryAddSingleton<IConnectionFactory>(sp =>
         {
             var factory = new ConnectionFactory()
             {
@@ -52,19 +51,25 @@ public static class SetupApplication
                 Port = 5672
             };
 
-            if (isInDocker)
+            if (Environment.GetEnvironmentVariable("DOTNET_RUNNING_IN_CONTAINER") == "true")
             {
                 factory.HostName = "rabbitmq";
                 factory.UserName = "guest";
                 factory.Password = "guest";
             }
 
+            return factory;
+        });
+
+        services.AddSingleton<IConnection>(sp =>
+        {
+            var factory = sp.GetRequiredService<IConnectionFactory>();
             return factory.CreateConnection();
         });
 
-        services.TryAddSingleton<RabbitMQPublisher>();
+        services.TryAddTransient<RabbitMQPublisher>();
 
-        services.AddSingleton<RabbitMQConsumer>();
+        services.AddHostedService<RabbitMQConsumer>();
 
         return services;
     }

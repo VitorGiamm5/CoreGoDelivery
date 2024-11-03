@@ -6,6 +6,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.Extensions.Options;
+using Polly;
+using Polly.Retry;
 
 namespace CoreGoDelivery.Infrastructure;
 
@@ -15,9 +18,25 @@ public static class SetupInfrastructure
     {
         services.AddDomain(configuration);
 
-        services.AddDbContextPool<ApplicationDbContext>(options => options
-            .UseNpgsql(configuration.GetConnectionString("postgres"))
-            .AddInfrastructure(configuration));
+        RetryPolicy retryPolicy = Policy
+            .Handle<Exception>()
+            .WaitAndRetry(
+                retryCount: 5,
+                sleepDurationProvider: attempt => TimeSpan.FromSeconds(Math.Pow(2, attempt)), // Backoff exponencial
+                onRetry: (exception, timespan, attempt, context) =>
+                {
+                    Console.WriteLine($"Tentativa {attempt} falhou com erro: {exception.Message}. Tentando novamente em {timespan}.");
+                });
+
+
+        services.AddDbContextPool<ApplicationDbContext>(options =>
+        {
+            retryPolicy.Execute(() =>
+            {
+                options.UseNpgsql(configuration.GetConnectionString("postgres"))
+                       .AddInfrastructure(configuration);
+            });
+        });
 
         AddRepositories(services);
 

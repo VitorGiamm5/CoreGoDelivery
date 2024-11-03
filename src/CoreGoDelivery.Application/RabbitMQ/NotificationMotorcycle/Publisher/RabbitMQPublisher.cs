@@ -32,6 +32,6 @@ public class RabbitMQPublisher
                              basicProperties: null,
                              body: body);
 
-        Console.WriteLine(" [x] Publicado: {0}", message);
+        Console.WriteLine(" [x] Published: {0}", message);
     }
 }

@@ -1,7 +1,6 @@
 using CoreGoDelivery.Api.Conveters;
 using CoreGoDelivery.Api.Swagger;
 using CoreGoDelivery.Application;
-using CoreGoDelivery.Application.RabbitMQ.NotificationMotorcycle.Consumer;
 using CoreGoDelivery.Infrastructure.Database.Services;
 using Microsoft.OpenApi.Models;
 using Serilog;
@@ -53,8 +52,6 @@ builder.WebHost.ConfigureKestrel(options =>
 {
     options.ListenAnyIP(5273);
 });
-
-builder.Services.AddHostedService<RabbitMQConsumer>();
 
 var app = builder.Build();
 
