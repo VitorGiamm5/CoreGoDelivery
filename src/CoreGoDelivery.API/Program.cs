@@ -54,13 +54,9 @@ builder.WebHost.ConfigureKestrel(options =>
     options.ListenAnyIP(5273);
 });
 
+builder.Services.AddHostedService<RabbitMQConsumer>();
+
 var app = builder.Build();
-
-var consumer = app.Services.GetService<RabbitMqConsumer>();
-
-#pragma warning disable CS4014
-Task.Run(() => consumer!.ConsumeMessages());
-#pragma warning restore CS4014
 
 if (app.Environment.IsDevelopment())
 {

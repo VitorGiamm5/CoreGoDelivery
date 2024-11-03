@@ -2,6 +2,7 @@
 using CoreGoDelivery.Domain.Entities.GoDelivery.NotificationMotorcycle;
 using CoreGoDelivery.Domain.Repositories.GoDelivery;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
@@ -9,12 +10,12 @@ using System.Text;
 
 namespace CoreGoDelivery.Application.RabbitMQ.NotificationMotorcycle.Consumer;
 
-public class RabbitMqConsumer
+public class RabbitMQConsumer : BackgroundService
 {
     private readonly IConnection _connection;
     private readonly IServiceScopeFactory _serviceScopeFactory;
 
-    public RabbitMqConsumer(
+    public RabbitMQConsumer(
         IConnection connection,
         IServiceScopeFactory serviceScopeFactory)
     {
@@ -22,7 +23,7 @@ public class RabbitMqConsumer
         _serviceScopeFactory = serviceScopeFactory;
     }
 
-    public void ConsumeMessages()
+    protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
         using var channel = _connection.CreateModel();
 
@@ -51,7 +52,6 @@ public class RabbitMqConsumer
             using (var scope = _serviceScopeFactory.CreateScope())
             {
                 var notificationRepository = scope.ServiceProvider.GetRequiredService<INotificationMotorcycleRepository>();
-
                 notificationRepository.Create(entityNotification);
             }
 
@@ -67,9 +67,13 @@ public class RabbitMqConsumer
                              consumer: consumer);
 
         Console.WriteLine("Consumidor aguardando mensagens da fila 'motorcycle_queue'...");
-        Console.ReadLine();
+
+        await Task.Delay(Timeout.Infinite, stoppingToken);
+    }
+
+    public override void Dispose()
+    {
+        _connection?.Dispose();
+        base.Dispose();
     }
 }
-
-
-

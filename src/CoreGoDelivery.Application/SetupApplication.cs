@@ -64,7 +64,7 @@ public static class SetupApplication
 
         services.TryAddSingleton<RabbitMQPublisher>();
 
-        services.AddSingleton<RabbitMqConsumer>();
+        services.AddSingleton<RabbitMQConsumer>();
 
         return services;
     }
