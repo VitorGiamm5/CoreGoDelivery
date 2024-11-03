@@ -1,13 +1,12 @@
-﻿namespace CoreGoDelivery.Domain.Enums.ServiceErrorMessage
+﻿namespace CoreGoDelivery.Domain.Enums.ServiceErrorMessage;
+
+public enum AdditionalMessageEnum
 {
-    public enum AdditionalMessageEnum
-    {
-        None,
-        InvalidFormat,
-        MustBeUnic,
-        AlreadyExist,
-        Unavailable,
-        Required,
-        NotFound
-    }
+    None,
+    InvalidFormat,
+    MustBeUnic,
+    AlreadyExist,
+    Unavailable,
+    Required,
+    NotFound
 }

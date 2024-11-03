@@ -2,37 +2,36 @@
 using CoreGoDelivery.Application.RabbitMQ.NotificationMotorcycle.Publisher;
 using CoreGoDelivery.Domain.Entities.GoDelivery.Motorcycle;
 
-namespace CoreGoDelivery.Application.Services.Internal.Motorcycle.Commands.Create
+namespace CoreGoDelivery.Application.Services.Internal.Motorcycle.Commands.Create;
+
+public class MotorcycleCreateNotification
 {
-    public class MotorcycleCreateNotification
+    public readonly RabbitMQPublisher _publisher;
+
+    private const int YEAR_MANUFACTORY_TO_SEND_MESSAGE = 2024;
+
+    public MotorcycleCreateNotification(RabbitMQPublisher publisher)
     {
-        public readonly RabbitMQPublisher _publisher;
-
-        private const int YEAR_MANUFACTORY_TO_SEND_MESSAGE = 2024;
-
-        public MotorcycleCreateNotification(RabbitMQPublisher publisher)
-        {
-            _publisher = publisher;
-        }
+        _publisher = publisher;
+    }
 
 #pragma warning disable CS1998 
-        public async Task SendNotification(MotorcycleEntity motorcycle)
+    public async Task SendNotification(MotorcycleEntity motorcycle)
 #pragma warning restore CS1998
+    {
+        if (motorcycle.YearManufacture == YEAR_MANUFACTORY_TO_SEND_MESSAGE)
         {
-            if (motorcycle.YearManufacture == YEAR_MANUFACTORY_TO_SEND_MESSAGE)
+            var motorcycleNotification = new NotificationMotorcycleDto()
             {
-                var motorcycleNotification = new NotificationMotorcycleDto()
-                {
-                    Id = Ulid.NewUlid().ToString(),
-                    IdMotorcycle = motorcycle.Id,
-                    YearManufacture = motorcycle.YearManufacture,
-                    CreatedAt = DateTime.UtcNow
-                };
+                Id = Ulid.NewUlid().ToString(),
+                IdMotorcycle = motorcycle.Id,
+                YearManufacture = motorcycle.YearManufacture,
+                CreatedAt = DateTime.UtcNow
+            };
 
-                _publisher.PublishMotorcycle(motorcycleNotification);
+            _publisher.PublishMotorcycle(motorcycleNotification);
 
-                Console.WriteLine("Motocicleta publicada na fila.");
-            }
+            Console.WriteLine("Motocicleta publicada na fila.");
         }
     }
 }

@@ -1,19 +1,18 @@
 ﻿using CoreGoDelivery.Domain.Entities.GoDelivery.LicenceDriver;
 
-namespace CoreGoDelivery.Domain.Entities.GoDelivery.Deliverier
+namespace CoreGoDelivery.Domain.Entities.GoDelivery.Deliverier;
+
+public sealed class DeliverierEntity
 {
-    public sealed class DeliverierEntity
-    {
-        public string Id { get; set; }
-        public string FullName { get; set; }
-        public string Cnpj { get; set; }
-        public DateTime BirthDate { get; set; }
+    public string Id { get; set; }
+    public string FullName { get; set; }
+    public string Cnpj { get; set; }
+    public DateTime BirthDate { get; set; }
 
-        #region relationships
+    #region relationships
 
-        public string LicenceDriverId { get; set; }
-        public LicenceDriverEntity LicenceDriver { get; set; }
+    public string LicenceDriverId { get; set; }
+    public LicenceDriverEntity LicenceDriver { get; set; }
 
-        #endregion
-    }
+    #endregion
 }

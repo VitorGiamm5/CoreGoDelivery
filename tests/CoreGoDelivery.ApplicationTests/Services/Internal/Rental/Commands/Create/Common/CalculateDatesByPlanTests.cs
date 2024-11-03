@@ -3,24 +3,23 @@ using CoreGoDelivery.Domain.Entities.GoDelivery.RentalPlan;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Assert = Xunit.Assert;
 
-namespace CoreGoDelivery.ApplicationTests.Services.Internal.Rental.Commands.Create.Common
+namespace CoreGoDelivery.ApplicationTests.Services.Internal.Rental.Commands.Create.Common;
+
+[TestClass()]
+public class CalculateDatesByPlanTests
 {
-    [TestClass()]
-    public class CalculateDatesByPlanTests
+    [Fact]
+    public void Calculate_ShouldReturnRentalEntity_WithCorrectDates()
     {
-        [Fact]
-        public void Calculate_ShouldReturnRentalEntity_WithCorrectDates()
-        {
-            var service = new CalculateDatesByPlan();
+        var service = new RentalCalculateDatesByPlan();
 
-            var plan = new RentalPlanEntity { DaysQuantity = 5 };
+        var plan = new RentalPlanEntity { DaysQuantity = 5 };
 
-            var result = service.Calculate(plan);
+        var result = service.Calculate(plan);
 
-            Assert.NotNull(result);
-            Assert.Equal(DateTime.UtcNow.Date, result.StartDate.Date);
-            Assert.Equal(DateTime.UtcNow.AddDays(plan.DaysQuantity).Date, result.EndDate.Date);
-            Assert.Equal(DateTime.UtcNow.AddDays(plan.DaysQuantity).Date, result.EstimatedReturnDate.Date);
-        }
+        Assert.NotNull(result);
+        Assert.Equal(DateTime.UtcNow.Date, result.StartDate.Date);
+        Assert.Equal(DateTime.UtcNow.AddDays(plan.DaysQuantity).Date, result.EndDate.Date);
+        Assert.Equal(DateTime.UtcNow.AddDays(plan.DaysQuantity).Date, result.EstimatedReturnDate.Date);
     }
 }

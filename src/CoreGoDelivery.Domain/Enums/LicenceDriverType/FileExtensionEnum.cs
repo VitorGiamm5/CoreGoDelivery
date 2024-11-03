@@ -1,9 +1,8 @@
-﻿namespace CoreGoDelivery.Domain.Enums.LicenceDriverType
+﻿namespace CoreGoDelivery.Domain.Enums.LicenceDriverType;
+
+public enum FileExtensionValidEnum
 {
-    public enum FileExtensionValidEnum
-    {
-        none,
-        png,
-        bmp
-    }
+    none,
+    png,
+    bmp
 }

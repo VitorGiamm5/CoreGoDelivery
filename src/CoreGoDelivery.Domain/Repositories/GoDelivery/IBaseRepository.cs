@@ -1,6 +1,5 @@
-﻿namespace CoreGoDelivery.Domain.Repositories.GoDelivery
+﻿namespace CoreGoDelivery.Domain.Repositories.GoDelivery;
+
+public interface IBaseRepository
 {
-    public interface IBaseRepository
-    {
-    }
 }

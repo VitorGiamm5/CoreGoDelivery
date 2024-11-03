@@ -5,37 +5,36 @@ using CoreGoDelivery.Application.Services.Internal.Rental.Queries.GetOne;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace CoreGoDelivery.Api.Controllers
+namespace CoreGoDelivery.Api.Controllers;
+
+[Route("locacao")]
+[ApiController]
+public class RentalController(IMediator _mediator) : BaseApiController
 {
-    [Route("locacao")]
-    [ApiController]
-    public class RentalController(IMediator _mediator) : BaseApiController
+    [HttpGet("{id}")]
+    public async Task<IActionResult> GetOne(string? id)
     {
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetOne(string? id)
-        {
-            var request = new RentalGetOneCommand();
-            request.Id = id;
-            var result = await _mediator.Send(request);
+        var request = new RentalGetOneCommand();
+        request.Id = id;
+        var result = await _mediator.Send(request);
 
-            return Response(result);
-        }
+        return Response(result);
+    }
 
-        [HttpPost]
-        public async Task<IActionResult> Create([FromBody] RentalCreateCommand request)
-        {
-            var result = await _mediator.Send(request);
+    [HttpPost]
+    public async Task<IActionResult> Create([FromBody] RentalCreateCommand request)
+    {
+        var result = await _mediator.Send(request);
 
-            return Response(result);
-        }
+        return Response(result);
+    }
 
-        [HttpPut("{id}/devolucao")]
-        public async Task<IActionResult> UpdateReturnedToBaseDate(string id, [FromBody] RentalReturnedToBaseDateCommand request)
-        {
-            request.Id = id;
-            var result = await _mediator.Send(request);
+    [HttpPut("{id}/devolucao")]
+    public async Task<IActionResult> UpdateReturnedToBaseDate(string id, [FromBody] RentalReturnedToBaseDateCommand request)
+    {
+        request.Id = id;
+        var result = await _mediator.Send(request);
 
-            return Response(result);
-        }
+        return Response(result);
     }
 }

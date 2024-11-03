@@ -6,47 +6,46 @@ using CoreGoDelivery.Domain.Response;
 using MediatR;
 using System.Text;
 
-namespace CoreGoDelivery.Application.Services.Internal.Rental.Queries.GetOne
+namespace CoreGoDelivery.Application.Services.Internal.Rental.Queries.GetOne;
+
+public class RentalGetOneHandler : IRequestHandler<RentalGetOneCommand, ApiResponse>
 {
-    public class RentalGetOneHandler : IRequestHandler<RentalGetOneCommand, ApiResponse>
+    public readonly IBaseInternalServices _baseInternalServices;
+    public readonly IRentalRepository _repositoryRental;
+
+    public readonly RentalGetOneMappers _mapper;
+    public readonly RentalBuildMessageIdRental _buildMessageIdRental;
+
+    public RentalGetOneHandler(
+        IBaseInternalServices baseInternalServices,
+        IRentalRepository repositoryRental,
+        RentalGetOneMappers mapper,
+        RentalBuildMessageIdRental buildMessageIdRental)
     {
-        public readonly IBaseInternalServices _baseInternalServices;
-        public readonly IRentalRepository _repositoryRental;
+        _baseInternalServices = baseInternalServices;
+        _repositoryRental = repositoryRental;
+        _mapper = mapper;
+        _buildMessageIdRental = buildMessageIdRental;
+    }
 
-        public readonly RentalGetOneMappers _mapper;
-        public readonly BuildMessageIdRental _buildMessageIdRental;
+    public async Task<ApiResponse> Handle(RentalGetOneCommand request, CancellationToken cancellationToken)
+    {
+        var message = new StringBuilder();
 
-        public RentalGetOneHandler(
-            IBaseInternalServices baseInternalServices,
-            IRentalRepository repositoryRental,
-            RentalGetOneMappers mapper,
-            BuildMessageIdRental buildMessageIdRental)
+        var idRental = request?.Id;
+
+        RentalEntity? rental = null;
+
+        rental = await _buildMessageIdRental.Build(message, idRental, rental);
+
+        var rentalDto = _mapper.RentalEntityToDto(rental);
+
+        var apiReponse = new ApiResponse()
         {
-            _baseInternalServices = baseInternalServices;
-            _repositoryRental = repositoryRental;
-            _mapper = mapper;
-            _buildMessageIdRental = buildMessageIdRental;
-        }
+            Data = rentalDto,
+            Message = _baseInternalServices.BuildMessageValidator(message)
+        };
 
-        public async Task<ApiResponse> Handle(RentalGetOneCommand request, CancellationToken cancellationToken)
-        {
-            var message = new StringBuilder();
-
-            var idRental = request?.Id;
-
-            RentalEntity? rental = null;
-
-            rental = await _buildMessageIdRental.Build(message, idRental, rental);
-
-            var rentalDto = _mapper.RentalEntityToDto(rental);
-
-            var apiReponse = new ApiResponse()
-            {
-                Data = rentalDto,
-                Message = _baseInternalServices.BuildMessageValidator(message)
-            };
-
-            return apiReponse;
-        }
+        return apiReponse;
     }
 }

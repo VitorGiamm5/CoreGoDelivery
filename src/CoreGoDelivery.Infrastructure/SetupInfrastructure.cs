@@ -7,27 +7,31 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
-namespace CoreGoDelivery.Infrastructure
+namespace CoreGoDelivery.Infrastructure;
+
+public static class SetupInfrastructure
 {
-    public static class SetupInfrastructure
+    public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
-        public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
-        {
-            services.AddDomain(configuration);
+        services.AddDomain(configuration);
 
-            services.AddDbContextPool<ApplicationDbContext>(options => options
-                .UseNpgsql(configuration.GetConnectionString("postgres"))
-                .AddInfrastructure(configuration));
+        services.AddDbContextPool<ApplicationDbContext>(options => options
+            .UseNpgsql(configuration.GetConnectionString("postgres"))
+            .AddInfrastructure(configuration));
 
-            services.TryAddScoped<IDeliverierRepository, DeliverierRepository>();
-            services.TryAddScoped<ILicenceDriverRepository, LicenceDriverRepository>();
-            services.TryAddScoped<IModelMotorcycleRepository, ModelMotorcycleRepository>();
-            services.TryAddScoped<IMotorcycleRepository, MotorcycleRepository>();
-            services.TryAddScoped<IRentalPlanRepository, RentalPlanRepository>();
-            services.TryAddScoped<IRentalRepository, RentalRepository>();
-            services.TryAddScoped<INotificationMotorcycleRepository, NotificationMotorcycleRepository>();
+        AddRepositories(services);
 
-            return services;
-        }
+        return services;
+    }
+
+    private static void AddRepositories(IServiceCollection services)
+    {
+        services.TryAddScoped<IDeliverierRepository, DeliverierRepository>();
+        services.TryAddScoped<ILicenceDriverRepository, LicenceDriverRepository>();
+        services.TryAddScoped<IModelMotorcycleRepository, ModelMotorcycleRepository>();
+        services.TryAddScoped<IMotorcycleRepository, MotorcycleRepository>();
+        services.TryAddScoped<IRentalPlanRepository, RentalPlanRepository>();
+        services.TryAddScoped<IRentalRepository, RentalRepository>();
+        services.TryAddScoped<INotificationMotorcycleRepository, NotificationMotorcycleRepository>();
     }
 }

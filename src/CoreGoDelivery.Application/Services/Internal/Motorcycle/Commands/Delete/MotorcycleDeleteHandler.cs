@@ -2,37 +2,36 @@
 using CoreGoDelivery.Domain.Response;
 using MediatR;
 
-namespace CoreGoDelivery.Application.Services.Internal.Motorcycle.Commands.Delete
+namespace CoreGoDelivery.Application.Services.Internal.Motorcycle.Commands.Delete;
+
+public class MotorcycleDeleteHandler : IRequestHandler<MotorcycleDeleteCommand, ApiResponse>
 {
-    public class MotorcycleDeleteHandler : IRequestHandler<MotorcycleDeleteCommand, ApiResponse>
+    public readonly IMotorcycleRepository _repositoryMotorcycle;
+
+    private readonly MotorcycleDeleteValidator _validator;
+
+    public MotorcycleDeleteHandler(
+        IMotorcycleRepository repositoryMotorcycle,
+        MotorcycleDeleteValidator validator)
     {
-        public readonly IMotorcycleRepository _repositoryMotorcycle;
+        _repositoryMotorcycle = repositoryMotorcycle;
+        _validator = validator;
+    }
 
-        private readonly MotorcycleDeleteValidator _validator;
-
-        public MotorcycleDeleteHandler(
-            IMotorcycleRepository repositoryMotorcycle,
-            MotorcycleDeleteValidator validator)
+    public async Task<ApiResponse> Handle(MotorcycleDeleteCommand request, CancellationToken cancellationToken)
+    {
+        var apiReponse = new ApiResponse()
         {
-            _repositoryMotorcycle = repositoryMotorcycle;
-            _validator = validator;
+            Message = await _validator.BuilderDeleteValidator(request.Id)
+        };
+
+        if (!string.IsNullOrEmpty(apiReponse.Message))
+        {
+            return apiReponse;
         }
 
-        public async Task<ApiResponse> Handle(MotorcycleDeleteCommand request, CancellationToken cancellationToken)
-        {
-            var apiReponse = new ApiResponse()
-            {
-                Message = await _validator.BuilderDeleteValidator(request.Id)
-            };
+        _ = await _repositoryMotorcycle.DeleteById(request.Id);
 
-            if (!string.IsNullOrEmpty(apiReponse.Message))
-            {
-                return apiReponse;
-            }
-
-            _ = await _repositoryMotorcycle.DeleteById(request.Id);
-
-            return apiReponse!;
-        }
+        return apiReponse!;
     }
 }

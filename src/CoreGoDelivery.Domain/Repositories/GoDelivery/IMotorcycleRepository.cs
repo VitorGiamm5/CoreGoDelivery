@@ -1,7 +1,7 @@
 ﻿using CoreGoDelivery.Domain.Entities.GoDelivery.Motorcycle;
 
-namespace CoreGoDelivery.Domain.Repositories.GoDelivery
-{
+namespace CoreGoDelivery.Domain.Repositories.GoDelivery;
+
     public interface IMotorcycleRepository
     {
         Task<List<MotorcycleEntity>?> List(string? id);
@@ -12,4 +12,3 @@ namespace CoreGoDelivery.Domain.Repositories.GoDelivery
         Task<bool> DeleteById(string? id);
         Task<bool> ChangePlateByIdAsync(string? id, string? plate);
     }
-}

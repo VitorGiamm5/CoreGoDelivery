@@ -4,29 +4,28 @@ using CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.UploadCnh
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace CoreGoDelivery.Api.Controllers
+namespace CoreGoDelivery.Api.Controllers;
+
+[Route("entregadores")]
+[ApiController]
+public class DeliveriersController(IMediator _mediator) : BaseApiController
 {
-    [Route("entregadores")]
-    [ApiController]
-    public class DeliveriersController(IMediator _mediator) : BaseApiController
+    [HttpPost]
+    public async Task<IActionResult> Create([FromBody] DeliverierCreateCommand request)
     {
-        [HttpPost]
-        public async Task<IActionResult> Create([FromBody] DeliverierCreateCommand request)
-        {
-            var apiReponse = await _mediator.Send(request);
+        var apiReponse = await _mediator.Send(request);
 
-            return Response(apiReponse);
-        }
+        return Response(apiReponse);
+    }
 
-        [HttpPost("{id}/cnh")]
-        public async Task<IActionResult> Upload(string id, [FromBody] DeliverierUploadCnhCommand request)
-        {
-            request.IdDeliverier = id;
-            request.IsUpdate = true;
+    [HttpPost("{id}/cnh")]
+    public async Task<IActionResult> Upload(string id, [FromBody] DeliverierUploadCnhCommand request)
+    {
+        request.IdDeliverier = id;
+        request.IsUpdate = true;
 
-            var apiReponse = await _mediator.Send(request);
+        var apiReponse = await _mediator.Send(request);
 
-            return Response(apiReponse);
-        }
+        return Response(apiReponse);
     }
 }

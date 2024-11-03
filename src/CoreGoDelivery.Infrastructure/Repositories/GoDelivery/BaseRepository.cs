@@ -3,29 +3,35 @@ using CoreGoDelivery.Infrastructure.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 
-namespace CoreGoDelivery.Infrastructure.Repositories.GoDelivery
+namespace CoreGoDelivery.Infrastructure.Repositories.GoDelivery;
+
+public abstract class BaseRepository<T> : IBaseRepository where T : class
 {
-    public abstract class BaseRepository<T> : IBaseRepository where T : class
+    public readonly ApplicationDbContext _context;
+
+    protected BaseRepository(ApplicationDbContext context)
     {
-        public readonly ApplicationDbContext _context;
+        _context = context;
+    }
 
-        protected BaseRepository(ApplicationDbContext context)
-        {
-            _context = context;
-        }
+    public static bool IsSuccessCreate(EntityEntry<T> result)
+    {
+        var success = result.State == EntityState.Added || result.State == EntityState.Unchanged;
 
-        public static bool IsSuccessCreate(EntityEntry<T> result)
-        {
-            var success = result.State == EntityState.Added || result.State == EntityState.Unchanged;
+        return success;
+    }
 
-            return success;
-        }
+    public static bool IsUnic(object? result)
+    {
+        var success = result == null;
 
-        public static bool Ok(object? result)
-        {
-            var success = result != null;
+        return success;
+    }
 
-            return success;
-        }
+    public static bool HasValue(object? result)
+    {
+        var success = result != null;
+
+        return success;
     }
 }

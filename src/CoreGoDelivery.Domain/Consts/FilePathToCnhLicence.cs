@@ -1,7 +1,6 @@
-﻿namespace CoreGoDelivery.Domain.Consts
+﻿namespace CoreGoDelivery.Domain.Consts;
+
+public class FilePathToCnhLicence
 {
-    public class FilePathToCnhLicence
-    {
-        public const string FILE_PATH_CNH_LICENSE = @"..\..\uploads_cnh";
-    }
+    public const string FILE_PATH_CNH_LICENSE = @"..\..\uploads_cnh";
 }

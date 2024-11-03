@@ -1,34 +1,33 @@
 ﻿using CoreGoDelivery.Domain.Enums.ServiceErrorMessage;
 using System.Text;
 
-namespace CoreGoDelivery.Application.Extensions
+namespace CoreGoDelivery.Application.Extensions;
+
+public static class StringBuilderExtensions
 {
-    public static class StringBuilderExtensions
+    public static StringBuilder AppendError<T>(this StringBuilder sb, T data, object? paramName, AdditionalMessageEnum additionalMessage = AdditionalMessageEnum.Required)
+
     {
-        public static StringBuilder AppendError<T>(this StringBuilder sb, T data, object? paramName, AdditionalMessageEnum additionalMessage = AdditionalMessageEnum.Required)
-
+        if (paramName == null)
         {
-            if (paramName == null)
-            {
-                sb.Append($"Invalid field: '{paramName}', Detail: '{additionalMessage.GetMessage()}'; ");
-            }
-            else
-            {
-                sb.Append($"Invalid field: '{paramName}', Detail: '{additionalMessage.GetMessage()}'; ");
-            }
-
-            return sb;
+            sb.Append($"Invalid field: '{paramName}', Detail: '{additionalMessage.GetMessage()}'; ");
+        }
+        else
+        {
+            sb.Append($"Invalid field: '{paramName}', Detail: '{additionalMessage.GetMessage()}'; ");
         }
 
-        public static void AppendErrorWithExpexted<T>(this StringBuilder message, T data, object? wantedValue, string butValue)
-        {
-            string result = $"" +
-                $"Invalid field: {wantedValue}, " +
-                $"Expected: {wantedValue}, " +
-                $"Type: {typeof(T).Name}, " +
-                $"But was: {butValue};";
+        return sb;
+    }
 
-            message.Append(result);
-        }
+    public static void AppendErrorWithExpexted<T>(this StringBuilder message, T data, object? wantedValue, string butValue)
+    {
+        string result = $"" +
+            $"Invalid field: {wantedValue}, " +
+            $"Expected: {wantedValue}, " +
+            $"Type: {typeof(T).Name}, " +
+            $"But was: {butValue};";
+
+        message.Append(result);
     }
 }

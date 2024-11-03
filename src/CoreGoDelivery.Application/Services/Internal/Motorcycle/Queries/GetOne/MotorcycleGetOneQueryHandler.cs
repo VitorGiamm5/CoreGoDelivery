@@ -4,33 +4,32 @@ using CoreGoDelivery.Domain.Repositories.GoDelivery;
 using CoreGoDelivery.Domain.Response;
 using MediatR;
 
-namespace CoreGoDelivery.Application.Services.Internal.Motorcycle.Queries.GetOne
+namespace CoreGoDelivery.Application.Services.Internal.Motorcycle.Queries.GetOne;
+
+public class MotorcycleGetOneQueryHandler : IRequestHandler<MotorcycleGetOneQueryCommand, ApiResponse>
 {
-    public class MotorcycleGetOneQueryHandler : IRequestHandler<MotorcycleGetOneQueryCommand, ApiResponse>
+    public readonly IMotorcycleRepository _repositoryMotorcycle;
+
+    private readonly MotorcycleServiceMappers _mapper;
+
+    public MotorcycleGetOneQueryHandler(IMotorcycleRepository repositoryMotorcycle, MotorcycleServiceMappers mapper)
     {
-        public readonly IMotorcycleRepository _repositoryMotorcycle;
+        _repositoryMotorcycle = repositoryMotorcycle;
+        _mapper = mapper;
+    }
 
-        private readonly MotorcycleServiceMappers _mapper;
+    public async Task<ApiResponse> Handle(MotorcycleGetOneQueryCommand request, CancellationToken cancellationToken)
+    {
+        var result = await _repositoryMotorcycle.GetOneByIdAsync(request.Id);
 
-        public MotorcycleGetOneQueryHandler(IMotorcycleRepository repositoryMotorcycle, MotorcycleServiceMappers mapper)
+        var motorcycleDtos = result != null ? _mapper.MapEntityToDto(result) : null;
+
+        var apiReponse = new ApiResponse()
         {
-            _repositoryMotorcycle = repositoryMotorcycle;
-            _mapper = mapper;
-        }
+            Data = motorcycleDtos,
+            Message = result == null ? CommomMessagesConst.MESSAGE_MOTORCYCLE_NOT_FOUND : null
+        };
 
-        public async Task<ApiResponse> Handle(MotorcycleGetOneQueryCommand request, CancellationToken cancellationToken)
-        {
-            var result = await _repositoryMotorcycle.GetOneByIdAsync(request.Id);
-
-            var motorcycleDtos = result != null ? _mapper.MapEntityToDto(result) : null;
-
-            var apiReponse = new ApiResponse()
-            {
-                Data = motorcycleDtos,
-                Message = result == null ? CommomMessagesConst.MESSAGE_MOTORCYCLE_NOT_FOUND : null
-            };
-
-            return apiReponse;
-        }
+        return apiReponse;
     }
 }

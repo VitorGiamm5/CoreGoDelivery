@@ -2,54 +2,53 @@
 using CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.Create.MessageValidators;
 using System.Text;
 
-namespace CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.Create
+namespace CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.Create;
+
+public class DeliverierCreateValidator
 {
-    public class DeliverierCreateValidator
+    public readonly IBaseInternalServices _baseInternalServices;
+
+    public readonly DeliverierBuildMessageCnpj _buildMessageCnpj;
+    public readonly DeliverierBuildMessageFullName _buildMessageFullName;
+    public readonly DeliverierBuildMessageBirthDate _buildMessageBirthDate;
+    public readonly DeliverierBuildMessageLicenseType _buildMessageLicenseType;
+    public readonly DeliverierBuildMessageDeliverierCreate _buildMessageCreate;
+    public readonly DeliverierBuildMessageCnh _buildMessageCnh;
+
+    public DeliverierCreateValidator(
+        IBaseInternalServices baseInternalServices,
+        DeliverierBuildMessageCnpj buildMessageCnpj,
+        DeliverierBuildMessageFullName buildMessageFullName,
+        DeliverierBuildMessageBirthDate buildMessageBirthDate,
+        DeliverierBuildMessageLicenseType buildMessageLicenseType,
+        DeliverierBuildMessageDeliverierCreate buildMessageCreate,
+        DeliverierBuildMessageCnh buildMessageCnh)
     {
-        public readonly IBaseInternalServices _baseInternalServices;
+        _baseInternalServices = baseInternalServices;
+        _buildMessageCnpj = buildMessageCnpj;
+        _buildMessageFullName = buildMessageFullName;
+        _buildMessageBirthDate = buildMessageBirthDate;
+        _buildMessageLicenseType = buildMessageLicenseType;
+        _buildMessageCreate = buildMessageCreate;
+        _buildMessageCnh = buildMessageCnh;
+    }
 
-        public readonly BuildMessageCnpj _buildMessageCnpj;
-        public readonly BuildMessageFullName _buildMessageFullName;
-        public readonly BuildMessageBirthDate _buildMessageBirthDate;
-        public readonly BuildMessageLicenseType _buildMessageLicenseType;
-        public readonly BuildMessageDeliverierCreate _buildMessageCreate;
-        public readonly BuildMessageCnh _buildMessageCnh;
+    public async Task<string?> Validator(DeliverierCreateCommand data)
+    {
+        var message = new StringBuilder();
 
-        public DeliverierCreateValidator(
-            IBaseInternalServices baseInternalServices,
-            BuildMessageCnpj buildMessageCnpj,
-            BuildMessageFullName buildMessageFullName,
-            BuildMessageBirthDate buildMessageBirthDate,
-            BuildMessageLicenseType buildMessageLicenseType,
-            BuildMessageDeliverierCreate buildMessageCreate,
-            BuildMessageCnh buildMessageCnh)
-        {
-            _baseInternalServices = baseInternalServices;
-            _buildMessageCnpj = buildMessageCnpj;
-            _buildMessageFullName = buildMessageFullName;
-            _buildMessageBirthDate = buildMessageBirthDate;
-            _buildMessageLicenseType = buildMessageLicenseType;
-            _buildMessageCreate = buildMessageCreate;
-            _buildMessageCnh = buildMessageCnh;
-        }
+        _buildMessageCnpj.Build(message, data.Cnpj);
 
-        public async Task<string?> Validator(DeliverierCreateCommand data)
-        {
-            var message = new StringBuilder();
+        _buildMessageFullName.Build(data, message);
 
-            _buildMessageCnpj.Build(message, data.Cnpj);
+        _buildMessageBirthDate.Build(data, message);
 
-            _buildMessageFullName.Build(data, message);
+        _buildMessageLicenseType.Build(data, message);
 
-            _buildMessageBirthDate.Build(data, message);
+        await _buildMessageCreate.Build(data, message);
 
-            _buildMessageLicenseType.Build(data, message);
+        await _buildMessageCnh.Build(data, message);
 
-            await _buildMessageCreate.Build(data, message);
-
-            await _buildMessageCnh.Build(data, message);
-
-            return _baseInternalServices.BuildMessageValidator(message);
-        }
+        return _baseInternalServices.BuildMessageValidator(message);
     }
 }

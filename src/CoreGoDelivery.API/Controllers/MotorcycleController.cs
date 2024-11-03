@@ -7,52 +7,51 @@ using CoreGoDelivery.Application.Services.Internal.Motorcycle.Queries.List;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace CoreGoDelivery.Api.Controllers
+namespace CoreGoDelivery.Api.Controllers;
+
+[Route("motos")]
+[ApiController]
+public class MotorcycleController(IMediator _mediator) : BaseApiController
 {
-    [Route("motos")]
-    [ApiController]
-    public class MotorcycleController(IMediator _mediator) : BaseApiController
+    [HttpGet]
+    public async Task<IActionResult> List([FromQuery] MotorcycleListQueryCommand request)
     {
-        [HttpGet]
-        public async Task<IActionResult> List([FromQuery] MotorcycleListQueryCommand request)
-        {
-            var result = await _mediator.Send(request);
+        var result = await _mediator.Send(request);
 
-            return Response(result);
-        }
+        return Response(result);
+    }
 
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetOne(string id)
-        {
-            var result = await _mediator.Send(new MotorcycleGetOneQueryCommand(id));
+    [HttpGet("{id}")]
+    public async Task<IActionResult> GetOne(string id)
+    {
+        var result = await _mediator.Send(new MotorcycleGetOneQueryCommand(id));
 
-            return Response(result);
-        }
+        return Response(result);
+    }
 
-        [HttpPost]
-        public async Task<IActionResult> Post([FromBody] MotorcycleCreateCommand request)
-        {
-            var result = await _mediator.Send(request);
+    [HttpPost]
+    public async Task<IActionResult> Post([FromBody] MotorcycleCreateCommand request)
+    {
+        var result = await _mediator.Send(request);
 
-            return Response(result);
-        }
+        return Response(result);
+    }
 
-        [HttpPut("{id}/placa")]
-        public async Task<IActionResult> Put(string id, [FromBody] MotorcycleChangePlateCommand request)
-        {
-            request.Id = id;
+    [HttpPut("{id}/placa")]
+    public async Task<IActionResult> Put(string id, [FromBody] MotorcycleChangePlateCommand request)
+    {
+        request.Id = id;
 
-            var result = await _mediator.Send(request);
+        var result = await _mediator.Send(request);
 
-            return Response(result);
-        }
+        return Response(result);
+    }
 
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(string id)
-        {
-            var result = await _mediator.Send(new MotorcycleDeleteCommand(id));
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> Delete(string id)
+    {
+        var result = await _mediator.Send(new MotorcycleDeleteCommand(id));
 
-            return Response(result);
-        }
+        return Response(result);
     }
 }

@@ -26,97 +26,116 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 using RabbitMQ.Client;
 using System.Reflection;
 
-namespace CoreGoDelivery.Application
+namespace CoreGoDelivery.Application;
+
+public static class SetupApplication
 {
-    public static class SetupApplication
+    public static IServiceCollection AddApplication(this IServiceCollection services, IConfiguration configuration)
     {
-        public static IServiceCollection AddApplication(this IServiceCollection services, IConfiguration configuration)
+        services.AddInfrastructure(configuration);
+
+        services.BuildMessageValidator();
+
+        services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
+
+        services.Configure<RabbitMQSettings>(options => configuration.GetSection("RabbitMQ").Bind(options));
+
+        var isInDocker = Environment.GetEnvironmentVariable("DOTNET_RUNNING_IN_CONTAINER") == "true";
+
+        services.AddSingleton<IConnection>(sp =>
         {
-            services.AddInfrastructure(configuration);
-
-            services.TryAddScoped<IBaseInternalServices, BaseInternalServices>();
-
-            services.BuildMessageValidator();
-
-            services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
-
-            services.Configure<RabbitMQSettings>(options => configuration.GetSection("RabbitMQ").Bind(options));
-
-            var isInDocker = Environment.GetEnvironmentVariable("DOTNET_RUNNING_IN_CONTAINER") == "true";
-
-            services.AddSingleton<IConnection>(sp =>
+            var factory = new ConnectionFactory()
             {
-                var factory = new ConnectionFactory()
-                {
-                    HostName = configuration["RabbitMQ:Host"],
-                    UserName = configuration["RabbitMQ:Username"],
-                    Password = configuration["RabbitMQ:Password"],
-                    Port = 5672
-                };
+                HostName = configuration["RabbitMQ:Host"],
+                UserName = configuration["RabbitMQ:Username"],
+                Password = configuration["RabbitMQ:Password"],
+                Port = 5672
+            };
 
-                if (isInDocker)
-                {
-                    factory.HostName = "rabbitmq";
-                    factory.UserName = "guest";
-                    factory.Password = "guest";
-                }
+            if (isInDocker)
+            {
+                factory.HostName = "rabbitmq";
+                factory.UserName = "guest";
+                factory.Password = "guest";
+            }
 
-                return factory.CreateConnection();
-            });
+            return factory.CreateConnection();
+        });
 
-            services.TryAddSingleton<RabbitMQPublisher>();
+        services.TryAddSingleton<RabbitMQPublisher>();
 
-            services.AddSingleton<RabbitMqConsumer>();
+        services.AddSingleton<RabbitMqConsumer>();
 
-            return services;
-        }
+        return services;
+    }
 
-        private static IServiceCollection BuildMessageValidator(this IServiceCollection services)
-        {
-            services.TryAddScoped<CalculateDatesByPlan>();
-            services.TryAddScoped<PlanMotorcycleValidator>();
-            services.TryAddScoped<BuildMessageDeliverierId>();
-            services.TryAddScoped<BuildMessageMotorcycleId>();
-            services.TryAddScoped<BuildMessagePlanId>();
-            services.TryAddScoped<RentalCreateMappers>();
-            services.TryAddScoped<RentalCreateValidate>();
+    private static IServiceCollection BuildMessageValidator(this IServiceCollection services)
+    {
+        AddBaseServices(services);
 
-            services.TryAddScoped<CalculatePenalty>();
-            services.TryAddScoped<ExpiredDateToReturn>();
-            services.TryAddScoped<ReturnerBeforeExpected>();
-            services.TryAddScoped<RentalReturnedToBaseValidator>();
+        AddRentalServices(services);
 
-            services.TryAddScoped<BuildMessageIdRental>();
-            services.TryAddScoped<RentalGetOneMappers>();
+        AddDeliverierServices(services);
 
-            services.TryAddScoped<BuildMessageCnh>();
-            services.TryAddScoped<BuildMessageDeliverierCreate>();
+        AddMotorcycleServices(services);
 
-            services.TryAddScoped<BuildFileName>();
-            services.TryAddScoped<ParseLicenseType>();
-            services.TryAddScoped<BuildMessageBirthDate>();
-            services.TryAddScoped<BuildMessageCnpj>();
-            services.TryAddScoped<BuildMessageFullName>();
-            services.TryAddScoped<BuildMessageLicenseType>();
+        return services;
+    }
 
-            services.TryAddScoped<DeliverierCreateMappers>();
-            services.TryAddScoped<DeliverierCreateValidator>();
+    private static void AddBaseServices(IServiceCollection services)
+    {
+        services.TryAddScoped<IBaseInternalServices, BaseInternalServices>();
+    }
 
-            services.TryAddScoped<MotorcycleChangePlateValidator>();
-            services.TryAddScoped<MotorcycleCreateNotification>();
-            services.TryAddScoped<MotorcycleCreateValidator>();
-            services.TryAddScoped<MotorcycleDeleteValidator>();
-            services.TryAddScoped<MotorcycleServiceMappers>();
-            services.TryAddScoped<PlateValidator>();
+    private static void AddMotorcycleServices(IServiceCollection services)
+    {
+        services.TryAddScoped<MotorcycleChangePlateValidator>();
+        services.TryAddScoped<MotorcycleCreateNotification>();
+        services.TryAddScoped<MotorcycleCreateValidator>();
+        services.TryAddScoped<MotorcycleDeleteValidator>();
+        services.TryAddScoped<MotorcycleServiceMappers>();
+        services.TryAddScoped<MotorcyclePlateValidator>();
+    }
 
-            services.TryAddScoped<SaveOrReplaceLicenseImageAsync>();
-            services.TryAddScoped<DeliverierUploadCnhValidator>();
+    private static void AddDeliverierServices(IServiceCollection services)
+    {
+        services.TryAddScoped<DeliverierBuildMessageCnh>();
+        services.TryAddScoped<DeliverierBuildMessageDeliverierCreate>();
 
-            services.TryAddScoped<BuildExtensionFile>();
-            services.TryAddScoped<BuilderCreateImage>();
-            services.TryAddScoped<BuilderUpdateImage>();
+        services.TryAddScoped<DeliverierBuildFileName>();
+        services.TryAddScoped<DeliverierParseLicenseType>();
+        services.TryAddScoped<DeliverierBuildMessageBirthDate>();
+        services.TryAddScoped<DeliverierBuildMessageCnpj>();
+        services.TryAddScoped<DeliverierBuildMessageFullName>();
+        services.TryAddScoped<DeliverierBuildMessageLicenseType>();
 
-            return services;
-        }
+        services.TryAddScoped<DeliverierCreateMappers>();
+        services.TryAddScoped<DeliverierCreateValidator>();
+
+        services.TryAddScoped<DeliverierSaveOrReplaceLicenseImageAsync>();
+        services.TryAddScoped<DeliverierUploadCnhValidator>();
+
+        services.TryAddScoped<DeliverierBuildExtensionFile>();
+        services.TryAddScoped<DeliverierBuilderCreateImage>();
+        services.TryAddScoped<DeliverierBuilderUpdateImage>();
+    }
+
+    private static void AddRentalServices(IServiceCollection services)
+    {
+        services.TryAddScoped<RentalCalculateDatesByPlan>();
+        services.TryAddScoped<RentalPlanMotorcycleValidator>();
+        services.TryAddScoped<RentalBuildMessageDeliverierId>();
+        services.TryAddScoped<RentalBuildMessageMotorcycleId>();
+        services.TryAddScoped<RentalBuildMessagePlanId>();
+        services.TryAddScoped<RentalCreateMappers>();
+        services.TryAddScoped<RentalCreateValidate>();
+
+        services.TryAddScoped<RentalCalculatePenalty>();
+        services.TryAddScoped<RentalExpiredDateToReturn>();
+        services.TryAddScoped<RentalReturnerBeforeExpected>();
+        services.TryAddScoped<RentalReturnedToBaseValidator>();
+
+        services.TryAddScoped<RentalBuildMessageIdRental>();
+        services.TryAddScoped<RentalGetOneMappers>();
     }
 }

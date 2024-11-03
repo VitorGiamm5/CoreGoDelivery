@@ -1,7 +1,6 @@
-﻿namespace CoreGoDelivery.Domain.Repositories.GoDelivery
+﻿namespace CoreGoDelivery.Domain.Repositories.GoDelivery;
+
+public interface IModelMotorcycleRepository
 {
-    public interface IModelMotorcycleRepository
-    {
-        Task<string> GetIdByModelName(string model);
-    }
+    Task<string> GetIdByModelName(string model);
 }

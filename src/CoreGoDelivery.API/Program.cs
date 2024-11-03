@@ -75,7 +75,7 @@ app.MapControllers();
 try
 {
     Log.Information("Starting application...");
-    
+
     app.Run();
 }
 catch (Exception ex)

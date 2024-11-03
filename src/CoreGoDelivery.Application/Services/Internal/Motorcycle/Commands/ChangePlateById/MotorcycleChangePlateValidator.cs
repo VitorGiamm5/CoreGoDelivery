@@ -6,77 +6,76 @@ using CoreGoDelivery.Domain.Enums.ServiceErrorMessage;
 using CoreGoDelivery.Domain.Repositories.GoDelivery;
 using System.Text;
 
-namespace CoreGoDelivery.Application.Services.Internal.Motorcycle.Commands.ChangePlateById
+namespace CoreGoDelivery.Application.Services.Internal.Motorcycle.Commands.ChangePlateById;
+
+public class MotorcycleChangePlateValidator
 {
-    public class MotorcycleChangePlateValidator
+    public readonly IMotorcycleRepository _repositoryMotorcycle;
+    public readonly IBaseInternalServices _baseInternalServices;
+
+    private readonly MotorcycleCreateValidator _validatorCreate;
+
+    public MotorcycleChangePlateValidator(
+        IMotorcycleRepository repositoryMotorcycle,
+        IBaseInternalServices baseInternalServices,
+        MotorcycleCreateValidator validatorCreate)
     {
-        public readonly IMotorcycleRepository _repositoryMotorcycle;
-        public readonly IBaseInternalServices _baseInternalServices;
+        _repositoryMotorcycle = repositoryMotorcycle;
+        _baseInternalServices = baseInternalServices;
+        _validatorCreate = validatorCreate;
+    }
 
-        private readonly MotorcycleCreateValidator _validatorCreate;
+    public async Task<string?> ChangePlateValidator(MotorcycleChangePlateCommand command)
+    {
+        var message = new StringBuilder();
 
-        public MotorcycleChangePlateValidator(
-            IMotorcycleRepository repositoryMotorcycle,
-            IBaseInternalServices baseInternalServices,
-            MotorcycleCreateValidator validatorCreate)
+        await _validatorCreate.BuildMessagePlate(command.Plate, message);
+
+        await MessageBuildChangePlate(command.Plate, message);
+
+        return _baseInternalServices.BuildMessageValidator(message);
+    }
+
+    public async Task BuildMessageChangePlateId(string? idMotorcycle, StringBuilder message)
+    {
+        var isValidId = _baseInternalServices.RequestIdParamValidator(idMotorcycle);
+
+        if (!isValidId)
         {
-            _repositoryMotorcycle = repositoryMotorcycle;
-            _baseInternalServices = baseInternalServices;
-            _validatorCreate = validatorCreate;
+            message.AppendError(message, nameof(idMotorcycle));
         }
-
-        public async Task<string?> ChangePlateValidator(MotorcycleChangePlateCommand command)
+        else
         {
-            var message = new StringBuilder();
+            var motorcycle = await _repositoryMotorcycle.GetOneByIdAsync(idMotorcycle!);
 
-            await _validatorCreate.BuildMessagePlate(command.Plate, message);
-
-            await MessageBuildChangePlate(command.Plate, message);
-
-            return _baseInternalServices.BuildMessageValidator(message);
-        }
-
-        public async Task BuildMessageChangePlateId(string? idMotorcycle, StringBuilder message)
-        {
-            var isValidId = _baseInternalServices.RequestIdParamValidator(idMotorcycle);
-
-            if (!isValidId)
+            if (motorcycle == null)
             {
-                message.AppendError(message, nameof(idMotorcycle));
+                message.AppendError(message, nameof(idMotorcycle), AdditionalMessageEnum.NotFound);
+            }
+        }
+    }
+
+    public async Task MessageBuildChangePlate(string? plate, StringBuilder message)
+    {
+        if (string.IsNullOrEmpty(plate))
+        {
+            message.AppendError(message, nameof(plate));
+        }
+        else
+        {
+            var isValidPlate = MotorcyclePlateValidator.Validator(plate!);
+
+            if (!isValidPlate)
+            {
+                message.AppendError(message, nameof(plate), AdditionalMessageEnum.InvalidFormat);
             }
             else
             {
-                var motorcycle = await _repositoryMotorcycle.GetOneByIdAsync(idMotorcycle!);
+                var plateIsUnic = await _repositoryMotorcycle.CheckIsUnicByPlateAsync(plate);
 
-                if (motorcycle == null)
+                if (!plateIsUnic)
                 {
-                    message.AppendError(message, nameof(idMotorcycle), AdditionalMessageEnum.NotFound);
-                }
-            }
-        }
-
-        public async Task MessageBuildChangePlate(string? plate, StringBuilder message)
-        {
-            if (string.IsNullOrEmpty(plate))
-            {
-                message.AppendError(message, nameof(plate));
-            }
-            else
-            {
-                var isValidPlate = PlateValidator.Validator(plate!);
-
-                if (!isValidPlate)
-                {
-                    message.AppendError(message, nameof(plate), AdditionalMessageEnum.InvalidFormat);
-                }
-                else
-                {
-                    var plateIsUnic = await _repositoryMotorcycle.CheckIsUnicByPlateAsync(plate);
-
-                    if (!plateIsUnic)
-                    {
-                        message.AppendError(message, nameof(plate), AdditionalMessageEnum.MustBeUnic);
-                    }
+                    message.AppendError(message, nameof(plate), AdditionalMessageEnum.MustBeUnic);
                 }
             }
         }

@@ -1,31 +1,34 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace CoreGoDelivery.Infrastructure.Database.Services
+namespace CoreGoDelivery.Infrastructure.Database.Services;
+
+public class ExecutePendingMigration
 {
-    public class ExecutePendingMigration
+    public static void Execute(IServiceCollection services)
     {
-        public static void Execute(IServiceCollection services)
+        var serviceProvider = services.BuildServiceProvider();
+
+        using var scope = serviceProvider.CreateScope();
+
+        var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+
+        try
         {
-            var serviceProvider = services.BuildServiceProvider();
-            using var scope = serviceProvider.CreateScope();
-            var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+            var migrations = dbContext.Database.GetPendingMigrations();
 
-            try
+            if (migrations.Any())
             {
-                var migrations = dbContext.Database.GetPendingMigrations();
+                Console.WriteLine($"Apply migrations success");
 
-                if (migrations.Any())
-                {
-                    dbContext.Database.MigrateAsync().Wait();
-                }
+                dbContext.Database.MigrateAsync().Wait();
             }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error to apply migrations: {ex.Message}");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error to apply migrations: {ex.Message}");
 
-                throw;
-            }
+            throw;
         }
     }
 }

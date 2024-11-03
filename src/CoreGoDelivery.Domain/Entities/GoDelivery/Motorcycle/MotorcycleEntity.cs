@@ -1,18 +1,17 @@
 ﻿using CoreGoDelivery.Domain.Entities.GoDelivery.ModelMotorcycle;
 
-namespace CoreGoDelivery.Domain.Entities.GoDelivery.Motorcycle
+namespace CoreGoDelivery.Domain.Entities.GoDelivery.Motorcycle;
+
+public class MotorcycleEntity
 {
-    public class MotorcycleEntity
-    {
-        public string Id { get; set; }
-        public int YearManufacture { get; set; }
-        public string PlateNormalized { get; set; }
+    public string Id { get; set; }
+    public int YearManufacture { get; set; }
+    public string PlateNormalized { get; set; }
 
-        #region relationships
+    #region relationships
 
-        public string ModelMotorcycleId { get; set; }
-        public ModelMotorcycleEntity? ModelMotorcycle { get; set; }
+    public string ModelMotorcycleId { get; set; }
+    public ModelMotorcycleEntity? ModelMotorcycle { get; set; }
 
-        #endregion
-    }
+    #endregion
 }

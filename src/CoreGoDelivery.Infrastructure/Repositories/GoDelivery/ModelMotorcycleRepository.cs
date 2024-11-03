@@ -3,20 +3,19 @@ using CoreGoDelivery.Domain.Repositories.GoDelivery;
 using CoreGoDelivery.Infrastructure.Database;
 using Microsoft.EntityFrameworkCore;
 
-namespace CoreGoDelivery.Infrastructure.Repositories.GoDelivery
+namespace CoreGoDelivery.Infrastructure.Repositories.GoDelivery;
+
+public class ModelMotorcycleRepository : BaseRepository<ModelMotorcycleEntity>, IModelMotorcycleRepository
 {
-    public class ModelMotorcycleRepository : BaseRepository<ModelMotorcycleEntity>, IModelMotorcycleRepository
+    public ModelMotorcycleRepository(ApplicationDbContext context) : base(context)
     {
-        public ModelMotorcycleRepository(ApplicationDbContext context) : base(context)
-        {
-        }
+    }
 
-        public async Task<string> GetIdByModelName(string model)
-        {
-            var result = await _context.Set<ModelMotorcycleEntity>()
-                .FirstOrDefaultAsync(x => x.NormalizedName == model);
+    public async Task<string> GetIdByModelName(string model)
+    {
+        var result = await _context.Set<ModelMotorcycleEntity>()
+            .FirstOrDefaultAsync(x => x.NormalizedName == model);
 
-            return result?.Id ?? "";
-        }
+        return result?.Id ?? "";
     }
 }
