@@ -10,19 +10,16 @@ public class MotorcycleGetOneQueryHandler : IRequestHandler<MotorcycleGetOneQuer
 {
     public readonly IMotorcycleRepository _repositoryMotorcycle;
 
-    private readonly MotorcycleServiceMappers _mapper;
-
-    public MotorcycleGetOneQueryHandler(IMotorcycleRepository repositoryMotorcycle, MotorcycleServiceMappers mapper)
+    public MotorcycleGetOneQueryHandler(IMotorcycleRepository repositoryMotorcycle)
     {
         _repositoryMotorcycle = repositoryMotorcycle;
-        _mapper = mapper;
     }
 
     public async Task<ActionResult> Handle(MotorcycleGetOneQueryCommand request, CancellationToken cancellationToken)
     {
         var result = await _repositoryMotorcycle.GetOneByIdAsync(request.Id);
 
-        var motorcycleDtos = result != null ? _mapper.MapEntityToDto(result) : null;
+        var motorcycleDtos = result != null ? MotorcycleServiceMappers.MapEntityToDto(result) : null;
 
         var apiReponse = new ActionResult()
         {

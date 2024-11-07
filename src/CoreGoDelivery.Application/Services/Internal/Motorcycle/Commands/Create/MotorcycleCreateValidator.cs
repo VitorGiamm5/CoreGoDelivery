@@ -1,5 +1,4 @@
 ﻿using CoreGoDelivery.Application.Extensions;
-using CoreGoDelivery.Application.Services.Internal.Base;
 using CoreGoDelivery.Application.Services.Internal.Motorcycle.Commons;
 using CoreGoDelivery.Domain.Enums.ServiceErrorMessage;
 using CoreGoDelivery.Domain.Repositories.GoDelivery;
@@ -23,7 +22,7 @@ public class MotorcycleCreateValidator
         _baseInternalServices = baseInternalServices;
     }
 
-    public async Task<string?> BuilderCreateValidator(MotorcycleCreateCommand data)
+    public async Task<StringBuilder?> BuilderCreateValidator(MotorcycleCreateCommand data)
     {
         var message = new StringBuilder();
 
@@ -33,10 +32,10 @@ public class MotorcycleCreateValidator
         await BuildMessagePlate(data.PlateId, message);
         await BuildMessageModelMotorcycle(data, message);
 
-        return _baseInternalServices.BuildMessageValidator(message);
+        return message;
     }
 
-    public void BuildMessageYear(MotorcycleCreateCommand data, StringBuilder message)
+    public static void BuildMessageYear(MotorcycleCreateCommand data, StringBuilder message)
     {
         if (string.IsNullOrWhiteSpace(data.YearManufacture.ToString()))
         {
@@ -59,13 +58,13 @@ public class MotorcycleCreateValidator
         }
         else
         {
-            var normalizedPlate = _baseInternalServices.RemoveCharacteres(plate);
+            plate.RemoveCharacters();
 
-            var isValidPlate = MotorcyclePlateValidator.Validator(normalizedPlate);
+            var isValidPlate = MotorcyclePlateValidator.Validator(plate);
 
             if (isValidPlate)
             {
-                var isUnicId = await _repositoryMotorcycle.CheckIsUnicByPlateAsync(normalizedPlate);
+                var isUnicId = await _repositoryMotorcycle.CheckIsUnicByPlateAsync(plate);
 
                 if (!isUnicId)
                 {
@@ -96,21 +95,19 @@ public class MotorcycleCreateValidator
 
     public async Task BuildMessageModelMotorcycle(MotorcycleCreateCommand data, StringBuilder message)
     {
-        var idMotorcycle = data.Id;
-
         if (string.IsNullOrWhiteSpace(data.ModelName))
         {
             message.Append(nameof(data.ModelName));
         }
         else
         {
-            var modelNormalized = _baseInternalServices.RemoveCharacteres(data.ModelName);
+            var modelNormalized = data.ModelName.RemoveCharacters();
 
             var modelId = await _repositoryModelMotorcycle.GetIdByModelName(modelNormalized);
 
             if (string.IsNullOrEmpty(modelId))
             {
-                message.Append(nameof(idMotorcycle).AppendError(AdditionalMessageEnum.NotFound));
+                message.Append("idMotorcycle".AppendError(AdditionalMessageEnum.NotFound));
             }
 
             data.ModelName = modelId;

@@ -3,7 +3,7 @@ using System.Text.RegularExpressions;
 
 namespace CoreGoDelivery.Application.Services.Internal.Motorcycle.Commons;
 
-public class MotorcyclePlateValidator
+public static class MotorcyclePlateValidator
 {
     public static bool Validator(string? plateId)
     {

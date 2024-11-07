@@ -11,11 +11,11 @@ public class LicenceDriverRepository : BaseRepository<LicenceDriverEntity>, ILic
     {
     }
 
-    public async Task<bool> CheckIsUnicByLicence(string licence)
+    public async Task<bool> CheckIsUnicByLicence(string id)
     {
         var result = await _context
             .Set<LicenceDriverEntity>()
-            .FirstOrDefaultAsync(x => x.Id == licence);
+            .FirstOrDefaultAsync(x => x.Id == id);
 
         return IsUnic(result);
     }

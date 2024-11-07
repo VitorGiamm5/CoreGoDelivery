@@ -1,5 +1,6 @@
-﻿using CoreGoDelivery.Application.Services.Internal.Base;
+﻿using CoreGoDelivery.Application.Extensions;
 using CoreGoDelivery.Application.Services.Internal.Motorcycle.Commons;
+using CoreGoDelivery.Domain.Enums.ServiceErrorMessage;
 using CoreGoDelivery.Domain.Repositories.GoDelivery;
 using CoreGoDelivery.Domain.Response;
 using MediatR;
@@ -12,26 +13,24 @@ public class MotorcycleCreateHandler : IRequestHandler<MotorcycleCreateCommand, 
     public readonly IMotorcycleRepository _repositoryMotorcycle;
 
     private readonly MotorcycleCreateValidator _validator;
-    private readonly MotorcycleServiceMappers _mapper;
     private readonly MotorcycleCreateNotification _notification;
 
     public MotorcycleCreateHandler(
         IBaseInternalServices baseInternalServices,
         IMotorcycleRepository repositoryMotorcycle,
         MotorcycleCreateValidator validator,
-        MotorcycleServiceMappers mapper,
         MotorcycleCreateNotification notification)
     {
         _baseInternalServices = baseInternalServices;
         _repositoryMotorcycle = repositoryMotorcycle;
         _validator = validator;
-        _mapper = mapper;
         _notification = notification;
     }
 
     public async Task<ActionResult> Handle(MotorcycleCreateCommand request, CancellationToken cancellationToken)
     {
         var apiReponse = new ActionResult();
+
         apiReponse.SetMessage(await _validator.BuilderCreateValidator(request));
 
         if (apiReponse.HasError())
@@ -39,11 +38,14 @@ public class MotorcycleCreateHandler : IRequestHandler<MotorcycleCreateCommand, 
             return apiReponse;
         }
 
-        var motorcycle = _mapper.MapCreateToEntity(request);
+        var motorcycle = MotorcycleServiceMappers.MapCreateToEntity(request);
 
-        var resultCreate = await _repositoryMotorcycle.Create(motorcycle);
+        var isSuccess = await _repositoryMotorcycle.Create(motorcycle);
 
-        apiReponse.SetMessage(_baseInternalServices.FinalMessageBuild(resultCreate, apiReponse));
+        if (!isSuccess)
+        {
+            apiReponse.SetMessage(nameof(_repositoryMotorcycle.Create).AppendError(AdditionalMessageEnum.CreateFail));
+        }
 
         await _notification.SendNotification(motorcycle);
 

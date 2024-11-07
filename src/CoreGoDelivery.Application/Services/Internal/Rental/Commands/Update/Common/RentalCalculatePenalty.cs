@@ -1,30 +1,22 @@
 ﻿using CoreGoDelivery.Application.Extensions;
-using CoreGoDelivery.Application.Services.Internal.Base;
 using CoreGoDelivery.Domain.Consts;
 using CoreGoDelivery.Domain.Entities.GoDelivery.Rental;
 using CoreGoDelivery.Domain.Enums.ServiceErrorMessage;
-using System.Text;
+using CoreGoDelivery.Domain.Response;
 
 namespace CoreGoDelivery.Application.Services.Internal.Rental.Commands.Update.Common;
 
-public class RentalCalculatePenalty
+public static class RentalCalculatePenalty
 {
-    public readonly IBaseInternalServices _baseInternalServices;
-
-    public RentalCalculatePenalty(IBaseInternalServices baseInternalServices)
+    public static ActionResult Calculate(DateTime returnedToBaseDate, RentalEntity? rental)
     {
-        _baseInternalServices = baseInternalServices;
-    }
+        var apiResponse = new ActionResult();
 
-    public string? Calculate(DateTime returnedToBaseDate, RentalEntity? rental)
-    {
         if (rental == null)
         {
-            var messageError = new StringBuilder();
+            apiResponse.SetMessage(nameof(returnedToBaseDate).AppendError(AdditionalMessageEnum.NotFound));
 
-            messageError.Append(nameof(rental).AppendError(AdditionalMessageEnum.NotFound));
-
-            return _baseInternalServices.BuildMessageValidator(messageError);
+            return apiResponse;
         }
 
         TimeSpan buildDiffDays = returnedToBaseDate - rental!.EstimatedReturnDate;
@@ -33,24 +25,26 @@ public class RentalCalculatePenalty
 
         if (diffDays == 0)
         {
-            return RentalServiceConst.MESSAGE_RETURNED_TO_BASE_SUCCESS;
+            apiResponse.Data = new { Menssage = (nameof(RentalServiceConst.MESSAGE_RETURNED_TO_BASE_SUCCESS)) };
+
+            return apiResponse;
         }
-
-        var message = new StringBuilder();
-
-        message.Append($"Value to pay: {RentalServiceConst.CURRENCY_BRL} ");
 
         if (diffDays < 0)
         {
-            message = RentalReturnerBeforeExpected.Calculate(rental, diffDays, message);
+            var valueToPay = RentalReturnerBeforeExpected.Calculate(rental, diffDays);
+
+            apiResponse.Data = new { Menssage = $"Value to pay: {RentalServiceConst.CURRENCY_BRL} {valueToPay}" };
+
+            return apiResponse;
         }
         else
         {
-            message = RentalExpiredDateToReturn.Calculate(diffDays, message);
+            var valueToPay = RentalExpiredDateToReturn.Calculate(diffDays);
+
+            apiResponse.Data = new { Menssage = $"Value to pay: {RentalServiceConst.CURRENCY_BRL} {valueToPay}" };
+
+            return apiResponse;
         }
-
-        var result = _baseInternalServices.BuildMessageValidator(message);
-
-        return result;
     }
 }

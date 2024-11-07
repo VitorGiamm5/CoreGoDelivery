@@ -1,5 +1,6 @@
-﻿using CoreGoDelivery.Application.Services.Internal.Base;
+﻿using CoreGoDelivery.Application.Extensions;
 using CoreGoDelivery.Application.Services.Internal.Rental.Commands.Create.Common;
+using CoreGoDelivery.Domain.Enums.ServiceErrorMessage;
 using CoreGoDelivery.Domain.Repositories.GoDelivery;
 using CoreGoDelivery.Domain.Response;
 using MediatR;
@@ -13,23 +14,17 @@ public class RentalCreateHandler : IRequestHandler<RentalCreateCommand, ActionRe
     public readonly IRentalRepository _repositoryRental;
 
     public readonly RentalCreateValidate _validator;
-    public readonly RentalCalculateDatesByPlan _calculateDatesByPlan;
-    public readonly RentalCreateMappers _mappers;
 
     public RentalCreateHandler(
         IBaseInternalServices baseInternalServices,
         IRentalPlanRepository repositoryPlan,
         IRentalRepository repositoryRental,
-        RentalCreateValidate validator,
-        RentalCalculateDatesByPlan calculateDatesByPlan,
-        RentalCreateMappers mappers)
+        RentalCreateValidate validator)
     {
         _baseInternalServices = baseInternalServices;
         _repositoryPlan = repositoryPlan;
         _repositoryRental = repositoryRental;
         _validator = validator;
-        _calculateDatesByPlan = calculateDatesByPlan;
-        _mappers = mappers;
     }
 
     public async Task<ActionResult> Handle(RentalCreateCommand request, CancellationToken cancellationToken)
@@ -44,13 +39,16 @@ public class RentalCreateHandler : IRequestHandler<RentalCreateCommand, ActionRe
 
         var plan = await _repositoryPlan.GetById(request.PlanId);
 
-        var calculatedDates = _calculateDatesByPlan.Calculate(plan!);
+        var calculatedDates = RentalCalculateDatesByPlan.Calculate(plan!);
 
-        var rental = _mappers.MapCreateToEntity(request, calculatedDates);
+        var rental = RentalCreateMappers.MapCreateToEntity(request, calculatedDates);
 
-        var resultCreate = await _repositoryRental.Create(rental);
+        var isSuccess = await _repositoryRental.Create(rental);
 
-        apiReponse.SetMessage(_baseInternalServices.FinalMessageBuild(resultCreate, apiReponse));
+        if (!isSuccess)
+        {
+            apiReponse.SetMessage(nameof(_repositoryRental.Create).AppendError(AdditionalMessageEnum.CreateFail));
+        }
 
         return apiReponse;
     }

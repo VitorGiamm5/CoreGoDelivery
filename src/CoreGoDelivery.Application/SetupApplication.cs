@@ -1,8 +1,6 @@
 ﻿using CoreGoDelivery.Application.RabbitMQ.NotificationMotorcycle.Consumer;
 using CoreGoDelivery.Application.RabbitMQ.NotificationMotorcycle.Publisher;
 using CoreGoDelivery.Application.RabbitMQ.Settings;
-using CoreGoDelivery.Application.Services.Internal.Base;
-using CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.Common;
 using CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.Create;
 using CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.Create.MessageValidators;
 using CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.UploadCnh;
@@ -10,14 +8,9 @@ using CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.UploadCnh
 using CoreGoDelivery.Application.Services.Internal.Motorcycle.Commands.ChangePlateById;
 using CoreGoDelivery.Application.Services.Internal.Motorcycle.Commands.Create;
 using CoreGoDelivery.Application.Services.Internal.Motorcycle.Commands.Delete;
-using CoreGoDelivery.Application.Services.Internal.Motorcycle.Commons;
 using CoreGoDelivery.Application.Services.Internal.Rental.Commands.Create;
-using CoreGoDelivery.Application.Services.Internal.Rental.Commands.Create.Common;
 using CoreGoDelivery.Application.Services.Internal.Rental.Commands.Create.MessageValidators;
 using CoreGoDelivery.Application.Services.Internal.Rental.Commands.Update;
-using CoreGoDelivery.Application.Services.Internal.Rental.Commands.Update.Common;
-using CoreGoDelivery.Application.Services.Internal.Rental.Queries.GetOne;
-using CoreGoDelivery.Application.Services.Internal.Rental.Queries.GetOne.BuildMessage;
 using CoreGoDelivery.Infrastructure;
 using CoreGoDelivery.Infrastructure.Database;
 using Microsoft.Extensions.Configuration;
@@ -39,7 +32,6 @@ public static class SetupApplication
         services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
 
         services.Configure<RabbitMQSettings>(options => configuration.GetSection("RabbitMQ").Bind(options));
-
 
         services.TryAddSingleton<IConnectionFactory>(sp =>
         {
@@ -98,47 +90,25 @@ public static class SetupApplication
         services.TryAddScoped<MotorcycleCreateNotification>();
         services.TryAddScoped<MotorcycleCreateValidator>();
         services.TryAddScoped<MotorcycleDeleteValidator>();
-        services.TryAddScoped<MotorcycleServiceMappers>();
-        services.TryAddScoped<MotorcyclePlateValidator>();
     }
 
     private static void AddDeliverierServices(IServiceCollection services)
     {
         services.TryAddScoped<DeliverierBuildMessageCnh>();
         services.TryAddScoped<DeliverierBuildMessageDeliverierCreate>();
-
-        services.TryAddScoped<DeliverierBuildFileName>();
-        services.TryAddScoped<DeliverierParseLicenseType>();
-        services.TryAddScoped<DeliverierBuildMessageBirthDate>();
-        services.TryAddScoped<DeliverierBuildMessageCnpj>();
-
-        services.TryAddScoped<DeliverierCreateMappers>();
         services.TryAddScoped<DeliverierCreateValidator>();
-
-        services.TryAddScoped<DeliverierSaveOrReplaceLicenseImageAsync>();
         services.TryAddScoped<DeliverierUploadCnhValidator>();
-
-        services.TryAddScoped<DeliverierBuildExtensionFile>();
         services.TryAddScoped<DeliverierBuilderCreateImage>();
         services.TryAddScoped<DeliverierBuilderUpdateImage>();
     }
 
     private static void AddRentalServices(IServiceCollection services)
     {
-        services.TryAddScoped<RentalCalculateDatesByPlan>();
-        services.TryAddScoped<RentalPlanMotorcycleValidator>();
         services.TryAddScoped<RentalBuildMessageDeliverierId>();
         services.TryAddScoped<RentalBuildMessageMotorcycleId>();
         services.TryAddScoped<RentalBuildMessagePlanId>();
-        services.TryAddScoped<RentalCreateMappers>();
         services.TryAddScoped<RentalCreateValidate>();
 
-        services.TryAddScoped<RentalCalculatePenalty>();
-        services.TryAddScoped<RentalExpiredDateToReturn>();
-        services.TryAddScoped<RentalReturnerBeforeExpected>();
         services.TryAddScoped<RentalReturnedToBaseValidator>();
-
-        services.TryAddScoped<RentalBuildMessageIdRental>();
-        services.TryAddScoped<RentalGetOneMappers>();
     }
 }

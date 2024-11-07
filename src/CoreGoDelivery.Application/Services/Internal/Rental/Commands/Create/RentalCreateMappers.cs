@@ -2,9 +2,9 @@
 
 namespace CoreGoDelivery.Application.Services.Internal.Rental.Commands.Create;
 
-public class RentalCreateMappers
+public static class RentalCreateMappers
 {
-    public RentalEntity MapCreateToEntity(RentalCreateCommand data, RentalEntity? rentalDates)
+    public static RentalEntity MapCreateToEntity(RentalCreateCommand data, RentalEntity? rentalDates)
     {
         if (rentalDates == null)
         {
@@ -13,7 +13,7 @@ public class RentalCreateMappers
 
         var result = new RentalEntity()
         {
-            Id = Ulid.NewUlid().ToString(),
+            Id = data.Id,
             StartDate = rentalDates!.StartDate,
             EndDate = rentalDates.EndDate,
             EstimatedReturnDate = rentalDates.EstimatedReturnDate,

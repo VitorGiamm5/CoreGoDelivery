@@ -1,5 +1,4 @@
 ﻿using CoreGoDelivery.Application.Extensions;
-using CoreGoDelivery.Application.Services.Internal.Base;
 using CoreGoDelivery.Domain.Enums.ServiceErrorMessage;
 using CoreGoDelivery.Domain.Repositories.GoDelivery;
 using System.Text;
@@ -8,21 +7,18 @@ namespace CoreGoDelivery.Application.Services.Internal.Motorcycle.Commands.Delet
 
 public class MotorcycleDeleteValidator
 {
-    public readonly IBaseInternalServices _baseInternalServices;
     public readonly IMotorcycleRepository _repositoryMotorcycle;
     public readonly IRentalRepository _rentalRepository;
 
     public MotorcycleDeleteValidator(
-        IBaseInternalServices baseInternalServices,
         IMotorcycleRepository repositoryMotorcycle,
         IRentalRepository rentalRepository)
     {
-        _baseInternalServices = baseInternalServices;
         _repositoryMotorcycle = repositoryMotorcycle;
         _rentalRepository = rentalRepository;
     }
 
-    public async Task<string?> BuilderDeleteValidator(string? idMotorcycle)
+    public async Task<StringBuilder?> BuilderDeleteValidator(string? idMotorcycle)
     {
         var message = new StringBuilder();
 
@@ -30,7 +26,7 @@ public class MotorcycleDeleteValidator
         {
             message.Append(nameof(idMotorcycle));
 
-            return _baseInternalServices.BuildMessageValidator(message);
+            return message;
         }
 
         var motorcycle = await _repositoryMotorcycle.GetOneByIdAsync(idMotorcycle);
@@ -39,14 +35,16 @@ public class MotorcycleDeleteValidator
         {
             message.Append(nameof(idMotorcycle).AppendError(AdditionalMessageEnum.NotFound));
 
-            return _baseInternalServices.BuildMessageValidator(message);
+            return message;
         }
 
         var rental = await _rentalRepository.FindByMotorcycleId(idMotorcycle);
 
         if (rental == null)
         {
-            return _baseInternalServices.BuildMessageValidator(message);
+            message.Append(nameof(rental).AppendError(AdditionalMessageEnum.NotFound));
+
+            return message;
         }
 
         var motorcycleIsAvaliable = await _rentalRepository.CheckMotorcycleIsAvaliable(idMotorcycle);
@@ -56,6 +54,6 @@ public class MotorcycleDeleteValidator
             message.Append(nameof(idMotorcycle).AppendError(AdditionalMessageEnum.Unavailable));
         }
 
-        return _baseInternalServices.BuildMessageValidator(message);
+        return message;
     }
 }

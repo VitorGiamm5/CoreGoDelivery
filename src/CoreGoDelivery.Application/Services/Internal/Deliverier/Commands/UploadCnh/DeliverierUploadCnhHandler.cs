@@ -1,5 +1,4 @@
-﻿using CoreGoDelivery.Application.Extensions;
-using CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.UploadCnh.Common;
+﻿using CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.UploadCnh.Common;
 using CoreGoDelivery.Domain.Response;
 using MediatR;
 
@@ -27,9 +26,7 @@ public class DeliverierUploadCnhHandler : IRequestHandler<LicenseImageCommand, A
     {
         var apiReponse = new ActionResult();
 
-        var message = await _validator.Build(command);
-
-        apiReponse.SetMessage(message?.AppendError());
+        apiReponse.SetMessage(await _validator.Build(command));
 
         if (apiReponse.HasError())
         {

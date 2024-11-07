@@ -1,7 +1,4 @@
-﻿using CoreGoDelivery.Application.Services.Internal.Base;
-using CoreGoDelivery.Application.Services.Internal.Rental.Queries.GetOne.BuildMessage;
-using CoreGoDelivery.Domain.Entities.GoDelivery.Rental;
-using CoreGoDelivery.Domain.Repositories.GoDelivery;
+﻿using CoreGoDelivery.Domain.Repositories.GoDelivery;
 using CoreGoDelivery.Domain.Response;
 using MediatR;
 using System.Text;
@@ -13,19 +10,13 @@ public class RentalGetOneHandler : IRequestHandler<RentalGetOneCommand, ActionRe
     public readonly IBaseInternalServices _baseInternalServices;
     public readonly IRentalRepository _repositoryRental;
 
-    public readonly RentalGetOneMappers _mapper;
-    public readonly RentalBuildMessageIdRental _buildMessageIdRental;
 
     public RentalGetOneHandler(
         IBaseInternalServices baseInternalServices,
-        IRentalRepository repositoryRental,
-        RentalGetOneMappers mapper,
-        RentalBuildMessageIdRental buildMessageIdRental)
+        IRentalRepository repositoryRental)
     {
         _baseInternalServices = baseInternalServices;
         _repositoryRental = repositoryRental;
-        _mapper = mapper;
-        _buildMessageIdRental = buildMessageIdRental;
     }
 
     public async Task<ActionResult> Handle(RentalGetOneCommand request, CancellationToken cancellationToken)
@@ -34,18 +25,16 @@ public class RentalGetOneHandler : IRequestHandler<RentalGetOneCommand, ActionRe
 
         var idRental = request.Id;
 
-        RentalEntity? rental = null;
+        var rental = await _repositoryRental.GetByIdAsync(idRental);
 
-        rental = await _buildMessageIdRental.Build(message, idRental, rental);
-
-        var rentalDto = _mapper.RentalEntityToDto(rental);
+        var rentalDto = RentalGetOneMappers.RentalEntityToDto(rental);
 
         var apiReponse = new ActionResult()
         {
             Data = rentalDto,
         };
 
-        apiReponse.SetMessage(_baseInternalServices.BuildMessageValidator(message));
+        apiReponse.SetMessage(message);
 
         return apiReponse;
     }

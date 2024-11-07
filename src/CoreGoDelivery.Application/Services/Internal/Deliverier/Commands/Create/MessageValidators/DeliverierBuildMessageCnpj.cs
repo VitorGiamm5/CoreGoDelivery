@@ -5,9 +5,9 @@ using System.Text;
 
 namespace CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.Create.MessageValidators;
 
-public class DeliverierBuildMessageCnpj
+public static class DeliverierBuildMessageCnpj
 {
-    public void Build(StringBuilder message, string cnpj)
+    public static void Build(StringBuilder message, string cnpj)
     {
         var paramName = nameof(cnpj);
 

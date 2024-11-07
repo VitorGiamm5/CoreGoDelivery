@@ -1,18 +1,17 @@
 ﻿using CoreGoDelivery.Domain.Consts;
 using CoreGoDelivery.Domain.Entities.GoDelivery.Rental;
-using System.Text;
 
 namespace CoreGoDelivery.Application.Services.Internal.Rental.Commands.Update.Common;
 
-public class RentalReturnerBeforeExpected
+public static class RentalReturnerBeforeExpected
 {
-    public static StringBuilder Calculate(RentalEntity rental, int diffDays, StringBuilder message)
+    public static double Calculate(RentalEntity rental, int diffDays)
     {
         diffDays *= -1;
 
-        var isPlanminimalPlan = rental?.RentalPlan?.DaysQuantity == RentalServiceConst.MINIMAL_DAYS_PLAN;
+        var isMinimalDaysPlan = rental?.RentalPlan?.DaysQuantity == RentalServiceConst.MINIMAL_DAYS_PLAN;
 
-        double feePercentPenalty = isPlanminimalPlan
+        double feePercentPenalty = isMinimalDaysPlan
             ? RentalServiceConst.MINIMAL_FEE_PERCENTAGE / 100
             : RentalServiceConst.DEFAULT_FEE_PERCENTAGE / 100;
 
@@ -20,10 +19,8 @@ public class RentalReturnerBeforeExpected
 
         var penaltyValue = valueDaysRemain * feePercentPenalty;
 
-        var penaltyValueRounded = Math.Round(penaltyValue, 2);
+        double penaltyValueRounded = Math.Round(penaltyValue, 2);
 
-        message.Append($"{penaltyValueRounded}");
-
-        return message;
+        return penaltyValueRounded;
     }
 }

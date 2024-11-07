@@ -1,5 +1,4 @@
 ﻿using CoreGoDelivery.Application.Extensions;
-using CoreGoDelivery.Application.Services.Internal.Base;
 using CoreGoDelivery.Application.Services.Internal.Motorcycle.Commands.Create;
 using CoreGoDelivery.Application.Services.Internal.Motorcycle.Commons;
 using CoreGoDelivery.Domain.Enums.ServiceErrorMessage;
@@ -25,7 +24,7 @@ public class MotorcycleChangePlateValidator
         _validatorCreate = validatorCreate;
     }
 
-    public async Task<string?> ChangePlateValidator(MotorcycleChangePlateCommand command)
+    public async Task<StringBuilder?> ChangePlateValidator(MotorcycleChangePlateCommand command)
     {
         var message = new StringBuilder();
 
@@ -33,25 +32,16 @@ public class MotorcycleChangePlateValidator
 
         await MessageBuildChangePlate(command.Plate, message);
 
-        return _baseInternalServices.BuildMessageValidator(message);
+        return message;
     }
 
     public async Task BuildMessageChangePlateId(string? idMotorcycle, StringBuilder message)
     {
-        var isValidId = _baseInternalServices.RequestIdParamValidator(idMotorcycle);
+        var motorcycle = await _repositoryMotorcycle.GetOneByIdAsync(idMotorcycle!);
 
-        if (!isValidId)
+        if (motorcycle == null)
         {
-            message.Append(nameof(idMotorcycle));
-        }
-        else
-        {
-            var motorcycle = await _repositoryMotorcycle.GetOneByIdAsync(idMotorcycle!);
-
-            if (motorcycle == null)
-            {
-                message.Append(nameof(idMotorcycle).AppendError(AdditionalMessageEnum.NotFound));
-            }
+            message.Append(nameof(idMotorcycle).AppendError(AdditionalMessageEnum.NotFound));
         }
     }
 

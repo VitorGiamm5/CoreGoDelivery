@@ -1,7 +1,5 @@
 ﻿using CoreGoDelivery.Application.Extensions;
-using CoreGoDelivery.Application.Services.Internal.Rental.Commands.Create.Common;
 using CoreGoDelivery.Application.Services.Internal.Rental.Commands.Update.Common;
-using CoreGoDelivery.Domain.Consts;
 using CoreGoDelivery.Domain.Enums.ServiceErrorMessage;
 using CoreGoDelivery.Domain.Repositories.GoDelivery;
 using CoreGoDelivery.Domain.Response;
@@ -14,24 +12,19 @@ public class RentalReturnedToBaseDateHandler : IRequestHandler<RentalReturnedToB
     public readonly IRentalRepository _repositoryRental;
 
     public readonly RentalReturnedToBaseValidator _validator;
-    public readonly RentalCalculateDatesByPlan _calculateDatesByPlan;
-    public readonly RentalCalculatePenalty _calculatePenalty;
 
     public RentalReturnedToBaseDateHandler(
         IRentalRepository repositoryRental,
-        RentalReturnedToBaseValidator validator,
-        RentalCalculateDatesByPlan calculateDatesByPlan,
-        RentalCalculatePenalty calculatePenalty)
+        RentalReturnedToBaseValidator validator)
     {
         _repositoryRental = repositoryRental;
         _validator = validator;
-        _calculateDatesByPlan = calculateDatesByPlan;
-        _calculatePenalty = calculatePenalty;
     }
 
     public async Task<ActionResult> Handle(RentalReturnedToBaseDateCommand request, CancellationToken cancellationToken)
     {
         var apiReponse = new ActionResult();
+
         apiReponse.SetMessage(await _validator.BuilderUpdateValidator(request));
 
         if (apiReponse.HasError())
@@ -43,18 +36,17 @@ public class RentalReturnedToBaseDateHandler : IRequestHandler<RentalReturnedToB
 
         var returnedDate = request!.ReturnedToBaseDate!.Value;
 
-        string result = _calculatePenalty.Calculate(returnedDate, rental) ?? CommomMessagesConst.MESSAGE_INVALID_DATA;
+        apiReponse = RentalCalculatePenalty.Calculate(returnedDate, rental);
 
         var successUpdate = await _repositoryRental.UpdateReturnedToBaseDate(request.Id, returnedDate);
 
         if (!successUpdate)
         {
+            apiReponse.Data = null;
             apiReponse.SetMessage(nameof(request.ReturnedToBaseDate).AppendError(AdditionalMessageEnum.UpdateFail));
 
             return apiReponse;
         }
-
-        apiReponse.Data = new { messagem = result };
 
         return apiReponse;
     }

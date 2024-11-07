@@ -1,4 +1,4 @@
-﻿using CoreGoDelivery.Application.Services.Internal.Base;
+﻿using CoreGoDelivery.Application.Extensions;
 using CoreGoDelivery.Application.Services.Internal.Motorcycle.Commons;
 using CoreGoDelivery.Domain.Repositories.GoDelivery;
 using CoreGoDelivery.Domain.Response;
@@ -11,23 +11,19 @@ public class MotorcycleListQueryHandler : IRequestHandler<MotorcycleListQueryCom
     public readonly IBaseInternalServices _baseInternalServices;
     public readonly IMotorcycleRepository _repositoryMotorcycle;
 
-    private readonly MotorcycleServiceMappers _mapper;
-
     public MotorcycleListQueryHandler(
         IBaseInternalServices baseInternalServices,
-        IMotorcycleRepository repositoryMotorcycle,
-        MotorcycleServiceMappers mapper)
+        IMotorcycleRepository repositoryMotorcycle)
     {
         _baseInternalServices = baseInternalServices;
         _repositoryMotorcycle = repositoryMotorcycle;
-        _mapper = mapper;
     }
 
     public async Task<ActionResult> Handle(MotorcycleListQueryCommand request, CancellationToken cancellationToken)
     {
         var apiReponse = new ActionResult();
 
-        request.Plate = _baseInternalServices.RemoveCharacteres(request.Plate);
+        request.Plate.RemoveCharacters();
 
         var result = await _repositoryMotorcycle.List(request.Plate);
 
@@ -36,7 +32,7 @@ public class MotorcycleListQueryHandler : IRequestHandler<MotorcycleListQueryCom
             return apiReponse;
         }
 
-        var motorcycleDtos = _mapper.MapEntityListToDto(result);
+        var motorcycleDtos = MotorcycleServiceMappers.MapEntityListToDto(result);
 
         apiReponse.Data = motorcycleDtos;
 

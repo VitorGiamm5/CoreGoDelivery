@@ -3,9 +3,9 @@ using System.Text;
 
 namespace CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.Common;
 
-public class DeliverierBuildFileName
+public static class DeliverierBuildFileName
 {
-    public string Build(string licenseNumber, FileExtensionValidEnum fileExtension)
+    public static string Build(string licenseNumber, FileExtensionValidEnum fileExtension)
     {
         var fileName = new StringBuilder();
 

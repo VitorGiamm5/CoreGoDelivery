@@ -11,6 +11,7 @@ public static class ValidatosServicesMessagesEnumExtensions
             AdditionalMessageEnum.FileSizeInvalid => "the file is not suported",
             AdditionalMessageEnum.InvalidDate => "date is invalid",
             AdditionalMessageEnum.UpdateFail => "fail to update, verify connection",
+            AdditionalMessageEnum.CreateFail => "fail to create, verify connection",
             AdditionalMessageEnum.Required => "required",
             AdditionalMessageEnum.MustBeUnic => "must be unic",
             AdditionalMessageEnum.Unavailable => "unavailable",

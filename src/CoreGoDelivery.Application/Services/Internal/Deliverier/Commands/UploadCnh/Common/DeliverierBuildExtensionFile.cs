@@ -6,9 +6,9 @@ using SixLabors.ImageSharp.Formats.Png;
 
 namespace CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.UploadCnh.Common;
 
-public class DeliverierBuildExtensionFile
+public static class DeliverierBuildExtensionFile
 {
-    public (bool isValid, string errorMessage, FileExtensionValidEnum fileExtension) Build(byte[] imageBytes)
+    public static (bool isValid, string errorMessage, FileExtensionValidEnum fileExtension) Build(byte[] imageBytes)
     {
         using var ms = new MemoryStream(imageBytes);
 

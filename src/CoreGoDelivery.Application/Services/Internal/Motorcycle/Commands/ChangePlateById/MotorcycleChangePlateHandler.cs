@@ -1,4 +1,4 @@
-﻿using CoreGoDelivery.Application.Services.Internal.Base;
+﻿using CoreGoDelivery.Application.Extensions;
 using CoreGoDelivery.Domain.Consts;
 using CoreGoDelivery.Domain.Repositories.GoDelivery;
 using CoreGoDelivery.Domain.Response;
@@ -40,9 +40,9 @@ public class MotorcycleChangePlateHandler : IRequestHandler<MotorcycleChangePlat
             return apiReponse;
         }
 
-        var plateNormalized = _baseInternalServices.RemoveCharacteres(command.Plate);
+        command.Plate.RemoveCharacters();
 
-        var success = await _repositoryMotorcycle.ChangePlateByIdAsync(command.Id, plateNormalized);
+        var success = await _repositoryMotorcycle.ChangePlateByIdAsync(command.Id, command.Plate);
 
         apiReponse.Data = success
             ? new

@@ -1,28 +1,17 @@
-﻿using CoreGoDelivery.Application.Services.Internal.Base;
-using CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.Create.MessageValidators;
+﻿using CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.Create.MessageValidators;
 using System.Text;
 
 namespace CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.Create;
 
 public class DeliverierCreateValidator
 {
-    public readonly IBaseInternalServices _baseInternalServices;
-
-    public readonly DeliverierBuildMessageCnpj _buildMessageCnpj;
-    public readonly DeliverierBuildMessageBirthDate _buildMessageBirthDate;
     public readonly DeliverierBuildMessageDeliverierCreate _buildMessageCreate;
     public readonly DeliverierBuildMessageCnh _buildMessageCnh;
 
     public DeliverierCreateValidator(
-        IBaseInternalServices baseInternalServices,
-        DeliverierBuildMessageCnpj buildMessageCnpj,
-        DeliverierBuildMessageBirthDate buildMessageBirthDate,
         DeliverierBuildMessageDeliverierCreate buildMessageCreate,
         DeliverierBuildMessageCnh buildMessageCnh)
     {
-        _baseInternalServices = baseInternalServices;
-        _buildMessageCnpj = buildMessageCnpj;
-        _buildMessageBirthDate = buildMessageBirthDate;
         _buildMessageCreate = buildMessageCreate;
         _buildMessageCnh = buildMessageCnh;
     }
@@ -31,7 +20,7 @@ public class DeliverierCreateValidator
     {
         var message = new StringBuilder();
 
-        _buildMessageCnpj.Build(message, data.Cnpj);
+        DeliverierBuildMessageCnpj.Build(message, data.Cnpj);
 
         DeliverierBuildMessageFullName.Build(data, message);
 

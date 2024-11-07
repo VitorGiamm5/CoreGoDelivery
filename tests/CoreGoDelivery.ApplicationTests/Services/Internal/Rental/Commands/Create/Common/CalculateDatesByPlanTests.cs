@@ -15,7 +15,7 @@ public class CalculateDatesByPlanTests
 
         var plan = new RentalPlanEntity { DaysQuantity = 5 };
 
-        var result = service.Calculate(plan);
+        var result = RentalCalculateDatesByPlan.Calculate(plan);
 
         Assert.NotNull(result);
         Assert.Equal(DateTime.UtcNow.Date, result.StartDate.Date);

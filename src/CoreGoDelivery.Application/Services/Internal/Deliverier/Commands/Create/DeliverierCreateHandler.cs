@@ -1,5 +1,4 @@
 ﻿using CoreGoDelivery.Application.Extensions;
-using CoreGoDelivery.Application.Services.Internal.Base;
 using CoreGoDelivery.Domain.Enums.ServiceErrorMessage;
 using CoreGoDelivery.Domain.Repositories.GoDelivery;
 using CoreGoDelivery.Domain.Response;
@@ -12,20 +11,16 @@ public class DeliverierCreateHandler : IRequestHandler<DeliverierCreateCommand, 
     public readonly IBaseInternalServices _baseInternalServices;
     public readonly IDeliverierRepository _repositoryDeliverier;
     public readonly DeliverierCreateValidator _validator;
-    public readonly DeliverierCreateMappers _mapper;
 
     public DeliverierCreateHandler(
         IBaseInternalServices baseInternalServices,
         IDeliverierRepository repositoryDeliverier,
         IMediator mediator,
-        DeliverierCreateValidator validator,
-        DeliverierCreateMappers mapper
-        )
+        DeliverierCreateValidator validator)
     {
         _baseInternalServices = baseInternalServices;
         _repositoryDeliverier = repositoryDeliverier;
         _validator = validator;
-        _mapper = mapper;
     }
 
     public async Task<ActionResult> Handle(DeliverierCreateCommand request, CancellationToken cancellationToken)
@@ -39,21 +34,14 @@ public class DeliverierCreateHandler : IRequestHandler<DeliverierCreateCommand, 
             return apiReponse;
         }
 
-        var deliverier = _mapper.MapCreateToEntity(request);
+        var deliverier = DeliverierCreateMappers.MapCreateToEntity(request);
 
         var resultCreate = await _repositoryDeliverier.Create(deliverier);
 
         if (!resultCreate)
         {
             apiReponse.SetMessage(nameof(resultCreate).AppendError(AdditionalMessageEnum.Unavailable));
-            return apiReponse;
-        }
 
-        apiReponse.SetMessage(_baseInternalServices.FinalMessageBuild(resultCreate, apiReponse));
-
-        if (apiReponse.HasError())
-        {
-            apiReponse.Data = null;
             return apiReponse;
         }
 

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.Create.MessageValidators;
 
-public class DeliverierBuildMessageBirthDate
+public static class DeliverierBuildMessageBirthDate
 {
     public static void Build(DeliverierCreateCommand data, StringBuilder message)
     {

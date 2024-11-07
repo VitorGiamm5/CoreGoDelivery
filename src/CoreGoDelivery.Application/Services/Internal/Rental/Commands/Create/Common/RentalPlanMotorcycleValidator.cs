@@ -1,30 +1,17 @@
 ﻿using CoreGoDelivery.Application.Extensions;
-using CoreGoDelivery.Application.Services.Internal.Base;
 using CoreGoDelivery.Domain.Entities.GoDelivery.RentalPlan;
 using CoreGoDelivery.Domain.Enums.ServiceErrorMessage;
 using System.Text;
 
 namespace CoreGoDelivery.Application.Services.Internal.Rental.Commands.Create.Common;
 
-public class RentalPlanMotorcycleValidator
+public static class RentalPlanMotorcycleValidator
 {
-    public readonly IBaseInternalServices _baseInternalServices;
-
-    public readonly RentalCalculateDatesByPlan _calculateDatesByPlan;
-
-    public RentalPlanMotorcycleValidator(
-        IBaseInternalServices baseInternalServices,
-        RentalCalculateDatesByPlan calculateDatesByPlan)
-    {
-        _baseInternalServices = baseInternalServices;
-        _calculateDatesByPlan = calculateDatesByPlan;
-    }
-
-    public string? Validade(RentalCreateCommand data, RentalPlanEntity plan)
+    public static StringBuilder? Validade(RentalCreateCommand data, RentalPlanEntity plan)
     {
         var message = new StringBuilder();
 
-        var refence = _calculateDatesByPlan.Calculate(plan);
+        var refence = RentalCalculateDatesByPlan.Calculate(plan);
 
         #region StartDate validate
 
@@ -68,8 +55,6 @@ public class RentalPlanMotorcycleValidator
 
         #endregion
 
-
-
-        return _baseInternalServices.BuildMessageValidator(message);
+        return message;
     }
 }

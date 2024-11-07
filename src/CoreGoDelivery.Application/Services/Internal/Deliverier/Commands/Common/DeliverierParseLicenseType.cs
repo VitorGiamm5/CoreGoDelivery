@@ -3,9 +3,9 @@ using CoreGoDelivery.Domain.Enums.LicenceDriverType;
 
 namespace CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.Common;
 
-public class DeliverierParseLicenseType
+public static class DeliverierParseLicenseType
 {
-    public LicenseTypeEnum Parse(DeliverierCreateCommand data)
+    public static LicenseTypeEnum Parse(DeliverierCreateCommand data)
     {
         Enum.TryParse(data.LicenseType, ignoreCase: true, out LicenseTypeEnum licenseType);
 

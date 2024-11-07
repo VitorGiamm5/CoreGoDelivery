@@ -2,9 +2,9 @@
 
 namespace CoreGoDelivery.Application.Services.Internal.Rental.Queries.GetOne;
 
-public class RentalGetOneMappers
+public static class RentalGetOneMappers
 {
-    public object? RentalEntityToDto(RentalEntity? rental)
+    public static object? RentalEntityToDto(RentalEntity? rental)
     {
         if (rental == null)
         {

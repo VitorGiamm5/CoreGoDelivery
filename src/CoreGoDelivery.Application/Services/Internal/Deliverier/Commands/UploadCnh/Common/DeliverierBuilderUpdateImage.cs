@@ -12,22 +12,12 @@ public class DeliverierBuilderUpdateImage
     public readonly ILicenceDriverRepository _repositoryLicense;
     public readonly IDeliverierRepository _repositoryDeliverier;
 
-    public readonly DeliverierBuildFileName _buildFileName;
-    public readonly DeliverierSaveOrReplaceLicenseImageAsync _saveLicenseFile;
-    public readonly DeliverierBuildExtensionFile _buildExtensionFile;
-
     public DeliverierBuilderUpdateImage(
         ILicenceDriverRepository repositoryLicense,
-        IDeliverierRepository repositoryDeliverier,
-        DeliverierBuildFileName buildFileName,
-        DeliverierSaveOrReplaceLicenseImageAsync saveLicenseFile,
-        DeliverierBuildExtensionFile buildExtensionFile)
+        IDeliverierRepository repositoryDeliverier)
     {
         _repositoryLicense = repositoryLicense;
         _repositoryDeliverier = repositoryDeliverier;
-        _buildFileName = buildFileName;
-        _saveLicenseFile = saveLicenseFile;
-        _buildExtensionFile = buildExtensionFile;
     }
 
     public async Task<ActionResult> Build(string UPLOAD_FOLDER, LicenseImageCommand command, ActionResult apiReponse)
@@ -43,13 +33,13 @@ public class DeliverierBuilderUpdateImage
 
         command.Id = deliverier.LicenceDriverId;
 
-        var (_, _, fileExtension) = _buildExtensionFile.Build(command.LicenseImageBase64);
+        var (_, _, fileExtension) = DeliverierBuildExtensionFile.Build(command.LicenseImageBase64);
 
-        var fileName = _buildFileName.Build(command.Id!, fileExtension);
+        var fileName = DeliverierBuildFileName.Build(command.Id!, fileExtension);
 
         await _repositoryLicense.UpdateFileName(deliverier.LicenceDriverId, fileName);
 
-        var imagePaths = await _saveLicenseFile.SaveOrReplace(command.LicenseImageBase64, fileName, UPLOAD_FOLDER);
+        var imagePaths = await DeliverierSaveOrReplaceLicenseImageAsync.SaveOrReplace(command.LicenseImageBase64, fileName, UPLOAD_FOLDER);
 
         apiReponse.Data = new
         {

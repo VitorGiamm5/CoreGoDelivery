@@ -7,6 +7,7 @@ public enum AdditionalMessageEnum
     FileSizeInvalid,
     InvalidDate,
     UpdateFail,
+    CreateFail,
     MustBeUnic,
     AlreadyExist,
     Unavailable,

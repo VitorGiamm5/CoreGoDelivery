@@ -1,35 +1,28 @@
-﻿using CoreGoDelivery.Application.Services.Internal.Base;
+﻿using CoreGoDelivery.Application.Extensions;
 using CoreGoDelivery.Application.Services.Internal.Motorcycle.Commands.Create;
 using CoreGoDelivery.Domain.Entities.GoDelivery.Motorcycle;
 
 namespace CoreGoDelivery.Application.Services.Internal.Motorcycle.Commons;
 
-public class MotorcycleServiceMappers
+public static class MotorcycleServiceMappers
 {
-    public readonly IBaseInternalServices _baseInternalServices;
-
-    public MotorcycleServiceMappers(IBaseInternalServices baseInternalServices)
-    {
-        _baseInternalServices = baseInternalServices;
-    }
-
-    public List<MotorcycleCreateCommand> MapEntityListToDto(List<MotorcycleEntity>? entity)
+    public static List<MotorcycleCreateCommand> MapEntityListToDto(List<MotorcycleEntity>? entity)
     {
         List<MotorcycleCreateCommand> motorcycleDtos = [];
 
         if (entity != null)
         {
-            var resultDto = motorcycleDtos = entity
+            motorcycleDtos = entity
                  .Select(motorcycle => MapEntityToDto(motorcycle))
                  .ToList();
 
-            return resultDto;
+            return motorcycleDtos;
         }
 
-        return new List<MotorcycleCreateCommand>();
+        return motorcycleDtos;
     }
 
-    public MotorcycleCreateCommand MapEntityToDto(MotorcycleEntity motorcycle)
+    public static MotorcycleCreateCommand MapEntityToDto(MotorcycleEntity motorcycle)
     {
         var restult = new MotorcycleCreateCommand
         {
@@ -42,14 +35,14 @@ public class MotorcycleServiceMappers
         return restult;
     }
 
-    public MotorcycleEntity MapCreateToEntity(MotorcycleCreateCommand data)
+    public static MotorcycleEntity MapCreateToEntity(MotorcycleCreateCommand data)
     {
         var result = new MotorcycleEntity()
         {
-            Id = _baseInternalServices.IdBuild(data.Id),
+            Id = data.Id,
             YearManufacture = data.YearManufacture,
             ModelMotorcycleId = data.ModelName,
-            PlateNormalized = _baseInternalServices.RemoveCharacteres(data.PlateId)
+            PlateNormalized = data.PlateId.RemoveCharacters()
         };
 
         return result;

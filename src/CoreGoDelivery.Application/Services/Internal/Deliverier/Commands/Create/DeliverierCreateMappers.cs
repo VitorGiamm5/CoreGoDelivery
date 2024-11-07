@@ -1,43 +1,24 @@
-﻿using CoreGoDelivery.Application.Services.Internal.Base;
+﻿using CoreGoDelivery.Application.Extensions;
 using CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.Common;
-using CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.UploadCnh.Common;
 using CoreGoDelivery.Domain.Entities.GoDelivery.Deliverier;
 using CoreGoDelivery.Domain.Entities.GoDelivery.LicenceDriver;
 
 namespace CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.Create;
 
-public class DeliverierCreateMappers
+public static class DeliverierCreateMappers
 {
-    public readonly IBaseInternalServices _baseInternalServices;
-
-    public readonly DeliverierBuildFileName _buildFileName;
-    public readonly DeliverierBuildExtensionFile _buildExtensionFile;
-    public readonly DeliverierParseLicenseType _parseLicenseType;
-
-    public DeliverierCreateMappers(
-        IBaseInternalServices baseInternalServices,
-        DeliverierBuildFileName buildFileName,
-         DeliverierBuildExtensionFile buildExtensionFile,
-        DeliverierParseLicenseType parseLicenseType)
-    {
-        _baseInternalServices = baseInternalServices;
-        _buildFileName = buildFileName;
-        _buildExtensionFile = buildExtensionFile;
-        _parseLicenseType = parseLicenseType;
-    }
-
-    public DeliverierEntity MapCreateToEntity(DeliverierCreateCommand command)
+    public static DeliverierEntity MapCreateToEntity(DeliverierCreateCommand command)
     {
         var result = new DeliverierEntity()
         {
-            Id = _baseInternalServices.IdBuild(command.Id),
+            Id = command.Id,
             FullName = command.FullName,
-            Cnpj = _baseInternalServices.RemoveCharacteres(command.Cnpj),
+            Cnpj = command.Cnpj.RemoveCharacters(),
             BirthDate = command.BirthDate,
             LicenceDriver = new LicenceDriverEntity()
             {
                 Id = command.LicenseNumber,
-                Type = _parseLicenseType.Parse(command),
+                Type = DeliverierParseLicenseType.Parse(command),
                 ImageUrlReference = "pending"
             }
         };

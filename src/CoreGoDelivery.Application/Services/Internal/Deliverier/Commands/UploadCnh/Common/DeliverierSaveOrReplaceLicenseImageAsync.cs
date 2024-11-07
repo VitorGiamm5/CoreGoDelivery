@@ -1,18 +1,8 @@
-﻿using CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.Common;
+﻿namespace CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.UploadCnh.Common;
 
-namespace CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.UploadCnh.Common;
-
-public class DeliverierSaveOrReplaceLicenseImageAsync
+public static class DeliverierSaveOrReplaceLicenseImageAsync
 {
-    public readonly DeliverierBuildFileName _normalizeFileNameLicense;
-
-    public DeliverierSaveOrReplaceLicenseImageAsync(
-        DeliverierBuildFileName normalizeFileNameLicense)
-    {
-        _normalizeFileNameLicense = normalizeFileNameLicense;
-    }
-
-    public async Task<string> SaveOrReplace(byte[] licenseImageBase64, string fileName, string uploadFolder)
+    public static async Task<string> SaveOrReplace(byte[] licenseImageBase64, string fileName, string uploadFolder)
     {
         if (!Directory.Exists(uploadFolder))
         {
