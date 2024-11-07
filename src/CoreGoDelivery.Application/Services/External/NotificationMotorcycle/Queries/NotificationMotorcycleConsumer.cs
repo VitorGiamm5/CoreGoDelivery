@@ -1,4 +1,4 @@
-﻿using CoreGoDelivery.Application.RabbitMQ.NotificationMotorcycle.Dto;
+﻿using CoreGoDelivery.Application.Services.Internal.NotificationMotorcycle.Dto;
 using CoreGoDelivery.Domain.Entities.GoDelivery.NotificationMotorcycle;
 using CoreGoDelivery.Domain.Repositories.GoDelivery;
 using Microsoft.Extensions.DependencyInjection;
@@ -10,16 +10,15 @@ using RabbitMQ.Client.Events;
 using RabbitMQ.Client.Exceptions;
 using System.Text;
 
-namespace CoreGoDelivery.Application.RabbitMQ.NotificationMotorcycle.Consumer;
+namespace CoreGoDelivery.Application.Services.External.NotificationMotorcycle.Queries;
 
-public class RabbitMQConsumer : BackgroundService
+public class NotificationMotorcycleConsumer : BackgroundService
 {
     private readonly IConnectionFactory _connectionFactory;
     private readonly IServiceScopeFactory _serviceScopeFactory;
-    private IConnection? _connection;
     private IModel? _channel;
 
-    public RabbitMQConsumer(
+    public NotificationMotorcycleConsumer(
         IConnectionFactory connectionFactory,
         IServiceScopeFactory serviceScopeFactory)
     {
@@ -41,8 +40,8 @@ public class RabbitMQConsumer : BackgroundService
 
         await retryPolicy.ExecuteAsync(() =>
         {
-            _connection = _connectionFactory.CreateConnection();
-            _channel = _connection.CreateModel();
+            var connection = _connectionFactory.CreateConnection();
+            _channel = connection.CreateModel();
 
             _channel.QueueDeclare(queue: "motorcycle_queue",
                                   durable: true,
@@ -90,13 +89,5 @@ public class RabbitMQConsumer : BackgroundService
         Console.WriteLine("Consumidor aguardando mensagens da fila 'motorcycle_queue'...");
 
         await Task.Delay(Timeout.Infinite, stoppingToken);
-    }
-
-    public override void Dispose()
-    {
-        _channel?.Close();
-        _connection?.Close();
-        base.Dispose();
-        GC.SuppressFinalize(this);
     }
 }
