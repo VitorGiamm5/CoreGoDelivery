@@ -8,14 +8,11 @@ namespace CoreGoDelivery.Application.Services.Internal.Motorcycle.Queries.List;
 
 public class MotorcycleListQueryHandler : IRequestHandler<MotorcycleListQueryCommand, ActionResult>
 {
-    public readonly IBaseInternalServices _baseInternalServices;
     public readonly IMotorcycleRepository _repositoryMotorcycle;
 
     public MotorcycleListQueryHandler(
-        IBaseInternalServices baseInternalServices,
         IMotorcycleRepository repositoryMotorcycle)
     {
-        _baseInternalServices = baseInternalServices;
         _repositoryMotorcycle = repositoryMotorcycle;
     }
 

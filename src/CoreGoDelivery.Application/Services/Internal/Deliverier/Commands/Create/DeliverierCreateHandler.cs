@@ -8,17 +8,13 @@ namespace CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.Creat
 
 public class DeliverierCreateHandler : IRequestHandler<DeliverierCreateCommand, ActionResult>
 {
-    public readonly IBaseInternalServices _baseInternalServices;
     public readonly IDeliverierRepository _repositoryDeliverier;
     public readonly DeliverierCreateValidator _validator;
 
     public DeliverierCreateHandler(
-        IBaseInternalServices baseInternalServices,
         IDeliverierRepository repositoryDeliverier,
-        IMediator mediator,
         DeliverierCreateValidator validator)
     {
-        _baseInternalServices = baseInternalServices;
         _repositoryDeliverier = repositoryDeliverier;
         _validator = validator;
     }

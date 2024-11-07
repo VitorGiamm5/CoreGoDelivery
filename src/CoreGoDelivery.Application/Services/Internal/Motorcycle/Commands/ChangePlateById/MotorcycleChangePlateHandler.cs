@@ -11,7 +11,6 @@ public class MotorcycleChangePlateHandler : IRequestHandler<MotorcycleChangePlat
     public readonly IMotorcycleRepository _repositoryMotorcycle;
     public readonly IModelMotorcycleRepository _repositoryModelMotorcycle;
     public readonly IRentalRepository _rentalRepository;
-    public readonly IBaseInternalServices _baseInternalServices;
 
     public readonly MotorcycleChangePlateValidator _validator;
 
@@ -19,13 +18,11 @@ public class MotorcycleChangePlateHandler : IRequestHandler<MotorcycleChangePlat
         IMotorcycleRepository repositoryMotorcycle,
         IModelMotorcycleRepository repositoryModelMotorcycle,
         IRentalRepository rentalRepository,
-        IBaseInternalServices baseInternalServices,
         MotorcycleChangePlateValidator validator)
     {
         _repositoryMotorcycle = repositoryMotorcycle;
         _repositoryModelMotorcycle = repositoryModelMotorcycle;
         _rentalRepository = rentalRepository;
-        _baseInternalServices = baseInternalServices;
         _validator = validator;
     }
 

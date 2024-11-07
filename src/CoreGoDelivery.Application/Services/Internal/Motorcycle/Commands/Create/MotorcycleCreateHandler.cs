@@ -9,19 +9,16 @@ namespace CoreGoDelivery.Application.Services.Internal.Motorcycle.Commands.Creat
 
 public class MotorcycleCreateHandler : IRequestHandler<MotorcycleCreateCommand, ActionResult>
 {
-    public readonly IBaseInternalServices _baseInternalServices;
     public readonly IMotorcycleRepository _repositoryMotorcycle;
 
     private readonly MotorcycleCreateValidator _validator;
     private readonly MotorcycleCreateNotification _notification;
 
     public MotorcycleCreateHandler(
-        IBaseInternalServices baseInternalServices,
         IMotorcycleRepository repositoryMotorcycle,
         MotorcycleCreateValidator validator,
         MotorcycleCreateNotification notification)
     {
-        _baseInternalServices = baseInternalServices;
         _repositoryMotorcycle = repositoryMotorcycle;
         _validator = validator;
         _notification = notification;

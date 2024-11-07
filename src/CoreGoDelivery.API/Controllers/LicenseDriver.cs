@@ -1,18 +1,22 @@
 ﻿using CoreGoDelivery.Api.Controllers.Base;
-using CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.Create;
 using CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.UploadCnh;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CoreGoDelivery.Api.Controllers;
 
-[Route("deliveriers")]
+[Route("license-driver")]
 [ApiController]
-public class DeliveriersController(IMediator _mediator) : BaseApiController
+public class LicenseDriver(IMediator _mediator) : BaseApiController
 {
-    [HttpPost]
-    public async Task<IActionResult> Create([FromBody] DeliverierCreateCommand request)
+
+    [HttpPost("{id}/upload-cnh")]
+    public async Task<IActionResult> Upload(string id, [FromBody] LicenseImageCommand request)
     {
+        IdParamValidator(id);
+
+        request.Id = id;
+
         var apiReponse = await _mediator.Send(request);
 
         return Response(apiReponse);

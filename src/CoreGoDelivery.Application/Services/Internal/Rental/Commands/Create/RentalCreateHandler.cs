@@ -9,19 +9,16 @@ namespace CoreGoDelivery.Application.Services.Internal.Rental.Commands.Create;
 
 public class RentalCreateHandler : IRequestHandler<RentalCreateCommand, ActionResult>
 {
-    public readonly IBaseInternalServices _baseInternalServices;
     public readonly IRentalPlanRepository _repositoryPlan;
     public readonly IRentalRepository _repositoryRental;
 
     public readonly RentalCreateValidate _validator;
 
     public RentalCreateHandler(
-        IBaseInternalServices baseInternalServices,
         IRentalPlanRepository repositoryPlan,
         IRentalRepository repositoryRental,
         RentalCreateValidate validator)
     {
-        _baseInternalServices = baseInternalServices;
         _repositoryPlan = repositoryPlan;
         _repositoryRental = repositoryRental;
         _validator = validator;

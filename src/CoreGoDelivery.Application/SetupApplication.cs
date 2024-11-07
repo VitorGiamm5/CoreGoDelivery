@@ -3,8 +3,8 @@ using CoreGoDelivery.Application.RabbitMQ.NotificationMotorcycle.Publisher;
 using CoreGoDelivery.Application.RabbitMQ.Settings;
 using CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.Create;
 using CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.Create.MessageValidators;
-using CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.UploadCnh;
 using CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.UploadCnh.Common;
+using CoreGoDelivery.Application.Services.Internal.LicenseDriver;
 using CoreGoDelivery.Application.Services.Internal.Motorcycle.Commands.ChangePlateById;
 using CoreGoDelivery.Application.Services.Internal.Motorcycle.Commands.Create;
 using CoreGoDelivery.Application.Services.Internal.Motorcycle.Commands.Delete;
@@ -68,7 +68,6 @@ public static class SetupApplication
 
     private static IServiceCollection BuildMessageValidator(this IServiceCollection services)
     {
-        AddBaseServices(services);
 
         AddRentalServices(services);
 
@@ -77,11 +76,6 @@ public static class SetupApplication
         AddMotorcycleServices(services);
 
         return services;
-    }
-
-    private static void AddBaseServices(IServiceCollection services)
-    {
-        services.TryAddScoped<IBaseInternalServices, BaseInternalServices>();
     }
 
     private static void AddMotorcycleServices(IServiceCollection services)

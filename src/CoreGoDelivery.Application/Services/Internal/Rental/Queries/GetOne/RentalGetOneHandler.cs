@@ -7,15 +7,11 @@ namespace CoreGoDelivery.Application.Services.Internal.Rental.Queries.GetOne;
 
 public class RentalGetOneHandler : IRequestHandler<RentalGetOneCommand, ActionResult>
 {
-    public readonly IBaseInternalServices _baseInternalServices;
     public readonly IRentalRepository _repositoryRental;
 
-
     public RentalGetOneHandler(
-        IBaseInternalServices baseInternalServices,
         IRentalRepository repositoryRental)
     {
-        _baseInternalServices = baseInternalServices;
         _repositoryRental = repositoryRental;
     }
 

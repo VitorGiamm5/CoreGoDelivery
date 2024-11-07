@@ -10,16 +10,13 @@ public class MotorcycleCreateValidator
 {
     public readonly IMotorcycleRepository _repositoryMotorcycle;
     public readonly IModelMotorcycleRepository _repositoryModelMotorcycle;
-    public readonly IBaseInternalServices _baseInternalServices;
 
     public MotorcycleCreateValidator(
         IMotorcycleRepository repositoryMotorcycle,
-        IModelMotorcycleRepository repositoryModelMotorcycle,
-        IBaseInternalServices baseInternalServices)
+        IModelMotorcycleRepository repositoryModelMotorcycle)
     {
         _repositoryMotorcycle = repositoryMotorcycle;
         _repositoryModelMotorcycle = repositoryModelMotorcycle;
-        _baseInternalServices = baseInternalServices;
     }
 
     public async Task<StringBuilder?> BuilderCreateValidator(MotorcycleCreateCommand data)

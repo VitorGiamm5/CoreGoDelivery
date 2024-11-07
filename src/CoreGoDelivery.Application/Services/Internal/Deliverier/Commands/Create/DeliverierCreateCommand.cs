@@ -6,8 +6,6 @@ namespace CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.Creat
 
 public class DeliverierCreateCommand : IRequest<ActionResult>
 {
-    public byte[] LicenseImageBase64 { get; set; }
-
     [DefaultValue("Deliverier123")]
     public string Id { get; set; }
 
