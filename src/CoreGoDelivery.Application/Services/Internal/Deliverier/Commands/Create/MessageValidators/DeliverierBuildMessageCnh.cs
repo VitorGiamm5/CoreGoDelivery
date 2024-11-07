@@ -22,7 +22,7 @@ public class DeliverierBuildMessageCnh
 
         if (string.IsNullOrWhiteSpace(licenseNumber))
         {
-            message.AppendError(message, paramName);
+            message.Append(paramName.AppendError());
         }
         else
         {
@@ -30,14 +30,14 @@ public class DeliverierBuildMessageCnh
 
             if (!isValidLicense)
             {
-                message.AppendError(message, paramName);
+                message.Append(paramName.AppendError());
             }
 
             var isUnicLicence = await _repositoryLicence.CheckIsUnicByLicence(licenseNumber);
 
             if (!isUnicLicence)
             {
-                message.AppendError(message, paramName, AdditionalMessageEnum.AlreadyExist);
+                message.Append(paramName.AppendError(AdditionalMessageEnum.AlreadyExist));
             }
         }
     }

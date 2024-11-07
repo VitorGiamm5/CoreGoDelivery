@@ -7,9 +7,8 @@ namespace CoreGoDelivery.Application.Services.Internal.Base
     {
         string IdBuild(string? id);
         string RemoveCharacteres(string? plateId);
-        string? FinalMessageBuild(bool resultCreate, ApiResponse apiReponse);
+        string? FinalMessageBuild(bool resultCreate, ActionResult apiReponse);
         string? BuildMessageValidator(StringBuilder message);
-        bool HasMessageError(ApiResponse apiReponse);
         bool RequestIdParamValidator(string? id);
     }
 }

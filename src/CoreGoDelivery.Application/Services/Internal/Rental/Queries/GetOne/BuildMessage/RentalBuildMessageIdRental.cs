@@ -22,7 +22,7 @@ public class RentalBuildMessageIdRental
     {
         if (!_baseInternalServices.RequestIdParamValidator(idRental))
         {
-            message.AppendError(message, "idRental");
+            message.Append("idRental");
         }
         else
         {
@@ -30,7 +30,7 @@ public class RentalBuildMessageIdRental
 
             if (rental == null)
             {
-                message.AppendError(message, "idRental", AdditionalMessageEnum.NotFound);
+                message.Append("idRental".AppendError(AdditionalMessageEnum.NotFound));
             }
         }
 

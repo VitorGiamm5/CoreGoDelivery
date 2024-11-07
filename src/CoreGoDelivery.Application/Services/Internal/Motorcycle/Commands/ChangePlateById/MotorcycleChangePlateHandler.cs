@@ -6,7 +6,7 @@ using MediatR;
 
 namespace CoreGoDelivery.Application.Services.Internal.Motorcycle.Commands.ChangePlateById;
 
-public class MotorcycleChangePlateHandler : IRequestHandler<MotorcycleChangePlateCommand, ApiResponse>
+public class MotorcycleChangePlateHandler : IRequestHandler<MotorcycleChangePlateCommand, ActionResult>
 {
     public readonly IMotorcycleRepository _repositoryMotorcycle;
     public readonly IModelMotorcycleRepository _repositoryModelMotorcycle;
@@ -29,14 +29,13 @@ public class MotorcycleChangePlateHandler : IRequestHandler<MotorcycleChangePlat
         _validator = validator;
     }
 
-    public async Task<ApiResponse> Handle(MotorcycleChangePlateCommand command, CancellationToken cancellationToken)
+    public async Task<ActionResult> Handle(MotorcycleChangePlateCommand command, CancellationToken cancellationToken)
     {
-        var apiReponse = new ApiResponse()
-        {
-            Message = await _validator.ChangePlateValidator(command)
-        };
+        var apiReponse = new ActionResult();
 
-        if (!string.IsNullOrEmpty(apiReponse.Message))
+        apiReponse.SetMessage(await _validator.ChangePlateValidator(command));
+
+        if (apiReponse.HasError())
         {
             return apiReponse;
         }
@@ -45,9 +44,14 @@ public class MotorcycleChangePlateHandler : IRequestHandler<MotorcycleChangePlat
 
         var success = await _repositoryMotorcycle.ChangePlateByIdAsync(command.Id, plateNormalized);
 
-        apiReponse.Data = success ? new { mensagem = CommomMessagesConst.MESSAGE_UPDATED_PLATE_SUCCESS } : null;
+        apiReponse.Data = success
+            ? new
+            {
+                menssage = CommomMessagesConst.MESSAGE_UPDATED_WITH_SUCCESS
+            }
+            : null;
 
-        apiReponse.Message = success ? null : CommomMessagesConst.MESSAGE_INVALID_DATA;
+        apiReponse.SetMessage(success ? null : CommomMessagesConst.MESSAGE_INVALID_DATA);
 
         return apiReponse;
     }

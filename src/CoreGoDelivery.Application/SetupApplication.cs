@@ -111,8 +111,6 @@ public static class SetupApplication
         services.TryAddScoped<DeliverierParseLicenseType>();
         services.TryAddScoped<DeliverierBuildMessageBirthDate>();
         services.TryAddScoped<DeliverierBuildMessageCnpj>();
-        services.TryAddScoped<DeliverierBuildMessageFullName>();
-        services.TryAddScoped<DeliverierBuildMessageLicenseType>();
 
         services.TryAddScoped<DeliverierCreateMappers>();
         services.TryAddScoped<DeliverierCreateValidator>();

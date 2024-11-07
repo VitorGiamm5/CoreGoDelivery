@@ -6,13 +6,13 @@ namespace CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.Creat
 
 public class DeliverierBuildMessageBirthDate
 {
-    public void Build(DeliverierCreateCommand data, StringBuilder message)
+    public static void Build(DeliverierCreateCommand data, StringBuilder message)
     {
         var paramName = nameof(data.BirthDate);
 
         if (string.IsNullOrWhiteSpace(data.BirthDate.ToString()))
         {
-            message.AppendError(message, paramName);
+            message.Append(paramName.AppendError());
         }
         else
         {

@@ -4,9 +4,9 @@ using System.ComponentModel;
 
 namespace CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.Create;
 
-public class DeliverierCreateCommand : IRequest<ApiResponse>
+public class DeliverierCreateCommand : IRequest<ActionResult>
 {
-    internal byte[] LicenseImageBase64;
+    public byte[] LicenseImageBase64 { get; set; }
 
     [DefaultValue("Deliverier123")]
     public string Id { get; set; }

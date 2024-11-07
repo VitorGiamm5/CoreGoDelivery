@@ -4,6 +4,9 @@ public enum AdditionalMessageEnum
 {
     None,
     InvalidFormat,
+    FileSizeInvalid,
+    InvalidDate,
+    UpdateFail,
     MustBeUnic,
     AlreadyExist,
     Unavailable,

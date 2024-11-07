@@ -24,7 +24,7 @@ public class DeliverierBuildMessageDeliverierCreate
 
             if (!isUnicId)
             {
-                message.AppendError(message, paramName, AdditionalMessageEnum.AlreadyExist);
+                message.Append(paramName.AppendError(AdditionalMessageEnum.AlreadyExist));
             }
         }
     }

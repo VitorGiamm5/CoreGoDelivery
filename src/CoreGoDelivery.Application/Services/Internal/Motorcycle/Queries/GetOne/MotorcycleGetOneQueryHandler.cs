@@ -6,7 +6,7 @@ using MediatR;
 
 namespace CoreGoDelivery.Application.Services.Internal.Motorcycle.Queries.GetOne;
 
-public class MotorcycleGetOneQueryHandler : IRequestHandler<MotorcycleGetOneQueryCommand, ApiResponse>
+public class MotorcycleGetOneQueryHandler : IRequestHandler<MotorcycleGetOneQueryCommand, ActionResult>
 {
     public readonly IMotorcycleRepository _repositoryMotorcycle;
 
@@ -18,17 +18,18 @@ public class MotorcycleGetOneQueryHandler : IRequestHandler<MotorcycleGetOneQuer
         _mapper = mapper;
     }
 
-    public async Task<ApiResponse> Handle(MotorcycleGetOneQueryCommand request, CancellationToken cancellationToken)
+    public async Task<ActionResult> Handle(MotorcycleGetOneQueryCommand request, CancellationToken cancellationToken)
     {
         var result = await _repositoryMotorcycle.GetOneByIdAsync(request.Id);
 
         var motorcycleDtos = result != null ? _mapper.MapEntityToDto(result) : null;
 
-        var apiReponse = new ApiResponse()
+        var apiReponse = new ActionResult()
         {
             Data = motorcycleDtos,
-            Message = result == null ? CommomMessagesConst.MESSAGE_MOTORCYCLE_NOT_FOUND : null
         };
+
+        apiReponse.SetMessage(result == null ? CommomMessagesConst.MESSAGE_DATA_NOT_FOUND : null);
 
         return apiReponse;
     }

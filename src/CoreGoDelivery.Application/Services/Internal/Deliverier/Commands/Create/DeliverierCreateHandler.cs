@@ -1,16 +1,17 @@
-﻿using CoreGoDelivery.Application.Services.Internal.Base;
+﻿using CoreGoDelivery.Application.Extensions;
+using CoreGoDelivery.Application.Services.Internal.Base;
 using CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.UploadCnh;
+using CoreGoDelivery.Domain.Enums.ServiceErrorMessage;
 using CoreGoDelivery.Domain.Repositories.GoDelivery;
 using CoreGoDelivery.Domain.Response;
 using MediatR;
 
 namespace CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.Create;
 
-public class DeliverierCreateHandler : IRequestHandler<DeliverierCreateCommand, ApiResponse>
+public class DeliverierCreateHandler : IRequestHandler<DeliverierCreateCommand, ActionResult>
 {
     public readonly IBaseInternalServices _baseInternalServices;
     public readonly IDeliverierRepository _repositoryDeliverier;
-    public readonly IMediator _mediator;
     public readonly DeliverierCreateValidator _validator;
     public readonly DeliverierCreateMappers _mapper;
 
@@ -24,20 +25,17 @@ public class DeliverierCreateHandler : IRequestHandler<DeliverierCreateCommand, 
     {
         _baseInternalServices = baseInternalServices;
         _repositoryDeliverier = repositoryDeliverier;
-        _mediator = mediator;
         _validator = validator;
         _mapper = mapper;
     }
 
-    public async Task<ApiResponse> Handle(DeliverierCreateCommand request, CancellationToken cancellationToken)
+    public async Task<ActionResult> Handle(DeliverierCreateCommand request, CancellationToken cancellationToken)
     {
-        var apiReponse = new ApiResponse()
-        {
-            Data = null,
-            Message = await _validator.Validator(request)
-        };
+        var apiReponse = new ActionResult();
 
-        if (_baseInternalServices.HasMessageError(apiReponse))
+        apiReponse.SetMessage(await _validator.Validator(request));
+
+        if (apiReponse.HasError())
         {
             return apiReponse;
         }
@@ -48,26 +46,11 @@ public class DeliverierCreateHandler : IRequestHandler<DeliverierCreateCommand, 
 
         if (!resultCreate)
         {
+            apiReponse.SetMessage(nameof(resultCreate).AppendError(AdditionalMessageEnum.Unavailable));
             return apiReponse;
         }
 
-        apiReponse.Message = _baseInternalServices.FinalMessageBuild(resultCreate, apiReponse);
-
-        if (apiReponse.HasError())
-        {
-            apiReponse.Data = null;
-            return apiReponse;
-        }
-
-        var deliverierUpload = new LicenseImageCommand()
-        {
-            IdDeliverier = deliverier.Id,
-            Id = deliverier.LicenceDriver.Id,
-            LicenseImageBase64 = request.LicenseImageBase64,
-            IsUpdate = false
-        };
-
-        apiReponse = await _mediator.Send(deliverierUpload);
+        apiReponse.SetMessage(_baseInternalServices.FinalMessageBuild(resultCreate, apiReponse));
 
         if (apiReponse.HasError())
         {

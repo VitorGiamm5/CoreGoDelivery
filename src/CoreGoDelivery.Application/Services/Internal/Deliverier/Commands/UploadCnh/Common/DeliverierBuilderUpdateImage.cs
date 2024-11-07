@@ -1,5 +1,7 @@
-﻿using CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.Common;
+﻿using CoreGoDelivery.Application.Extensions;
+using CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.Common;
 using CoreGoDelivery.Domain.Consts;
+using CoreGoDelivery.Domain.Enums.ServiceErrorMessage;
 using CoreGoDelivery.Domain.Repositories.GoDelivery;
 using CoreGoDelivery.Domain.Response;
 
@@ -28,13 +30,13 @@ public class DeliverierBuilderUpdateImage
         _buildExtensionFile = buildExtensionFile;
     }
 
-    public async Task<ApiResponse> Build(string UPLOAD_FOLDER, LicenseImageCommand command, ApiResponse apiReponse)
+    public async Task<ActionResult> Build(string UPLOAD_FOLDER, LicenseImageCommand command, ActionResult apiReponse)
     {
         var deliverier = await _repositoryDeliverier.GetOneById(command.IdDeliverier!);
 
         if (deliverier == null)
         {
-            apiReponse.Message = "Error";
+            apiReponse.SetMessage(nameof(command.IdDeliverier).AppendError(AdditionalMessageEnum.NotFound));
 
             return apiReponse;
         }
@@ -49,7 +51,10 @@ public class DeliverierBuilderUpdateImage
 
         var imagePaths = await _saveLicenseFile.SaveOrReplace(command.LicenseImageBase64, fileName, UPLOAD_FOLDER);
 
-        apiReponse.Data = new { message = $"${DeliverierServiceConst.MESSAGE_CNH_UPDATED_SUCCESS}, path: {imagePaths}" };
+        apiReponse.Data = new
+        {
+            message = $"${DeliverierServiceConst.MESSAGE_CNH_UPDATED_SUCCESS}, path: {imagePaths}"
+        };
 
         return apiReponse;
     }

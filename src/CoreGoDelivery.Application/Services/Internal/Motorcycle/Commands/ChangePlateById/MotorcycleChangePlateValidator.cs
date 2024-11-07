@@ -42,7 +42,7 @@ public class MotorcycleChangePlateValidator
 
         if (!isValidId)
         {
-            message.AppendError(message, nameof(idMotorcycle));
+            message.Append(nameof(idMotorcycle));
         }
         else
         {
@@ -50,7 +50,7 @@ public class MotorcycleChangePlateValidator
 
             if (motorcycle == null)
             {
-                message.AppendError(message, nameof(idMotorcycle), AdditionalMessageEnum.NotFound);
+                message.Append(nameof(idMotorcycle).AppendError(AdditionalMessageEnum.NotFound));
             }
         }
     }
@@ -59,7 +59,7 @@ public class MotorcycleChangePlateValidator
     {
         if (string.IsNullOrEmpty(plate))
         {
-            message.AppendError(message, nameof(plate));
+            message.Append(nameof(plate));
         }
         else
         {
@@ -67,7 +67,7 @@ public class MotorcycleChangePlateValidator
 
             if (!isValidPlate)
             {
-                message.AppendError(message, nameof(plate), AdditionalMessageEnum.InvalidFormat);
+                message.Append(nameof(plate).AppendError(AdditionalMessageEnum.InvalidFormat));
             }
             else
             {
@@ -75,7 +75,7 @@ public class MotorcycleChangePlateValidator
 
                 if (!plateIsUnic)
                 {
-                    message.AppendError(message, nameof(plate), AdditionalMessageEnum.MustBeUnic);
+                    message.Append(nameof(plate).AppendError(AdditionalMessageEnum.MustBeUnic));
                 }
             }
         }

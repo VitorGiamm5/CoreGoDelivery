@@ -3,15 +3,15 @@ using System.Text;
 
 namespace CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.Create.MessageValidators;
 
-public class DeliverierBuildMessageFullName
+public static class DeliverierBuildMessageFullName
 {
-    public void Build(DeliverierCreateCommand data, StringBuilder message)
+    public static void Build(DeliverierCreateCommand data, StringBuilder message)
     {
         var paramName = nameof(data.FullName);
 
         if (string.IsNullOrWhiteSpace(data.FullName))
         {
-            message.AppendError(message, paramName);
+            message.Append(paramName.AppendError());
         }
     }
 }

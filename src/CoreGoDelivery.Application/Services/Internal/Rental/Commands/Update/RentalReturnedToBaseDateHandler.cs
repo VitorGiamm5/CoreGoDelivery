@@ -1,13 +1,15 @@
-﻿using CoreGoDelivery.Application.Services.Internal.Rental.Commands.Create.Common;
+﻿using CoreGoDelivery.Application.Extensions;
+using CoreGoDelivery.Application.Services.Internal.Rental.Commands.Create.Common;
 using CoreGoDelivery.Application.Services.Internal.Rental.Commands.Update.Common;
 using CoreGoDelivery.Domain.Consts;
+using CoreGoDelivery.Domain.Enums.ServiceErrorMessage;
 using CoreGoDelivery.Domain.Repositories.GoDelivery;
 using CoreGoDelivery.Domain.Response;
 using MediatR;
 
 namespace CoreGoDelivery.Application.Services.Internal.Rental.Commands.Update;
 
-public class RentalReturnedToBaseDateHandler : IRequestHandler<RentalReturnedToBaseDateCommand, ApiResponse>
+public class RentalReturnedToBaseDateHandler : IRequestHandler<RentalReturnedToBaseDateCommand, ActionResult>
 {
     public readonly IRentalRepository _repositoryRental;
 
@@ -27,15 +29,12 @@ public class RentalReturnedToBaseDateHandler : IRequestHandler<RentalReturnedToB
         _calculatePenalty = calculatePenalty;
     }
 
-    public async Task<ApiResponse> Handle(RentalReturnedToBaseDateCommand request, CancellationToken cancellationToken)
+    public async Task<ActionResult> Handle(RentalReturnedToBaseDateCommand request, CancellationToken cancellationToken)
     {
-        var apiReponse = new ApiResponse()
-        {
-            Data = null,
-            Message = await _validator.BuilderUpdateValidator(request)
-        };
+        var apiReponse = new ActionResult();
+        apiReponse.SetMessage(await _validator.BuilderUpdateValidator(request));
 
-        if (!string.IsNullOrEmpty(apiReponse.Message))
+        if (apiReponse.HasError())
         {
             return apiReponse;
         }
@@ -50,7 +49,7 @@ public class RentalReturnedToBaseDateHandler : IRequestHandler<RentalReturnedToB
 
         if (!successUpdate)
         {
-            apiReponse.Message = $"Error: fail to update {nameof(request.ReturnedToBaseDate)}; ";
+            apiReponse.SetMessage(nameof(request.ReturnedToBaseDate).AppendError(AdditionalMessageEnum.UpdateFail));
 
             return apiReponse;
         }

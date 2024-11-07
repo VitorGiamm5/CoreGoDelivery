@@ -22,7 +22,7 @@ public class RentalCalculatePenalty
         {
             var messageError = new StringBuilder();
 
-            messageError.AppendError(messageError, nameof(rental), AdditionalMessageEnum.NotFound);
+            messageError.Append(nameof(rental).AppendError(AdditionalMessageEnum.NotFound));
 
             return _baseInternalServices.BuildMessageValidator(messageError);
         }

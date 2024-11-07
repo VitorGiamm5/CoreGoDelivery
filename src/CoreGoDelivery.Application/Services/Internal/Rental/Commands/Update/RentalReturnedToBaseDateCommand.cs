@@ -5,7 +5,7 @@ using System.Text.Json.Serialization;
 
 namespace CoreGoDelivery.Application.Services.Internal.Rental.Commands.Update;
 
-public class RentalReturnedToBaseDateCommand : IRequest<ApiResponse>
+public class RentalReturnedToBaseDateCommand : IRequest<ActionResult>
 {
     [DefaultValue("2024-01-07")]
     public DateTime? ReturnedToBaseDate { get; set; }

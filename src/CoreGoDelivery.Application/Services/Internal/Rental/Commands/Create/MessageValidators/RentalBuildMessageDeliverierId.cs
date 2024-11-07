@@ -18,7 +18,7 @@ public class RentalBuildMessageDeliverierId
     {
         if (string.IsNullOrWhiteSpace(data.DeliverierId))
         {
-            message.AppendError(message, nameof(data.DeliverierId));
+            message.Append(nameof(data.DeliverierId));
         }
         else
         {
@@ -26,7 +26,7 @@ public class RentalBuildMessageDeliverierId
 
             if (!existDeliverierId)
             {
-                message.AppendError(message, nameof(data.DeliverierId), AdditionalMessageEnum.NotFound);
+                message.Append(nameof(data.DeliverierId).AppendError(AdditionalMessageEnum.NotFound));
             }
         }
     }

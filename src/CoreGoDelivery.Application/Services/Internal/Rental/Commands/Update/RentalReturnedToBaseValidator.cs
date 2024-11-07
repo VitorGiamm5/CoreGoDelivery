@@ -29,7 +29,7 @@ public class RentalReturnedToBaseValidator
 
         if (!isValidIdParam)
         {
-            message.AppendError(message, nameof(idRental));
+            message.Append(nameof(idRental));
 
             return message.ToString();
         }
@@ -38,7 +38,7 @@ public class RentalReturnedToBaseValidator
 
         if (rentalEntity == null)
         {
-            message.AppendError(message, nameof(idRental), AdditionalMessageEnum.NotFound);
+            message.Append(nameof(idRental).AppendError(AdditionalMessageEnum.NotFound));
         }
         else
         {
@@ -54,17 +54,17 @@ public class RentalReturnedToBaseValidator
 
         #region Returned To Base Date validator
 
-        if (data?.ReturnedToBaseDate == null)
+        if (data.ReturnedToBaseDate == null)
         {
-            message.AppendError(message, nameof(data.ReturnedToBaseDate));
+            message.Append(nameof(data.ReturnedToBaseDate));
         }
         else
         {
-            var isAfterDateStart = data?.ReturnedToBaseDate >= rentalEntity?.StartDate;
+            var isAfterDateStart = data.ReturnedToBaseDate >= rentalEntity?.StartDate;
 
             if (!isAfterDateStart)
             {
-                message.Append($"Invalid field: {nameof(data.ReturnedToBaseDate)} : {data?.ReturnedToBaseDate} must be after 'StartDate' : {rentalEntity?.StartDate}; ");
+                message.Append($"Invalid field: {nameof(data.ReturnedToBaseDate)} : {data.ReturnedToBaseDate} must be after 'StartDate' : {rentalEntity?.StartDate}; ");
             }
         }
 

@@ -5,7 +5,7 @@ using System.Text.Json.Serialization;
 
 namespace CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.UploadCnh;
 
-public class LicenseImageCommand : IRequest<ApiResponse>
+public class LicenseImageCommand : IRequest<ActionResult>
 {
     [DefaultValue("base64string")]
     public byte[] LicenseImageBase64 { get; set; }

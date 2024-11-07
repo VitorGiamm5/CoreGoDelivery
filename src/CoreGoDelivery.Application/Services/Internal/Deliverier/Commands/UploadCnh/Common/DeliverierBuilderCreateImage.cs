@@ -24,7 +24,7 @@ public class DeliverierBuilderCreateImage
         _buildExtensionFile = buildExtensionFile;
     }
 
-    public async Task<ApiResponse> Build(string UPLOAD_FOLDER, LicenseImageCommand command, ApiResponse apiReponse)
+    public async Task<ActionResult> Build(string UPLOAD_FOLDER, LicenseImageCommand command, ActionResult apiReponse)
     {
         var (_, _, fileExtension) = _buildExtensionFile.Build(command.LicenseImageBase64);
 

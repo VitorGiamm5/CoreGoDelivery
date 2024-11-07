@@ -27,6 +27,21 @@ services:
     networks:
       - webnet
 
+  minio:
+    image: minio/minio
+    container_name: minio
+    environment:
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin
+    volumes:
+      - minio_data:/data
+    ports:
+      - "9000:9000" # Porta para o MinIO
+      - "9001:9001" # Porta para o Console do MinIO
+    command: server /data --console-address ":9001"
+    networks:
+      - webnet
+
   coregodelivery:
     build:
       context: ..
@@ -40,6 +55,7 @@ services:
     depends_on:
       - postgres
       - rabbitmq
+      - minio
     entrypoint: ["dotnet", "CoreGoDelivery.Api.dll"]
     networks:
       - webnet
@@ -47,6 +63,7 @@ services:
 volumes:
   pgdata:
   rabbitmq_data:
+  minio_data:
 
 networks:
   webnet:

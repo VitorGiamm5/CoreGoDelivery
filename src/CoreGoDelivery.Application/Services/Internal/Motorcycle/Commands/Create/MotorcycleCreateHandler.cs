@@ -6,7 +6,7 @@ using MediatR;
 
 namespace CoreGoDelivery.Application.Services.Internal.Motorcycle.Commands.Create;
 
-public class MotorcycleCreateHandler : IRequestHandler<MotorcycleCreateCommand, ApiResponse>
+public class MotorcycleCreateHandler : IRequestHandler<MotorcycleCreateCommand, ActionResult>
 {
     public readonly IBaseInternalServices _baseInternalServices;
     public readonly IMotorcycleRepository _repositoryMotorcycle;
@@ -29,15 +29,12 @@ public class MotorcycleCreateHandler : IRequestHandler<MotorcycleCreateCommand, 
         _notification = notification;
     }
 
-    public async Task<ApiResponse> Handle(MotorcycleCreateCommand request, CancellationToken cancellationToken)
+    public async Task<ActionResult> Handle(MotorcycleCreateCommand request, CancellationToken cancellationToken)
     {
-        var apiReponse = new ApiResponse()
-        {
-            Data = null,
-            Message = await _validator.BuilderCreateValidator(request)
-        };
+        var apiReponse = new ActionResult();
+        apiReponse.SetMessage(await _validator.BuilderCreateValidator(request));
 
-        if (!string.IsNullOrEmpty(apiReponse.Message))
+        if (apiReponse.HasError())
         {
             return apiReponse;
         }
@@ -46,7 +43,7 @@ public class MotorcycleCreateHandler : IRequestHandler<MotorcycleCreateCommand, 
 
         var resultCreate = await _repositoryMotorcycle.Create(motorcycle);
 
-        apiReponse!.Message = _baseInternalServices.FinalMessageBuild(resultCreate, apiReponse);
+        apiReponse.SetMessage(_baseInternalServices.FinalMessageBuild(resultCreate, apiReponse));
 
         await _notification.SendNotification(motorcycle);
 

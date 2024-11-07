@@ -1,17 +1,18 @@
-﻿using CoreGoDelivery.Domain.Consts;
-using CoreGoDelivery.Domain.Response;
+﻿using CoreGoDelivery.Application.Extensions;
+using CoreGoDelivery.Domain.Consts;
+using CoreGoDelivery.Domain.Enums.ServiceErrorMessage;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
+using ActionResult = CoreGoDelivery.Domain.Response.ActionResult;
 
 namespace CoreGoDelivery.Api.Controllers.Base;
 
 [ApiController]
 [Produces("application/json")]
 [Consumes("application/json")]
-[Route("api")]
 public class BaseApiController : ControllerBase
 {
-    protected new IActionResult Response(ApiResponse response)
+    protected new IActionResult Response(ActionResult response)
     {
         if (response.HasError())
         {
@@ -34,7 +35,7 @@ public class BaseApiController : ControllerBase
         }
 
         response.Data = null;
-        response.Message = CommomMessagesConst.MESSAGE_INVALID_DATA;
+        response.SetMessage(CommomMessagesConst.MESSAGE_INVALID_DATA);
 
         return StatusCode((int)HttpStatusCode.InternalServerError, response);
     }
@@ -46,15 +47,20 @@ public class BaseApiController : ControllerBase
         return result;
     }
 
-    public void ParamIdValidator(string? id)
+
+    protected IActionResult? IdParamValidator(string? id)
     {
-        bool isValid = id == ":id" || string.IsNullOrEmpty(id);
+        bool isValid = id != ":id" || !string.IsNullOrEmpty(id);
 
-        if (isValid)
+        if (!isValid)
         {
-            var result = new ApiResponse { Data = null, Message = "Error: invalid id param" };
+            var result = new ActionResult();
 
-            Response(result);
+            result.SetMessage("id param".AppendError());
+
+            return StatusCode((int)HttpStatusCode.InternalServerError, result);
         }
+
+        return null;
     }
 }

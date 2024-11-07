@@ -28,10 +28,6 @@ public class DeliverierCreateMappers
 
     public DeliverierEntity MapCreateToEntity(DeliverierCreateCommand command)
     {
-        var (_, _, fileExtension) = _buildExtensionFile.Build(command.LicenseImageBase64);
-
-        var fileName = _buildFileName.Build(command.LicenseNumber, fileExtension);
-
         var result = new DeliverierEntity()
         {
             Id = _baseInternalServices.IdBuild(command.Id),
@@ -42,7 +38,7 @@ public class DeliverierCreateMappers
             {
                 Id = command.LicenseNumber,
                 Type = _parseLicenseType.Parse(command),
-                ImageUrlReference = fileName
+                ImageUrlReference = "pending"
             }
         };
 

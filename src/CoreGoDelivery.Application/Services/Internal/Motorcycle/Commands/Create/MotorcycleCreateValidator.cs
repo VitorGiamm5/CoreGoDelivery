@@ -40,13 +40,13 @@ public class MotorcycleCreateValidator
     {
         if (string.IsNullOrWhiteSpace(data.YearManufacture.ToString()))
         {
-            message.AppendError(message, nameof(data.YearManufacture));
+            message.Append(nameof(data.YearManufacture));
         }
         else
         {
             if (data.YearManufacture <= 1903)
             {
-                message.AppendError(message, nameof(data.YearManufacture), AdditionalMessageEnum.Unavailable);
+                message.Append(nameof(data.YearManufacture).AppendError(AdditionalMessageEnum.Unavailable));
             }
         }
     }
@@ -55,7 +55,7 @@ public class MotorcycleCreateValidator
     {
         if (string.IsNullOrWhiteSpace(plate))
         {
-            message.AppendError(message, nameof(plate));
+            message.Append(nameof(plate));
         }
         else
         {
@@ -69,12 +69,12 @@ public class MotorcycleCreateValidator
 
                 if (!isUnicId)
                 {
-                    message.AppendError(message, nameof(plate), AdditionalMessageEnum.AlreadyExist);
+                    message.Append(nameof(plate).AppendError(AdditionalMessageEnum.AlreadyExist));
                 }
             }
             else
             {
-                message.AppendError(message, nameof(plate), AdditionalMessageEnum.InvalidFormat);
+                message.Append(nameof(plate).AppendError(AdditionalMessageEnum.InvalidFormat));
             }
         }
     }
@@ -89,7 +89,7 @@ public class MotorcycleCreateValidator
 
             if (!isUnicId)
             {
-                message.AppendError(message, nameof(idMotorcycle), AdditionalMessageEnum.AlreadyExist);
+                message.Append(nameof(idMotorcycle).AppendError(AdditionalMessageEnum.AlreadyExist));
             }
         }
     }
@@ -100,7 +100,7 @@ public class MotorcycleCreateValidator
 
         if (string.IsNullOrWhiteSpace(data.ModelName))
         {
-            message.AppendError(message, nameof(data.ModelName));
+            message.Append(nameof(data.ModelName));
         }
         else
         {
@@ -110,7 +110,7 @@ public class MotorcycleCreateValidator
 
             if (string.IsNullOrEmpty(modelId))
             {
-                message.AppendError(message, nameof(idMotorcycle), AdditionalMessageEnum.NotFound);
+                message.Append(nameof(idMotorcycle).AppendError(AdditionalMessageEnum.NotFound));
             }
 
             data.ModelName = modelId;

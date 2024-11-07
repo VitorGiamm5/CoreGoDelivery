@@ -28,7 +28,7 @@ public class MotorcycleDeleteValidator
 
         if (string.IsNullOrEmpty(idMotorcycle))
         {
-            message.AppendError(message, nameof(idMotorcycle));
+            message.Append(nameof(idMotorcycle));
 
             return _baseInternalServices.BuildMessageValidator(message);
         }
@@ -37,7 +37,7 @@ public class MotorcycleDeleteValidator
 
         if (motorcycle == null)
         {
-            message.AppendError(message, nameof(idMotorcycle), AdditionalMessageEnum.NotFound);
+            message.Append(nameof(idMotorcycle).AppendError(AdditionalMessageEnum.NotFound));
 
             return _baseInternalServices.BuildMessageValidator(message);
         }
@@ -53,7 +53,7 @@ public class MotorcycleDeleteValidator
 
         if (!motorcycleIsAvaliable)
         {
-            message.AppendError(message, nameof(idMotorcycle), AdditionalMessageEnum.Unavailable);
+            message.Append(nameof(idMotorcycle).AppendError(AdditionalMessageEnum.Unavailable));
         }
 
         return _baseInternalServices.BuildMessageValidator(message);

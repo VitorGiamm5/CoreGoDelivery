@@ -6,7 +6,7 @@ using MediatR;
 
 namespace CoreGoDelivery.Application.Services.Internal.Rental.Commands.Create;
 
-public class RentalCreateHandler : IRequestHandler<RentalCreateCommand, ApiResponse>
+public class RentalCreateHandler : IRequestHandler<RentalCreateCommand, ActionResult>
 {
     public readonly IBaseInternalServices _baseInternalServices;
     public readonly IRentalPlanRepository _repositoryPlan;
@@ -32,15 +32,12 @@ public class RentalCreateHandler : IRequestHandler<RentalCreateCommand, ApiRespo
         _mappers = mappers;
     }
 
-    public async Task<ApiResponse> Handle(RentalCreateCommand request, CancellationToken cancellationToken)
+    public async Task<ActionResult> Handle(RentalCreateCommand request, CancellationToken cancellationToken)
     {
-        var apiReponse = new ApiResponse()
-        {
-            Data = null,
-            Message = await _validator.BuilderCreateValidator(request)
-        };
+        var apiReponse = new ActionResult();
+        apiReponse.SetMessage(await _validator.BuilderCreateValidator(request));
 
-        if (!string.IsNullOrEmpty(apiReponse.Message))
+        if (apiReponse.HasError())
         {
             return apiReponse;
         }
@@ -53,7 +50,7 @@ public class RentalCreateHandler : IRequestHandler<RentalCreateCommand, ApiRespo
 
         var resultCreate = await _repositoryRental.Create(rental);
 
-        apiReponse.Message = _baseInternalServices.FinalMessageBuild(resultCreate, apiReponse);
+        apiReponse.SetMessage(_baseInternalServices.FinalMessageBuild(resultCreate, apiReponse));
 
         return apiReponse;
     }

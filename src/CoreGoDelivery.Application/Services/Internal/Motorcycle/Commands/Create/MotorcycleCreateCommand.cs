@@ -5,7 +5,7 @@ using System.Text.Json.Serialization;
 
 namespace CoreGoDelivery.Application.Services.Internal.Motorcycle.Commands.Create;
 
-public sealed class MotorcycleCreateCommand : IRequest<ApiResponse>
+public sealed class MotorcycleCreateCommand : IRequest<ActionResult>
 {
     [DefaultValue("moto123")]
     public string Id { get; set; }

@@ -1,10 +1,11 @@
-﻿using CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.UploadCnh.Common;
+﻿using CoreGoDelivery.Application.Extensions;
+using CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.UploadCnh.Common;
 using CoreGoDelivery.Domain.Response;
 using MediatR;
 
 namespace CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.UploadCnh;
 
-public class DeliverierUploadCnhHandler : IRequestHandler<LicenseImageCommand, ApiResponse>
+public class DeliverierUploadCnhHandler : IRequestHandler<LicenseImageCommand, ActionResult>
 {
     public readonly DeliverierUploadCnhValidator _validator;
     public readonly DeliverierBuilderCreateImage _builderCreateImage;
@@ -22,13 +23,13 @@ public class DeliverierUploadCnhHandler : IRequestHandler<LicenseImageCommand, A
         _builderUpdateImage = builderUpdateImage;
     }
 
-    public async Task<ApiResponse> Handle(LicenseImageCommand command, CancellationToken cancellationToken)
+    public async Task<ActionResult> Handle(LicenseImageCommand command, CancellationToken cancellationToken)
     {
-        var apiReponse = new ApiResponse
-        {
-            Data = null,
-            Message = await _validator.Build(command)
-        };
+        var apiReponse = new ActionResult();
+
+        var message = await _validator.Build(command);
+
+        apiReponse.SetMessage(message?.AppendError());
 
         if (apiReponse.HasError())
         {

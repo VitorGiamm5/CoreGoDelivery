@@ -13,13 +13,13 @@ public class DeliverierBuildMessageCnpj
 
         if (string.IsNullOrWhiteSpace(cnpj))
         {
-            message.AppendError(message, paramName);
+            message.Append(paramName.AppendError());
         }
         else
         {
             if (!CnpjValidation.Validate(cnpj))
             {
-                message.AppendError(message, paramName, AdditionalMessageEnum.InvalidFormat);
+                message.Append(paramName.AppendError(AdditionalMessageEnum.InvalidFormat));
             }
         }
     }

@@ -14,7 +14,7 @@ public class RentalController(IMediator _mediator) : BaseApiController
     [HttpGet("{id}")]
     public async Task<IActionResult> GetOne(string? id)
     {
-        ParamIdValidator(id);
+        IdParamValidator(id);
 
         var request = new RentalGetOneCommand
         {
@@ -39,7 +39,7 @@ public class RentalController(IMediator _mediator) : BaseApiController
     [HttpPut("{id}/return-to-base")]
     public async Task<IActionResult> UpdateReturnedToBaseDate(string? id, [FromBody] RentalReturnedToBaseDateCommand request)
     {
-        ParamIdValidator(id);
+        IdParamValidator(id);
 
         request.Id = id!;
 

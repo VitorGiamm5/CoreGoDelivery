@@ -3,7 +3,7 @@ using MediatR;
 
 namespace CoreGoDelivery.Application.Services.Internal.Motorcycle.Commands.Delete;
 
-public class MotorcycleDeleteCommand : IRequest<ApiResponse>
+public class MotorcycleDeleteCommand : IRequest<ActionResult>
 {
     public MotorcycleDeleteCommand(string id)
     {

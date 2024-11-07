@@ -7,7 +7,10 @@ public static class ValidatosServicesMessagesEnumExtensions
         return value switch
         {
             AdditionalMessageEnum.None => "",
-            AdditionalMessageEnum.InvalidFormat => "invalid format",
+            AdditionalMessageEnum.InvalidFormat => "format file is not valid",
+            AdditionalMessageEnum.FileSizeInvalid => "the file is not suported",
+            AdditionalMessageEnum.InvalidDate => "date is invalid",
+            AdditionalMessageEnum.UpdateFail => "fail to update, verify connection",
             AdditionalMessageEnum.Required => "required",
             AdditionalMessageEnum.MustBeUnic => "must be unic",
             AdditionalMessageEnum.Unavailable => "unavailable",

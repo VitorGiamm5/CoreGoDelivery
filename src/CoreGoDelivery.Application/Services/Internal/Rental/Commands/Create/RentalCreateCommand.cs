@@ -5,7 +5,7 @@ using System.Text.Json.Serialization;
 
 namespace CoreGoDelivery.Application.Services.Internal.Rental.Commands.Create;
 
-public sealed class RentalCreateCommand : IRequest<ApiResponse>
+public sealed class RentalCreateCommand : IRequest<ActionResult>
 {
     [JsonIgnore]
     [DefaultValue("Rental123")]

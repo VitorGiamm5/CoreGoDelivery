@@ -24,7 +24,7 @@ public class RentalBuildMessagePlanId
     {
         if (string.IsNullOrWhiteSpace(data.PlanId.ToString()))
         {
-            message.AppendError(message, paramName);
+            message.Append(paramName);
         }
         else
         {
@@ -32,7 +32,7 @@ public class RentalBuildMessagePlanId
 
             if (plan == null)
             {
-                message.AppendError(message, paramName, AdditionalMessageEnum.NotFound);
+                message.Append(paramName.AppendError(AdditionalMessageEnum.NotFound));
             }
             else
             {

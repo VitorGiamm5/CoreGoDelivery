@@ -8,7 +8,7 @@ using System.Text;
 
 namespace CoreGoDelivery.Application.Services.Internal.Rental.Queries.GetOne;
 
-public class RentalGetOneHandler : IRequestHandler<RentalGetOneCommand, ApiResponse>
+public class RentalGetOneHandler : IRequestHandler<RentalGetOneCommand, ActionResult>
 {
     public readonly IBaseInternalServices _baseInternalServices;
     public readonly IRentalRepository _repositoryRental;
@@ -28,7 +28,7 @@ public class RentalGetOneHandler : IRequestHandler<RentalGetOneCommand, ApiRespo
         _buildMessageIdRental = buildMessageIdRental;
     }
 
-    public async Task<ApiResponse> Handle(RentalGetOneCommand request, CancellationToken cancellationToken)
+    public async Task<ActionResult> Handle(RentalGetOneCommand request, CancellationToken cancellationToken)
     {
         var message = new StringBuilder();
 
@@ -40,11 +40,12 @@ public class RentalGetOneHandler : IRequestHandler<RentalGetOneCommand, ApiRespo
 
         var rentalDto = _mapper.RentalEntityToDto(rental);
 
-        var apiReponse = new ApiResponse()
+        var apiReponse = new ActionResult()
         {
             Data = rentalDto,
-            Message = _baseInternalServices.BuildMessageValidator(message)
         };
+
+        apiReponse.SetMessage(_baseInternalServices.BuildMessageValidator(message));
 
         return apiReponse;
     }
