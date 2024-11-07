@@ -1,6 +1,6 @@
 ﻿using CoreGoDelivery.Domain.Consts.Regex;
-using System.Text.RegularExpressions;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace CoreGoDelivery.Infrastructure.FileBucket.MinIO.Extensions
 {

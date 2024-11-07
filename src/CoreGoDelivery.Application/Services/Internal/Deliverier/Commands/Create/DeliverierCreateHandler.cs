@@ -1,6 +1,5 @@
 ﻿using CoreGoDelivery.Application.Extensions;
 using CoreGoDelivery.Application.Services.Internal.Base;
-using CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.UploadCnh;
 using CoreGoDelivery.Domain.Enums.ServiceErrorMessage;
 using CoreGoDelivery.Domain.Repositories.GoDelivery;
 using CoreGoDelivery.Domain.Response;

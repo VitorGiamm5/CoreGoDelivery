@@ -3,7 +3,6 @@ using CoreGoDelivery.Application.Services.Internal.Base;
 using CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.UploadCnh.Common;
 using CoreGoDelivery.Domain.Enums.ServiceErrorMessage;
 using CoreGoDelivery.Domain.Repositories.GoDelivery;
-using Microsoft.Extensions.Primitives;
 using System.Text;
 
 namespace CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.UploadCnh;
@@ -55,7 +54,7 @@ public class DeliverierUploadCnhValidator
             message.Append("LicenseImage".AppendError());
         }
 
-        var (isValid, errorMessage, _) = _getExtensionFile.Build(command.LicenseImageBase64);
+        var (isValid, _, _) = _getExtensionFile.Build(command.LicenseImageBase64);
 
         if (!isValid)
         {

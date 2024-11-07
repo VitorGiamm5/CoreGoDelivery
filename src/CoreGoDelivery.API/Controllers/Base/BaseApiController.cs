@@ -1,6 +1,5 @@
 ﻿using CoreGoDelivery.Application.Extensions;
 using CoreGoDelivery.Domain.Consts;
-using CoreGoDelivery.Domain.Enums.ServiceErrorMessage;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using ActionResult = CoreGoDelivery.Domain.Response.ActionResult;
