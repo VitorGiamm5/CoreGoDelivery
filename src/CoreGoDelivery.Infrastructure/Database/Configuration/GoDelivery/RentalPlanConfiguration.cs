@@ -6,13 +6,16 @@ namespace CoreGoDelivery.Infrastructure.Database.Configuration.GoDelivery;
 
 public class RentalPlanConfiguration : IEntityTypeConfiguration<RentalPlanEntity>
 {
-    public void Configure(EntityTypeBuilder<RentalPlanEntity> builder)
+    public void Configure(EntityTypeBuilder<RentalPlanEntity> entity)
     {
-        builder.ToTable("tb_rentalPlan");
-        builder.HasKey(t => t.Id);
+        entity.ToTable("tb_rentalPlan");
+        entity.HasKey(e => e.Id);
 
-        builder.Property(t => t.Id).HasColumnName("ID_RENTAL_PLAN");
-        builder.Property(t => t.DayliCost).HasColumnName("DAYLI_COST");
-        builder.Property(t => t.DaysQuantity).HasColumnName("DAYS_QUANTITY");
+        entity.Property(e => e.Id).HasColumnName("ID_RENTAL_PLAN");
+        entity.Property(e => e.DayliCost).HasColumnName("DAYLI_COST");
+        entity.Property(e => e.DaysQuantity).HasColumnName("DAYS_QUANTITY");
+
+        entity.Property(e => e.DateCreated).HasColumnName("DATE_CREATED").HasColumnType("timestamptz");
+        entity.Property(e => e.CreatedBy).HasColumnName("CREATED_BY");
     }
 }

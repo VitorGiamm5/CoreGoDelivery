@@ -1,6 +1,8 @@
-﻿namespace CoreGoDelivery.Domain.Entities.GoDelivery.RentalPlan;
+﻿using CoreGoDelivery.Domain.Entities.GoDelivery.Base;
 
-public sealed class RentalPlanEntity
+namespace CoreGoDelivery.Domain.Entities.GoDelivery.RentalPlan;
+
+public sealed class RentalPlanEntity : BaseEntity
 {
     public int Id { get; set; }
     public int DaysQuantity { get; set; }

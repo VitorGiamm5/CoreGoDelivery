@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CoreGoDelivery.Api.Controllers;
 
-[Route("entregadores")]
+[Route("Deliveriers")]
 [ApiController]
 public class DeliveriersController(IMediator _mediator) : BaseApiController
 {
@@ -18,11 +18,12 @@ public class DeliveriersController(IMediator _mediator) : BaseApiController
         return Response(apiReponse);
     }
 
-    [HttpPost("{id}/cnh")]
-    public async Task<IActionResult> Upload(string id, [FromBody] DeliverierUploadCnhCommand request)
+    [HttpPost("{id}/license/cnh")]
+    public async Task<IActionResult> Upload(string id, [FromBody] LicenseImageCommand request)
     {
-        request.IdDeliverier = id;
-        request.IsUpdate = true;
+        ParamIdValidator(id);
+
+        request.Id = id;
 
         var apiReponse = await _mediator.Send(request);
 

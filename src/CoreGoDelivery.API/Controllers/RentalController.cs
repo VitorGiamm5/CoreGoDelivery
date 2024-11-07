@@ -7,15 +7,20 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CoreGoDelivery.Api.Controllers;
 
-[Route("locacao")]
+[Route("Rentals")]
 [ApiController]
 public class RentalController(IMediator _mediator) : BaseApiController
 {
     [HttpGet("{id}")]
     public async Task<IActionResult> GetOne(string? id)
     {
-        var request = new RentalGetOneCommand();
-        request.Id = id;
+        ParamIdValidator(id);
+
+        var request = new RentalGetOneCommand
+        {
+            Id = id!
+        };
+
         var result = await _mediator.Send(request);
 
         return Response(result);
@@ -24,15 +29,20 @@ public class RentalController(IMediator _mediator) : BaseApiController
     [HttpPost]
     public async Task<IActionResult> Create([FromBody] RentalCreateCommand request)
     {
+        request.Id = IdBuild(request.Id);
+
         var result = await _mediator.Send(request);
 
         return Response(result);
     }
 
-    [HttpPut("{id}/devolucao")]
-    public async Task<IActionResult> UpdateReturnedToBaseDate(string id, [FromBody] RentalReturnedToBaseDateCommand request)
+    [HttpPut("{id}/return-to-base")]
+    public async Task<IActionResult> UpdateReturnedToBaseDate(string? id, [FromBody] RentalReturnedToBaseDateCommand request)
     {
-        request.Id = id;
+        ParamIdValidator(id);
+
+        request.Id = id!;
+
         var result = await _mediator.Send(request);
 
         return Response(result);

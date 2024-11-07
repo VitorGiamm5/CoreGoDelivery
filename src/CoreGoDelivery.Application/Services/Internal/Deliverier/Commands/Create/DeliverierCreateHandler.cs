@@ -59,10 +59,10 @@ public class DeliverierCreateHandler : IRequestHandler<DeliverierCreateCommand, 
             return apiReponse;
         }
 
-        var deliverierUpload = new DeliverierUploadCnhCommand()
+        var deliverierUpload = new LicenseImageCommand()
         {
             IdDeliverier = deliverier.Id,
-            IdLicense = deliverier.LicenceDriver.Id,
+            Id = deliverier.LicenceDriver.Id,
             LicenseImageBase64 = request.LicenseImageBase64,
             IsUpdate = false
         };

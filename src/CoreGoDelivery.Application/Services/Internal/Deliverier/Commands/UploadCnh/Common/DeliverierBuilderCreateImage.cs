@@ -24,13 +24,13 @@ public class DeliverierBuilderCreateImage
         _buildExtensionFile = buildExtensionFile;
     }
 
-    public async Task<ApiResponse> Build(string UPLOAD_FOLDER, DeliverierUploadCnhCommand command, ApiResponse apiReponse)
+    public async Task<ApiResponse> Build(string UPLOAD_FOLDER, LicenseImageCommand command, ApiResponse apiReponse)
     {
         var (_, _, fileExtension) = _buildExtensionFile.Build(command.LicenseImageBase64);
 
-        var fileName = _buildFileName.Build(command.IdLicense!, fileExtension);
+        var fileName = _buildFileName.Build(command.Id!, fileExtension);
 
-        await _repositoryLicense.UpdateFileName(command.IdLicense!, fileName);
+        await _repositoryLicense.UpdateFileName(command.Id!, fileName);
 
         var imagePaths = await _saveLicenseFile.SaveOrReplace(command.LicenseImageBase64, fileName, UPLOAD_FOLDER);
 

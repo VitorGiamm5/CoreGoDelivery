@@ -6,13 +6,18 @@ namespace CoreGoDelivery.Infrastructure.Database.Configuration.GoDelivery;
 
 public class LicenceDriverConfiguration : IEntityTypeConfiguration<LicenceDriverEntity>
 {
-    public void Configure(EntityTypeBuilder<LicenceDriverEntity> builder)
+    public void Configure(EntityTypeBuilder<LicenceDriverEntity> entity)
     {
-        builder.ToTable("tb_licenceDriver");
-        builder.HasKey(t => t.Id);
+        entity.ToTable("tb_licenceDriver");
+        entity.HasKey(e => e.Id);
 
-        builder.Property(t => t.Id).HasColumnName("ID_LICENSE_DRIVER");
-        builder.Property(t => t.Type).HasColumnName("ID_LICENSE_TYPE");
-        builder.Property(t => t.ImageUrlReference).HasColumnName("IMAGE_URL_REFERENCE");
+        entity.Property(e => e.Id).HasColumnName("ID_LICENSE_DRIVER");
+        entity.Property(e => e.IssueDate).HasColumnName("ISSUE_DATE").HasColumnType("timestamptz");
+        entity.Property(e => e.ExpiryDate).HasColumnName("EXPIRY_DATE").HasColumnType("timestamptz");
+        entity.Property(e => e.DeliverierId).HasColumnName("ID_FK_DELIVERIER");
+        entity.Property(t => t.ImageUrlReference).HasColumnName("IMAGE_URL_REFERENCE");
+
+        entity.Property(e => e.DateCreated).HasColumnName("DATE_CREATED").HasColumnType("timestamptz");
+        entity.Property(e => e.CreatedBy).HasColumnName("CREATED_BY");
     }
 }

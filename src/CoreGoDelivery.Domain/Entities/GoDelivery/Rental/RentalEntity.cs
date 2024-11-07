@@ -1,10 +1,11 @@
-﻿using CoreGoDelivery.Domain.Entities.GoDelivery.Deliverier;
+﻿using CoreGoDelivery.Domain.Entities.GoDelivery.Base;
+using CoreGoDelivery.Domain.Entities.GoDelivery.Deliverier;
 using CoreGoDelivery.Domain.Entities.GoDelivery.Motorcycle;
 using CoreGoDelivery.Domain.Entities.GoDelivery.RentalPlan;
 
 namespace CoreGoDelivery.Domain.Entities.GoDelivery.Rental;
 
-public sealed class RentalEntity
+public sealed class RentalEntity : BaseEntity
 {
     public string Id { get; set; }
     public DateTime StartDate { get; set; }

@@ -4,7 +4,7 @@ using MediatR;
 
 namespace CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.UploadCnh;
 
-public class DeliverierUploadCnhHandler : IRequestHandler<DeliverierUploadCnhCommand, ApiResponse>
+public class DeliverierUploadCnhHandler : IRequestHandler<LicenseImageCommand, ApiResponse>
 {
     public readonly DeliverierUploadCnhValidator _validator;
     public readonly DeliverierBuilderCreateImage _builderCreateImage;
@@ -22,7 +22,7 @@ public class DeliverierUploadCnhHandler : IRequestHandler<DeliverierUploadCnhCom
         _builderUpdateImage = builderUpdateImage;
     }
 
-    public async Task<ApiResponse> Handle(DeliverierUploadCnhCommand command, CancellationToken cancellationToken)
+    public async Task<ApiResponse> Handle(LicenseImageCommand command, CancellationToken cancellationToken)
     {
         var apiReponse = new ApiResponse
         {

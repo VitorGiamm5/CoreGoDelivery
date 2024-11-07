@@ -11,6 +11,5 @@ public class MotorcycleChangePlateCommand : IRequest<ApiResponse>
     public string? Id { get; set; }
 
     [DefaultValue("abc-1234")]
-    [JsonPropertyName("placa")]
     public string? Plate { get; set; }
 }

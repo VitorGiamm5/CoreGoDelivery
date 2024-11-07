@@ -1,8 +1,9 @@
-﻿using CoreGoDelivery.Domain.Entities.GoDelivery.ModelMotorcycle;
+﻿using CoreGoDelivery.Domain.Entities.GoDelivery.Base;
+using CoreGoDelivery.Domain.Entities.GoDelivery.ModelMotorcycle;
 
 namespace CoreGoDelivery.Domain.Entities.GoDelivery.Motorcycle;
 
-public class MotorcycleEntity
+public class MotorcycleEntity : BaseEntity
 {
     public string Id { get; set; }
     public int YearManufacture { get; set; }

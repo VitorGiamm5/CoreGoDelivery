@@ -8,6 +8,7 @@ namespace CoreGoDelivery.Api.Controllers.Base;
 [ApiController]
 [Produces("application/json")]
 [Consumes("application/json")]
+[Route("api")]
 public class BaseApiController : ControllerBase
 {
     protected new IActionResult Response(ApiResponse response)
@@ -20,6 +21,7 @@ public class BaseApiController : ControllerBase
             }
 
             response.Data = null;
+
             return StatusCode((int)HttpStatusCode.BadRequest, response);
         }
         else if (!response.HasDataType())
@@ -35,5 +37,24 @@ public class BaseApiController : ControllerBase
         response.Message = CommomMessagesConst.MESSAGE_INVALID_DATA;
 
         return StatusCode((int)HttpStatusCode.InternalServerError, response);
+    }
+
+    public static string IdBuild(string? id)
+    {
+        var result = string.IsNullOrEmpty(id) ? Ulid.NewUlid().ToString() : id;
+
+        return result;
+    }
+
+    public void ParamIdValidator(string? id)
+    {
+        bool isValid = id == ":id" || string.IsNullOrEmpty(id);
+
+        if (isValid)
+        {
+            var result = new ApiResponse { Data = null, Message = "Error: invalid id param" };
+
+            Response(result);
+        }
     }
 }

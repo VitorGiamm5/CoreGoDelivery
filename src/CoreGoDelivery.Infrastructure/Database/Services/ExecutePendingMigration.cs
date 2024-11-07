@@ -3,7 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace CoreGoDelivery.Infrastructure.Database.Services;
 
-public class ExecutePendingMigration
+public static class ExecutePendingMigration
 {
     public static void Execute(IServiceCollection services)
     {

@@ -67,7 +67,7 @@ public class RabbitMQConsumer : BackgroundService
                 Id = notification.Id,
                 IdMotorcycle = notification.IdMotorcycle,
                 YearManufacture = notification.YearManufacture,
-                CreatedAt = notification.CreatedAt,
+                DateCreated = notification.CreatedAt,
             };
 
             using (var scope = _serviceScopeFactory.CreateScope())

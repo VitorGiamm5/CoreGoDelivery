@@ -28,7 +28,7 @@ public class DeliverierBuilderUpdateImage
         _buildExtensionFile = buildExtensionFile;
     }
 
-    public async Task<ApiResponse> Build(string UPLOAD_FOLDER, DeliverierUploadCnhCommand command, ApiResponse apiReponse)
+    public async Task<ApiResponse> Build(string UPLOAD_FOLDER, LicenseImageCommand command, ApiResponse apiReponse)
     {
         var deliverier = await _repositoryDeliverier.GetOneById(command.IdDeliverier!);
 
@@ -39,11 +39,11 @@ public class DeliverierBuilderUpdateImage
             return apiReponse;
         }
 
-        command.IdLicense = deliverier.LicenceDriverId;
+        command.Id = deliverier.LicenceDriverId;
 
         var (_, _, fileExtension) = _buildExtensionFile.Build(command.LicenseImageBase64);
 
-        var fileName = _buildFileName.Build(command.IdLicense!, fileExtension);
+        var fileName = _buildFileName.Build(command.Id!, fileExtension);
 
         await _repositoryLicense.UpdateFileName(deliverier.LicenceDriverId, fileName);
 

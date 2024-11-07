@@ -32,7 +32,7 @@ public class RentalGetOneHandler : IRequestHandler<RentalGetOneCommand, ApiRespo
     {
         var message = new StringBuilder();
 
-        var idRental = request?.Id;
+        var idRental = request.Id;
 
         RentalEntity? rental = null;
 

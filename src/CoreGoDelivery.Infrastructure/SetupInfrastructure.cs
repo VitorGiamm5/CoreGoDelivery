@@ -6,7 +6,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using Microsoft.Extensions.Options;
 using Polly;
 using Polly.Retry;
 
@@ -33,7 +32,7 @@ public static class SetupInfrastructure
         {
             retryPolicy.Execute(() =>
             {
-                options.UseNpgsql(configuration.GetConnectionString("postgres"))
+                options.UseNpgsql()
                        .AddInfrastructure(configuration);
             });
         });

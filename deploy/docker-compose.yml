@@ -40,7 +40,7 @@ services:
     depends_on:
       - postgres
       - rabbitmq
-    entrypoint: ["dotnet", "CoreGoDelivery.API.dll"]
+    entrypoint: ["dotnet", "CoreGoDelivery.Api.dll"]
     networks:
       - webnet
 

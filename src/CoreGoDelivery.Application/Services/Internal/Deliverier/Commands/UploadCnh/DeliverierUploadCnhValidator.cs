@@ -27,7 +27,7 @@ public class DeliverierUploadCnhValidator
         _getExtensionFile = getExtensionFile;
     }
 
-    public async Task<string?> Build(DeliverierUploadCnhCommand command)
+    public async Task<string?> Build(LicenseImageCommand command)
     {
         var message = new StringBuilder();
 
@@ -43,7 +43,7 @@ public class DeliverierUploadCnhValidator
             }
             else
             {
-                command.IdLicense = deliverier.LicenceDriverId;
+                command.Id = deliverier.LicenceDriverId;
             }
         }
 

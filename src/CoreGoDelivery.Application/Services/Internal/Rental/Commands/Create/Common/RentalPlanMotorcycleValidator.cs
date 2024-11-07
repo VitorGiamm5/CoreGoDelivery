@@ -67,19 +67,7 @@ public class RentalPlanMotorcycleValidator
 
         #endregion
 
-        #region DayliCost validate
 
-        if (data.DayliCost == null)
-        {
-            data.DayliCost = plan.DayliCost;
-
-            if (data.DayliCost != plan.DayliCost)
-            {
-                message.AppendErrorWithExpexted(message, data.DayliCost, plan.DayliCost.ToString());
-            }
-        }
-
-        #endregion
 
         return _baseInternalServices.BuildMessageValidator(message);
     }

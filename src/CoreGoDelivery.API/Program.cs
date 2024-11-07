@@ -30,7 +30,7 @@ builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo
     {
-        Title = $"Sistema de Manutencao de Motos - {builder.Environment.EnvironmentName}",
+        Title = $"Core Motorcycle, Rental, Deliverier - {builder.Environment.EnvironmentName}",
         Version = "v1"
     });
     c.CustomSchemaIds(type => type.ToString());
@@ -43,8 +43,6 @@ builder.Configuration
     .AddEnvironmentVariables();
 
 EnvironmentVariablesExtensions.AddEnvironmentVariables(builder.Configuration);
-
-builder.Services.AddControllersWithViews();
 
 builder.Services.AddApplication(builder.Configuration);
 

@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CoreGoDelivery.Api.Controllers;
 
-[Route("motos")]
+[Route("Motorcycle")]
 [ApiController]
 public class MotorcycleController(IMediator _mediator) : BaseApiController
 {
@@ -24,6 +24,8 @@ public class MotorcycleController(IMediator _mediator) : BaseApiController
     [HttpGet("{id}")]
     public async Task<IActionResult> GetOne(string id)
     {
+        ParamIdValidator(id);
+
         var result = await _mediator.Send(new MotorcycleGetOneQueryCommand(id));
 
         return Response(result);
@@ -32,14 +34,18 @@ public class MotorcycleController(IMediator _mediator) : BaseApiController
     [HttpPost]
     public async Task<IActionResult> Post([FromBody] MotorcycleCreateCommand request)
     {
+        request.Id = IdBuild(request.Id);
+
         var result = await _mediator.Send(request);
 
         return Response(result);
     }
 
-    [HttpPut("{id}/placa")]
+    [HttpPut("{id}/plate")]
     public async Task<IActionResult> Put(string id, [FromBody] MotorcycleChangePlateCommand request)
     {
+        ParamIdValidator(id);
+
         request.Id = id;
 
         var result = await _mediator.Send(request);
@@ -50,6 +56,8 @@ public class MotorcycleController(IMediator _mediator) : BaseApiController
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(string id)
     {
+        ParamIdValidator(id);
+
         var result = await _mediator.Send(new MotorcycleDeleteCommand(id));
 
         return Response(result);

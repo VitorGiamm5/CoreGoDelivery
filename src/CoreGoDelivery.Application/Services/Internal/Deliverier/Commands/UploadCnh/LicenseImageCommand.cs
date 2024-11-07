@@ -5,14 +5,13 @@ using System.Text.Json.Serialization;
 
 namespace CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.UploadCnh;
 
-public class DeliverierUploadCnhCommand : IRequest<ApiResponse>
+public class LicenseImageCommand : IRequest<ApiResponse>
 {
     [DefaultValue("base64string")]
-    [JsonPropertyName("imagem_cnh")]
     public byte[] LicenseImageBase64 { get; set; }
 
     [JsonIgnore]
-    public string? IdLicense { get; set; }
+    public string? Id { get; set; }
 
     [JsonIgnore]
     public string? IdDeliverier { get; set; }
@@ -32,7 +31,7 @@ public class DeliverierUploadCnhCommand : IRequest<ApiResponse>
 
     public bool HasIdLicense()
     {
-        if (string.IsNullOrEmpty(IdLicense))
+        if (string.IsNullOrEmpty(Id))
         {
             return false;
         }
@@ -57,6 +56,6 @@ public class DeliverierUploadCnhCommand : IRequest<ApiResponse>
 
     public string StringFieldsName()
     {
-        return $"{nameof(IdLicense)}: {IdLicense}, {nameof(IdDeliverier)}:{IdDeliverier}, {nameof(LicenseImageBase64)}:{LicenseImageBase64}";
+        return $"{nameof(Id)}: {Id}, {nameof(IdDeliverier)}:{IdDeliverier}, {nameof(LicenseImageBase64)}:{LicenseImageBase64}";
     }
 }

@@ -5,5 +5,5 @@ namespace CoreGoDelivery.Application.Services.Internal.Rental.Queries.GetOne;
 
 public class RentalGetOneCommand : IRequest<ApiResponse>
 {
-    public string? Id { get; set; }
+    public string Id { get; set; }
 }
