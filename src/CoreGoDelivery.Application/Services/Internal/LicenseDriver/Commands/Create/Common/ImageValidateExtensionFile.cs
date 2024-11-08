@@ -4,7 +4,7 @@ using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Formats.Bmp;
 using SixLabors.ImageSharp.Formats.Png;
 
-namespace CoreGoDelivery.Application.Services.Internal.LicenseDriver.Commands.Common;
+namespace CoreGoDelivery.Application.Services.Internal.LicenseDriver.Commands.Create.Common;
 
 public static class ImageValidateExtensionFile
 {

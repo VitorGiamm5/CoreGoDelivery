@@ -2,7 +2,7 @@
 using MediatR;
 using System.Text.Json.Serialization;
 
-namespace CoreGoDelivery.Application.Services.Internal.LicenseDriver.Commands;
+namespace CoreGoDelivery.Application.Services.Internal.LicenseDriver.Commands.Create;
 
 public class LicenseImageCommand : IRequest<ActionResult>
 {

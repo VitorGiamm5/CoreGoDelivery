@@ -1,7 +1,7 @@
 ﻿using CoreGoDelivery.Domain.Consts.Regex;
 using System.Text.RegularExpressions;
 
-namespace CoreGoDelivery.Application.Services.Internal.Motorcycle.Commons;
+namespace CoreGoDelivery.Application.Services.Internal.Motorcycle.Commands.Commons;
 
 public static class MotorcyclePlateValidator
 {

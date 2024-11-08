@@ -2,11 +2,11 @@
 using CoreGoDelivery.Application.Services.External.NotificationMotorcycle.Queries;
 using CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.Create;
 using CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.Create.MessageValidators;
-using CoreGoDelivery.Application.Services.Internal.LicenseDriver.Commands;
+using CoreGoDelivery.Application.Services.Internal.LicenseDriver.Commands.Create;
 using CoreGoDelivery.Application.Services.Internal.Motorcycle.Commands.ChangePlateById;
 using CoreGoDelivery.Application.Services.Internal.Motorcycle.Commands.Create;
 using CoreGoDelivery.Application.Services.Internal.Motorcycle.Commands.Delete;
-using CoreGoDelivery.Application.Services.Internal.NotificationMotorcycle.Commands;
+using CoreGoDelivery.Application.Services.Internal.NotificationMotorcycle.Commands.PublishNotification;
 using CoreGoDelivery.Application.Services.Internal.Rental.Commands.Create;
 using CoreGoDelivery.Application.Services.Internal.Rental.Commands.Create.MessageValidators;
 using CoreGoDelivery.Application.Services.Internal.Rental.Commands.Update;

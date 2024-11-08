@@ -1,6 +1,6 @@
 ﻿using CoreGoDelivery.Application.Extensions;
-using CoreGoDelivery.Application.Services.Internal.Motorcycle.Commons;
-using CoreGoDelivery.Application.Services.Internal.NotificationMotorcycle.Commands;
+using CoreGoDelivery.Application.Services.Internal.Motorcycle.Commands.Commons;
+using CoreGoDelivery.Application.Services.Internal.NotificationMotorcycle.Commands.PublishNotification;
 using CoreGoDelivery.Domain.Enums.ServiceErrorMessage;
 using CoreGoDelivery.Domain.Repositories.GoDelivery;
 using CoreGoDelivery.Domain.Response;

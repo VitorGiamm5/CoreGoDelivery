@@ -1,5 +1,5 @@
 ﻿using CoreGoDelivery.Api.Controllers.Base;
-using CoreGoDelivery.Application.Services.Internal.LicenseDriver.Commands;
+using CoreGoDelivery.Application.Services.Internal.LicenseDriver.Commands.Create;
 using CoreGoDelivery.Application.Services.Internal.LicenseDriver.Queries.GetOneLicenseFile;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;

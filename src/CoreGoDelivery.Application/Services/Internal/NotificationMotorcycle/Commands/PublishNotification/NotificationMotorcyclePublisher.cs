@@ -3,7 +3,7 @@ using RabbitMQ.Client;
 using System.Text;
 using System.Text.Json;
 
-namespace CoreGoDelivery.Application.Services.Internal.NotificationMotorcycle.Commands;
+namespace CoreGoDelivery.Application.Services.Internal.NotificationMotorcycle.Commands.PublishNotification;
 
 public class NotificationMotorcyclePublisher
 {

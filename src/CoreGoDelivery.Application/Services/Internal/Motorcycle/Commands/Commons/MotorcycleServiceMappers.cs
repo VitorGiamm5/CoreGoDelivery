@@ -3,7 +3,7 @@ using CoreGoDelivery.Application.Services.Internal.Motorcycle.Commands.Create;
 using CoreGoDelivery.Domain.Entities.GoDelivery.Motorcycle;
 using CoreGoDelivery.Domain.RabbitMQ.NotificationMotorcycle;
 
-namespace CoreGoDelivery.Application.Services.Internal.Motorcycle.Commons;
+namespace CoreGoDelivery.Application.Services.Internal.Motorcycle.Commands.Commons;
 
 public static class MotorcycleServiceMappers
 {

@@ -1,6 +1,6 @@
 ﻿using CoreGoDelivery.Application.Extensions;
 using CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.Create.Common;
-using CoreGoDelivery.Application.Services.Internal.LicenseDriver.Commands.Common;
+using CoreGoDelivery.Application.Services.Internal.LicenseDriver.Commands.Create.Common;
 using CoreGoDelivery.Domain.Enums.ServiceErrorMessage;
 using CoreGoDelivery.Domain.Repositories.GoDelivery;
 using CoreGoDelivery.Domain.Response;
@@ -8,7 +8,7 @@ using CoreGoDelivery.Infrastructure.FileBucket.MinIO;
 using CoreGoDelivery.Infrastructure.FileBucket.MinIO.Extensions;
 using MediatR;
 
-namespace CoreGoDelivery.Application.Services.Internal.LicenseDriver.Commands;
+namespace CoreGoDelivery.Application.Services.Internal.LicenseDriver.Commands.Create;
 
 public class LicenseDriverHandler : IRequestHandler<LicenseImageCommand, ActionResult>
 {
@@ -20,7 +20,7 @@ public class LicenseDriverHandler : IRequestHandler<LicenseImageCommand, ActionR
     public readonly string BUCKET_NAME = "license-cnh";
 
     public LicenseDriverHandler(
-        ILicenceDriverRepository repositoryLicense, 
+        ILicenceDriverRepository repositoryLicense,
         IMinIOFileService fileService,
         LicenseDriverValidator validator)
     {

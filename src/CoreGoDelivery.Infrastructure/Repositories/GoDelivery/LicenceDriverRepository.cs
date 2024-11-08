@@ -24,7 +24,7 @@ public class LicenceDriverRepository : BaseRepository<LicenceDriverEntity>, ILic
 
         return result;
     }
-    
+
     public async Task<bool> UpdateFileName(string id, string fileName)
     {
         var entity = await _context.Set<LicenceDriverEntity>()

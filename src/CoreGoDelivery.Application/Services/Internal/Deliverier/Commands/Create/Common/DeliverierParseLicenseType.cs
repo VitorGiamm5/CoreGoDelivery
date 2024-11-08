@@ -1,5 +1,4 @@
-﻿using CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.Create;
-using CoreGoDelivery.Domain.Enums.LicenceDriverType;
+﻿using CoreGoDelivery.Domain.Enums.LicenceDriverType;
 
 namespace CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.Create.Common;
 
