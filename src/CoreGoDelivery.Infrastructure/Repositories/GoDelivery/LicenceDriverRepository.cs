@@ -13,24 +13,18 @@ public class LicenceDriverRepository : BaseRepository<LicenceDriverEntity>, ILic
 
     public async Task<bool> CheckIsUnicByLicence(string id)
     {
+        return IsUnic(await GetOneById(id));
+    }
+
+    public async Task<LicenceDriverEntity?> GetOneById(string id)
+    {
         var result = await _context
             .Set<LicenceDriverEntity>()
             .FirstOrDefaultAsync(x => x.Id == id);
 
-        return IsUnic(result);
+        return result;
     }
-
-    public async Task<bool> Create(LicenceDriverEntity data)
-    {
-        var result = await _context
-            .Set<LicenceDriverEntity>()
-            .AddAsync(data);
-
-        await _context.SaveChangesAsync();
-
-        return IsSuccessCreate(result);
-    }
-
+    
     public async Task<bool> UpdateFileName(string id, string fileName)
     {
         var entity = await _context.Set<LicenceDriverEntity>()

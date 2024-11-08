@@ -1,12 +1,11 @@
 ﻿using CoreGoDelivery.Infrastructure.FileBucket.MinIO.Extensions;
-using CoreGoDelivery.Infrastructure.FileBucket.MinIO.Interfaces;
 using Minio;
 using Minio.DataModel.Args;
 using Minio.Exceptions;
 
 namespace CoreGoDelivery.Infrastructure.FileBucket.MinIO;
 
-public class MinIOFileService : IFileService
+public class MinIOFileService : IMinIOFileService
 {
     private readonly MinioClient _minioClient;
 

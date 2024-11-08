@@ -1,26 +1,31 @@
-﻿using CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.UploadCnh.Common;
-using CoreGoDelivery.Application.Services.Internal.LicenseDriver;
+﻿using CoreGoDelivery.Application.Extensions;
+using CoreGoDelivery.Application.Services.External.FileBucket;
+using CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.Common;
+using CoreGoDelivery.Application.Services.Internal.LicenseDriver.Common;
+using CoreGoDelivery.Domain.Enums.ServiceErrorMessage;
+using CoreGoDelivery.Domain.Repositories.GoDelivery;
 using CoreGoDelivery.Domain.Response;
 using MediatR;
 
-namespace CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.UploadCnh;
+namespace CoreGoDelivery.Application.Services.Internal.LicenseDriver;
 
 public class DeliverierUploadCnhHandler : IRequestHandler<LicenseImageCommand, ActionResult>
 {
-    public readonly DeliverierUploadCnhValidator _validator;
-    public readonly DeliverierBuilderCreateImage _builderCreateImage;
-    public readonly DeliverierBuilderUpdateImage _builderUpdateImage;
+    public readonly ILicenceDriverRepository _repositoryLicense;
 
-    public readonly string UPLOAD_FOLDER = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), @"..\..\uploads_cnh"));
+    public readonly LicenseDriverValidator _validator;
+    public readonly CreateOrUpdateFileBucket _CreateOrUpdateImage;
+
+    public readonly string BUCKET_NAME = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), @"..\..\uploads_cnh"));
 
     public DeliverierUploadCnhHandler(
-        DeliverierUploadCnhValidator validator,
-        DeliverierBuilderCreateImage builderCreateImage,
-        DeliverierBuilderUpdateImage builderUpdateImage)
+        LicenseDriverValidator validator,
+        CreateOrUpdateFileBucket builderUpdateImage,
+        ILicenceDriverRepository repositoryLicense)
     {
         _validator = validator;
-        _builderCreateImage = builderCreateImage;
-        _builderUpdateImage = builderUpdateImage;
+        _CreateOrUpdateImage = builderUpdateImage;
+        _repositoryLicense = repositoryLicense;
     }
 
     public async Task<ActionResult> Handle(LicenseImageCommand command, CancellationToken cancellationToken)
@@ -34,11 +39,27 @@ public class DeliverierUploadCnhHandler : IRequestHandler<LicenseImageCommand, A
             return apiReponse;
         }
 
-        if (command.IsUpdate)
+        var license = await _repositoryLicense.GetOneById(command.IdLicenseNumber!);
+
+        if (license == null)
         {
-            return await _builderUpdateImage.Build(UPLOAD_FOLDER, command, apiReponse);
+            apiReponse.SetMessage(nameof(license).AppendError(AdditionalMessageEnum.NotFound));
+
+            return apiReponse;
         }
 
-        return await _builderCreateImage.Build(UPLOAD_FOLDER, command, apiReponse);
+        if (license.IsPendingImage())
+        {
+            var (_, _, fileExtension) = ImageValidateExtensionFile.Build(command.LicenseImageBase64);
+
+            license.ImageUrlReference = NameCreatorFile.LicenseDriver(command.IdLicenseNumber!, fileExtension);
+        }
+
+        var imagePath = NameCreatorFile.FileIntoBucket(BUCKET_NAME, license.ImageUrlReference);
+
+        //var isSuccessFile = await _CreateOrUpdateImage.Build();
+            // if(createdWithSuccess) await _repositoryLicense.UpdateFileName(command.IdLicenseNumber!, command.FileName);
+
+        return apiReponse;
     }
 }

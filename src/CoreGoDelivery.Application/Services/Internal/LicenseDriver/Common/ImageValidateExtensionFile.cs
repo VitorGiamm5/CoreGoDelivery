@@ -4,9 +4,9 @@ using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Formats.Bmp;
 using SixLabors.ImageSharp.Formats.Png;
 
-namespace CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.UploadCnh.Common;
+namespace CoreGoDelivery.Application.Services.Internal.LicenseDriver.Common;
 
-public static class DeliverierBuildExtensionFile
+public static class ImageValidateExtensionFile
 {
     public static (bool isValid, string errorMessage, FileExtensionValidEnum fileExtension) Build(byte[] imageBytes)
     {

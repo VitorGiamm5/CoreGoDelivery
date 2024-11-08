@@ -1,5 +1,5 @@
-﻿using CoreGoDelivery.Application.Services.Internal.NotificationMotorcycle.Dto;
-using CoreGoDelivery.Domain.RabbitMQ;
+﻿using CoreGoDelivery.Domain.RabbitMQ;
+using CoreGoDelivery.Domain.RabbitMQ.NotificationMotorcycle;
 using Microsoft.Extensions.Options;
 using RabbitMQ.Client;
 using System.Text;

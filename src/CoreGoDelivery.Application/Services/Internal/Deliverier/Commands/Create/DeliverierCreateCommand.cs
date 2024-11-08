@@ -23,4 +23,10 @@ public class DeliverierCreateCommand : IRequest<ActionResult>
 
     [DefaultValue("A")]
     public string LicenseType { get; set; }
+
+    [DefaultValue("1990-01-01T00:00:00Z")]
+    public DateTime ExpiryDate { get; set; }
+
+    [DefaultValue("1990-01-01T00:00:00Z")]
+    public DateTime IssueDate { get; set; }
 }

@@ -1,8 +1,8 @@
 ﻿
+using CoreGoDelivery.Application.Services.External.FileBucket;
 using CoreGoDelivery.Application.Services.External.NotificationMotorcycle.Queries;
 using CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.Create;
 using CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.Create.MessageValidators;
-using CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.UploadCnh.Common;
 using CoreGoDelivery.Application.Services.Internal.LicenseDriver;
 using CoreGoDelivery.Application.Services.Internal.Motorcycle.Commands.ChangePlateById;
 using CoreGoDelivery.Application.Services.Internal.Motorcycle.Commands.Create;
@@ -61,7 +61,6 @@ public static class SetupApplication
         });
 
         services.TryAddTransient<NotificationMotorcyclePublisher>();
-
         services.AddHostedService<NotificationMotorcycleConsumer>();
 
         return services;
@@ -71,9 +70,7 @@ public static class SetupApplication
     {
 
         AddRentalServices(services);
-
         AddDeliverierServices(services);
-
         AddMotorcycleServices(services);
 
         return services;
@@ -91,9 +88,8 @@ public static class SetupApplication
         services.TryAddScoped<DeliverierBuildMessageCnh>();
         services.TryAddScoped<DeliverierBuildMessageDeliverierCreate>();
         services.TryAddScoped<DeliverierCreateValidator>();
-        services.TryAddScoped<DeliverierUploadCnhValidator>();
-        services.TryAddScoped<DeliverierBuilderCreateImage>();
-        services.TryAddScoped<DeliverierBuilderUpdateImage>();
+        services.TryAddScoped<LicenseDriverValidator>();
+        services.TryAddScoped<CreateOrUpdateFileBucket>();
     }
 
     private static void AddRentalServices(IServiceCollection services)
@@ -102,7 +98,6 @@ public static class SetupApplication
         services.TryAddScoped<RentalBuildMessageMotorcycleId>();
         services.TryAddScoped<RentalBuildMessagePlanId>();
         services.TryAddScoped<RentalCreateValidate>();
-
         services.TryAddScoped<RentalReturnedToBaseValidator>();
     }
 }

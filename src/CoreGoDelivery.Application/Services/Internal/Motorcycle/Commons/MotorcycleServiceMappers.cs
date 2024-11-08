@@ -1,7 +1,7 @@
 ﻿using CoreGoDelivery.Application.Extensions;
 using CoreGoDelivery.Application.Services.Internal.Motorcycle.Commands.Create;
-using CoreGoDelivery.Application.Services.Internal.NotificationMotorcycle.Dto;
 using CoreGoDelivery.Domain.Entities.GoDelivery.Motorcycle;
+using CoreGoDelivery.Domain.RabbitMQ.NotificationMotorcycle;
 
 namespace CoreGoDelivery.Application.Services.Internal.Motorcycle.Commons;
 
@@ -56,7 +56,7 @@ public static class MotorcycleServiceMappers
             ModelMotorcycleId = data.ModelMotorcycle!.Id,
             MotorcycleId = data.ModelMotorcycleId,
             PlateNormalized = data.PlateNormalized,
-            CreatedAt = data.DateCreated
+            DateCreated = data.DateCreated
         };
 
         return result;

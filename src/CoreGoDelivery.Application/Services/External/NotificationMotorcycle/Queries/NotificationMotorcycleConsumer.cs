@@ -1,5 +1,5 @@
-﻿using CoreGoDelivery.Application.Services.Internal.NotificationMotorcycle.Dto;
-using CoreGoDelivery.Domain.Entities.GoDelivery.NotificationMotorcycle;
+﻿using CoreGoDelivery.Domain.Entities.GoDelivery.NotificationMotorcycle;
+using CoreGoDelivery.Domain.RabbitMQ.NotificationMotorcycle;
 using CoreGoDelivery.Domain.Repositories.GoDelivery;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -67,7 +67,7 @@ public class NotificationMotorcycleConsumer : BackgroundService
                 Id = notification.Id,
                 IdMotorcycle = notification.MotorcycleId,
                 YearManufacture = notification.YearManufacture,
-                DateCreated = notification.CreatedAt,
+                DateCreated = notification.DateCreated,
                 CreatedBy = notification.CreatedBy
             };
 
@@ -81,7 +81,7 @@ public class NotificationMotorcycleConsumer : BackgroundService
             Console.WriteLine($"Id: {notification.Id}");
             Console.WriteLine($"IdMotorcycle: {notification.MotorcycleId}");
             Console.WriteLine($"YearManufacture: {notification.YearManufacture}");
-            Console.WriteLine($"CreatedAt: {notification.CreatedAt}");
+            Console.WriteLine($"CreatedAt: {notification.DateCreated}");
         };
 
         _channel.BasicConsume(queue: "motorcycle_queue",

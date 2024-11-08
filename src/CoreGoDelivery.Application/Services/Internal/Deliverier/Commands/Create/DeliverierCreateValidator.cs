@@ -16,7 +16,7 @@ public class DeliverierCreateValidator
         _buildMessageCnh = buildMessageCnh;
     }
 
-    public async Task<StringBuilder?> Validator(DeliverierCreateCommand data)
+    public async Task<StringBuilder> Validate(DeliverierCreateCommand data)
     {
         var message = new StringBuilder();
 

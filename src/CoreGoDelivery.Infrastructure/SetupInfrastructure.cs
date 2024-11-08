@@ -2,6 +2,7 @@
 using CoreGoDelivery.Domain.MinIOFile;
 using CoreGoDelivery.Domain.Repositories.GoDelivery;
 using CoreGoDelivery.Infrastructure.Database;
+using CoreGoDelivery.Infrastructure.FileBucket.MinIO;
 using CoreGoDelivery.Infrastructure.Repositories.GoDelivery;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -59,6 +60,10 @@ public static class SetupInfrastructure
 
             return minioClient;
         });
+
+
+
+        //services.TryAddTransient<IMinIOFileService, MinIOFileService>();
 
         return services;
     }

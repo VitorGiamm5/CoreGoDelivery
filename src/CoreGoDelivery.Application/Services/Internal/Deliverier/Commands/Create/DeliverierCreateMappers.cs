@@ -1,5 +1,6 @@
 ﻿using CoreGoDelivery.Application.Extensions;
 using CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.Common;
+using CoreGoDelivery.Domain.Consts;
 using CoreGoDelivery.Domain.Entities.GoDelivery.Deliverier;
 using CoreGoDelivery.Domain.Entities.GoDelivery.LicenceDriver;
 
@@ -19,7 +20,9 @@ public static class DeliverierCreateMappers
             {
                 Id = command.LicenseNumber,
                 Type = DeliverierParseLicenseType.Parse(command),
-                ImageUrlReference = "pending"
+                ImageUrlReference = LicenseImageConst.PENDING_IMAGE_LICENSE,
+                ExpiryDate = command.ExpiryDate,
+                IssueDate = command.IssueDate,
             }
         };
 

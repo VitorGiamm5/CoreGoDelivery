@@ -1,5 +1,5 @@
 ﻿using CoreGoDelivery.Api.Controllers.Base;
-using CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.UploadCnh;
+using CoreGoDelivery.Application.Services.Internal.LicenseDriver;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,7 +15,7 @@ public class LicenseDriver(IMediator _mediator) : BaseApiController
     {
         IdParamValidator(id);
 
-        request.Id = id;
+        request.IdLicenseNumber = id;
 
         var apiReponse = await _mediator.Send(request);
 
