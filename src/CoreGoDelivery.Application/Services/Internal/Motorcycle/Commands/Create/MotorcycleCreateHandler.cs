@@ -42,7 +42,7 @@ public class MotorcycleCreateHandler : IRequestHandler<MotorcycleCreateCommand, 
 
         if (!isSuccess)
         {
-            apiReponse.SetMessage(nameof(_repositoryMotorcycle.Create).AppendError(AdditionalMessageEnum.CreateFail));
+            apiReponse.SetErrorMessage(nameof(_repositoryMotorcycle.Create).AppendError(AdditionalMessageEnum.CreateFail));
         }
 
         var notification = MotorcycleServiceMappers.MapNotificationDto(motorcycle);

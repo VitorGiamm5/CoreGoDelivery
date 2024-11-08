@@ -36,7 +36,7 @@ public class DeliverierCreateHandler : IRequestHandler<DeliverierCreateCommand, 
 
         if (!resultCreate)
         {
-            apiReponse.SetMessage(nameof(resultCreate).AppendError(AdditionalMessageEnum.Unavailable));
+            apiReponse.SetErrorMessage(nameof(resultCreate).AppendError(AdditionalMessageEnum.Unavailable));
         }
 
         return apiReponse;

@@ -29,7 +29,7 @@ public sealed class ActionResult
         SetError(stringBuilder.ToString());
     }
 
-    public void SetMessage(string message)
+    public void SetErrorMessage(string message)
     {
         SetError(message);
     }

@@ -43,7 +43,7 @@ public class RentalReturnedToBaseDateHandler : IRequestHandler<RentalReturnedToB
         if (!successUpdate)
         {
             apiReponse.Data = null;
-            apiReponse.SetMessage(nameof(request.ReturnedToBaseDate).AppendError(AdditionalMessageEnum.UpdateFail));
+            apiReponse.SetErrorMessage(nameof(request.ReturnedToBaseDate).AppendError(AdditionalMessageEnum.UpdateFail));
 
             return apiReponse;
         }

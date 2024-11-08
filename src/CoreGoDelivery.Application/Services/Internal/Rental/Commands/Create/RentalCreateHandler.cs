@@ -44,7 +44,7 @@ public class RentalCreateHandler : IRequestHandler<RentalCreateCommand, ActionRe
 
         if (!isSuccess)
         {
-            apiReponse.SetMessage(nameof(_repositoryRental.Create).AppendError(AdditionalMessageEnum.CreateFail));
+            apiReponse.SetErrorMessage(nameof(_repositoryRental.Create).AppendError(AdditionalMessageEnum.CreateFail));
         }
 
         return apiReponse;

@@ -11,7 +11,7 @@ public class LicenseDriver(IMediator _mediator) : BaseApiController
 {
 
     [HttpPost("{id}/upload-cnh")]
-    public async Task<IActionResult> Upload(string id, [FromForm] LicenseImageCommand request)
+    public async Task<IActionResult> Upload(string id, [FromBody] LicenseImageCommand request)
     {
         IdParamValidator(id);
 

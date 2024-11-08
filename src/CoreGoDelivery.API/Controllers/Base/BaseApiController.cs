@@ -34,7 +34,7 @@ public class BaseApiController : ControllerBase
         }
 
         response.Data = null;
-        response.SetMessage(CommomMessagesConst.MESSAGE_INVALID_DATA);
+        response.SetErrorMessage(CommomMessagesConst.MESSAGE_INVALID_DATA);
 
         return StatusCode((int)HttpStatusCode.InternalServerError, response);
     }
@@ -49,15 +49,17 @@ public class BaseApiController : ControllerBase
 
     protected IActionResult? IdParamValidator(string? id)
     {
-        bool isValid = id != ":id" || !string.IsNullOrEmpty(id);
+        bool isNotValid = id == ":id" || string.IsNullOrEmpty(id);
 
-        if (!isValid)
+        if (isNotValid)
         {
             var result = new ActionResult();
 
-            result.SetMessage("id param".AppendError());
+            result.SetErrorMessage("id param".AppendError());
 
-            return StatusCode((int)HttpStatusCode.InternalServerError, result);
+            return Response(result);
+
+            //return StatusCode((int)HttpStatusCode.InternalServerError, result);
         }
 
         return null;

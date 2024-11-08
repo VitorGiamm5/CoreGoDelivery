@@ -48,7 +48,7 @@ public class MotorcycleChangePlateHandler : IRequestHandler<MotorcycleChangePlat
             }
             : null;
 
-        apiReponse.SetMessage(success ? null : CommomMessagesConst.MESSAGE_INVALID_DATA);
+        apiReponse.SetErrorMessage(success ? null : CommomMessagesConst.MESSAGE_INVALID_DATA);
 
         return apiReponse;
     }

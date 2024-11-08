@@ -26,7 +26,7 @@ public class MotorcycleGetOneQueryHandler : IRequestHandler<MotorcycleGetOneQuer
             Data = motorcycleDtos,
         };
 
-        apiReponse.SetMessage(result == null ? CommomMessagesConst.MESSAGE_DATA_NOT_FOUND : null);
+        apiReponse.SetErrorMessage(result == null ? CommomMessagesConst.MESSAGE_DATA_NOT_FOUND : null);
 
         return apiReponse;
     }

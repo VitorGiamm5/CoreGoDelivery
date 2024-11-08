@@ -41,7 +41,7 @@ public class LicenseDriverHandler : IRequestHandler<LicenseImageCommand, ActionR
 
         if (license == null)
         {
-            apiReponse.SetMessage(nameof(license).AppendError(AdditionalMessageEnum.NotFound));
+            apiReponse.SetErrorMessage(nameof(license).AppendError(AdditionalMessageEnum.NotFound));
 
             return apiReponse;
         }

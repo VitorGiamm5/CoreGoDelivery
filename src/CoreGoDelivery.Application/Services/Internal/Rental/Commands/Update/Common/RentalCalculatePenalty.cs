@@ -14,7 +14,7 @@ public static class RentalCalculatePenalty
 
         if (rental == null)
         {
-            apiResponse.SetMessage(nameof(returnedToBaseDate).AppendError(AdditionalMessageEnum.NotFound));
+            apiResponse.SetErrorMessage(nameof(returnedToBaseDate).AppendError(AdditionalMessageEnum.NotFound));
 
             return apiResponse;
         }
