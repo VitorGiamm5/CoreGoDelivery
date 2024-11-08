@@ -17,7 +17,7 @@ public class LicenseDriverHandler : IRequestHandler<LicenseImageCommand, ActionR
 
     public readonly LicenseDriverValidator _validator;
 
-    public readonly string BUCKET_NAME = "licensecnh";
+    public readonly string BUCKET_NAME = "license-cnh";
 
     public LicenseDriverHandler(ILicenceDriverRepository repositoryLicense, IMinIOFileService fileService, LicenseDriverValidator validator)
     {
@@ -57,7 +57,10 @@ public class LicenseDriverHandler : IRequestHandler<LicenseImageCommand, ActionR
 
         using Stream stream = new MemoryStream(command.LicenseImageBase64);
 
-        var x = await _fileService.SaveOrReplace(BUCKET_NAME, license.ImageUrlReference, stream, GetContentType.Get(license.ImageUrlReference));
+        var contentType = GetContentType.Get(license.ImageUrlReference);
+
+
+        var x = await _fileService.SaveOrReplace(BUCKET_NAME, license.ImageUrlReference, stream, contentType);
 
 
         //TODO: HEre File
