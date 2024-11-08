@@ -19,7 +19,7 @@ public class MotorcycleCreateValidator
         _repositoryModelMotorcycle = repositoryModelMotorcycle;
     }
 
-    public async Task<StringBuilder?> BuilderCreateValidator(MotorcycleCreateCommand data)
+    public async Task<StringBuilder> BuilderCreateValidator(MotorcycleCreateCommand data)
     {
         var message = new StringBuilder();
 

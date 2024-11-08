@@ -1,5 +1,6 @@
 ﻿using CoreGoDelivery.Api.Controllers.Base;
-using CoreGoDelivery.Application.Services.Internal.LicenseDriver;
+using CoreGoDelivery.Application.Services.Internal.LicenseDriver.Commands;
+using CoreGoDelivery.Application.Services.Internal.LicenseDriver.Queries.GetOneLicenseFile;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,12 +14,36 @@ public class LicenseDriver(IMediator _mediator) : BaseApiController
     [HttpPost("{id}/upload-cnh")]
     public async Task<IActionResult> Upload(string id, [FromBody] LicenseImageCommand request)
     {
-        IdParamValidator(id);
+        try
+        {
+            IdParamValidator(id);
 
-        request.IdLicenseNumber = id;
+            request.IdLicenseNumber = id;
 
-        var apiReponse = await _mediator.Send(request);
+            var apiReponse = await _mediator.Send(request);
 
-        return Response(apiReponse);
+            return Response(apiReponse);
+        }
+        catch (Exception ex)
+        {
+            return ResponseError(ex);
+        }
+    }
+
+    [HttpGet("{id}/license-File")]
+    public async Task<IActionResult> GetOneLicenseFile(string id)
+    {
+        try
+        {
+            IdParamValidator(id);
+
+            var result = await _mediator.Send(new GetOneLicenseFileCommand(id));
+
+            return Response(result);
+        }
+        catch (Exception ex)
+        {
+            return ResponseError(ex);
+        }
     }
 }

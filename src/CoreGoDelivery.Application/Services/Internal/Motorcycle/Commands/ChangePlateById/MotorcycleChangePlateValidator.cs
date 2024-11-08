@@ -21,7 +21,7 @@ public class MotorcycleChangePlateValidator
         _validatorCreate = validatorCreate;
     }
 
-    public async Task<StringBuilder?> ChangePlateValidator(MotorcycleChangePlateCommand command)
+    public async Task<StringBuilder> ChangePlateValidator(MotorcycleChangePlateCommand command)
     {
         var message = new StringBuilder();
 

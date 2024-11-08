@@ -53,8 +53,8 @@ public static class MotorcycleServiceMappers
         {
             Id = data.Id,
             YearManufacture = data.YearManufacture,
-            ModelMotorcycleId = data.ModelMotorcycle!.Id,
-            MotorcycleId = data.ModelMotorcycleId,
+            ModelMotorcycleId = data.ModelMotorcycleId,
+            MotorcycleId = data.Id,
             PlateNormalized = data.PlateNormalized,
             DateCreated = data.DateCreated
         };

@@ -27,7 +27,7 @@ public class RentalCreateHandler : IRequestHandler<RentalCreateCommand, ActionRe
     public async Task<ActionResult> Handle(RentalCreateCommand request, CancellationToken cancellationToken)
     {
         var apiReponse = new ActionResult();
-        apiReponse.SetMessage(await _validator.BuilderCreateValidator(request));
+        apiReponse.SetError(await _validator.BuilderCreateValidator(request));
 
         if (apiReponse.HasError())
         {
@@ -44,7 +44,7 @@ public class RentalCreateHandler : IRequestHandler<RentalCreateCommand, ActionRe
 
         if (!isSuccess)
         {
-            apiReponse.SetErrorMessage(nameof(_repositoryRental.Create).AppendError(AdditionalMessageEnum.CreateFail));
+            apiReponse.SetError(nameof(_repositoryRental.Create).AppendError(AdditionalMessageEnum.CreateFail));
         }
 
         return apiReponse;

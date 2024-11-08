@@ -29,7 +29,7 @@ public class MotorcycleCreateHandler : IRequestHandler<MotorcycleCreateCommand, 
     {
         var apiReponse = new ActionResult();
 
-        apiReponse.SetMessage(await _validator.BuilderCreateValidator(request));
+        apiReponse.SetError(await _validator.BuilderCreateValidator(request));
 
         if (apiReponse.HasError())
         {
@@ -42,7 +42,7 @@ public class MotorcycleCreateHandler : IRequestHandler<MotorcycleCreateCommand, 
 
         if (!isSuccess)
         {
-            apiReponse.SetErrorMessage(nameof(_repositoryMotorcycle.Create).AppendError(AdditionalMessageEnum.CreateFail));
+            apiReponse.SetError(nameof(_repositoryMotorcycle.Create).AppendError(AdditionalMessageEnum.CreateFail));
         }
 
         var notification = MotorcycleServiceMappers.MapNotificationDto(motorcycle);

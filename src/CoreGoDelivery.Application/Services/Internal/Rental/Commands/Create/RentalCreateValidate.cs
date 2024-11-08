@@ -19,7 +19,7 @@ public class RentalCreateValidate
         _buildMessageDeliverierId = buildMessageDeliverierId;
     }
 
-    public async Task<StringBuilder?> BuilderCreateValidator(RentalCreateCommand data)
+    public async Task<StringBuilder> BuilderCreateValidator(RentalCreateCommand data)
     {
         var message = new StringBuilder();
 

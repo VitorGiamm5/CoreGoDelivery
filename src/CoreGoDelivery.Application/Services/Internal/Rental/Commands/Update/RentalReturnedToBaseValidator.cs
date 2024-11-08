@@ -14,7 +14,7 @@ public class RentalReturnedToBaseValidator
         _repositoryRental = repositoryRental;
     }
 
-    public async Task<StringBuilder?> BuilderUpdateValidator(RentalReturnedToBaseDateCommand? data)
+    public async Task<StringBuilder> BuilderUpdateValidator(RentalReturnedToBaseDateCommand? data)
     {
         var message = new StringBuilder();
 

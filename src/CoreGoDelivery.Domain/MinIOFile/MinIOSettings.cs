@@ -1,6 +1,6 @@
 ﻿namespace CoreGoDelivery.Domain.MinIOFile;
 
-public class MinIOSettings
+public sealed class MinIOSettings
 {
     public string Endpoint { get; set; }
     public int Port { get; set; }

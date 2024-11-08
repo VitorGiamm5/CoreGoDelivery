@@ -12,8 +12,15 @@ public class DeliveriersController(IMediator _mediator) : BaseApiController
     [HttpPost]
     public async Task<IActionResult> Create([FromBody] DeliverierCreateCommand request)
     {
-        var apiReponse = await _mediator.Send(request);
+        try
+        {
+            var apiReponse = await _mediator.Send(request);
 
-        return Response(apiReponse);
+            return Response(apiReponse);
+        }
+        catch (Exception ex)
+        {
+            return ResponseError(ex);
+        }
     }
 }

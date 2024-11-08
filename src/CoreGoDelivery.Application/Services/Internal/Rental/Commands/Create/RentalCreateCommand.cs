@@ -8,7 +8,6 @@ namespace CoreGoDelivery.Application.Services.Internal.Rental.Commands.Create;
 public sealed class RentalCreateCommand : IRequest<ActionResult>
 {
     [JsonIgnore]
-    [DefaultValue("Rental123")]
     public string Id { get; set; }
 
     [DefaultValue("Deliverier123")]

@@ -1,6 +1,4 @@
-﻿using CoreGoDelivery.Domain.RabbitMQ;
-using CoreGoDelivery.Domain.RabbitMQ.NotificationMotorcycle;
-using Microsoft.Extensions.Options;
+﻿using CoreGoDelivery.Domain.RabbitMQ.NotificationMotorcycle;
 using RabbitMQ.Client;
 using System.Text;
 using System.Text.Json;
@@ -10,21 +8,19 @@ namespace CoreGoDelivery.Application.Services.Internal.NotificationMotorcycle.Co
 public class NotificationMotorcyclePublisher
 {
     private readonly IConnection _connection;
-    private readonly RabbitMQSettings _settings;
 
-    public NotificationMotorcyclePublisher(IConnection connection, IOptions<RabbitMQSettings> settings)
+    private const string MOTORCYCLE_QUEUE = "motorcycle_queue";
+
+    public NotificationMotorcyclePublisher(IConnection connection)
     {
         _connection = connection;
-        _settings = settings.Value;
     }
 
     public void PublishMotorcycle(NotificationMotorcycleDto motorcycle)
     {
         using var channel = _connection.CreateModel();
 
-        var queueName = _settings.QueuesName.MotorcycleQueue;
-
-        channel.QueueDeclare(queue: queueName,
+        channel.QueueDeclare(queue: MOTORCYCLE_QUEUE,
                              durable: true,
                              exclusive: false,
                              autoDelete: false,
@@ -35,7 +31,7 @@ public class NotificationMotorcyclePublisher
         var body = Encoding.UTF8.GetBytes(message);
 
         channel.BasicPublish(exchange: "",
-                             routingKey: queueName,
+                             routingKey: MOTORCYCLE_QUEUE,
                              basicProperties: null,
                              body: body);
 

@@ -1,12 +1,13 @@
 ﻿using CoreGoDelivery.Domain.Response;
 using MediatR;
 using System.ComponentModel;
+using System.Text.Json.Serialization;
 
 namespace CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.Create;
 
 public class DeliverierCreateCommand : IRequest<ActionResult>
 {
-    [DefaultValue("Deliverier123")]
+    [JsonIgnore]
     public string Id { get; set; }
 
     [DefaultValue("João da Silva")]

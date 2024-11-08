@@ -1,5 +1,5 @@
 ﻿using CoreGoDelivery.Application.Extensions;
-using CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.Common;
+using CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.Create.Common;
 using CoreGoDelivery.Domain.Consts;
 using CoreGoDelivery.Domain.Entities.GoDelivery.Deliverier;
 using CoreGoDelivery.Domain.Entities.GoDelivery.LicenceDriver;

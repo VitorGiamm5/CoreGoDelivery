@@ -1,5 +1,6 @@
 ﻿using CoreGoDelivery.Application.Extensions;
 using CoreGoDelivery.Application.Services.Internal.Motorcycle.Commons;
+using CoreGoDelivery.Domain.Entities.GoDelivery.Motorcycle;
 using CoreGoDelivery.Domain.Repositories.GoDelivery;
 using CoreGoDelivery.Domain.Response;
 using MediatR;
@@ -26,12 +27,16 @@ public class MotorcycleListQueryHandler : IRequestHandler<MotorcycleListQueryCom
 
         if (result == null || result.Count == 0)
         {
+            var emtyListMotorcycle = new List<MotorcycleEntity>();
+
+            apiReponse.SetData(emtyListMotorcycle);
+
             return apiReponse;
         }
 
         var motorcycleDtos = MotorcycleServiceMappers.MapEntityListToDto(result);
 
-        apiReponse.Data = motorcycleDtos;
+        apiReponse.SetData(motorcycleDtos);
 
         return apiReponse;
     }

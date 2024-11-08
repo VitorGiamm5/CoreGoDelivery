@@ -1,6 +1,6 @@
 ﻿using CoreGoDelivery.Application.Extensions;
-using CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.Common;
-using CoreGoDelivery.Application.Services.Internal.LicenseDriver.Common;
+using CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.Create.Common;
+using CoreGoDelivery.Application.Services.Internal.LicenseDriver.Commands.Common;
 using CoreGoDelivery.Domain.Enums.ServiceErrorMessage;
 using CoreGoDelivery.Domain.Repositories.GoDelivery;
 using CoreGoDelivery.Domain.Response;
@@ -8,18 +8,21 @@ using CoreGoDelivery.Infrastructure.FileBucket.MinIO;
 using CoreGoDelivery.Infrastructure.FileBucket.MinIO.Extensions;
 using MediatR;
 
-namespace CoreGoDelivery.Application.Services.Internal.LicenseDriver;
+namespace CoreGoDelivery.Application.Services.Internal.LicenseDriver.Commands;
 
 public class LicenseDriverHandler : IRequestHandler<LicenseImageCommand, ActionResult>
 {
     public readonly ILicenceDriverRepository _repositoryLicense;
-    private readonly IMinIOFileService _fileService;
+    public readonly IMinIOFileService _fileService;
 
     public readonly LicenseDriverValidator _validator;
 
     public readonly string BUCKET_NAME = "license-cnh";
 
-    public LicenseDriverHandler(ILicenceDriverRepository repositoryLicense, IMinIOFileService fileService, LicenseDriverValidator validator)
+    public LicenseDriverHandler(
+        ILicenceDriverRepository repositoryLicense, 
+        IMinIOFileService fileService,
+        LicenseDriverValidator validator)
     {
         _repositoryLicense = repositoryLicense;
         _fileService = fileService;
@@ -30,7 +33,7 @@ public class LicenseDriverHandler : IRequestHandler<LicenseImageCommand, ActionR
     {
         var apiReponse = new ActionResult();
 
-        apiReponse.SetMessage(await _validator.Build(command));
+        apiReponse.SetError(await _validator.Build(command));
 
         if (apiReponse.HasError())
         {
@@ -41,7 +44,7 @@ public class LicenseDriverHandler : IRequestHandler<LicenseImageCommand, ActionR
 
         if (license == null)
         {
-            apiReponse.SetErrorMessage(nameof(license).AppendError(AdditionalMessageEnum.NotFound));
+            apiReponse.SetError(nameof(license).AppendError(AdditionalMessageEnum.NotFound));
 
             return apiReponse;
         }
@@ -53,24 +56,18 @@ public class LicenseDriverHandler : IRequestHandler<LicenseImageCommand, ActionR
             license.ImageUrlReference = NameCreatorFile.LicenseDriver(command.IdLicenseNumber!, fileExtension);
         }
 
-        var imagePath = NameCreatorFile.FileIntoBucket(BUCKET_NAME, license.ImageUrlReference);
-
         using Stream stream = new MemoryStream(command.LicenseImageBase64);
 
         var contentType = GetContentType.Get(license.ImageUrlReference);
 
-
-        var x = await _fileService.SaveOrReplace(BUCKET_NAME, license.ImageUrlReference, stream, contentType);
-
-
-        //TODO: HEre File
-
-
-
-        //if (isSuccessFile != null)
-        //{
-        //    await _repositoryLicense.UpdateFileName(command.IdLicenseNumber!, license.ImageUrlReference);
-        //}
+        try
+        {
+            await _fileService.SaveOrReplace(BUCKET_NAME, license.ImageUrlReference, stream, contentType);
+        }
+        catch (Exception ex)
+        {
+            System.Diagnostics.Debug.WriteLine(ex);
+        }
 
         return apiReponse;
     }

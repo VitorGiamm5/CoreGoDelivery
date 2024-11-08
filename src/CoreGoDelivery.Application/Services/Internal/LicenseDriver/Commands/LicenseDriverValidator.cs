@@ -1,10 +1,10 @@
 ﻿using CoreGoDelivery.Application.Extensions;
-using CoreGoDelivery.Application.Services.Internal.LicenseDriver.Common;
+using CoreGoDelivery.Application.Services.Internal.LicenseDriver.Commands.Common;
 using CoreGoDelivery.Domain.Enums.ServiceErrorMessage;
 using CoreGoDelivery.Domain.Repositories.GoDelivery;
 using System.Text;
 
-namespace CoreGoDelivery.Application.Services.Internal.LicenseDriver;
+namespace CoreGoDelivery.Application.Services.Internal.LicenseDriver.Commands;
 
 public class LicenseDriverValidator
 {

@@ -8,7 +8,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using Microsoft.Extensions.Options;
 using Minio;
 using Polly;
 using Polly.Retry;
@@ -43,18 +42,7 @@ public static class SetupInfrastructure
 
         AddRepositories(services);
 
-        services.Configure<MinIOSettings>(options => configuration.GetSection("Minio"));
-
-        services.AddSingleton(sp =>
-        {
-            var minioSettings = sp.GetRequiredService<IOptions<MinIOSettings>>().Value;
-
-            var minioClient = new MinioClient()
-                .WithEndpoint(minioSettings.Endpoint, minioSettings.Port).Build()
-                .WithCredentials(minioSettings.AccessKey, minioSettings.SecretKey).Build();
-
-            return minioClient;
-        });
+        services.Configure<MinIOSettings>(options => configuration.GetSection("MinIOSettings"));
 
         services.AddSingleton<MinioClient>();
 

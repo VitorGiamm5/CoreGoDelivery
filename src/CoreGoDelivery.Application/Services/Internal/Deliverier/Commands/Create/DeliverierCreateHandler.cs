@@ -23,7 +23,7 @@ public class DeliverierCreateHandler : IRequestHandler<DeliverierCreateCommand, 
     {
         var apiReponse = new ActionResult();
 
-        apiReponse.SetMessage(await _validator.Validate(request));
+        apiReponse.SetError(await _validator.Validate(request));
 
         if (apiReponse.HasError())
         {
@@ -36,7 +36,7 @@ public class DeliverierCreateHandler : IRequestHandler<DeliverierCreateCommand, 
 
         if (!resultCreate)
         {
-            apiReponse.SetErrorMessage(nameof(resultCreate).AppendError(AdditionalMessageEnum.Unavailable));
+            apiReponse.SetError(nameof(resultCreate).AppendError(AdditionalMessageEnum.Unavailable));
         }
 
         return apiReponse;

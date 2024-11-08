@@ -1,12 +1,13 @@
 ﻿using CoreGoDelivery.Domain.Response;
 using MediatR;
 using System.ComponentModel;
+using System.Text.Json.Serialization;
 
 namespace CoreGoDelivery.Application.Services.Internal.Motorcycle.Commands.Create;
 
 public sealed class MotorcycleCreateCommand : IRequest<ActionResult>
 {
-    [DefaultValue("moto123")]
+    [JsonIgnore]
     public string Id { get; set; }
 
     [DefaultValue(2020)]

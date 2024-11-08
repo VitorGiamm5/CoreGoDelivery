@@ -25,7 +25,7 @@ public class RentalReturnedToBaseDateHandler : IRequestHandler<RentalReturnedToB
     {
         var apiReponse = new ActionResult();
 
-        apiReponse.SetMessage(await _validator.BuilderUpdateValidator(request));
+        apiReponse.SetError(await _validator.BuilderUpdateValidator(request));
 
         if (apiReponse.HasError())
         {
@@ -42,8 +42,7 @@ public class RentalReturnedToBaseDateHandler : IRequestHandler<RentalReturnedToB
 
         if (!successUpdate)
         {
-            apiReponse.Data = null;
-            apiReponse.SetErrorMessage(nameof(request.ReturnedToBaseDate).AppendError(AdditionalMessageEnum.UpdateFail));
+            apiReponse.SetError(nameof(request.ReturnedToBaseDate).AppendError(AdditionalMessageEnum.UpdateFail));
 
             return apiReponse;
         }

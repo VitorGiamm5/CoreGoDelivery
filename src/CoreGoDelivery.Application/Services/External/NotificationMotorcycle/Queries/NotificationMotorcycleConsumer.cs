@@ -18,6 +18,8 @@ public class NotificationMotorcycleConsumer : BackgroundService
     private readonly IServiceScopeFactory _serviceScopeFactory;
     private IModel? _channel;
 
+    private const string MOTORCYCLE_QUEUE = "motorcycle_queue";
+
     public NotificationMotorcycleConsumer(
         IConnectionFactory connectionFactory,
         IServiceScopeFactory serviceScopeFactory)
@@ -44,7 +46,7 @@ public class NotificationMotorcycleConsumer : BackgroundService
 
             _channel = connection.CreateModel();
 
-            _channel.QueueDeclare(queue: "motorcycle_queue",
+            _channel.QueueDeclare(queue: MOTORCYCLE_QUEUE,
                                   durable: true,
                                   exclusive: false,
                                   autoDelete: false,

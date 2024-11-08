@@ -2,7 +2,7 @@
 using CoreGoDelivery.Application.Services.External.NotificationMotorcycle.Queries;
 using CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.Create;
 using CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.Create.MessageValidators;
-using CoreGoDelivery.Application.Services.Internal.LicenseDriver;
+using CoreGoDelivery.Application.Services.Internal.LicenseDriver.Commands;
 using CoreGoDelivery.Application.Services.Internal.Motorcycle.Commands.ChangePlateById;
 using CoreGoDelivery.Application.Services.Internal.Motorcycle.Commands.Create;
 using CoreGoDelivery.Application.Services.Internal.Motorcycle.Commands.Delete;
@@ -67,7 +67,6 @@ public static class SetupApplication
 
     private static IServiceCollection BuildMessageValidator(this IServiceCollection services)
     {
-
         AddRentalServices(services);
         AddDeliverierServices(services);
         AddMotorcycleServices(services);

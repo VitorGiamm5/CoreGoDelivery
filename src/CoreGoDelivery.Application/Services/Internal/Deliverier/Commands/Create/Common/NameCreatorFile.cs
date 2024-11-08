@@ -1,7 +1,7 @@
 ﻿using CoreGoDelivery.Domain.Enums.LicenceDriverType;
 using System.Text;
 
-namespace CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.Common;
+namespace CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.Create.Common;
 
 public static class NameCreatorFile
 {

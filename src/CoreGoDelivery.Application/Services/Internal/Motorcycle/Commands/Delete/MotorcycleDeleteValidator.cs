@@ -18,7 +18,7 @@ public class MotorcycleDeleteValidator
         _rentalRepository = rentalRepository;
     }
 
-    public async Task<StringBuilder?> BuilderDeleteValidator(string? idMotorcycle)
+    public async Task<StringBuilder> BuilderDeleteValidator(string? idMotorcycle)
     {
         var message = new StringBuilder();
 

@@ -30,7 +30,7 @@ public class MotorcycleChangePlateHandler : IRequestHandler<MotorcycleChangePlat
     {
         var apiReponse = new ActionResult();
 
-        apiReponse.SetMessage(await _validator.ChangePlateValidator(command));
+        apiReponse.SetError(await _validator.ChangePlateValidator(command));
 
         if (apiReponse.HasError())
         {
@@ -41,14 +41,14 @@ public class MotorcycleChangePlateHandler : IRequestHandler<MotorcycleChangePlat
 
         var success = await _repositoryMotorcycle.ChangePlateByIdAsync(command.Id, command.Plate);
 
-        apiReponse.Data = success
+        apiReponse.SetData(success
             ? new
             {
                 menssage = CommomMessagesConst.MESSAGE_UPDATED_WITH_SUCCESS
             }
-            : null;
+            : null);
 
-        apiReponse.SetErrorMessage(success ? null : CommomMessagesConst.MESSAGE_INVALID_DATA);
+        apiReponse.SetError(success ? null : CommomMessagesConst.MESSAGE_INVALID_DATA);
 
         return apiReponse;
     }

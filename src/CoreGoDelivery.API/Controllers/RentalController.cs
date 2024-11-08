@@ -14,37 +14,55 @@ public class RentalController(IMediator _mediator) : BaseApiController
     [HttpGet("{id}")]
     public async Task<IActionResult> GetOne(string? id)
     {
-        IdParamValidator(id);
-
-        var request = new RentalGetOneCommand
+        try
         {
-            Id = id!
-        };
+            IdParamValidator(id);
 
-        var result = await _mediator.Send(request);
+            var request = new RentalGetOneCommand(id!);
 
-        return Response(result);
+            var result = await _mediator.Send(request);
+
+            return Response(result);
+        }
+        catch (Exception ex)
+        {
+            return ResponseError(ex);
+        }
     }
 
     [HttpPost]
     public async Task<IActionResult> Create([FromBody] RentalCreateCommand request)
     {
-        request.Id = IdBuild(request.Id);
+        try
+        {
+            request.Id = IdBuild(request.Id);
 
-        var result = await _mediator.Send(request);
+            var result = await _mediator.Send(request);
 
-        return Response(result);
+            return Response(result);
+        }
+        catch (Exception ex)
+        {
+            return ResponseError(ex);
+        }
     }
 
     [HttpPut("{id}/return-to-base")]
     public async Task<IActionResult> UpdateReturnedToBaseDate(string? id, [FromBody] RentalReturnedToBaseDateCommand request)
     {
-        IdParamValidator(id);
+        try
+        {
+            IdParamValidator(id);
 
-        request.Id = id!;
+            request.Id = id!;
 
-        var result = await _mediator.Send(request);
+            var result = await _mediator.Send(request);
 
-        return Response(result);
+            return Response(result);
+        }
+        catch (Exception ex)
+        {
+            return ResponseError(ex);
+        }
     }
 }

@@ -25,12 +25,10 @@ public class RentalGetOneHandler : IRequestHandler<RentalGetOneCommand, ActionRe
 
         var rentalDto = RentalGetOneMappers.RentalEntityToDto(rental);
 
-        var apiReponse = new ActionResult()
-        {
-            Data = rentalDto,
-        };
+        var apiReponse = new ActionResult();
 
-        apiReponse.SetMessage(message);
+        apiReponse.SetData(rentalDto);
+        apiReponse.SetError(message);
 
         return apiReponse;
     }

@@ -14,7 +14,7 @@ public static class RentalCalculatePenalty
 
         if (rental == null)
         {
-            apiResponse.SetErrorMessage(nameof(returnedToBaseDate).AppendError(AdditionalMessageEnum.NotFound));
+            apiResponse.SetError(nameof(returnedToBaseDate).AppendError(AdditionalMessageEnum.NotFound));
 
             return apiResponse;
         }
@@ -25,7 +25,7 @@ public static class RentalCalculatePenalty
 
         if (diffDays == 0)
         {
-            apiResponse.Data = new { Menssage = (nameof(RentalServiceConst.MESSAGE_RETURNED_TO_BASE_SUCCESS)) };
+            apiResponse.SetData(new { Message = RentalServiceConst.MESSAGE_RETURNED_TO_BASE_SUCCESS });
 
             return apiResponse;
         }
@@ -34,7 +34,7 @@ public static class RentalCalculatePenalty
         {
             var valueToPay = RentalReturnerBeforeExpected.Calculate(rental, diffDays);
 
-            apiResponse.Data = new { Menssage = $"Value to pay: {RentalServiceConst.CURRENCY_BRL} {valueToPay}" };
+            apiResponse.SetData(new { Message = $"Value to pay: {RentalServiceConst.CURRENCY_BRL} {valueToPay}" });
 
             return apiResponse;
         }
@@ -42,7 +42,7 @@ public static class RentalCalculatePenalty
         {
             var valueToPay = RentalExpiredDateToReturn.Calculate(diffDays);
 
-            apiResponse.Data = new { Menssage = $"Value to pay: {RentalServiceConst.CURRENCY_BRL} {valueToPay}" };
+            apiResponse.SetData(new { Menssage = $"Value to pay: {RentalServiceConst.CURRENCY_BRL} {valueToPay}" });
 
             return apiResponse;
         }

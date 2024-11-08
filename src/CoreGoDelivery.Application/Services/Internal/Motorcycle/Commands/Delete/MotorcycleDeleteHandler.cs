@@ -21,7 +21,7 @@ public class MotorcycleDeleteHandler : IRequestHandler<MotorcycleDeleteCommand, 
     public async Task<ActionResult> Handle(MotorcycleDeleteCommand request, CancellationToken cancellationToken)
     {
         var apiReponse = new ActionResult();
-        apiReponse.SetMessage(await _validator.BuilderDeleteValidator(request.Id));
+        apiReponse.SetError(await _validator.BuilderDeleteValidator(request.Id));
 
         if (apiReponse.HasError())
         {

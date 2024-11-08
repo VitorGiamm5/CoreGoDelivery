@@ -15,14 +15,14 @@ public class BaseApiController : ControllerBase
     {
         if (response.HasError())
         {
+            response.SetData(null);
+
             if (response.HasDataType())
             {
-                return StatusCode((int)HttpStatusCode.NotFound, response);
+                return StatusCode((int)HttpStatusCode.NotFound, response.GetError());
             }
 
-            response.Data = null;
-
-            return StatusCode((int)HttpStatusCode.BadRequest, response);
+            return StatusCode((int)HttpStatusCode.BadRequest, response.GetError());
         }
         else if (!response.HasDataType())
         {
@@ -30,13 +30,22 @@ public class BaseApiController : ControllerBase
         }
         else if (response.HasDataType())
         {
-            return StatusCode((int)HttpStatusCode.OK, response.Data);
+            return StatusCode((int)HttpStatusCode.OK, response.GetData());
         }
 
-        response.Data = null;
-        response.SetErrorMessage(CommomMessagesConst.MESSAGE_INVALID_DATA);
+        response.SetData(null);
+        response.SetError(CommomMessagesConst.MESSAGE_INVALID_DATA);
 
         return StatusCode((int)HttpStatusCode.InternalServerError, response);
+    }
+
+    protected IActionResult ResponseError(object exception)
+    {
+        var apiResponse = new ActionResult();
+
+        apiResponse.SetError(CommomMessagesConst.MESSAGE_INVALID_DATA, exception);
+
+        return StatusCode((int)HttpStatusCode.InternalServerError, apiResponse);
     }
 
     public static string IdBuild(string? id)
@@ -46,6 +55,10 @@ public class BaseApiController : ControllerBase
         return result;
     }
 
+    public static string IdBuild()
+    {
+        return Ulid.NewUlid().ToString();
+    }
 
     protected IActionResult? IdParamValidator(string? id)
     {
@@ -55,11 +68,9 @@ public class BaseApiController : ControllerBase
         {
             var result = new ActionResult();
 
-            result.SetErrorMessage("id param".AppendError());
+            result.SetError("id param".AppendError());
 
             return Response(result);
-
-            //return StatusCode((int)HttpStatusCode.InternalServerError, result);
         }
 
         return null;

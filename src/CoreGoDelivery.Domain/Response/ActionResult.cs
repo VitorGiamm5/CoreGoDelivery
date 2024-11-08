@@ -4,9 +4,9 @@ namespace CoreGoDelivery.Domain.Response;
 
 public sealed class ActionResult
 {
-    public object? Data { get; set; } = null;
+    private object? Data { get; set; } = null;
 
-    public ErrorDetails? Error { get; set; } = null;
+    private ErrorDetails? Error { get; set; } = null;
 
     public class ErrorDetails
     {
@@ -24,23 +24,28 @@ public sealed class ActionResult
         return Data != null && !string.IsNullOrEmpty(Data.GetType().ToString());
     }
 
-    public void SetMessage(StringBuilder stringBuilder)
+    public void SetError(object? message, object? details = null)
     {
-        SetError(stringBuilder.ToString());
+        Data = null;
+        Error = new ErrorDetails
+        {
+            Message = message is StringBuilder sb ? sb.ToString() : message?.ToString(),
+            Details = details
+        };
     }
 
-    public void SetErrorMessage(string message)
+    public void SetData(object? data)
     {
-        SetError(message);
+        Data = data;
     }
 
-    public void SetError(string message)
+    public object? GetData()
     {
-        Error = new ErrorDetails { Message = message };
+        return new { Data };
     }
 
-    public void SetError(string message, object? details)
+    public object? GetError()
     {
-        Error = new ErrorDetails { Message = message, Details = details };
+        return new { Error };
     }
 }

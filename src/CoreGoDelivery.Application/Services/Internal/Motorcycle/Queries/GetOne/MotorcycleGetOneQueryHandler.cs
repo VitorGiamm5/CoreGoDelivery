@@ -21,12 +21,10 @@ public class MotorcycleGetOneQueryHandler : IRequestHandler<MotorcycleGetOneQuer
 
         var motorcycleDtos = result != null ? MotorcycleServiceMappers.MapEntityToDto(result) : null;
 
-        var apiReponse = new ActionResult()
-        {
-            Data = motorcycleDtos,
-        };
+        var apiReponse = new ActionResult();
 
-        apiReponse.SetErrorMessage(result == null ? CommomMessagesConst.MESSAGE_DATA_NOT_FOUND : null);
+        apiReponse.SetData(motorcycleDtos);
+        apiReponse.SetError(result == null ? CommomMessagesConst.MESSAGE_DATA_NOT_FOUND : "");
 
         return apiReponse;
     }
