@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CoreGoDelivery.Api.Controllers;
 
-[Route("Rentals")]
+[Route("api/Rentals")]
 [ApiController]
 public class RentalController(IMediator _mediator) : BaseApiController
 {

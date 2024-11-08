@@ -32,15 +32,16 @@ public class NotificationMotorcycleConsumer : BackgroundService
             .Handle<BrokerUnreachableException>()
             .WaitAndRetryAsync(
                 retryCount: 5,
-                sleepDurationProvider: attempt => TimeSpan.FromSeconds(Math.Pow(2, attempt)), // Backoff exponencial
+                sleepDurationProvider: attempt => TimeSpan.FromSeconds(Math.Pow(2, attempt)),
                 onRetry: (exception, timespan, attempt, context) =>
                 {
-                    Console.WriteLine($"Tentativa {attempt} de conexão com RabbitMQ falhou: {exception.Message}. Tentando novamente em {timespan}.");
+                    Console.WriteLine($"Retry {attempt} connection to RabbitMQ failed: {exception.Message}. lets try again {timespan}.");
                 });
 
         await retryPolicy.ExecuteAsync(() =>
         {
             var connection = _connectionFactory.CreateConnection();
+
             _channel = connection.CreateModel();
 
             _channel.QueueDeclare(queue: "motorcycle_queue",
@@ -64,9 +65,10 @@ public class NotificationMotorcycleConsumer : BackgroundService
             var entityNotification = new NotificationMotorcycleEntity
             {
                 Id = notification.Id,
-                IdMotorcycle = notification.IdMotorcycle,
+                IdMotorcycle = notification.MotorcycleId,
                 YearManufacture = notification.YearManufacture,
                 DateCreated = notification.CreatedAt,
+                CreatedBy = notification.CreatedBy
             };
 
             using (var scope = _serviceScopeFactory.CreateScope())
@@ -75,9 +77,9 @@ public class NotificationMotorcycleConsumer : BackgroundService
                 notificationRepository.Create(entityNotification);
             }
 
-            Console.WriteLine("Mensagem recebida:");
+            Console.WriteLine("Message recipted:");
             Console.WriteLine($"Id: {notification.Id}");
-            Console.WriteLine($"IdMotorcycle: {notification.IdMotorcycle}");
+            Console.WriteLine($"IdMotorcycle: {notification.MotorcycleId}");
             Console.WriteLine($"YearManufacture: {notification.YearManufacture}");
             Console.WriteLine($"CreatedAt: {notification.CreatedAt}");
         };
@@ -86,7 +88,7 @@ public class NotificationMotorcycleConsumer : BackgroundService
                               autoAck: true,
                               consumer: consumer);
 
-        Console.WriteLine("Consumidor aguardando mensagens da fila 'motorcycle_queue'...");
+        Console.WriteLine("Consummer pooling queue: 'motorcycle_queue'...");
 
         await Task.Delay(Timeout.Infinite, stoppingToken);
     }

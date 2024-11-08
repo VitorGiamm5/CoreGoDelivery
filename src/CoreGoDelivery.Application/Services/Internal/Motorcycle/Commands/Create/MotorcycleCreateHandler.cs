@@ -1,5 +1,6 @@
 ﻿using CoreGoDelivery.Application.Extensions;
 using CoreGoDelivery.Application.Services.Internal.Motorcycle.Commons;
+using CoreGoDelivery.Application.Services.Internal.NotificationMotorcycle.Commands;
 using CoreGoDelivery.Domain.Enums.ServiceErrorMessage;
 using CoreGoDelivery.Domain.Repositories.GoDelivery;
 using CoreGoDelivery.Domain.Response;
@@ -12,12 +13,12 @@ public class MotorcycleCreateHandler : IRequestHandler<MotorcycleCreateCommand, 
     public readonly IMotorcycleRepository _repositoryMotorcycle;
 
     private readonly MotorcycleCreateValidator _validator;
-    private readonly MotorcycleCreateNotification _notification;
+    private readonly NotificationMotorcyclePublisher _notification;
 
     public MotorcycleCreateHandler(
         IMotorcycleRepository repositoryMotorcycle,
         MotorcycleCreateValidator validator,
-        MotorcycleCreateNotification notification)
+        NotificationMotorcyclePublisher notification)
     {
         _repositoryMotorcycle = repositoryMotorcycle;
         _validator = validator;
@@ -44,7 +45,9 @@ public class MotorcycleCreateHandler : IRequestHandler<MotorcycleCreateCommand, 
             apiReponse.SetMessage(nameof(_repositoryMotorcycle.Create).AppendError(AdditionalMessageEnum.CreateFail));
         }
 
-        await _notification.SendNotification(motorcycle);
+        var notification = MotorcycleServiceMappers.MapNotificationDto(motorcycle);
+
+        _notification.PublishMotorcycle(notification);
 
         return apiReponse;
     }

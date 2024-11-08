@@ -10,8 +10,8 @@ public sealed class ActionResult
 
     public class ErrorDetails
     {
-        public string? Message { get; set; } = null;
-        public object? Details { get; set; } = null;
+        public string? Message { get; set; }
+        public object? Details { get; set; }
     }
 
     public bool HasError()
@@ -24,13 +24,23 @@ public sealed class ActionResult
         return Data != null && !string.IsNullOrEmpty(Data.GetType().ToString());
     }
 
-    public void SetMessage(StringBuilder? stringBuilder)
+    public void SetMessage(StringBuilder stringBuilder)
     {
-        Error!.Message = stringBuilder?.ToString();
+        SetError(stringBuilder.ToString());
     }
 
-    public void SetMessage(string? message)
+    public void SetMessage(string message)
     {
-        Error!.Message = message;
+        SetError(message);
+    }
+
+    public void SetError(string message)
+    {
+        Error = new ErrorDetails { Message = message };
+    }
+
+    public void SetError(string message, object? details)
+    {
+        Error = new ErrorDetails { Message = message, Details = details };
     }
 }

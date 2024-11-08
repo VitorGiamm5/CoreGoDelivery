@@ -26,7 +26,7 @@ public class MotorcycleCreateValidator
         BuildMessageYear(data, message);
 
         await BuildMessageIdMotorcycle(data, message);
-        await BuildMessagePlate(data.PlateId, message);
+        await BuildMessagePlate(data.Plate, message);
         await BuildMessageModelMotorcycle(data, message);
 
         return message;

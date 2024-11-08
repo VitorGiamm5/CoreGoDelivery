@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CoreGoDelivery.Api.Controllers;
 
-[Route("license-driver")]
+[Route("api/license-driver")]
 [ApiController]
 public class LicenseDriver(IMediator _mediator) : BaseApiController
 {

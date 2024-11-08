@@ -1,4 +1,5 @@
 ﻿using CoreGoDelivery.Domain;
+using CoreGoDelivery.Domain.MinIOFile;
 using CoreGoDelivery.Domain.Repositories.GoDelivery;
 using CoreGoDelivery.Infrastructure.Database;
 using CoreGoDelivery.Infrastructure.Repositories.GoDelivery;
@@ -6,6 +7,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.Extensions.Options;
+using Minio;
 using Polly;
 using Polly.Retry;
 
@@ -24,7 +27,7 @@ public static class SetupInfrastructure
                 sleepDurationProvider: attempt => TimeSpan.FromSeconds(Math.Pow(2, attempt)), // Backoff exponencial
                 onRetry: (exception, timespan, attempt, context) =>
                 {
-                    Console.WriteLine($"Tentativa {attempt} falhou com erro: {exception.Message}. Tentando novamente em {timespan}.");
+                    Console.WriteLine($"Retry {attempt} fail with error: {exception.Message}. Lets try again {timespan}.");
                 });
 
 
@@ -38,6 +41,24 @@ public static class SetupInfrastructure
         });
 
         AddRepositories(services);
+
+        services.Configure<MinIOSettings>(options => configuration.GetSection("Minio"));
+
+        services.AddSingleton(sp =>
+        {
+            var minioSettings = sp.GetRequiredService<IOptions<MinIOSettings>>().Value;
+
+            var minioClient = new MinioClient()
+                .WithEndpoint(minioSettings.Endpoint, minioSettings.Port)
+                .WithCredentials(minioSettings.AccessKey, minioSettings.SecretKey);
+
+            if (minioSettings.UseSSL)
+            {
+                minioClient = minioClient.WithSSL();
+            }
+
+            return minioClient;
+        });
 
         return services;
     }

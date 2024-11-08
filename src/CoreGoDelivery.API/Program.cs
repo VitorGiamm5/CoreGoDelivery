@@ -2,6 +2,7 @@ using CoreGoDelivery.Api.Conveters;
 using CoreGoDelivery.Api.Swagger;
 using CoreGoDelivery.Application;
 using CoreGoDelivery.Infrastructure.Database.Services;
+using Microsoft.AspNetCore.Components;
 using Microsoft.OpenApi.Models;
 using Serilog;
 using System.Text.Json.Serialization;
@@ -61,7 +62,7 @@ if (app.Environment.IsDevelopment())
     ExecutePendingMigration.Execute(builder.Services);
 }
 
-app.MapControllers();
+app.MapControllers().WithMetadata(new RouteAttribute("api/[controller]")); ;
 
 try
 {

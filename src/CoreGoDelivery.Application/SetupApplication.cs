@@ -1,6 +1,5 @@
-﻿using CoreGoDelivery.Application.RabbitMQ.NotificationMotorcycle.Consumer;
-using CoreGoDelivery.Application.RabbitMQ.NotificationMotorcycle.Publisher;
-using CoreGoDelivery.Application.RabbitMQ.Settings;
+﻿
+using CoreGoDelivery.Application.Services.External.NotificationMotorcycle.Queries;
 using CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.Create;
 using CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.Create.MessageValidators;
 using CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.UploadCnh.Common;
@@ -8,9 +7,11 @@ using CoreGoDelivery.Application.Services.Internal.LicenseDriver;
 using CoreGoDelivery.Application.Services.Internal.Motorcycle.Commands.ChangePlateById;
 using CoreGoDelivery.Application.Services.Internal.Motorcycle.Commands.Create;
 using CoreGoDelivery.Application.Services.Internal.Motorcycle.Commands.Delete;
+using CoreGoDelivery.Application.Services.Internal.NotificationMotorcycle.Commands;
 using CoreGoDelivery.Application.Services.Internal.Rental.Commands.Create;
 using CoreGoDelivery.Application.Services.Internal.Rental.Commands.Create.MessageValidators;
 using CoreGoDelivery.Application.Services.Internal.Rental.Commands.Update;
+using CoreGoDelivery.Domain.RabbitMQ;
 using CoreGoDelivery.Infrastructure;
 using CoreGoDelivery.Infrastructure.Database;
 using Microsoft.Extensions.Configuration;
@@ -59,9 +60,9 @@ public static class SetupApplication
             return factory.CreateConnection();
         });
 
-        services.TryAddTransient<RabbitMQPublisher>();
+        services.TryAddTransient<NotificationMotorcyclePublisher>();
 
-        services.AddHostedService<RabbitMQConsumer>();
+        services.AddHostedService<NotificationMotorcycleConsumer>();
 
         return services;
     }
@@ -81,7 +82,6 @@ public static class SetupApplication
     private static void AddMotorcycleServices(IServiceCollection services)
     {
         services.TryAddScoped<MotorcycleChangePlateValidator>();
-        services.TryAddScoped<MotorcycleCreateNotification>();
         services.TryAddScoped<MotorcycleCreateValidator>();
         services.TryAddScoped<MotorcycleDeleteValidator>();
     }

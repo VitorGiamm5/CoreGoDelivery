@@ -14,7 +14,7 @@ public static class RentalGetOneMappers
         var restult = new
         {
             identificador = rental.Id,
-            valor_diaria = rental.RentalPlan.DayliCost,
+            valor_diaria = rental.RentalPlan!.DayliCost,
             entregador_id = rental.DeliverierId,
             moto_id = rental.MotorcycleId,
             data_inicio = rental.StartDate,

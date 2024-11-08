@@ -1,12 +1,11 @@
 ﻿using CoreGoDelivery.Api.Controllers.Base;
 using CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.Create;
-using CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.UploadCnh;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CoreGoDelivery.Api.Controllers;
 
-[Route("deliveriers")]
+[Route("api/deliveriers")]
 [ApiController]
 public class DeliveriersController(IMediator _mediator) : BaseApiController
 {
