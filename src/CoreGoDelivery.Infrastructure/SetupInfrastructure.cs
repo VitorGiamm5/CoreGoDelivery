@@ -50,20 +50,15 @@ public static class SetupInfrastructure
             var minioSettings = sp.GetRequiredService<IOptions<MinIOSettings>>().Value;
 
             var minioClient = new MinioClient()
-                .WithEndpoint(minioSettings.Endpoint, minioSettings.Port)
-                .WithCredentials(minioSettings.AccessKey, minioSettings.SecretKey);
-
-            if (minioSettings.UseSSL)
-            {
-                minioClient = minioClient.WithSSL();
-            }
+                .WithEndpoint(minioSettings.Endpoint, minioSettings.Port).Build()
+                .WithCredentials(minioSettings.AccessKey, minioSettings.SecretKey).Build();
 
             return minioClient;
         });
 
+        services.AddSingleton<MinioClient>();
 
-
-        //services.TryAddTransient<IMinIOFileService, MinIOFileService>();
+        services.TryAddTransient<IMinIOFileService, MinIOFileService>();
 
         return services;
     }

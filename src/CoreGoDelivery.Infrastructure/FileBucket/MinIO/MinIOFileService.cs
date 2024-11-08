@@ -1,7 +1,5 @@
-﻿using CoreGoDelivery.Infrastructure.FileBucket.MinIO.Extensions;
-using Minio;
+﻿using Minio;
 using Minio.DataModel.Args;
-using Minio.Exceptions;
 
 namespace CoreGoDelivery.Infrastructure.FileBucket.MinIO;
 
@@ -14,35 +12,29 @@ public class MinIOFileService : IMinIOFileService
         _minioClient = minioClient;
     }
 
-    public async Task<string> SaveOrReplace(byte[] fileBytes, string fileNameWithExtension, string bucketName)
+    public async Task CreateBucketAsync(string bucketName)
     {
-        using var stream = new MemoryStream(fileBytes);
-
-        // Verifica se o bucket existe; se não, cria o bucket
         bool bucketExists = await _minioClient.BucketExistsAsync(new BucketExistsArgs().WithBucket(bucketName));
 
         if (!bucketExists)
         {
             await _minioClient.MakeBucketAsync(new MakeBucketArgs().WithBucket(bucketName));
         }
+    }
 
-        // Remove o arquivo existente se já estiver no bucket
-        try
-        {
-            await _minioClient.RemoveObjectAsync(new RemoveObjectArgs().WithBucket(bucketName).WithObject(fileNameWithExtension));
-        }
-        catch (MinioException ex) when (ex is ObjectNotFoundException)
-        {
-            // Arquivo não existe, então não é necessário remover
-        }
+    public async Task<string> SaveOrReplace(string bucketName, string fileName, Stream fileStream, string contentType)
+    {
+        // Garante que o bucket existe
+        await CreateBucketAsync(bucketName);
 
+        // Realiza o upload ou substitui o arquivo
         await _minioClient.PutObjectAsync(new PutObjectArgs()
             .WithBucket(bucketName)
-            .WithObject(fileNameWithExtension)
-            .WithStreamData(stream)
-            .WithObjectSize(stream.Length)
-            .WithContentType(GetContentType.Get(fileNameWithExtension)));
+            .WithObject(fileName)
+            .WithStreamData(fileStream)
+            .WithObjectSize(fileStream.Length)
+            .WithContentType(contentType));
 
-        return fileNameWithExtension;
+        return $"File '{fileName}' saved or replaced in bucket '{bucketName}'.";
     }
 }

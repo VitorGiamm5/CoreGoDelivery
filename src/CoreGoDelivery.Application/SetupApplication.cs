@@ -1,5 +1,4 @@
 ﻿
-using CoreGoDelivery.Application.Services.External.FileBucket;
 using CoreGoDelivery.Application.Services.External.NotificationMotorcycle.Queries;
 using CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.Create;
 using CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.Create.MessageValidators;
@@ -89,7 +88,6 @@ public static class SetupApplication
         services.TryAddScoped<DeliverierBuildMessageDeliverierCreate>();
         services.TryAddScoped<DeliverierCreateValidator>();
         services.TryAddScoped<LicenseDriverValidator>();
-        services.TryAddScoped<CreateOrUpdateFileBucket>();
     }
 
     private static void AddRentalServices(IServiceCollection services)

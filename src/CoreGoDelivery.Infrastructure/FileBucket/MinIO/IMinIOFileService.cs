@@ -2,5 +2,6 @@
 
 public interface IMinIOFileService
 {
-    Task<string> SaveOrReplace(byte[] fileBytes, string fileNameWithExtension, string bucketName);
+    Task CreateBucketAsync(string bucketName);
+    Task<string> SaveOrReplace(string bucketName, string fileName, Stream fileStream, string contentType);
 }

@@ -1,31 +1,29 @@
 ﻿using CoreGoDelivery.Application.Extensions;
-using CoreGoDelivery.Application.Services.External.FileBucket;
 using CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.Common;
 using CoreGoDelivery.Application.Services.Internal.LicenseDriver.Common;
 using CoreGoDelivery.Domain.Enums.ServiceErrorMessage;
 using CoreGoDelivery.Domain.Repositories.GoDelivery;
 using CoreGoDelivery.Domain.Response;
+using CoreGoDelivery.Infrastructure.FileBucket.MinIO;
+using CoreGoDelivery.Infrastructure.FileBucket.MinIO.Extensions;
 using MediatR;
 
 namespace CoreGoDelivery.Application.Services.Internal.LicenseDriver;
 
-public class DeliverierUploadCnhHandler : IRequestHandler<LicenseImageCommand, ActionResult>
+public class LicenseDriverHandler : IRequestHandler<LicenseImageCommand, ActionResult>
 {
     public readonly ILicenceDriverRepository _repositoryLicense;
+    private readonly IMinIOFileService _fileService;
 
     public readonly LicenseDriverValidator _validator;
-    public readonly CreateOrUpdateFileBucket _CreateOrUpdateImage;
 
-    public readonly string BUCKET_NAME = Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), @"..\..\uploads_cnh"));
+    public readonly string BUCKET_NAME = "licensecnh";
 
-    public DeliverierUploadCnhHandler(
-        LicenseDriverValidator validator,
-        CreateOrUpdateFileBucket builderUpdateImage,
-        ILicenceDriverRepository repositoryLicense)
+    public LicenseDriverHandler(ILicenceDriverRepository repositoryLicense, IMinIOFileService fileService, LicenseDriverValidator validator)
     {
-        _validator = validator;
-        _CreateOrUpdateImage = builderUpdateImage;
         _repositoryLicense = repositoryLicense;
+        _fileService = fileService;
+        _validator = validator;
     }
 
     public async Task<ActionResult> Handle(LicenseImageCommand command, CancellationToken cancellationToken)
@@ -57,8 +55,19 @@ public class DeliverierUploadCnhHandler : IRequestHandler<LicenseImageCommand, A
 
         var imagePath = NameCreatorFile.FileIntoBucket(BUCKET_NAME, license.ImageUrlReference);
 
-        //var isSuccessFile = await _CreateOrUpdateImage.Build();
-            // if(createdWithSuccess) await _repositoryLicense.UpdateFileName(command.IdLicenseNumber!, command.FileName);
+        using Stream stream = new MemoryStream(command.LicenseImageBase64);
+
+        var x = await _fileService.SaveOrReplace(BUCKET_NAME, license.ImageUrlReference, stream, GetContentType.Get(license.ImageUrlReference));
+
+
+        //TODO: HEre File
+
+
+
+        //if (isSuccessFile != null)
+        //{
+        //    await _repositoryLicense.UpdateFileName(command.IdLicenseNumber!, license.ImageUrlReference);
+        //}
 
         return apiReponse;
     }
