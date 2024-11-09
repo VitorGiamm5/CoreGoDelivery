@@ -1,7 +1,6 @@
 ﻿using CoreGoDelivery.Application.Extensions;
-using CoreGoDelivery.Application.Services.Internal.Base;
+using CoreGoDelivery.Application.Services.Internal.Motorcycle.Commands.Commons;
 using CoreGoDelivery.Application.Services.Internal.Motorcycle.Commands.Create;
-using CoreGoDelivery.Application.Services.Internal.Motorcycle.Commons;
 using CoreGoDelivery.Domain.Enums.ServiceErrorMessage;
 using CoreGoDelivery.Domain.Repositories.GoDelivery;
 using System.Text;
@@ -11,21 +10,18 @@ namespace CoreGoDelivery.Application.Services.Internal.Motorcycle.Commands.Chang
 public class MotorcycleChangePlateValidator
 {
     public readonly IMotorcycleRepository _repositoryMotorcycle;
-    public readonly IBaseInternalServices _baseInternalServices;
 
     private readonly MotorcycleCreateValidator _validatorCreate;
 
     public MotorcycleChangePlateValidator(
         IMotorcycleRepository repositoryMotorcycle,
-        IBaseInternalServices baseInternalServices,
         MotorcycleCreateValidator validatorCreate)
     {
         _repositoryMotorcycle = repositoryMotorcycle;
-        _baseInternalServices = baseInternalServices;
         _validatorCreate = validatorCreate;
     }
 
-    public async Task<string?> ChangePlateValidator(MotorcycleChangePlateCommand command)
+    public async Task<StringBuilder> ChangePlateValidator(MotorcycleChangePlateCommand command)
     {
         var message = new StringBuilder();
 
@@ -33,25 +29,16 @@ public class MotorcycleChangePlateValidator
 
         await MessageBuildChangePlate(command.Plate, message);
 
-        return _baseInternalServices.BuildMessageValidator(message);
+        return message;
     }
 
     public async Task BuildMessageChangePlateId(string? idMotorcycle, StringBuilder message)
     {
-        var isValidId = _baseInternalServices.RequestIdParamValidator(idMotorcycle);
+        var motorcycle = await _repositoryMotorcycle.GetOneByIdAsync(idMotorcycle!);
 
-        if (!isValidId)
+        if (motorcycle == null)
         {
-            message.AppendError(message, nameof(idMotorcycle));
-        }
-        else
-        {
-            var motorcycle = await _repositoryMotorcycle.GetOneByIdAsync(idMotorcycle!);
-
-            if (motorcycle == null)
-            {
-                message.AppendError(message, nameof(idMotorcycle), AdditionalMessageEnum.NotFound);
-            }
+            message.Append(nameof(idMotorcycle).AppendError(AdditionalMessageEnum.NotFound));
         }
     }
 
@@ -59,7 +46,7 @@ public class MotorcycleChangePlateValidator
     {
         if (string.IsNullOrEmpty(plate))
         {
-            message.AppendError(message, nameof(plate));
+            message.Append(nameof(plate));
         }
         else
         {
@@ -67,7 +54,7 @@ public class MotorcycleChangePlateValidator
 
             if (!isValidPlate)
             {
-                message.AppendError(message, nameof(plate), AdditionalMessageEnum.InvalidFormat);
+                message.Append(nameof(plate).AppendError(AdditionalMessageEnum.InvalidFormat));
             }
             else
             {
@@ -75,7 +62,7 @@ public class MotorcycleChangePlateValidator
 
                 if (!plateIsUnic)
                 {
-                    message.AppendError(message, nameof(plate), AdditionalMessageEnum.MustBeUnic);
+                    message.Append(nameof(plate).AppendError(AdditionalMessageEnum.MustBeUnic));
                 }
             }
         }

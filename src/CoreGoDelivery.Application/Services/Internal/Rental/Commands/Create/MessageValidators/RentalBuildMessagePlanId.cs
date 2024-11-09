@@ -10,21 +10,17 @@ public class RentalBuildMessagePlanId
 {
     public readonly IRentalPlanRepository _repositoryPlan;
 
-    public readonly RentalPlanMotorcycleValidator _planValidator;
-
     public RentalBuildMessagePlanId(
-        IRentalPlanRepository repositoryPlan,
-        RentalPlanMotorcycleValidator planValidator)
+        IRentalPlanRepository repositoryPlan)
     {
         _repositoryPlan = repositoryPlan;
-        _planValidator = planValidator;
     }
 
     public async Task Build(RentalCreateCommand data, StringBuilder message, string paramName)
     {
         if (string.IsNullOrWhiteSpace(data.PlanId.ToString()))
         {
-            message.AppendError(message, paramName);
+            message.Append(paramName);
         }
         else
         {
@@ -32,13 +28,13 @@ public class RentalBuildMessagePlanId
 
             if (plan == null)
             {
-                message.AppendError(message, paramName, AdditionalMessageEnum.NotFound);
+                message.Append(paramName.AppendError(AdditionalMessageEnum.NotFound));
             }
             else
             {
-                var resultValidateDates = _planValidator.Validade(data, plan);
+                var resultValidateDates = RentalPlanMotorcycleValidator.Validade(data, plan);
 
-                if (!string.IsNullOrWhiteSpace(resultValidateDates))
+                if (resultValidateDates != null)
                 {
                     message.Append(resultValidateDates);
                 }

@@ -1,6 +1,5 @@
 ﻿using CoreGoDelivery.Application.Extensions;
-using CoreGoDelivery.Application.Services.Internal.Base;
-using CoreGoDelivery.Application.Services.Internal.Motorcycle.Commons;
+using CoreGoDelivery.Application.Services.Internal.Motorcycle.Commands.Commons;
 using CoreGoDelivery.Domain.Enums.ServiceErrorMessage;
 using CoreGoDelivery.Domain.Repositories.GoDelivery;
 using System.Text;
@@ -11,42 +10,38 @@ public class MotorcycleCreateValidator
 {
     public readonly IMotorcycleRepository _repositoryMotorcycle;
     public readonly IModelMotorcycleRepository _repositoryModelMotorcycle;
-    public readonly IBaseInternalServices _baseInternalServices;
 
     public MotorcycleCreateValidator(
         IMotorcycleRepository repositoryMotorcycle,
-        IModelMotorcycleRepository repositoryModelMotorcycle,
-        IBaseInternalServices baseInternalServices)
+        IModelMotorcycleRepository repositoryModelMotorcycle)
     {
         _repositoryMotorcycle = repositoryMotorcycle;
         _repositoryModelMotorcycle = repositoryModelMotorcycle;
-        _baseInternalServices = baseInternalServices;
     }
 
-    public async Task<string?> BuilderCreateValidator(MotorcycleCreateCommand data)
+    public async Task<StringBuilder> Validate(MotorcycleCreateCommand data)
     {
         var message = new StringBuilder();
 
         BuildMessageYear(data, message);
 
-        await BuildMessageIdMotorcycle(data, message);
-        await BuildMessagePlate(data.PlateId, message);
+        await BuildMessagePlate(data.Plate, message);
         await BuildMessageModelMotorcycle(data, message);
 
-        return _baseInternalServices.BuildMessageValidator(message);
+        return message;
     }
 
-    public void BuildMessageYear(MotorcycleCreateCommand data, StringBuilder message)
+    public static void BuildMessageYear(MotorcycleCreateCommand data, StringBuilder message)
     {
         if (string.IsNullOrWhiteSpace(data.YearManufacture.ToString()))
         {
-            message.AppendError(message, nameof(data.YearManufacture));
+            message.Append(nameof(data.YearManufacture));
         }
         else
         {
             if (data.YearManufacture <= 1903)
             {
-                message.AppendError(message, nameof(data.YearManufacture), AdditionalMessageEnum.Unavailable);
+                message.Append(nameof(data.YearManufacture).AppendError(AdditionalMessageEnum.Unavailable));
             }
         }
     }
@@ -55,26 +50,24 @@ public class MotorcycleCreateValidator
     {
         if (string.IsNullOrWhiteSpace(plate))
         {
-            message.AppendError(message, nameof(plate));
+            message.Append(nameof(plate));
         }
         else
         {
-            var normalizedPlate = _baseInternalServices.RemoveCharacteres(plate);
-
-            var isValidPlate = MotorcyclePlateValidator.Validator(normalizedPlate);
+            var isValidPlate = MotorcyclePlateValidator.Validator(plate);
 
             if (isValidPlate)
             {
-                var isUnicId = await _repositoryMotorcycle.CheckIsUnicByPlateAsync(normalizedPlate);
+                var isUnicId = await _repositoryMotorcycle.CheckIsUnicByPlateAsync(plate);
 
                 if (!isUnicId)
                 {
-                    message.AppendError(message, nameof(plate), AdditionalMessageEnum.AlreadyExist);
+                    message.Append(nameof(plate).AppendError(AdditionalMessageEnum.AlreadyExist));
                 }
             }
             else
             {
-                message.AppendError(message, nameof(plate), AdditionalMessageEnum.InvalidFormat);
+                message.Append(nameof(plate).AppendError(AdditionalMessageEnum.InvalidFormat));
             }
         }
     }
@@ -89,28 +82,26 @@ public class MotorcycleCreateValidator
 
             if (!isUnicId)
             {
-                message.AppendError(message, nameof(idMotorcycle), AdditionalMessageEnum.AlreadyExist);
+                message.Append(nameof(idMotorcycle).AppendError(AdditionalMessageEnum.AlreadyExist));
             }
         }
     }
 
     public async Task BuildMessageModelMotorcycle(MotorcycleCreateCommand data, StringBuilder message)
     {
-        var idMotorcycle = data.Id;
-
         if (string.IsNullOrWhiteSpace(data.ModelName))
         {
-            message.AppendError(message, nameof(data.ModelName));
+            message.Append(nameof(data.ModelName));
         }
         else
         {
-            var modelNormalized = _baseInternalServices.RemoveCharacteres(data.ModelName);
+            var modelNormalized = data.ModelName.RemoveCharactersToUpper();
 
             var modelId = await _repositoryModelMotorcycle.GetIdByModelName(modelNormalized);
 
             if (string.IsNullOrEmpty(modelId))
             {
-                message.AppendError(message, nameof(idMotorcycle), AdditionalMessageEnum.NotFound);
+                message.Append("idMotorcycle".AppendError(AdditionalMessageEnum.NotFound));
             }
 
             data.ModelName = modelId;

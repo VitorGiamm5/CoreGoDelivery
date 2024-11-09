@@ -5,21 +5,17 @@ using System.Text.Json.Serialization;
 
 namespace CoreGoDelivery.Application.Services.Internal.Motorcycle.Commands.Create;
 
-public sealed class MotorcycleCreateCommand : IRequest<ApiResponse>
+public sealed class MotorcycleCreateCommand : IRequest<ActionResult>
 {
-    [DefaultValue("moto123")]
-    [JsonPropertyName("identificador")]
-    public string Id { get; set; }
+    [JsonIgnore]
+    public string Id { get; set; } = Ulid.NewUlid().ToString();
 
     [DefaultValue(2020)]
-    [JsonPropertyName("ano")]
     public int YearManufacture { get; set; }
 
     [DefaultValue("Mottu Sport")]
-    [JsonPropertyName("modelo")]
     public string ModelName { get; set; }
 
     [DefaultValue("CDX-0101")]
-    [JsonPropertyName("placa")]
-    public string PlateId { get; set; }
+    public string Plate { get; set; }
 }

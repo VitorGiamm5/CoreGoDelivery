@@ -4,7 +4,7 @@ using MediatR;
 
 namespace CoreGoDelivery.Application.Services.Internal.Motorcycle.Commands.Delete;
 
-public class MotorcycleDeleteHandler : IRequestHandler<MotorcycleDeleteCommand, ApiResponse>
+public class MotorcycleDeleteHandler : IRequestHandler<MotorcycleDeleteCommand, ActionResult>
 {
     public readonly IMotorcycleRepository _repositoryMotorcycle;
 
@@ -18,14 +18,12 @@ public class MotorcycleDeleteHandler : IRequestHandler<MotorcycleDeleteCommand, 
         _validator = validator;
     }
 
-    public async Task<ApiResponse> Handle(MotorcycleDeleteCommand request, CancellationToken cancellationToken)
+    public async Task<ActionResult> Handle(MotorcycleDeleteCommand request, CancellationToken cancellationToken)
     {
-        var apiReponse = new ApiResponse()
-        {
-            Message = await _validator.BuilderDeleteValidator(request.Id)
-        };
+        var apiReponse = new ActionResult();
+        apiReponse.SetError(await _validator.BuilderDeleteValidator(request.Id));
 
-        if (!string.IsNullOrEmpty(apiReponse.Message))
+        if (apiReponse.HasError())
         {
             return apiReponse;
         }

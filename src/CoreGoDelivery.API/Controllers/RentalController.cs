@@ -7,34 +7,62 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CoreGoDelivery.Api.Controllers;
 
-[Route("locacao")]
+[Route("api/rentals")]
 [ApiController]
 public class RentalController(IMediator _mediator) : BaseApiController
 {
     [HttpGet("{id}")]
     public async Task<IActionResult> GetOne(string? id)
     {
-        var request = new RentalGetOneCommand();
-        request.Id = id;
-        var result = await _mediator.Send(request);
+        try
+        {
+            IdParamValidator(id);
 
-        return Response(result);
+            var request = new RentalGetOneCommand(id!);
+
+            var result = await _mediator.Send(request);
+
+            return Response(result);
+        }
+        catch (Exception ex)
+        {
+            return ResponseError(ex);
+        }
     }
 
     [HttpPost]
     public async Task<IActionResult> Create([FromBody] RentalCreateCommand request)
     {
-        var result = await _mediator.Send(request);
+        try
+        {
+            request.Id = IdBuild(request.Id);
 
-        return Response(result);
+            var result = await _mediator.Send(request);
+
+            return Response(result);
+        }
+        catch (Exception ex)
+        {
+            return ResponseError(ex);
+        }
     }
 
-    [HttpPut("{id}/devolucao")]
-    public async Task<IActionResult> UpdateReturnedToBaseDate(string id, [FromBody] RentalReturnedToBaseDateCommand request)
+    [HttpPut("{id}/return-to-base")]
+    public async Task<IActionResult> UpdateReturnedToBaseDate(string? id, [FromBody] RentalReturnedToBaseDateCommand request)
     {
-        request.Id = id;
-        var result = await _mediator.Send(request);
+        try
+        {
+            IdParamValidator(id);
 
-        return Response(result);
+            request.Id = id!;
+
+            var result = await _mediator.Send(request);
+
+            return Response(result);
+        }
+        catch (Exception ex)
+        {
+            return ResponseError(ex);
+        }
     }
 }

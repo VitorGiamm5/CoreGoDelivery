@@ -1,30 +1,22 @@
 ﻿using CoreGoDelivery.Application.Extensions;
-using CoreGoDelivery.Application.Services.Internal.Base;
 using CoreGoDelivery.Domain.Consts;
 using CoreGoDelivery.Domain.Entities.GoDelivery.Rental;
 using CoreGoDelivery.Domain.Enums.ServiceErrorMessage;
-using System.Text;
+using CoreGoDelivery.Domain.Response;
 
 namespace CoreGoDelivery.Application.Services.Internal.Rental.Commands.Update.Common;
 
-public class RentalCalculatePenalty
+public static class RentalCalculatePenalty
 {
-    public readonly IBaseInternalServices _baseInternalServices;
-
-    public RentalCalculatePenalty(IBaseInternalServices baseInternalServices)
+    public static ActionResult Calculate(DateTime returnedToBaseDate, RentalEntity? rental)
     {
-        _baseInternalServices = baseInternalServices;
-    }
+        var apiResponse = new ActionResult();
 
-    public string? Calculate(DateTime returnedToBaseDate, RentalEntity? rental)
-    {
         if (rental == null)
         {
-            var messageError = new StringBuilder();
+            apiResponse.SetError(nameof(returnedToBaseDate).AppendError(AdditionalMessageEnum.NotFound));
 
-            messageError.AppendError(messageError, nameof(rental), AdditionalMessageEnum.NotFound);
-
-            return _baseInternalServices.BuildMessageValidator(messageError);
+            return apiResponse;
         }
 
         TimeSpan buildDiffDays = returnedToBaseDate - rental!.EstimatedReturnDate;
@@ -33,24 +25,30 @@ public class RentalCalculatePenalty
 
         if (diffDays == 0)
         {
-            return RentalServiceConst.MESSAGE_RETURNED_TO_BASE_SUCCESS;
+            apiResponse.SetData(new { Message = RentalServiceConst.MESSAGE_RETURNED_TO_BASE_SUCCESS, Value = 0.0 });
+
+            return apiResponse;
         }
-
-        var message = new StringBuilder();
-
-        message.Append($"Value to pay: {RentalServiceConst.CURRENCY_BRL} ");
 
         if (diffDays < 0)
         {
-            message = RentalReturnerBeforeExpected.Calculate(rental, diffDays, message);
+            var valueToPay = RentalReturnerBeforeExpected.Calculate(rental, diffDays);
+
+            apiResponse.SetData(new { Message = RentalServiceConst.MESSAGE_RETURNED_BEFORE, Value = valueToPay });
+
+            return apiResponse;
         }
-        else
+        else if (diffDays > 0)
         {
-            message = RentalExpiredDateToReturn.Calculate(diffDays, message);
+            var valueToPay = RentalExpiredDateToReturn.Calculate(diffDays);
+
+            apiResponse.SetData(new { Menssage = RentalServiceConst.MESSAGE_RETURNED_AFTER, Value = valueToPay });
+
+            return apiResponse;
         }
 
-        var result = _baseInternalServices.BuildMessageValidator(message);
+        apiResponse.SetError(returnedToBaseDate.ToString().AppendError(AdditionalMessageEnum.InvalidFormat));
 
-        return result;
+        return apiResponse;
     }
 }

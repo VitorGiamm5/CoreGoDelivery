@@ -1,50 +1,42 @@
-﻿using CoreGoDelivery.Application.Services.Internal.Base;
-using CoreGoDelivery.Application.Services.Internal.Motorcycle.Commons;
-using CoreGoDelivery.Domain.Consts;
+﻿using CoreGoDelivery.Application.Extensions;
+using CoreGoDelivery.Application.Services.Internal.Motorcycle.Commands.Commons;
+using CoreGoDelivery.Domain.Entities.GoDelivery.Motorcycle;
 using CoreGoDelivery.Domain.Repositories.GoDelivery;
 using CoreGoDelivery.Domain.Response;
 using MediatR;
 
 namespace CoreGoDelivery.Application.Services.Internal.Motorcycle.Queries.List;
 
-public class MotorcycleListQueryHandler : IRequestHandler<MotorcycleListQueryCommand, ApiResponse>
+public class MotorcycleListQueryHandler : IRequestHandler<MotorcycleListQueryCommand, ActionResult>
 {
-    public readonly IBaseInternalServices _baseInternalServices;
     public readonly IMotorcycleRepository _repositoryMotorcycle;
 
-    private readonly MotorcycleServiceMappers _mapper;
-
     public MotorcycleListQueryHandler(
-        IBaseInternalServices baseInternalServices,
-        IMotorcycleRepository repositoryMotorcycle,
-        MotorcycleServiceMappers mapper)
+        IMotorcycleRepository repositoryMotorcycle)
     {
-        _baseInternalServices = baseInternalServices;
         _repositoryMotorcycle = repositoryMotorcycle;
-        _mapper = mapper;
     }
 
-    public async Task<ApiResponse> Handle(MotorcycleListQueryCommand request, CancellationToken cancellationToken)
+    public async Task<ActionResult> Handle(MotorcycleListQueryCommand request, CancellationToken cancellationToken)
     {
-        var apiReponse = new ApiResponse()
+        var apiReponse = new ActionResult();
+
+        request.Plate.RemoveCharactersToUpper();
+
+        var result = await _repositoryMotorcycle.List(request.Plate);
+
+        if (result == null || result.Count == 0)
         {
-            Data = null,
-            Message = CommomMessagesConst.MESSAGE_INVALID_DATA
-        };
+            var emtyListMotorcycle = new List<MotorcycleEntity>();
 
-        request.Plate = _baseInternalServices.RemoveCharacteres(request.Plate);
+            apiReponse.SetData(emtyListMotorcycle);
 
-        var result = await _repositoryMotorcycle.List(request?.Plate);
-
-        if ((result == null || result?.Count == 0) && !string.IsNullOrEmpty(request?.Plate))
-        {
             return apiReponse;
         }
 
-        var motorcycleDtos = _mapper.MapEntityListToDto(result);
+        var motorcycleDtos = MotorcycleServiceMappers.MapEntityListToDto(result);
 
-        apiReponse.Data = motorcycleDtos;
-        apiReponse.Message = null;
+        apiReponse.SetData(motorcycleDtos);
 
         return apiReponse;
     }

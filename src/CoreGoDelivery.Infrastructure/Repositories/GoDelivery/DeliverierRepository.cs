@@ -16,7 +16,7 @@ public class DeliverierRepository : BaseRepository<DeliverierEntity>, IDeliverie
         var result = await _context.Set<DeliverierEntity>()
             .FirstOrDefaultAsync(x => x.Id == id);
 
-        return HasValue(result);
+        return !HasValue(result);
     }
 
     public async Task<DeliverierEntity?> GetOneById(string id)
@@ -32,7 +32,7 @@ public class DeliverierRepository : BaseRepository<DeliverierEntity>, IDeliverie
         var result = await _context.Set<DeliverierEntity>()
             .FirstOrDefaultAsync(x => x.Cnpj == id);
 
-        return HasValue(result);
+        return !HasValue(result);
     }
 
     public async Task<bool> Create(DeliverierEntity data)
@@ -46,10 +46,10 @@ public class DeliverierRepository : BaseRepository<DeliverierEntity>, IDeliverie
         return IsSuccessCreate(result);
     }
 
-    public async Task<DeliverierEntity?> GetOneByIdLicense(string idLicense)
+    public async Task<DeliverierEntity?> GetOneByIdLicense(string id)
     {
         var result = await _context.Set<DeliverierEntity>()
-            .FirstOrDefaultAsync(x => x.LicenceDriverId == idLicense);
+            .FirstOrDefaultAsync(x => x.LicenceDriverId == id);
 
         return result;
     }

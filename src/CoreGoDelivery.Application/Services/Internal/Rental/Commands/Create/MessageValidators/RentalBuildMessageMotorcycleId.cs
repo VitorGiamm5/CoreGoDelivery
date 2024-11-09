@@ -20,7 +20,7 @@ public class RentalBuildMessageMotorcycleId
     {
         if (string.IsNullOrWhiteSpace(data.MotorcycleId))
         {
-            message.AppendError(message, paramName);
+            message.Append(paramName);
         }
         else
         {
@@ -28,14 +28,14 @@ public class RentalBuildMessageMotorcycleId
 
             if (existMotorcycleId == null)
             {
-                message.AppendError(message, nameof(data.MotorcycleId), AdditionalMessageEnum.NotFound);
+                message.Append(nameof(data.MotorcycleId).AppendError(AdditionalMessageEnum.NotFound));
             }
 
             var motorcycleIsInUse = await _repositoryRental.CheckMotorcycleIsAvaliable(data.MotorcycleId);
 
             if (motorcycleIsInUse)
             {
-                message.AppendError(message, nameof(data.MotorcycleId), AdditionalMessageEnum.Unavailable);
+                message.Append(nameof(data.MotorcycleId).AppendError(AdditionalMessageEnum.Unavailable));
             }
         }
     }

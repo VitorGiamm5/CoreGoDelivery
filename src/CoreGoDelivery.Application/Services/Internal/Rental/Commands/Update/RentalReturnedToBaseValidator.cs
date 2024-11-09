@@ -1,5 +1,4 @@
 ﻿using CoreGoDelivery.Application.Extensions;
-using CoreGoDelivery.Application.Services.Internal.Base;
 using CoreGoDelivery.Domain.Enums.ServiceErrorMessage;
 using CoreGoDelivery.Domain.Repositories.GoDelivery;
 using System.Text;
@@ -8,68 +7,57 @@ namespace CoreGoDelivery.Application.Services.Internal.Rental.Commands.Update;
 
 public class RentalReturnedToBaseValidator
 {
-    public readonly IBaseInternalServices _baseInternalServices;
     public readonly IRentalRepository _repositoryRental;
 
-    public RentalReturnedToBaseValidator(IBaseInternalServices baseInternalServices, IRentalRepository repositoryRental)
+    public RentalReturnedToBaseValidator(IRentalRepository repositoryRental)
     {
-        _baseInternalServices = baseInternalServices;
         _repositoryRental = repositoryRental;
     }
 
-    public async Task<string?> BuilderUpdateValidator(RentalReturnedToBaseDateCommand? data)
+    public async Task<StringBuilder> BuilderUpdateValidator(RentalReturnedToBaseDateCommand? data)
     {
         var message = new StringBuilder();
 
-        var idRental = data!.Id;
+        string idRental = data!.Id!;
 
         #region Id validator
-
-        var isValidIdParam = _baseInternalServices.RequestIdParamValidator(idRental);
-
-        if (!isValidIdParam)
-        {
-            message.AppendError(message, nameof(idRental));
-
-            return message.ToString();
-        }
 
         var rentalEntity = await _repositoryRental.GetByIdAsync(idRental);
 
         if (rentalEntity == null)
         {
-            message.AppendError(message, nameof(idRental), AdditionalMessageEnum.NotFound);
-        }
-        else
-        {
-            var isReturned = await _repositoryRental.CheckisReturnedById(data.Id);
+            message.Append(nameof(idRental).AppendError(AdditionalMessageEnum.NotFound));
 
-            if (isReturned)
-            {
-                message.Append($"Invalid field: {nameof(rentalEntity.ReturnedToBaseDate)} was returned previously at: {rentalEntity.ReturnedToBaseDate}; ");
-            }
+            return message;
+        }
+        #endregion
+
+        #region Check if is Returned validator
+
+        var isReturned = await _repositoryRental.CheckisReturnedById(idRental);
+
+        if (isReturned)
+        {
+            message.Append($"Invalid field: {nameof(rentalEntity.ReturnedToBaseDate)} was returned previously at: {rentalEntity.ReturnedToBaseDate}; ");
+
+            return message;
         }
 
         #endregion
 
         #region Returned To Base Date validator
 
-        if (data?.ReturnedToBaseDate == null)
-        {
-            message.AppendError(message, nameof(data.ReturnedToBaseDate));
-        }
-        else
-        {
-            var isAfterDateStart = data?.ReturnedToBaseDate >= rentalEntity?.StartDate;
+        var isBeforeDateStart = data.ReturnedToBaseDate > rentalEntity.StartDate;
 
-            if (!isAfterDateStart)
-            {
-                message.Append($"Invalid field: {nameof(data.ReturnedToBaseDate)} : {data?.ReturnedToBaseDate} must be after 'StartDate' : {rentalEntity?.StartDate}; ");
-            }
+        if (!isBeforeDateStart)
+        {
+            message.Append($"Invalid field: {nameof(data.ReturnedToBaseDate)} : {data.ReturnedToBaseDate} must be after 'StartDate' : {rentalEntity.StartDate}; ");
+        
+            return message;
         }
 
         #endregion
 
-        return _baseInternalServices.BuildMessageValidator(message);
+        return message;
     }
 }

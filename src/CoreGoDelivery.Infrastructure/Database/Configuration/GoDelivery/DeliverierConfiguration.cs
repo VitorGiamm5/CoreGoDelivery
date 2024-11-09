@@ -6,15 +6,18 @@ namespace CoreGoDelivery.Infrastructure.Database.Configuration.GoDelivery;
 
 public class DeliverierConfiguration : IEntityTypeConfiguration<DeliverierEntity>
 {
-    public void Configure(EntityTypeBuilder<DeliverierEntity> builder)
+    public void Configure(EntityTypeBuilder<DeliverierEntity> entity)
     {
-        builder.ToTable("tb_deliverier");
-        builder.HasKey(t => t.Id);
+        entity.ToTable("tb_deliverier");
+        entity.HasKey(e => e.Id);
 
-        builder.Property(t => t.Id).HasColumnName("ID_DELIVERIER");
-        builder.Property(t => t.FullName).HasColumnName("FULL_NAME");
-        builder.Property(t => t.Cnpj).HasColumnName("CNPJ");
-        builder.Property(t => t.BirthDate).HasColumnName("DATE_BIRTH");
-        builder.Property(t => t.LicenceDriverId).HasColumnName("ID_FK_LICENSE_DRIVER");
+        entity.Property(e => e.Id).HasColumnName("ID_DELIVERIER");
+        entity.Property(e => e.FullName).HasColumnName("FULL_NAME");
+        entity.Property(e => e.Cnpj).HasColumnName("CNPJ");
+        entity.Property(e => e.BirthDate).HasColumnName("DATE_BIRTH").HasColumnType("timestamptz");
+        entity.Property(e => e.LicenceDriverId).HasColumnName("ID_FK_LICENSE_DRIVER");
+
+        entity.Property(e => e.DateCreated).HasColumnName("DATE_CREATED").HasColumnType("timestamptz");
+        entity.Property(e => e.CreatedBy).HasColumnName("CREATED_BY");
     }
 }

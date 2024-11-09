@@ -1,30 +1,25 @@
-﻿using CoreGoDelivery.Application.Services.Internal.Base;
-using CoreGoDelivery.Application.Services.Internal.Rental.Commands.Create.MessageValidators;
+﻿using CoreGoDelivery.Application.Services.Internal.Rental.Commands.Create.MessageValidators;
 using System.Text;
 
 namespace CoreGoDelivery.Application.Services.Internal.Rental.Commands.Create;
 
 public class RentalCreateValidate
 {
-    public readonly IBaseInternalServices _baseInternalServices;
-
     public readonly RentalBuildMessagePlanId _buildMessagePlanId;
     public readonly RentalBuildMessageMotorcycleId _buildMessageMotorcycleId;
     public readonly RentalBuildMessageDeliverierId _buildMessageDeliverierId;
 
     public RentalCreateValidate(
-        IBaseInternalServices baseInternalServices,
         RentalBuildMessagePlanId buildMessagePlanId,
         RentalBuildMessageMotorcycleId buildMessageMotorcycleId,
         RentalBuildMessageDeliverierId buildMessageDeliverierId)
     {
-        _baseInternalServices = baseInternalServices;
         _buildMessagePlanId = buildMessagePlanId;
         _buildMessageMotorcycleId = buildMessageMotorcycleId;
         _buildMessageDeliverierId = buildMessageDeliverierId;
     }
 
-    public async Task<string?> BuilderCreateValidator(RentalCreateCommand data)
+    public async Task<StringBuilder> BuilderCreateValidator(RentalCreateCommand data)
     {
         var message = new StringBuilder();
 
@@ -36,6 +31,6 @@ public class RentalCreateValidate
 
         await _buildMessageDeliverierId.Build(data, message);
 
-        return _baseInternalServices.BuildMessageValidator(message);
+        return message;
     }
 }

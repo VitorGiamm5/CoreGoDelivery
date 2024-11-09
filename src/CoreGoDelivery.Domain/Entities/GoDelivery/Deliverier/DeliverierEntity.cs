@@ -1,8 +1,10 @@
-﻿using CoreGoDelivery.Domain.Entities.GoDelivery.LicenceDriver;
+﻿using CoreGoDelivery.Domain.Entities.GoDelivery.Base;
+using CoreGoDelivery.Domain.Entities.GoDelivery.LicenceDriver;
+using System.Text.Json.Serialization;
 
 namespace CoreGoDelivery.Domain.Entities.GoDelivery.Deliverier;
 
-public sealed class DeliverierEntity
+public sealed class DeliverierEntity : BaseEntity
 {
     public string Id { get; set; }
     public string FullName { get; set; }
@@ -11,7 +13,10 @@ public sealed class DeliverierEntity
 
     #region relationships
 
+    [JsonIgnore]
     public string LicenceDriverId { get; set; }
+
+    [JsonIgnore]
     public LicenceDriverEntity LicenceDriver { get; set; }
 
     #endregion

@@ -1,6 +1,8 @@
-﻿namespace CoreGoDelivery.Domain.Entities.GoDelivery.ModelMotorcycle;
+﻿using CoreGoDelivery.Domain.Entities.GoDelivery.Base;
 
-public sealed class ModelMotorcycleEntity
+namespace CoreGoDelivery.Domain.Entities.GoDelivery.ModelMotorcycle;
+
+public sealed class ModelMotorcycleEntity : BaseEntity
 {
     public string Id { get; set; }
     public string Name { get; set; }

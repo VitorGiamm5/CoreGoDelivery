@@ -11,24 +11,18 @@ public class LicenceDriverRepository : BaseRepository<LicenceDriverEntity>, ILic
     {
     }
 
-    public async Task<bool> CheckIsUnicByLicence(string licence)
+    public async Task<bool> CheckIsUnicByLicence(string id)
     {
-        var result = await _context
-            .Set<LicenceDriverEntity>()
-            .FirstOrDefaultAsync(x => x.Id == licence);
-
-        return IsUnic(result);
+        return IsUnic(await GetOneById(id));
     }
 
-    public async Task<bool> Create(LicenceDriverEntity data)
+    public async Task<LicenceDriverEntity?> GetOneById(string id)
     {
         var result = await _context
             .Set<LicenceDriverEntity>()
-            .AddAsync(data);
+            .FirstOrDefaultAsync(x => x.Id == id);
 
-        await _context.SaveChangesAsync();
-
-        return IsSuccessCreate(result);
+        return result;
     }
 
     public async Task<bool> UpdateFileName(string id, string fileName)
@@ -43,6 +37,9 @@ public class LicenceDriverRepository : BaseRepository<LicenceDriverEntity>, ILic
         }
 
         entity.ImageUrlReference = fileName;
+        entity.DateUpdated = DateTime.UtcNow;
+
+        await _context.SaveChangesAsync();
 
         return true;
     }

@@ -4,15 +4,15 @@ using System.Text;
 
 namespace CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.Create.MessageValidators;
 
-public class DeliverierBuildMessageBirthDate
+public static class DeliverierBuildMessageBirthDate
 {
-    public void Build(DeliverierCreateCommand data, StringBuilder message)
+    public static void Build(DeliverierCreateCommand data, StringBuilder message)
     {
         var paramName = nameof(data.BirthDate);
 
         if (string.IsNullOrWhiteSpace(data.BirthDate.ToString()))
         {
-            message.AppendError(message, paramName);
+            message.Append(paramName.AppendError());
         }
         else
         {

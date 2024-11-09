@@ -30,13 +30,22 @@ namespace CoreGoDelivery.Infrastructure.Migrations
                         .HasColumnName("ID_DELIVERIER");
 
                     b.Property<DateTime>("BirthDate")
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("timestamptz")
                         .HasColumnName("DATE_BIRTH");
 
                     b.Property<string>("Cnpj")
                         .IsRequired()
                         .HasColumnType("text")
                         .HasColumnName("CNPJ");
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("CREATED_BY");
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("timestamptz")
+                        .HasColumnName("DATE_CREATED");
 
                     b.Property<string>("FullName")
                         .IsRequired()
@@ -61,14 +70,34 @@ namespace CoreGoDelivery.Infrastructure.Migrations
                         .HasColumnType("text")
                         .HasColumnName("ID_LICENSE_DRIVER");
 
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("CREATED_BY");
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("timestamptz")
+                        .HasColumnName("DATE_CREATED");
+
+                    b.Property<DateTime?>("DateUpdated")
+                        .HasColumnType("timestamptz")
+                        .HasColumnName("DATE_UPDATE");
+
+                    b.Property<DateTime>("ExpiryDate")
+                        .HasColumnType("timestamptz")
+                        .HasColumnName("EXPIRY_DATE");
+
                     b.Property<string>("ImageUrlReference")
                         .IsRequired()
                         .HasColumnType("text")
                         .HasColumnName("IMAGE_URL_REFERENCE");
 
+                    b.Property<DateTime>("IssueDate")
+                        .HasColumnType("timestamptz")
+                        .HasColumnName("ISSUE_DATE");
+
                     b.Property<int>("Type")
-                        .HasColumnType("integer")
-                        .HasColumnName("ID_LICENSE_TYPE");
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
@@ -80,6 +109,15 @@ namespace CoreGoDelivery.Infrastructure.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("text")
                         .HasColumnName("ID_MODEL_MOTORCYCLE");
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("CREATED_BY");
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("timestamptz")
+                        .HasColumnName("DATE_CREATED");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -101,6 +139,15 @@ namespace CoreGoDelivery.Infrastructure.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("text")
                         .HasColumnName("ID_MOTORCYCLE");
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("CREATED_BY");
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("timestamptz")
+                        .HasColumnName("DATE_CREATED");
 
                     b.Property<string>("ModelMotorcycleId")
                         .IsRequired()
@@ -129,8 +176,13 @@ namespace CoreGoDelivery.Infrastructure.Migrations
                         .HasColumnType("text")
                         .HasColumnName("ID_NOTIFICATION");
 
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone")
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("CREATED_BY");
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("timestamptz")
                         .HasColumnName("DATE_CREATED");
 
                     b.Property<string>("IdMotorcycle")
@@ -153,16 +205,25 @@ namespace CoreGoDelivery.Infrastructure.Migrations
                         .HasColumnType("text")
                         .HasColumnName("ID_RENTAL");
 
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("CREATED_BY");
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("timestamptz")
+                        .HasColumnName("DATE_CREATED");
+
                     b.Property<string>("DeliverierId")
                         .HasColumnType("text")
                         .HasColumnName("ID_FK_DELIVERIER");
 
                     b.Property<DateTime>("EndDate")
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("timestamptz")
                         .HasColumnName("DATE_END");
 
                     b.Property<DateTime>("EstimatedReturnDate")
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("timestamptz")
                         .HasColumnName("DATE_ESTIMATED_RETURN");
 
                     b.Property<string>("MotorcycleId")
@@ -174,11 +235,11 @@ namespace CoreGoDelivery.Infrastructure.Migrations
                         .HasColumnName("ID_FK_RENTAL_PLAN");
 
                     b.Property<DateTime?>("ReturnedToBaseDate")
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("timestamptz")
                         .HasColumnName("DATE_RETURNED_TO_BASE");
 
                     b.Property<DateTime>("StartDate")
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("timestamptz")
                         .HasColumnName("DATE_START");
 
                     b.HasKey("Id");
@@ -200,6 +261,15 @@ namespace CoreGoDelivery.Infrastructure.Migrations
                         .HasColumnName("ID_RENTAL_PLAN");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("CREATED_BY");
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("timestamptz")
+                        .HasColumnName("DATE_CREATED");
 
                     b.Property<double>("DayliCost")
                         .HasColumnType("double precision")

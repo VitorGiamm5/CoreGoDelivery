@@ -1,8 +1,8 @@
 using CoreGoDelivery.Api.Conveters;
 using CoreGoDelivery.Api.Swagger;
 using CoreGoDelivery.Application;
-using CoreGoDelivery.Application.RabbitMQ.NotificationMotorcycle.Consumer;
 using CoreGoDelivery.Infrastructure.Database.Services;
+using Microsoft.AspNetCore.Components;
 using Microsoft.OpenApi.Models;
 using Serilog;
 using System.Text.Json.Serialization;
@@ -31,7 +31,7 @@ builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo
     {
-        Title = $"Sistema de Manutencao de Motos - {builder.Environment.EnvironmentName}",
+        Title = $"Core Motorcycle, Rental, Deliverier - {builder.Environment.EnvironmentName}",
         Version = "v1"
     });
     c.CustomSchemaIds(type => type.ToString());
@@ -45,16 +45,12 @@ builder.Configuration
 
 EnvironmentVariablesExtensions.AddEnvironmentVariables(builder.Configuration);
 
-builder.Services.AddControllersWithViews();
-
 builder.Services.AddApplication(builder.Configuration);
 
 builder.WebHost.ConfigureKestrel(options =>
 {
     options.ListenAnyIP(5273);
 });
-
-builder.Services.AddHostedService<RabbitMQConsumer>();
 
 var app = builder.Build();
 
@@ -66,7 +62,7 @@ if (app.Environment.IsDevelopment())
     ExecutePendingMigration.Execute(builder.Services);
 }
 
-app.MapControllers();
+app.MapControllers().WithMetadata(new RouteAttribute("api/[controller]")); ;
 
 try
 {

@@ -1,4 +1,4 @@
-﻿using CoreGoDelivery.Application.Services.Internal.Base;
+﻿using CoreGoDelivery.Application.Extensions;
 using CoreGoDelivery.Domain.Consts;
 using CoreGoDelivery.Domain.Repositories.GoDelivery;
 using CoreGoDelivery.Domain.Response;
@@ -6,12 +6,11 @@ using MediatR;
 
 namespace CoreGoDelivery.Application.Services.Internal.Motorcycle.Commands.ChangePlateById;
 
-public class MotorcycleChangePlateHandler : IRequestHandler<MotorcycleChangePlateCommand, ApiResponse>
+public class MotorcycleChangePlateHandler : IRequestHandler<MotorcycleChangePlateCommand, ActionResult>
 {
     public readonly IMotorcycleRepository _repositoryMotorcycle;
     public readonly IModelMotorcycleRepository _repositoryModelMotorcycle;
     public readonly IRentalRepository _rentalRepository;
-    public readonly IBaseInternalServices _baseInternalServices;
 
     public readonly MotorcycleChangePlateValidator _validator;
 
@@ -19,35 +18,37 @@ public class MotorcycleChangePlateHandler : IRequestHandler<MotorcycleChangePlat
         IMotorcycleRepository repositoryMotorcycle,
         IModelMotorcycleRepository repositoryModelMotorcycle,
         IRentalRepository rentalRepository,
-        IBaseInternalServices baseInternalServices,
         MotorcycleChangePlateValidator validator)
     {
         _repositoryMotorcycle = repositoryMotorcycle;
         _repositoryModelMotorcycle = repositoryModelMotorcycle;
         _rentalRepository = rentalRepository;
-        _baseInternalServices = baseInternalServices;
         _validator = validator;
     }
 
-    public async Task<ApiResponse> Handle(MotorcycleChangePlateCommand command, CancellationToken cancellationToken)
+    public async Task<ActionResult> Handle(MotorcycleChangePlateCommand command, CancellationToken cancellationToken)
     {
-        var apiReponse = new ApiResponse()
-        {
-            Message = await _validator.ChangePlateValidator(command)
-        };
+        var apiReponse = new ActionResult();
 
-        if (!string.IsNullOrEmpty(apiReponse.Message))
+        apiReponse.SetError(await _validator.ChangePlateValidator(command));
+
+        if (apiReponse.HasError())
         {
             return apiReponse;
         }
 
-        var plateNormalized = _baseInternalServices.RemoveCharacteres(command.Plate);
+        command.Plate.RemoveCharactersToUpper();
 
-        var success = await _repositoryMotorcycle.ChangePlateByIdAsync(command.Id, plateNormalized);
+        var success = await _repositoryMotorcycle.ChangePlateByIdAsync(command.Id, command.Plate);
 
-        apiReponse.Data = success ? new { mensagem = CommomMessagesConst.MESSAGE_UPDATED_PLATE_SUCCESS } : null;
+        apiReponse.SetData(success
+            ? new
+            {
+                menssage = CommomMessagesConst.MESSAGE_UPDATED_WITH_SUCCESS
+            }
+            : null);
 
-        apiReponse.Message = success ? null : CommomMessagesConst.MESSAGE_INVALID_DATA;
+        apiReponse.SetError(success ? null : CommomMessagesConst.MESSAGE_INVALID_DATA);
 
         return apiReponse;
     }

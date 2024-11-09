@@ -5,12 +5,11 @@ using System.Text.Json.Serialization;
 
 namespace CoreGoDelivery.Application.Services.Internal.Rental.Commands.Update;
 
-public class RentalReturnedToBaseDateCommand : IRequest<ApiResponse>
+public class RentalReturnedToBaseDateCommand : IRequest<ActionResult>
 {
-    [DefaultValue("2024-01-07")]
-    [JsonPropertyName("data_devolucao")]
-    public DateTime? ReturnedToBaseDate { get; set; }
-
     [JsonIgnore]
-    public string Id { get; set; } = string.Empty;
+    public string? Id { get; set; }
+
+    [DefaultValue("2024-01-07")]
+    public DateTime? ReturnedToBaseDate { get; set; }
 }

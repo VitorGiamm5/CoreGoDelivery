@@ -5,21 +5,21 @@ using System.Text;
 
 namespace CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.Create.MessageValidators;
 
-public class DeliverierBuildMessageCnpj
+public static class DeliverierBuildMessageCnpj
 {
-    public void Build(StringBuilder message, string cnpj)
+    public static void Build(StringBuilder message, string cnpj)
     {
         var paramName = nameof(cnpj);
 
         if (string.IsNullOrWhiteSpace(cnpj))
         {
-            message.AppendError(message, paramName);
+            message.Append(paramName.AppendError());
         }
         else
         {
             if (!CnpjValidation.Validate(cnpj))
             {
-                message.AppendError(message, paramName, AdditionalMessageEnum.InvalidFormat);
+                message.Append(paramName.AppendError(AdditionalMessageEnum.InvalidFormat));
             }
         }
     }

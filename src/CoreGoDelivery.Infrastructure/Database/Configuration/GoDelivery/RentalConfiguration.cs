@@ -6,18 +6,21 @@ namespace CoreGoDelivery.Infrastructure.Database.Configuration.GoDelivery;
 
 public class RentalConfiguration : IEntityTypeConfiguration<RentalEntity>
 {
-    public void Configure(EntityTypeBuilder<RentalEntity> builder)
+    public void Configure(EntityTypeBuilder<RentalEntity> entity)
     {
-        builder.ToTable("tb_rental");
-        builder.HasKey(t => t.Id);
+        entity.ToTable("tb_rental");
+        entity.HasKey(e => e.Id);
 
-        builder.Property(t => t.Id).HasColumnName("ID_RENTAL");
-        builder.Property(t => t.StartDate).HasColumnName("DATE_START");
-        builder.Property(t => t.EndDate).HasColumnName("DATE_END");
-        builder.Property(t => t.EstimatedReturnDate).HasColumnName("DATE_ESTIMATED_RETURN");
-        builder.Property(t => t.ReturnedToBaseDate).HasColumnName("DATE_RETURNED_TO_BASE").IsRequired(false);
-        builder.Property(t => t.DeliverierId).HasColumnName("ID_FK_DELIVERIER");
-        builder.Property(t => t.MotorcycleId).HasColumnName("ID_FK_MOTORCYCLE").IsRequired(false);
-        builder.Property(t => t.RentalPlanId).HasColumnName("ID_FK_RENTAL_PLAN");
+        entity.Property(e => e.Id).HasColumnName("ID_RENTAL");
+        entity.Property(e => e.StartDate).HasColumnName("DATE_START").HasColumnType("timestamptz");
+        entity.Property(e => e.EndDate).HasColumnName("DATE_END").HasColumnType("timestamptz");
+        entity.Property(e => e.EstimatedReturnDate).HasColumnName("DATE_ESTIMATED_RETURN").HasColumnType("timestamptz");
+        entity.Property(e => e.ReturnedToBaseDate).HasColumnName("DATE_RETURNED_TO_BASE").HasColumnType("timestamptz").IsRequired(false);
+        entity.Property(e => e.DeliverierId).HasColumnName("ID_FK_DELIVERIER");
+        entity.Property(e => e.MotorcycleId).HasColumnName("ID_FK_MOTORCYCLE").IsRequired(false);
+        entity.Property(e => e.RentalPlanId).HasColumnName("ID_FK_RENTAL_PLAN");
+
+        entity.Property(e => e.DateCreated).HasColumnName("DATE_CREATED").HasColumnType("timestamptz");
+        entity.Property(e => e.CreatedBy).HasColumnName("CREATED_BY");
     }
 }

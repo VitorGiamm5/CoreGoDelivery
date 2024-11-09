@@ -6,52 +6,96 @@ using CoreGoDelivery.Application.Services.Internal.Motorcycle.Queries.GetOne;
 using CoreGoDelivery.Application.Services.Internal.Motorcycle.Queries.List;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using System.Reflection.Metadata.Ecma335;
 
 namespace CoreGoDelivery.Api.Controllers;
 
-[Route("motos")]
+[Route("api/motorcycle")]
 [ApiController]
 public class MotorcycleController(IMediator _mediator) : BaseApiController
 {
     [HttpGet]
     public async Task<IActionResult> List([FromQuery] MotorcycleListQueryCommand request)
     {
-        var result = await _mediator.Send(request);
+        try
+        {
+            var result = await _mediator.Send(request);
 
-        return Response(result);
+            return Response(result);
+        }
+        catch (Exception ex)
+        {
+            return ResponseError(ex);
+        }
     }
 
     [HttpGet("{id}")]
     public async Task<IActionResult> GetOne(string id)
     {
-        var result = await _mediator.Send(new MotorcycleGetOneQueryCommand(id));
+        try
+        {
+            IdParamValidator(id);
 
-        return Response(result);
+            var result = await _mediator.Send(new MotorcycleGetOneQueryCommand(id));
+
+            return Response(result);
+        }
+        catch (Exception ex)
+        {
+            return ResponseError(ex);
+        }
     }
 
     [HttpPost]
     public async Task<IActionResult> Post([FromBody] MotorcycleCreateCommand request)
     {
-        var result = await _mediator.Send(request);
+        try
+        {
+            request.Id = IdBuild(request.Id);
 
-        return Response(result);
+            var result = await _mediator.Send(request);
+
+            return Response(result);
+        }
+        catch (Exception ex)
+        {
+            return ResponseError(ex);
+        }
     }
 
-    [HttpPut("{id}/placa")]
+    [HttpPut("{id}/plate")]
     public async Task<IActionResult> Put(string id, [FromBody] MotorcycleChangePlateCommand request)
     {
-        request.Id = id;
+        try
+        {
+            IdParamValidator(id);
 
-        var result = await _mediator.Send(request);
+            request.Id = id;
 
-        return Response(result);
+            var result = await _mediator.Send(request);
+
+            return Response(result);
+        }
+        catch (Exception ex)
+        {
+            return ResponseError(ex);
+        }
     }
 
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(string id)
     {
-        var result = await _mediator.Send(new MotorcycleDeleteCommand(id));
+        try
+        {
+            IdParamValidator(id);
 
-        return Response(result);
+            var result = await _mediator.Send(new MotorcycleDeleteCommand(id));
+
+            return Response(result);
+        }
+        catch (Exception ex)
+        {
+            return ResponseError(ex);
+        }
     }
 }

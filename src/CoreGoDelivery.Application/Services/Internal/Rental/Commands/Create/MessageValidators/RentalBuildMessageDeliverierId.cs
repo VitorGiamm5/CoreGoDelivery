@@ -18,15 +18,15 @@ public class RentalBuildMessageDeliverierId
     {
         if (string.IsNullOrWhiteSpace(data.DeliverierId))
         {
-            message.AppendError(message, nameof(data.DeliverierId));
+            message.Append(nameof(data.DeliverierId));
         }
         else
         {
-            var existDeliverierId = await _repositoryDeliverier.CheckIsUnicById(data.DeliverierId);
+            var existDeliverierId = await _repositoryDeliverier.GetOneById(data.DeliverierId);
 
-            if (!existDeliverierId)
+            if (existDeliverierId == null)
             {
-                message.AppendError(message, nameof(data.DeliverierId), AdditionalMessageEnum.NotFound);
+                message.Append(nameof(data.DeliverierId).AppendError(AdditionalMessageEnum.NotFound));
             }
         }
     }

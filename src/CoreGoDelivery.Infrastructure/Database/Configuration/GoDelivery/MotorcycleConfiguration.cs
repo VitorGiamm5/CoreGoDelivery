@@ -6,14 +6,17 @@ namespace CoreGoDelivery.Infrastructure.Database.Configuration.GoDelivery;
 
 public class MotorcycleConfiguration : IEntityTypeConfiguration<MotorcycleEntity>
 {
-    public void Configure(EntityTypeBuilder<MotorcycleEntity> builder)
+    public void Configure(EntityTypeBuilder<MotorcycleEntity> entity)
     {
-        builder.ToTable("tb_motorcycle");
-        builder.HasKey(t => t.Id);
+        entity.ToTable("tb_motorcycle");
+        entity.HasKey(t => t.Id);
 
-        builder.Property(t => t.Id).HasColumnName("ID_MOTORCYCLE");
-        builder.Property(t => t.YearManufacture).HasColumnName("YEAR_MANUFACTURE");
-        builder.Property(t => t.PlateNormalized).HasColumnName("PLATE_NORMALIZED");
-        builder.Property(t => t.ModelMotorcycleId).HasColumnName("ID_FK_MODEL_MOTORCYCLE");
+        entity.Property(t => t.Id).HasColumnName("ID_MOTORCYCLE");
+        entity.Property(t => t.YearManufacture).HasColumnName("YEAR_MANUFACTURE");
+        entity.Property(t => t.PlateNormalized).HasColumnName("PLATE_NORMALIZED");
+        entity.Property(t => t.ModelMotorcycleId).HasColumnName("ID_FK_MODEL_MOTORCYCLE");
+
+        entity.Property(e => e.DateCreated).HasColumnName("DATE_CREATED").HasColumnType("timestamptz");
+        entity.Property(e => e.CreatedBy).HasColumnName("CREATED_BY");
     }
 }

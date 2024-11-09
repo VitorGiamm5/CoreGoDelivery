@@ -1,11 +1,16 @@
 ﻿using CoreGoDelivery.Domain;
+using CoreGoDelivery.Domain.MinIOFile;
 using CoreGoDelivery.Domain.Repositories.GoDelivery;
 using CoreGoDelivery.Infrastructure.Database;
+using CoreGoDelivery.Infrastructure.FileBucket.MinIO;
 using CoreGoDelivery.Infrastructure.Repositories.GoDelivery;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using Minio;
+using Polly;
+using Polly.Retry;
 
 namespace CoreGoDelivery.Infrastructure;
 
@@ -15,11 +20,33 @@ public static class SetupInfrastructure
     {
         services.AddDomain(configuration);
 
-        services.AddDbContextPool<ApplicationDbContext>(options => options
-            .UseNpgsql(configuration.GetConnectionString("postgres"))
-            .AddInfrastructure(configuration));
+        RetryPolicy retryPolicy = Policy
+            .Handle<Exception>()
+            .WaitAndRetry(
+                retryCount: 5,
+                sleepDurationProvider: attempt => TimeSpan.FromSeconds(Math.Pow(2, attempt)), // Backoff exponencial
+                onRetry: (exception, timespan, attempt, context) =>
+                {
+                    Console.WriteLine($"Retry {attempt} fail with error: {exception.Message}. Lets try again {timespan}.");
+                });
+
+
+        services.AddDbContextPool<ApplicationDbContext>(options =>
+        {
+            retryPolicy.Execute(() =>
+            {
+                options.UseNpgsql()
+                       .AddInfrastructure(configuration);
+            });
+        });
 
         AddRepositories(services);
+
+        services.Configure<MinIOSettings>(options => configuration.GetSection("MinIOSettings"));
+
+        services.AddSingleton<MinioClient>();
+
+        services.TryAddTransient<IMinIOFileService, MinIOFileService>();
 
         return services;
     }

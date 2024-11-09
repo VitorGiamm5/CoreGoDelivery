@@ -8,12 +8,12 @@ public class ApplicationDbContext : DbContext
     {
     }
 
-    protected override void OnModelCreating(ModelBuilder builder)
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        builder.HasDefaultSchema("dbgodelivery");
-        builder.ApplyConfigurationsFromAssembly(GetType().Assembly);
+        modelBuilder.HasDefaultSchema("dbgodelivery");
+        modelBuilder.ApplyConfigurationsFromAssembly(GetType().Assembly);
 
-        base.OnModelCreating(builder);
+        base.OnModelCreating(modelBuilder);
     }
 }
 

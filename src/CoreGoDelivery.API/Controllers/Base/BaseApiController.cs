@@ -1,7 +1,8 @@
-﻿using CoreGoDelivery.Domain.Consts;
-using CoreGoDelivery.Domain.Response;
+﻿using CoreGoDelivery.Application.Extensions;
+using CoreGoDelivery.Domain.Consts;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
+using ActionResult = CoreGoDelivery.Domain.Response.ActionResult;
 
 namespace CoreGoDelivery.Api.Controllers.Base;
 
@@ -10,30 +11,52 @@ namespace CoreGoDelivery.Api.Controllers.Base;
 [Consumes("application/json")]
 public class BaseApiController : ControllerBase
 {
-    protected new IActionResult Response(ApiResponse response)
+    protected new IActionResult Response(ActionResult response)
     {
+        var data = response.GetData();
+
         if (response.HasError())
         {
-            if (response.HasDataType())
-            {
-                return StatusCode((int)HttpStatusCode.NotFound, response);
-            }
-
-            response.Data = null;
-            return StatusCode((int)HttpStatusCode.BadRequest, response);
+            return StatusCode((int)HttpStatusCode.BadRequest, response.GetError());
         }
-        else if (!response.HasDataType())
+        else if (response.HasData())
         {
-            return StatusCode((int)HttpStatusCode.Created);
+            return StatusCode((int)HttpStatusCode.OK, data);
         }
-        else if (response.HasDataType())
+
+        return StatusCode((int)HttpStatusCode.NotFound);
+    }
+
+    protected IActionResult ResponseError(object exception)
+    {
+        var apiResponse = new ActionResult();
+
+        apiResponse.SetError(CommomMessagesConst.MESSAGE_INVALID_DATA, exception);
+
+        return StatusCode((int)HttpStatusCode.InternalServerError, apiResponse);
+    }
+
+    public static string IdBuild(string? id)
+    {
+        var result = string.IsNullOrEmpty(id) ? Ulid.NewUlid().ToString() : id;
+
+        return result;
+    }
+
+    public static string IdBuild()
+    {
+        return Ulid.NewUlid().ToString();
+    }
+
+    protected static string? IdParamValidator(string? id)
+    {
+        bool isNotValid = id == ":id" || string.IsNullOrEmpty(id);
+
+        if (isNotValid)
         {
-            return StatusCode((int)HttpStatusCode.OK, response.Data);
+            return "id param".AppendError();
         }
 
-        response.Data = null;
-        response.Message = CommomMessagesConst.MESSAGE_INVALID_DATA;
-
-        return StatusCode((int)HttpStatusCode.InternalServerError, response);
+        return null;
     }
 }

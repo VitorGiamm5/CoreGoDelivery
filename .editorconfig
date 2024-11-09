@@ -7,6 +7,7 @@ dotnet_diagnostic.CS8618.severity = none
 #### Estilos de nomenclatura ####
 
 # Regras de nomenclatura
+dotnet_diagnostic.IDE0290.severity = none
 
 dotnet_naming_rule.interface_should_be_begins_with_i.severity = suggestion
 dotnet_naming_rule.interface_should_be_begins_with_i.symbols = interface

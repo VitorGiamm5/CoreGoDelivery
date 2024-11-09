@@ -3,9 +3,9 @@ using CoreGoDelivery.Domain.Entities.GoDelivery.RentalPlan;
 
 namespace CoreGoDelivery.Application.Services.Internal.Rental.Commands.Create.Common;
 
-public class RentalCalculateDatesByPlan
+public static class RentalCalculateDatesByPlan
 {
-    public RentalEntity Calculate(RentalPlanEntity plan)
+    public static RentalEntity Calculate(RentalPlanEntity plan)
     {
         var result = new RentalEntity()
         {
