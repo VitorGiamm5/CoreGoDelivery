@@ -24,12 +24,11 @@ public static class SetupInfrastructure
             .Handle<Exception>()
             .WaitAndRetry(
                 retryCount: 5,
-                sleepDurationProvider: attempt => TimeSpan.FromSeconds(Math.Pow(2, attempt)), // Backoff exponencial
+                sleepDurationProvider: attempt => TimeSpan.FromSeconds(Math.Pow(2, attempt)),
                 onRetry: (exception, timespan, attempt, context) =>
                 {
                     Console.WriteLine($"Retry {attempt} fail with error: {exception.Message}. Lets try again {timespan}.");
                 });
-
 
         services.AddDbContextPool<ApplicationDbContext>(options =>
         {

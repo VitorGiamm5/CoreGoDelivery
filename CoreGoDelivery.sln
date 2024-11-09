@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35327.3
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoreGoDelivery.Api", "src\CoreGoDelivery.API\CoreGoDelivery.Api.csproj", "{48B385D5-1C0D-46E0-AFFF-13A8BAF21226}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoreGoDelivery.Infrastructure", "src\CoreGoDelivery.Infrastructure\CoreGoDelivery.Infrastructure.csproj", "{913B8928-DB53-4BAE-9806-503A929B4E79}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoreGoDelivery.Application", "src\CoreGoDelivery.Application\CoreGoDelivery.Application.csproj", "{C3CBF9A3-8269-49FC-92F2-FE97DDA6838A}"
@@ -25,16 +23,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{5EBC6F0F
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoreGoDelivery.ApplicationTests", "tests\CoreGoDelivery.ApplicationTests\CoreGoDelivery.ApplicationTests.csproj", "{3329400D-30C6-471A-8C21-1216283D18F1}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoreGoDelivery.Api", "src\CoreGoDelivery.Api\CoreGoDelivery.Api.csproj", "{B6D45836-56A2-4538-9453-3286D0B8485B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{48B385D5-1C0D-46E0-AFFF-13A8BAF21226}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{48B385D5-1C0D-46E0-AFFF-13A8BAF21226}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{48B385D5-1C0D-46E0-AFFF-13A8BAF21226}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{48B385D5-1C0D-46E0-AFFF-13A8BAF21226}.Release|Any CPU.Build.0 = Release|Any CPU
 		{913B8928-DB53-4BAE-9806-503A929B4E79}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{913B8928-DB53-4BAE-9806-503A929B4E79}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{913B8928-DB53-4BAE-9806-503A929B4E79}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -51,6 +47,10 @@ Global
 		{3329400D-30C6-471A-8C21-1216283D18F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3329400D-30C6-471A-8C21-1216283D18F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3329400D-30C6-471A-8C21-1216283D18F1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B6D45836-56A2-4538-9453-3286D0B8485B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B6D45836-56A2-4538-9453-3286D0B8485B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B6D45836-56A2-4538-9453-3286D0B8485B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B6D45836-56A2-4538-9453-3286D0B8485B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

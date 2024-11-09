@@ -34,7 +34,7 @@ Observação:
 $ docker ps -a
 
 7. Executar as migrations (esteja com seu terminal na raíz do projeto "c:/Projetos/CoreGoDelivery")
-$ dotnet ef database update -s src\CoreGoDelivery.API -p src\CoreGoDelivery.Infrastructure
+$ dotnet ef database update -s src\CoreGoDelivery.Api -p src\CoreGoDelivery.Infrastructure
 
 8. Para conectar o Banco recomenda-se usar o DBeaver, para facilitar a importação de dados que serão necessários!
 
@@ -52,7 +52,7 @@ Atenção:
 É obrigatório importar os csv => tb_modelMotorcycle e tb_RentalPlan
 ATENÇÃO CASO NÃO IMPORTE A APLICAÇÃO NÃO FUNCIONARÁ
 
-8. Para facilitar o consumo da API, está disponível na pasta Asset > postmanCollection, o arquivo de colection para importar no postman
+8. Para facilitar o consumo da Api, está disponível na pasta Asset > postmanCollection, o arquivo de colection para importar no postman
 
 9. Pronto para usar!
 
@@ -64,10 +64,10 @@ Para os end-points que necessitam de imagem base64, elas estão disponíveis na 
 Caso modifique alguma entidade, esse é o comando para criar a migration
 
 Gerar migration, considere abrir o Powershell na pasta raiz do projeto: 
-$ dotnet ef migrations add InicialBase -s src\CoreGoDelivery.API -p src\CoreGoDelivery.Infrastructure
+$ dotnet ef migrations add InicialBase -s src\CoreGoDelivery.Api -p src\CoreGoDelivery.Infrastructure
 
 Atualizar o banco:
-$ dotnet ef database update -s .\CoreGoDelivery.API -p .\CoreGoDelivery.Infrastructure
+$ dotnet ef database update -s .\CoreGoDelivery.Api -p .\CoreGoDelivery.Infrastructure
 
 Referências:
 
