@@ -37,7 +37,7 @@ public class MotorcycleChangePlateHandler : IRequestHandler<MotorcycleChangePlat
             return apiReponse;
         }
 
-        command.Plate.RemoveCharacters();
+        command.Plate.RemoveCharactersToUpper();
 
         var success = await _repositoryMotorcycle.ChangePlateByIdAsync(command.Id, command.Plate);
 

@@ -19,13 +19,12 @@ public class MotorcycleCreateValidator
         _repositoryModelMotorcycle = repositoryModelMotorcycle;
     }
 
-    public async Task<StringBuilder> BuilderCreateValidator(MotorcycleCreateCommand data)
+    public async Task<StringBuilder> Validate(MotorcycleCreateCommand data)
     {
         var message = new StringBuilder();
 
         BuildMessageYear(data, message);
 
-        await BuildMessageIdMotorcycle(data, message);
         await BuildMessagePlate(data.Plate, message);
         await BuildMessageModelMotorcycle(data, message);
 
@@ -55,8 +54,6 @@ public class MotorcycleCreateValidator
         }
         else
         {
-            plate.RemoveCharacters();
-
             var isValidPlate = MotorcyclePlateValidator.Validator(plate);
 
             if (isValidPlate)
@@ -98,7 +95,7 @@ public class MotorcycleCreateValidator
         }
         else
         {
-            var modelNormalized = data.ModelName.RemoveCharacters();
+            var modelNormalized = data.ModelName.RemoveCharactersToUpper();
 
             var modelId = await _repositoryModelMotorcycle.GetIdByModelName(modelNormalized);
 

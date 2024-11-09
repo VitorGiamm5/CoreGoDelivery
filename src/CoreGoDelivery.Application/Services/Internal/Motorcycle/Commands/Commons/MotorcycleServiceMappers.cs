@@ -41,7 +41,7 @@ public static class MotorcycleServiceMappers
             Id = data.Id,
             YearManufacture = data.YearManufacture,
             ModelMotorcycleId = data.ModelName,
-            PlateNormalized = data.Plate.RemoveCharacters()
+            PlateNormalized = data.Plate.RemoveCharactersToUpper()
         };
 
         return result;

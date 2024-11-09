@@ -48,6 +48,8 @@ public class RentalCreateHandler : IRequestHandler<RentalCreateCommand, ActionRe
             apiReponse.SetError(nameof(_repositoryRental.Create).AppendError(AdditionalMessageEnum.CreateFail));
         }
 
+        apiReponse.SetData(rental);
+
         return apiReponse;
     }
 }

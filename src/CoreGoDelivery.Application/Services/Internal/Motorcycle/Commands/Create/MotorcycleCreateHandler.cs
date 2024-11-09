@@ -29,7 +29,9 @@ public class MotorcycleCreateHandler : IRequestHandler<MotorcycleCreateCommand, 
     {
         var apiReponse = new ActionResult();
 
-        apiReponse.SetError(await _validator.BuilderCreateValidator(request));
+        request.Plate = request.Plate.RemoveCharactersToUpper();
+
+        apiReponse.SetError(await _validator.Validate(request));
 
         if (apiReponse.HasError())
         {
@@ -43,11 +45,18 @@ public class MotorcycleCreateHandler : IRequestHandler<MotorcycleCreateCommand, 
         if (!isSuccess)
         {
             apiReponse.SetError(nameof(_repositoryMotorcycle.Create).AppendError(AdditionalMessageEnum.CreateFail));
+
+            return apiReponse;
         }
 
-        var notification = MotorcycleServiceMappers.MapNotificationDto(motorcycle);
+        if (motorcycle.YearManufacture == DateTime.Today.Year)
+        {
+            var notification = MotorcycleServiceMappers.MapNotificationDto(motorcycle);
 
-        _notification.PublishMotorcycle(notification);
+            _notification.PublishMotorcycle(notification);
+        }
+
+        apiReponse.SetData(motorcycle);
 
         return apiReponse;
     }

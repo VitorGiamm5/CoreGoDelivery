@@ -13,18 +13,18 @@ public class BaseApiController : ControllerBase
 {
     protected new IActionResult Response(ActionResult response)
     {
+        var data = response.GetData();
+
         if (response.HasError())
         {
             return StatusCode((int)HttpStatusCode.BadRequest, response.GetError());
         }
         else if (response.HasData())
         {
-            return StatusCode((int)HttpStatusCode.OK, response.GetData());
+            return StatusCode((int)HttpStatusCode.OK, data);
         }
 
-        response.SetError(CommomMessagesConst.MESSAGE_INVALID_DATA);
-
-        return StatusCode((int)HttpStatusCode.InternalServerError, response);
+        return StatusCode((int)HttpStatusCode.NotFound);
     }
 
     protected IActionResult ResponseError(object exception)

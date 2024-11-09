@@ -32,13 +32,15 @@ public class RentalReturnedToBaseDateHandler : IRequestHandler<RentalReturnedToB
             return apiReponse;
         }
 
-        var rental = await _repositoryRental.GetByIdAsync(request.Id);
+        var rental = await _repositoryRental.GetByIdAsync(request.Id!);
 
         var returnedDate = request!.ReturnedToBaseDate!.Value;
 
-        apiReponse = RentalCalculatePenalty.Calculate(returnedDate, rental);
+        var caultedResult = RentalCalculatePenalty.Calculate(returnedDate, rental);
 
-        var successUpdate = await _repositoryRental.UpdateReturnedToBaseDate(request.Id, returnedDate);
+        apiReponse.SetData(caultedResult);
+
+        var successUpdate = await _repositoryRental.UpdateReturnedToBaseDate(request.Id!, returnedDate);
 
         if (!successUpdate)
         {

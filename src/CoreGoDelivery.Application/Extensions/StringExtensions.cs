@@ -11,14 +11,14 @@ public static class StringExtensions
         return $"Invalid field: '{fieldName}', Detail: '{additionalMessage.GetMessage()}'; ";
     }
 
-    public static string RemoveCharacters(this string? plateId)
+    public static string RemoveCharactersToUpper(this string? text)
     {
-        if (string.IsNullOrEmpty(plateId))
+        if (string.IsNullOrEmpty(text))
         {
             return string.Empty;
         }
 
-        var result = Regex.Replace(plateId, RegexCollectionPatterns.SPECIAL_CHARACTER_PATTERN, "").ToUpper();
+        var result = Regex.Replace(text, RegexCollectionPatterns.SPECIAL_CHARACTER_PATTERN, "").ToUpper();
 
         return result;
     }

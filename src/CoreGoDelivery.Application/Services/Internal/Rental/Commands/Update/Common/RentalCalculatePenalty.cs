@@ -25,7 +25,7 @@ public static class RentalCalculatePenalty
 
         if (diffDays == 0)
         {
-            apiResponse.SetData(new { Message = RentalServiceConst.MESSAGE_RETURNED_TO_BASE_SUCCESS });
+            apiResponse.SetData(new { Message = RentalServiceConst.MESSAGE_RETURNED_TO_BASE_SUCCESS, Value = 0.0 });
 
             return apiResponse;
         }
@@ -34,23 +34,21 @@ public static class RentalCalculatePenalty
         {
             var valueToPay = RentalReturnerBeforeExpected.Calculate(rental, diffDays);
 
-            apiResponse.SetData(new { Message = $"Value to pay: {RentalServiceConst.CURRENCY_BRL} {valueToPay}" });
+            apiResponse.SetData(new { Message = RentalServiceConst.MESSAGE_RETURNED_BEFORE, Value = valueToPay });
 
             return apiResponse;
         }
-        else if(diffDays > 0)
+        else if (diffDays > 0)
         {
             var valueToPay = RentalExpiredDateToReturn.Calculate(diffDays);
 
-            apiResponse.SetData(new { Menssage = $"Value to pay: {RentalServiceConst.CURRENCY_BRL} {valueToPay}" });
+            apiResponse.SetData(new { Menssage = RentalServiceConst.MESSAGE_RETURNED_AFTER, Value = valueToPay });
 
             return apiResponse;
         }
-        else
-        {
-            apiResponse.SetError(returnedToBaseDate.ToString().AppendError(AdditionalMessageEnum.InvalidFormat));
 
-            return apiResponse;
-        }
+        apiResponse.SetError(returnedToBaseDate.ToString().AppendError(AdditionalMessageEnum.InvalidFormat));
+
+        return apiResponse;
     }
 }

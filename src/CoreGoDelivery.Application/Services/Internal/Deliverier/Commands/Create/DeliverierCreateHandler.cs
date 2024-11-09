@@ -39,6 +39,8 @@ public class DeliverierCreateHandler : IRequestHandler<DeliverierCreateCommand, 
             apiReponse.SetError(nameof(resultCreate).AppendError(AdditionalMessageEnum.Unavailable));
         }
 
+        apiReponse.SetData(deliverier);
+
         return apiReponse;
     }
 }

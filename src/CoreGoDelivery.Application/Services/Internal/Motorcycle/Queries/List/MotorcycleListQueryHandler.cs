@@ -21,7 +21,7 @@ public class MotorcycleListQueryHandler : IRequestHandler<MotorcycleListQueryCom
     {
         var apiReponse = new ActionResult();
 
-        request.Plate.RemoveCharacters();
+        request.Plate.RemoveCharactersToUpper();
 
         var result = await _repositoryMotorcycle.List(request.Plate);
 
