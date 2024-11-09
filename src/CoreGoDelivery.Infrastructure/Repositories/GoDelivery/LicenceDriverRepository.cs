@@ -37,6 +37,9 @@ public class LicenceDriverRepository : BaseRepository<LicenceDriverEntity>, ILic
         }
 
         entity.ImageUrlReference = fileName;
+        entity.DateUpdated = DateTime.UtcNow;
+
+        await _context.SaveChangesAsync();
 
         return true;
     }

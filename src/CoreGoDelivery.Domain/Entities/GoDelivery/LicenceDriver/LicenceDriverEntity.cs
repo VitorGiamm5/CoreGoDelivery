@@ -14,6 +14,7 @@ public sealed class LicenceDriverEntity : BaseEntity
     public string ImageUrlReference { get; set; }
     public DateTime IssueDate { get; set; }
     public DateTime ExpiryDate { get; set; }
+    public DateTime? DateUpdated { get; set; }
 
     public bool IsPendingImage()
     {

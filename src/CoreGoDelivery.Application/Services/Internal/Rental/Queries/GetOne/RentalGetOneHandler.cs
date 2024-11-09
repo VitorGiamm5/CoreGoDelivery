@@ -1,4 +1,5 @@
-﻿using CoreGoDelivery.Domain.Repositories.GoDelivery;
+﻿using CoreGoDelivery.Domain.Entities.GoDelivery.Rental;
+using CoreGoDelivery.Domain.Repositories.GoDelivery;
 using CoreGoDelivery.Domain.Response;
 using MediatR;
 using System.Text;
@@ -17,15 +18,22 @@ public class RentalGetOneHandler : IRequestHandler<RentalGetOneCommand, ActionRe
 
     public async Task<ActionResult> Handle(RentalGetOneCommand request, CancellationToken cancellationToken)
     {
+        var apiReponse = new ActionResult();
+
         var message = new StringBuilder();
 
         var idRental = request.Id;
 
         var rental = await _repositoryRental.GetByIdAsync(idRental);
 
-        var rentalDto = RentalGetOneMappers.RentalEntityToDto(rental);
+        if (rental == null)
+        {
+            apiReponse.SetData(new {});
 
-        var apiReponse = new ActionResult();
+            return apiReponse;
+        }
+
+        var rentalDto = RentalGetOneMappers.RentalEntityToDto(rental);
 
         apiReponse.SetData(rentalDto);
         apiReponse.SetError(message);

@@ -8,7 +8,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Rental.Commands.Create;
 public sealed class RentalCreateCommand : IRequest<ActionResult>
 {
     [JsonIgnore]
-    public string Id { get; set; }
+    public string Id { get; set; } = Ulid.NewUlid().ToString();
 
     [DefaultValue("Deliverier123")]
     public string DeliverierId { get; set; }

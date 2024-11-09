@@ -8,7 +8,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.Creat
 public class DeliverierCreateCommand : IRequest<ActionResult>
 {
     [JsonIgnore]
-    public string Id { get; set; }
+    public string Id { get; set; } = Ulid.NewUlid().ToString();
 
     [DefaultValue("João da Silva")]
     public string FullName { get; set; }

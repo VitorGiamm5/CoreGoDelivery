@@ -54,6 +54,8 @@ public class LicenseDriverHandler : IRequestHandler<LicenseImageCommand, ActionR
             var (_, _, fileExtension) = ImageValidateExtensionFile.Build(command.LicenseImageBase64);
 
             license.ImageUrlReference = NameCreatorFile.LicenseDriver(command.IdLicenseNumber!, fileExtension);
+
+            await _repositoryLicense.UpdateFileName(license.Id, license.ImageUrlReference);
         }
 
         using Stream stream = new MemoryStream(command.LicenseImageBase64);
@@ -67,7 +69,11 @@ public class LicenseDriverHandler : IRequestHandler<LicenseImageCommand, ActionR
         catch (Exception ex)
         {
             System.Diagnostics.Debug.WriteLine(ex);
+
+            apiReponse.SetError(ex.Message);
         }
+
+        apiReponse.SetData(new { message = $"License image accepted" });
 
         return apiReponse;
     }

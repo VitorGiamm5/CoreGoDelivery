@@ -8,7 +8,7 @@ namespace CoreGoDelivery.Application.Services.Internal.Motorcycle.Commands.Creat
 public sealed class MotorcycleCreateCommand : IRequest<ActionResult>
 {
     [JsonIgnore]
-    public string Id { get; set; }
+    public string Id { get; set; } = Ulid.NewUlid().ToString();
 
     [DefaultValue(2020)]
     public int YearManufacture { get; set; }

@@ -15,6 +15,7 @@ public class LicenceDriverConfiguration : IEntityTypeConfiguration<LicenceDriver
         entity.Property(e => e.IssueDate).HasColumnName("ISSUE_DATE").HasColumnType("timestamptz");
         entity.Property(e => e.ExpiryDate).HasColumnName("EXPIRY_DATE").HasColumnType("timestamptz");
         entity.Property(e => e.ImageUrlReference).HasColumnName("IMAGE_URL_REFERENCE");
+        entity.Property(e => e.DateUpdated).HasColumnName("DATE_UPDATE").HasColumnType("timestamptz").IsRequired(false);
 
         entity.Property(e => e.DateCreated).HasColumnName("DATE_CREATED").HasColumnType("timestamptz");
         entity.Property(e => e.CreatedBy).HasColumnName("CREATED_BY");

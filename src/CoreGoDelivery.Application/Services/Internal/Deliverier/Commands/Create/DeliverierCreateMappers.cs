@@ -22,7 +22,7 @@ public static class DeliverierCreateMappers
                 Type = DeliverierParseLicenseType.Parse(command),
                 ImageUrlReference = LicenseImageConst.PENDING_IMAGE_LICENSE,
                 ExpiryDate = command.ExpiryDate,
-                IssueDate = command.IssueDate,
+                IssueDate = command.IssueDate
             }
         };
 
