@@ -16,15 +16,15 @@ public sealed class ActionResult
 
     public bool HasError()
     {
-        return !string.IsNullOrWhiteSpace(Error?.Message);
+        return !string.IsNullOrWhiteSpace(Error?.Message) || Error?.Details != null;
     }
 
-    public bool HasDataType()
+    public bool HasData()
     {
-        return Data != null && !string.IsNullOrEmpty(Data.GetType().ToString());
+        return Data != null;
     }
 
-    public void SetError(object? message, object? details = null)
+    public void SetError(object message, object? details = null)
     {
         Data = null;
         Error = new ErrorDetails
@@ -34,17 +34,17 @@ public sealed class ActionResult
         };
     }
 
-    public void SetData(object? data)
+    public void SetData(object data)
     {
         Data = data;
     }
 
-    public object? GetData()
+    public object GetData()
     {
         return new { Data };
     }
 
-    public object? GetError()
+    public object GetError()
     {
         return new { Error };
     }

@@ -27,6 +27,7 @@ public class RentalCreateHandler : IRequestHandler<RentalCreateCommand, ActionRe
     public async Task<ActionResult> Handle(RentalCreateCommand request, CancellationToken cancellationToken)
     {
         var apiReponse = new ActionResult();
+
         apiReponse.SetError(await _validator.BuilderCreateValidator(request));
 
         if (apiReponse.HasError())

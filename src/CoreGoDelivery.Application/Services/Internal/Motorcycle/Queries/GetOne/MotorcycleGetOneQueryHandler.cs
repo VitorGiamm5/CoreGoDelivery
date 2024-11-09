@@ -1,5 +1,7 @@
-﻿using CoreGoDelivery.Application.Services.Internal.Motorcycle.Commands.Commons;
+﻿using CoreGoDelivery.Application.Extensions;
+using CoreGoDelivery.Application.Services.Internal.Motorcycle.Commands.Commons;
 using CoreGoDelivery.Domain.Consts;
+using CoreGoDelivery.Domain.Enums.ServiceErrorMessage;
 using CoreGoDelivery.Domain.Repositories.GoDelivery;
 using CoreGoDelivery.Domain.Response;
 using MediatR;
@@ -17,14 +19,20 @@ public class MotorcycleGetOneQueryHandler : IRequestHandler<MotorcycleGetOneQuer
 
     public async Task<ActionResult> Handle(MotorcycleGetOneQueryCommand request, CancellationToken cancellationToken)
     {
-        var result = await _repositoryMotorcycle.GetOneByIdAsync(request.Id);
-
-        var motorcycleDtos = result != null ? MotorcycleServiceMappers.MapEntityToDto(result) : null;
-
         var apiReponse = new ActionResult();
 
+        var motorcycle = await _repositoryMotorcycle.GetOneByIdAsync(request.Id);
+
+        if (motorcycle == null)
+        {
+            apiReponse.SetError(nameof(motorcycle).AppendError(AdditionalMessageEnum.NotFound));
+
+            return apiReponse;
+        }
+
+        var motorcycleDtos = MotorcycleServiceMappers.MapEntityToDto(motorcycle);
+
         apiReponse.SetData(motorcycleDtos);
-        apiReponse.SetError(result == null ? CommomMessagesConst.MESSAGE_DATA_NOT_FOUND : "");
 
         return apiReponse;
     }

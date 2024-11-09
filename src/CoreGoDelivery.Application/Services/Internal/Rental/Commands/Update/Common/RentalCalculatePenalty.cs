@@ -38,11 +38,17 @@ public static class RentalCalculatePenalty
 
             return apiResponse;
         }
-        else
+        else if(diffDays > 0)
         {
             var valueToPay = RentalExpiredDateToReturn.Calculate(diffDays);
 
             apiResponse.SetData(new { Menssage = $"Value to pay: {RentalServiceConst.CURRENCY_BRL} {valueToPay}" });
+
+            return apiResponse;
+        }
+        else
+        {
+            apiResponse.SetError(returnedToBaseDate.ToString().AppendError(AdditionalMessageEnum.InvalidFormat));
 
             return apiResponse;
         }

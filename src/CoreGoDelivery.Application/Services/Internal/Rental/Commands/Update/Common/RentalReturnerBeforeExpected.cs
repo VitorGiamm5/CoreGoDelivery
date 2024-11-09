@@ -12,15 +12,13 @@ public static class RentalReturnerBeforeExpected
         var isMinimalDaysPlan = rental?.RentalPlan?.DaysQuantity == RentalServiceConst.MINIMAL_DAYS_PLAN;
 
         double feePercentPenalty = isMinimalDaysPlan
-            ? RentalServiceConst.MINIMAL_FEE_PERCENTAGE / 100
-            : RentalServiceConst.DEFAULT_FEE_PERCENTAGE / 100;
+            ? RentalServiceConst.MINIMAL_FEE_PERCENTAGE / 100.0
+            : RentalServiceConst.DEFAULT_FEE_PERCENTAGE / 100.0;
 
         var valueDaysRemain = rental!.RentalPlan!.DayliCost * diffDays;
 
         var penaltyValue = valueDaysRemain * feePercentPenalty;
 
-        double penaltyValueRounded = Math.Round(penaltyValue, 2);
-
-        return penaltyValueRounded;
+        return penaltyValue;
     }
 }

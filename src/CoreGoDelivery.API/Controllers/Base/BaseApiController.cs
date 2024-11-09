@@ -15,25 +15,13 @@ public class BaseApiController : ControllerBase
     {
         if (response.HasError())
         {
-            response.SetData(null);
-
-            if (response.HasDataType())
-            {
-                return StatusCode((int)HttpStatusCode.NotFound, response.GetError());
-            }
-
             return StatusCode((int)HttpStatusCode.BadRequest, response.GetError());
         }
-        else if (!response.HasDataType())
-        {
-            return StatusCode((int)HttpStatusCode.Created);
-        }
-        else if (response.HasDataType())
+        else if (response.HasData())
         {
             return StatusCode((int)HttpStatusCode.OK, response.GetData());
         }
 
-        response.SetData(null);
         response.SetError(CommomMessagesConst.MESSAGE_INVALID_DATA);
 
         return StatusCode((int)HttpStatusCode.InternalServerError, response);
@@ -60,17 +48,13 @@ public class BaseApiController : ControllerBase
         return Ulid.NewUlid().ToString();
     }
 
-    protected IActionResult? IdParamValidator(string? id)
+    protected static string? IdParamValidator(string? id)
     {
         bool isNotValid = id == ":id" || string.IsNullOrEmpty(id);
 
         if (isNotValid)
         {
-            var result = new ActionResult();
-
-            result.SetError("id param".AppendError());
-
-            return Response(result);
+            return "id param".AppendError();
         }
 
         return null;

@@ -22,9 +22,9 @@ public class RentalBuildMessageDeliverierId
         }
         else
         {
-            var existDeliverierId = await _repositoryDeliverier.CheckIsUnicById(data.DeliverierId);
+            var existDeliverierId = await _repositoryDeliverier.GetOneById(data.DeliverierId);
 
-            if (!existDeliverierId)
+            if (existDeliverierId == null)
             {
                 message.Append(nameof(data.DeliverierId).AppendError(AdditionalMessageEnum.NotFound));
             }

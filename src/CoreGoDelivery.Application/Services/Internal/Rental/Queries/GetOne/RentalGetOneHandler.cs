@@ -20,23 +20,20 @@ public class RentalGetOneHandler : IRequestHandler<RentalGetOneCommand, ActionRe
     {
         var apiReponse = new ActionResult();
 
-        var message = new StringBuilder();
-
         var idRental = request.Id;
 
         var rental = await _repositoryRental.GetByIdAsync(idRental);
 
         if (rental == null)
         {
-            apiReponse.SetData(new {});
+            apiReponse.SetError(new {});
 
             return apiReponse;
         }
 
         var rentalDto = RentalGetOneMappers.RentalEntityToDto(rental);
 
-        apiReponse.SetData(rentalDto);
-        apiReponse.SetError(message);
+        apiReponse.SetData(rental);
 
         return apiReponse;
     }

@@ -18,7 +18,7 @@ public class RentalReturnedToBaseValidator
     {
         var message = new StringBuilder();
 
-        var idRental = data!.Id;
+        string idRental = data!.Id!;
 
         #region Id validator
 
@@ -27,33 +27,33 @@ public class RentalReturnedToBaseValidator
         if (rentalEntity == null)
         {
             message.Append(nameof(idRental).AppendError(AdditionalMessageEnum.NotFound));
-        }
-        else
-        {
-            var isReturned = await _repositoryRental.CheckisReturnedById(data.Id);
 
-            if (isReturned)
-            {
-                message.Append($"Invalid field: {nameof(rentalEntity.ReturnedToBaseDate)} was returned previously at: {rentalEntity.ReturnedToBaseDate}; ");
-            }
+            return message;
+        }
+        #endregion
+
+        #region Check if is Returned validator
+
+        var isReturned = await _repositoryRental.CheckisReturnedById(idRental);
+
+        if (isReturned)
+        {
+            message.Append($"Invalid field: {nameof(rentalEntity.ReturnedToBaseDate)} was returned previously at: {rentalEntity.ReturnedToBaseDate}; ");
+
+            return message;
         }
 
         #endregion
 
         #region Returned To Base Date validator
 
-        if (data.ReturnedToBaseDate == null)
-        {
-            message.Append(nameof(data.ReturnedToBaseDate));
-        }
-        else
-        {
-            var isAfterDateStart = data.ReturnedToBaseDate >= rentalEntity?.StartDate;
+        var isBeforeDateStart = data.ReturnedToBaseDate > rentalEntity.StartDate;
 
-            if (!isAfterDateStart)
-            {
-                message.Append($"Invalid field: {nameof(data.ReturnedToBaseDate)} : {data.ReturnedToBaseDate} must be after 'StartDate' : {rentalEntity?.StartDate}; ");
-            }
+        if (!isBeforeDateStart)
+        {
+            message.Append($"Invalid field: {nameof(data.ReturnedToBaseDate)} : {data.ReturnedToBaseDate} must be after 'StartDate' : {rentalEntity.StartDate}; ");
+        
+            return message;
         }
 
         #endregion
