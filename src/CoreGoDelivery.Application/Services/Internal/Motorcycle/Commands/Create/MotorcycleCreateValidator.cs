@@ -9,14 +9,14 @@ namespace CoreGoDelivery.Application.Services.Internal.Motorcycle.Commands.Creat
 public class MotorcycleCreateValidator
 {
     public readonly IMotorcycleRepository _repositoryMotorcycle;
-    public readonly IModelMotorcycleRepository _repositoryModelMotorcycle;
+    public readonly IMotorcycleModelRepository _repositoryMotorcycleModel;
 
     public MotorcycleCreateValidator(
         IMotorcycleRepository repositoryMotorcycle,
-        IModelMotorcycleRepository repositoryModelMotorcycle)
+        IMotorcycleModelRepository repositoryMotorcycleModel)
     {
         _repositoryMotorcycle = repositoryMotorcycle;
-        _repositoryModelMotorcycle = repositoryModelMotorcycle;
+        _repositoryMotorcycleModel = repositoryMotorcycleModel;
     }
 
     public async Task<StringBuilder> Validate(MotorcycleCreateCommand data)
@@ -26,7 +26,7 @@ public class MotorcycleCreateValidator
         BuildMessageYear(data, message);
 
         await BuildMessagePlate(data.Plate, message);
-        await BuildMessageModelMotorcycle(data, message);
+        await BuildMessageMotorcycleModel(data, message);
 
         return message;
     }
@@ -87,7 +87,7 @@ public class MotorcycleCreateValidator
         }
     }
 
-    public async Task BuildMessageModelMotorcycle(MotorcycleCreateCommand data, StringBuilder message)
+    public async Task BuildMessageMotorcycleModel(MotorcycleCreateCommand data, StringBuilder message)
     {
         if (string.IsNullOrWhiteSpace(data.ModelName))
         {
@@ -97,7 +97,7 @@ public class MotorcycleCreateValidator
         {
             var modelNormalized = data.ModelName.RemoveCharactersToUpper();
 
-            var modelId = await _repositoryModelMotorcycle.GetIdByModelName(modelNormalized);
+            var modelId = await _repositoryMotorcycleModel.GetIdByModelName(modelNormalized);
 
             if (string.IsNullOrEmpty(modelId))
             {

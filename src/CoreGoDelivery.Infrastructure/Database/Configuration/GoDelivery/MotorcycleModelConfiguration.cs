@@ -1,12 +1,12 @@
-﻿using CoreGoDelivery.Domain.Entities.GoDelivery.ModelMotorcycle;
+﻿using CoreGoDelivery.Domain.Entities.GoDelivery.MotorcycleModel;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace CoreGoDelivery.Infrastructure.Database.Configuration.GoDelivery;
 
-public class ModelMotorcycleConfiguration : IEntityTypeConfiguration<ModelMotorcycleEntity>
+public class MotorcycleModelConfiguration : IEntityTypeConfiguration<MotorcycleModelEntity>
 {
-    public void Configure(EntityTypeBuilder<ModelMotorcycleEntity> entity)
+    public void Configure(EntityTypeBuilder<MotorcycleModelEntity> entity)
     {
         entity.ToTable("tb_modelMotorcycle");
         entity.HasKey(e => e.Id);

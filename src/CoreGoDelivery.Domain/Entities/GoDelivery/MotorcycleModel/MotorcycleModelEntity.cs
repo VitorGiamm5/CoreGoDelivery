@@ -1,8 +1,8 @@
 ﻿using CoreGoDelivery.Domain.Entities.GoDelivery.Base;
 
-namespace CoreGoDelivery.Domain.Entities.GoDelivery.ModelMotorcycle;
+namespace CoreGoDelivery.Domain.Entities.GoDelivery.MotorcycleModel;
 
-public sealed class ModelMotorcycleEntity : BaseEntity
+public sealed class MotorcycleModelEntity : BaseEntity
 {
     public string Id { get; set; }
     public string Name { get; set; }

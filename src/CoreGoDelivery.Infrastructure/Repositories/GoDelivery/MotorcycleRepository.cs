@@ -17,7 +17,7 @@ public class MotorcycleRepository : BaseRepository<MotorcycleEntity>, IMotorcycl
         if (!string.IsNullOrEmpty(plate))
         {
             var entity = await _context.Set<MotorcycleEntity>()
-                .Include(x => x.ModelMotorcycle)
+                .Include(x => x.MotorcycleModel)
                 .Where(x => x.PlateNormalized == plate)
                 .Take(100)
                 .ToListAsync();
@@ -26,7 +26,7 @@ public class MotorcycleRepository : BaseRepository<MotorcycleEntity>, IMotorcycl
         }
 
         var resultWithParam = await _context.Set<MotorcycleEntity>()
-            .Include(x => x.ModelMotorcycle)
+            .Include(x => x.MotorcycleModel)
             .Take(100)
             .ToListAsync();
 
@@ -36,7 +36,7 @@ public class MotorcycleRepository : BaseRepository<MotorcycleEntity>, IMotorcycl
     public async Task<MotorcycleEntity?> GetOneByIdAsync(string id)
     {
         var entity = await _context.Set<MotorcycleEntity>()
-            .Include(x => x.ModelMotorcycle)
+            .Include(x => x.MotorcycleModel)
             .FirstOrDefaultAsync(x => x.Id == id);
 
         return entity;

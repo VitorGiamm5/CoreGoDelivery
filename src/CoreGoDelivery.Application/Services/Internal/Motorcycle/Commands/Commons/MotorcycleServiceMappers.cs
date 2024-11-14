@@ -27,7 +27,7 @@ public static class MotorcycleServiceMappers
         {
             Id = motorcycle.Id,
             YearManufacture = motorcycle.YearManufacture,
-            ModelName = motorcycle!.ModelMotorcycle!.Name,
+            ModelName = motorcycle!.MotorcycleModel!.Name,
             Plate = motorcycle.PlateNormalized
         };
 
@@ -40,7 +40,7 @@ public static class MotorcycleServiceMappers
         {
             Id = data.Id,
             YearManufacture = data.YearManufacture,
-            ModelMotorcycleId = data.ModelName,
+            MotorcycleModelId = data.ModelName,
             PlateNormalized = data.Plate.RemoveCharactersToUpper()
         };
 
@@ -53,7 +53,7 @@ public static class MotorcycleServiceMappers
         {
             Id = data.Id,
             YearManufacture = data.YearManufacture,
-            ModelMotorcycleId = data.ModelMotorcycleId,
+            ModelMotorcycleId = data.MotorcycleModelId,
             MotorcycleId = data.Id,
             PlateNormalized = data.PlateNormalized,
             DateCreated = data.DateCreated

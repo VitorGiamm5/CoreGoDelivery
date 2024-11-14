@@ -54,7 +54,7 @@ public static class SetupInfrastructure
     {
         services.TryAddScoped<IDeliverierRepository, DeliverierRepository>();
         services.TryAddScoped<ILicenceDriverRepository, LicenceDriverRepository>();
-        services.TryAddScoped<IModelMotorcycleRepository, ModelMotorcycleRepository>();
+        services.TryAddScoped<IMotorcycleModelRepository, MotorcycleModelRepository>();
         services.TryAddScoped<IMotorcycleRepository, MotorcycleRepository>();
         services.TryAddScoped<IRentalPlanRepository, RentalPlanRepository>();
         services.TryAddScoped<IRentalRepository, RentalRepository>();

@@ -1,5 +1,5 @@
 ﻿using CoreGoDelivery.Domain.Entities.GoDelivery.Base;
-using CoreGoDelivery.Domain.Entities.GoDelivery.ModelMotorcycle;
+using CoreGoDelivery.Domain.Entities.GoDelivery.MotorcycleModel;
 using System.Text.Json.Serialization;
 
 namespace CoreGoDelivery.Domain.Entities.GoDelivery.Motorcycle;
@@ -13,10 +13,10 @@ public class MotorcycleEntity : BaseEntity
     #region relationships
 
     [JsonIgnore]
-    public string ModelMotorcycleId { get; set; }
+    public string MotorcycleModelId { get; set; }
 
     [JsonIgnore]
-    public ModelMotorcycleEntity? ModelMotorcycle { get; set; }
+    public MotorcycleModelEntity? MotorcycleModel { get; set; }
 
     #endregion
 }

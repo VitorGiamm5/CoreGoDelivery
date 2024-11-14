@@ -9,19 +9,19 @@ namespace CoreGoDelivery.Application.Services.Internal.Motorcycle.Commands.Chang
 public class MotorcycleChangePlateHandler : IRequestHandler<MotorcycleChangePlateCommand, ActionResult>
 {
     public readonly IMotorcycleRepository _repositoryMotorcycle;
-    public readonly IModelMotorcycleRepository _repositoryModelMotorcycle;
+    public readonly IMotorcycleModelRepository _repositoryMotorcycleModel;
     public readonly IRentalRepository _rentalRepository;
 
     public readonly MotorcycleChangePlateValidator _validator;
 
     public MotorcycleChangePlateHandler(
         IMotorcycleRepository repositoryMotorcycle,
-        IModelMotorcycleRepository repositoryModelMotorcycle,
+        IMotorcycleModelRepository repositoryMotorcycleModel,
         IRentalRepository rentalRepository,
         MotorcycleChangePlateValidator validator)
     {
         _repositoryMotorcycle = repositoryMotorcycle;
-        _repositoryModelMotorcycle = repositoryModelMotorcycle;
+        _repositoryMotorcycleModel = repositoryMotorcycleModel;
         _rentalRepository = rentalRepository;
         _validator = validator;
     }
@@ -39,16 +39,14 @@ public class MotorcycleChangePlateHandler : IRequestHandler<MotorcycleChangePlat
 
         command.Plate.RemoveCharactersToUpper();
 
-        var success = await _repositoryMotorcycle.ChangePlateByIdAsync(command.Id, command.Plate);
+        var success = await _repositoryMotorcycle.ChangePlateByIdAsync(command.Id!, command.Plate!);
 
-        apiReponse.SetData(success
-            ? new
+        apiReponse.SetData(new
             {
                 menssage = CommomMessagesConst.MESSAGE_UPDATED_WITH_SUCCESS
-            }
-            : null);
+            });
 
-        apiReponse.SetError(success ? null : CommomMessagesConst.MESSAGE_INVALID_DATA);
+        apiReponse.SetError(success ? "" : CommomMessagesConst.MESSAGE_INVALID_DATA);
 
         return apiReponse;
     }
