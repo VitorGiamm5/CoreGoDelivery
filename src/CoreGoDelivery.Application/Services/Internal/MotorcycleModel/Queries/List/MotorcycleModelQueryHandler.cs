@@ -20,7 +20,7 @@ public class MotorcycleModelQueryHandler : IRequestHandler<MotorcycleModelQueryC
 
         List<MotorcycleModelEntity> result = await _repositoryMotorcycleModel.GetAll(request.Name, request.Id);
 
-        apiReponse.SetData(result);
+        apiReponse.SetPaginedData(result, 1, 1, 1);
 
         return apiReponse;
     }

@@ -1,5 +1,7 @@
 ﻿using CoreGoDelivery.Application.Extensions;
 using CoreGoDelivery.Application.Services.Internal.Motorcycle.Commands.Commons;
+using CoreGoDelivery.Application.Services.Internal.Motorcycle.Commands.Create;
+using CoreGoDelivery.Domain.Entities.GoDelivery.Base;
 using CoreGoDelivery.Domain.Entities.GoDelivery.Motorcycle;
 using CoreGoDelivery.Domain.Repositories.GoDelivery;
 using CoreGoDelivery.Domain.Response;
@@ -36,7 +38,7 @@ public class MotorcycleListQueryHandler : IRequestHandler<MotorcycleListQueryCom
 
         var motorcycleDtos = MotorcycleServiceMappers.MapEntityListToDto(result);
 
-        apiReponse.SetData(motorcycleDtos);
+        apiReponse.SetPaginedData(motorcycleDtos, 1, 1, 1);
 
         return apiReponse;
     }

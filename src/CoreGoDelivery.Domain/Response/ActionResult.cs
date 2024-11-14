@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using CoreGoDelivery.Domain.Entities.GoDelivery.Base;
+using System.Text;
 
 namespace CoreGoDelivery.Domain.Response;
 
@@ -37,6 +38,11 @@ public sealed class ActionResult
     public void SetData(object data)
     {
         Data = data;
+    }
+
+    public void SetPaginedData(object items, int count, int pageIndex, int pageSize)
+    {
+        Data = new PaginatedList(items, count, pageIndex, pageSize);                 
     }
 
     public object GetData()
