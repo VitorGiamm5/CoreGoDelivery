@@ -1,5 +1,4 @@
-﻿
-using CoreGoDelivery.Application.Services.External.NotificationMotorcycle.Queries;
+﻿using CoreGoDelivery.Application.Services.External.NotificationMotorcycle.Queries.Consumer;
 using CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.Create;
 using CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.Create.MessageValidators;
 using CoreGoDelivery.Application.Services.Internal.LicenseDriver.Commands.Create;
@@ -16,6 +15,7 @@ using CoreGoDelivery.Infrastructure.Database;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using Polly;
 using RabbitMQ.Client;
 using System.Reflection;
 
@@ -40,15 +40,8 @@ public static class SetupApplication
                 HostName = configuration["RabbitMQ:Host"],
                 UserName = configuration["RabbitMQ:Username"],
                 Password = configuration["RabbitMQ:Password"],
-                Port = 5672
+                Port = int.Parse(configuration["RabbitMQ:Port"]!) // Usa porta configurada
             };
-
-            if (Environment.GetEnvironmentVariable("DOTNET_RUNNING_IN_CONTAINER") == "true")
-            {
-                factory.HostName = "rabbitmq";
-                factory.UserName = "guest";
-                factory.Password = "guest";
-            }
 
             return factory;
         });
@@ -56,7 +49,14 @@ public static class SetupApplication
         services.AddSingleton<IConnection>(sp =>
         {
             var factory = sp.GetRequiredService<IConnectionFactory>();
-            return factory.CreateConnection();
+            var policy = Polly.Policy
+                .Handle<Exception>()
+                .WaitAndRetry(5, retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)), (exception, timeSpan, retryCount, context) =>
+                {
+                    Console.WriteLine($"Retry {retryCount} for RabbitMQ connection: {exception.Message}");
+                });
+
+            return policy.Execute(() => factory.CreateConnection());
         });
 
         services.TryAddTransient<NotificationMotorcyclePublisher>();

@@ -49,7 +49,8 @@ builder.Services.AddApplication(builder.Configuration);
 
 builder.WebHost.ConfigureKestrel(options =>
 {
-    options.ListenAnyIP(5273);
+    var kestrelPort = builder.Configuration.GetValue<int>("Kestrel:Port", 5000);
+    options.ListenAnyIP(kestrelPort);
 });
 
 var app = builder.Build();

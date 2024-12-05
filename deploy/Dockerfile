@@ -16,6 +16,6 @@ WORKDIR /app
 
 COPY --from=build /app/publish .
 
-EXPOSE 5273
+EXPOSE 9005
 
 ENTRYPOINT ["dotnet", "CoreGoDelivery.Api.dll"]

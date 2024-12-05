@@ -76,3 +76,11 @@ https://www.nuget.org/packages/DocsBRValidator
 
 - Página administrativa do RabbitMQ
 http://localhost:15672/#/
+
+Serviço	        Porta Interna	Porta Externa	Observação
+PostgreSQL	    5432	        9000	        Porta padrão do PostgreSQL
+RabbitMQ (AMQP)	5672	        9001	        Porta para o protocolo AMQP
+RabbitMQ (UI)	15672	        9002	        Porta para a interface de UI
+MinIO (API)	    9000	        9003	        Porta da API do MinIO
+MinIO (Console)	9001	        9004	        Porta do console do MinIO
+CoreGoDelivery	80	            9005	        Porta da aplicação principal

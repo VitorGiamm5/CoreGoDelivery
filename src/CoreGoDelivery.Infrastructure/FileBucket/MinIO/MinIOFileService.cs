@@ -6,15 +6,11 @@ namespace CoreGoDelivery.Infrastructure.FileBucket.MinIO;
 
 public class MinIOFileService : IMinIOFileService
 {
-
-    // Initialize the client with access credentials.
     private static readonly IMinioClient _minioClient = new MinioClient()
-                                        .WithEndpoint(Environment.GetEnvironmentVariable("DOTNET_RUNNING_IN_CONTAINER") == "true" ? "minio" : "localhost", 9000)
+                                        .WithEndpoint(Environment.GetEnvironmentVariable("DOTNET_RUNNING_IN_CONTAINER") == "true" ? "minio_91612379773" : "localhost", 9003)
                                         .WithCredentials("V5SAuF1U4Ma2zW9e8PgW", "OpsKYLv87DDjXNZMPYRaiB3Q4ivktSaZOmzVIJkK")
                                         .WithSSL(false)
                                         .Build();
-
-
 
     public async Task CreateBucketAsync(string bucketName)
     {
@@ -63,13 +59,11 @@ public class MinIOFileService : IMinIOFileService
         {
             using var memoryStream = new MemoryStream();
 
-            // Baixar o arquivo do bucket para o MemoryStream
             await _minioClient.GetObjectAsync(new GetObjectArgs()
                 .WithBucket(bucketName)
                 .WithObject(fileName)
                 .WithCallbackStream(stream => stream.CopyTo(memoryStream)));
 
-            // Converter para Base64
             var base64 = Convert.ToBase64String(memoryStream.ToArray());
 
             return base64;

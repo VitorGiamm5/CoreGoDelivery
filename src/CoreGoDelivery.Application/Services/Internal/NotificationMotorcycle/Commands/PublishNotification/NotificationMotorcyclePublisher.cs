@@ -1,5 +1,7 @@
 ﻿using CoreGoDelivery.Domain.RabbitMQ.NotificationMotorcycle;
+using Microsoft.Extensions.Configuration;
 using RabbitMQ.Client;
+using RabbitMQ.Client.Exceptions;
 using System.Text;
 using System.Text.Json;
 
@@ -8,33 +10,43 @@ namespace CoreGoDelivery.Application.Services.Internal.NotificationMotorcycle.Co
 public class NotificationMotorcyclePublisher
 {
     private readonly IConnection _connection;
+    private readonly string _publisherQueueName;
 
-    private const string MOTORCYCLE_QUEUE = "motorcycle_queue";
-
-    public NotificationMotorcyclePublisher(IConnection connection)
+    public NotificationMotorcyclePublisher(IConnection connection, IConfiguration configuration)
     {
         _connection = connection;
+        _publisherQueueName = configuration["RabbitMQ:QueuesName:MotorcycleNotificationPublishQueue"]
+                              ?? throw new BrokerUnreachableException(new Exception("RabbitMQ queue name for publisher is not configured."));
     }
 
     public void PublishMotorcycle(NotificationMotorcycleDto motorcycle)
     {
-        using var channel = _connection.CreateModel();
+        if (motorcycle == null) throw new ArgumentNullException(nameof(motorcycle));
 
-        channel.QueueDeclare(queue: MOTORCYCLE_QUEUE,
-                             durable: true,
-                             exclusive: false,
-                             autoDelete: false,
-                             arguments: null);
+        try
+        {
+            using var channel = _connection.CreateModel();
 
-        var message = JsonSerializer.Serialize(motorcycle);
+            channel.QueueDeclare(queue: _publisherQueueName,
+                                 durable: true,
+                                 exclusive: false,
+                                 autoDelete: false,
+                                 arguments: null);
 
-        var body = Encoding.UTF8.GetBytes(message);
+            var message = JsonSerializer.Serialize(motorcycle);
+            var body = Encoding.UTF8.GetBytes(message);
 
-        channel.BasicPublish(exchange: "",
-                             routingKey: MOTORCYCLE_QUEUE,
-                             basicProperties: null,
-                             body: body);
+            channel.BasicPublish(exchange: "",
+                                 routingKey: _publisherQueueName,
+                                 basicProperties: null,
+                                 body: body);
 
-        Console.WriteLine(" [x] Published: {0}", message);
+            Console.WriteLine($"[x] Published message to {_publisherQueueName}: {message}");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error publishing message to {_publisherQueueName}: {ex.Message}");
+            throw;
+        }
     }
 }
