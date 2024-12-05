@@ -50,7 +50,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"yearManufacture\": 2024,\r\n  \"modelName\": \"Mottu Pop\",\r\n  \"plate\": \"dcf-0104\"\r\n}",
+							"raw": "{\r\n  \"yearManufacture\": 2024,\r\n  \"modelName\": \"Pop\",\r\n  \"plate\": \"dcf-0104\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
