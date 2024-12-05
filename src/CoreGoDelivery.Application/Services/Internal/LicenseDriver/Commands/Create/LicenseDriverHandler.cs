@@ -33,7 +33,6 @@ public class LicenseDriverHandler : IRequestHandler<LicenseImageCommand, ActionR
     {
         var apiReponse = new ActionResult();
 
-
         apiReponse.SetError(await _validator.Build(command));
 
         if (apiReponse.HasError())
