@@ -42,9 +42,9 @@ public class MotorcycleChangePlateHandler : IRequestHandler<MotorcycleChangePlat
         var success = await _repositoryMotorcycle.ChangePlateByIdAsync(command.Id!, command.Plate!);
 
         apiReponse.SetData(new
-            {
-                menssage = CommomMessagesConst.MESSAGE_UPDATED_WITH_SUCCESS
-            });
+        {
+            menssage = CommomMessagesConst.MESSAGE_UPDATED_WITH_SUCCESS
+        });
 
         apiReponse.SetError(success ? "" : CommomMessagesConst.MESSAGE_INVALID_DATA);
 
