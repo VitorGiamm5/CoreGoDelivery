@@ -33,12 +33,6 @@ public class LicenseDriverHandler : IRequestHandler<LicenseImageCommand, ActionR
     {
         var apiReponse = new ActionResult();
 
-        var resultTestConnection = await _fileService.TestConnectionAsync();
-
-        if(!resultTestConnection)
-        {
-            return apiReponse;
-        }
 
         apiReponse.SetError(await _validator.Build(command));
 
