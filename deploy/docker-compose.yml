@@ -57,7 +57,8 @@ services:
       - RabbitMQ__Username=guest
       - RabbitMQ__Password=guest
       - RabbitMQ__Port=9001
-      - RabbitMQ__QueuesName__MotorcycleNotificationQueue=motorcycle_notification_queue
+      - RabbitMQ__QueuesName__MotorcycleNotificationPublishQueue=motorcycle_notification_queue
+      - RabbitMQ__QueuesName__MotorcycleNotificationConsumerQueue=motorcycle_notification_queue
       - MinIOSettings__Endpoint=91612379773_minio
       - MinIOSettings__Port=9003
       - MinIOSettings__AccessKey=V5SAuF1U4Ma2zW9e8PgW

@@ -40,7 +40,7 @@ public static class SetupApplication
                 HostName = configuration["RabbitMQ:Host"],
                 UserName = configuration["RabbitMQ:Username"],
                 Password = configuration["RabbitMQ:Password"],
-                Port = int.Parse(configuration["RabbitMQ:Port"]!) // Usa porta configurada
+                Port = int.Parse(configuration["RabbitMQ:Port"]!)
             };
 
             return factory;
@@ -54,8 +54,18 @@ public static class SetupApplication
                 .WaitAndRetry(5, retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)), (exception, timeSpan, retryCount, context) =>
                 {
                     Console.WriteLine($"Retry {retryCount} for RabbitMQ connection: {exception.Message}");
-                });
 
+                    Console.WriteLine(
+                        $"HostName: '{configuration["RabbitMQ:Host"]}'," +
+                        $"UserName: '{configuration["RabbitMQ:Username"]}'," +
+                        $"Password: '{configuration["RabbitMQ:Password"]}'," +
+                        $"Port: '{configuration["RabbitMQ:Port"]}'");
+
+                    Console.WriteLine(
+                        $"Publish: '{configuration["RabbitMQ:QueuesName:MotorcycleNotificationPublishQueue"]}'," +
+                        $"Consumer: '{configuration["RabbitMQ:QueuesName:MotorcycleNotificationConsumerQueue"]}'");
+
+                });
             return policy.Execute(() => factory.CreateConnection());
         });
 
