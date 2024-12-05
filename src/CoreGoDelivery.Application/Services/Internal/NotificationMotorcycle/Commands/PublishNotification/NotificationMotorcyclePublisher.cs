@@ -21,7 +21,7 @@ public class NotificationMotorcyclePublisher
 
     public void PublishMotorcycle(NotificationMotorcycleDto motorcycle)
     {
-        if (motorcycle == null) throw new ArgumentNullException(nameof(motorcycle));
+        ArgumentNullException.ThrowIfNull(motorcycle);
 
         try
         {

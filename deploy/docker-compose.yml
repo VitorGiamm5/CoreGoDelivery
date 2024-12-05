@@ -1,3 +1,7 @@
+networks:
+  91612379773_webnet:
+    driver: bridge
+
 services:
   91612379773_postgres:
     image: postgres:16.4
@@ -56,15 +60,15 @@ services:
       - RabbitMQ__Host=91612379773_rabbitmq
       - RabbitMQ__Username=guest
       - RabbitMQ__Password=guest
-      - RabbitMQ__Port=9001
+      - RabbitMQ__Port=5672
       - RabbitMQ__QueuesName__MotorcycleNotificationPublishQueue=motorcycle_notification_queue
       - RabbitMQ__QueuesName__MotorcycleNotificationConsumerQueue=motorcycle_notification_queue
       - MinIOSettings__Endpoint=91612379773_minio
-      - MinIOSettings__Port=9003
+      - MinIOSettings__Port=9099
       - MinIOSettings__AccessKey=V5SAuF1U4Ma2zW9e8PgW
       - MinIOSettings__SecretKey=OpsKYLv87DDjXNZMPYRaiB3Q4ivktSaZOmzVIJkK
       - MinIOSettings__UseSSL=false
-      - ConnectionStrings__Postgres=Server=91612379773_postgres; Port=9000; Database=dbgodelivery; User ID=randandan; Password=randandan_XLR;
+      - ConnectionStrings__Postgres=Server=91612379773_postgres; Port=5432; Database=dbgodelivery; User ID=randandan; Password=randandan_XLR;
     depends_on:
       - 91612379773_postgres
       - 91612379773_rabbitmq
@@ -78,6 +82,3 @@ volumes:
   91612379773_rabbitmq_data:
   91612379773_minio_data:
 
-networks:
-  91612379773_webnet:
-    driver: bridge

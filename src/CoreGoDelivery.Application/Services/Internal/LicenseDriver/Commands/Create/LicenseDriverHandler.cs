@@ -33,6 +33,13 @@ public class LicenseDriverHandler : IRequestHandler<LicenseImageCommand, ActionR
     {
         var apiReponse = new ActionResult();
 
+        var resultTestConnection = await _fileService.TestConnectionAsync();
+
+        if(!resultTestConnection)
+        {
+            return apiReponse;
+        }
+
         apiReponse.SetError(await _validator.Build(command));
 
         if (apiReponse.HasError())
@@ -49,15 +56,12 @@ public class LicenseDriverHandler : IRequestHandler<LicenseImageCommand, ActionR
             return apiReponse;
         }
 
-        if (license.IsPendingImage())
-        {
-            var (_, _, fileExtension) = ImageValidateExtensionFile.Build(command.LicenseImageBase64);
+        var (_, _, fileExtension) = ImageValidateExtensionFile.Build(command.LicenseImageBase64);
 
-            license.ImageUrlReference = NameCreatorFile.LicenseDriver(command.IdLicenseNumber!, fileExtension);
+        license.ImageUrlReference = NameCreatorFile.LicenseDriver(command.IdLicenseNumber!, fileExtension);
 
-            await _repositoryLicense.UpdateFileName(license.Id, license.ImageUrlReference);
-        }
-
+        await _repositoryLicense.UpdateFileName(license.Id, license.ImageUrlReference);
+    
         using Stream stream = new MemoryStream(command.LicenseImageBase64);
 
         var contentType = GetContentType.Get(license.ImageUrlReference);
@@ -73,7 +77,16 @@ public class LicenseDriverHandler : IRequestHandler<LicenseImageCommand, ActionR
             apiReponse.SetError(ex.Message);
         }
 
-        apiReponse.SetData(new { message = $"License image accepted" });
+        apiReponse.SetData(new 
+        { 
+            message = $"License image accepted", 
+            metadata = new
+            {
+                license.Id,
+                license.ImageUrlReference,
+                contentType
+            }
+        });
 
         return apiReponse;
     }
