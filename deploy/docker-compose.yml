@@ -1,70 +1,82 @@
 services:
-  postgres:
+  91612379773_postgres:
     image: postgres:16.4
-    container_name: postgres
+    container_name: 91612379773_postgres
     environment:
       POSTGRES_USER: randandan
       POSTGRES_PASSWORD: randandan_XLR
       POSTGRES_DB: dbgodelivery
     ports:
-      - "5432:5432"
+      - "9000:5432" # Mapeando porta padrão do PostgreSQL
     volumes:
-      - pgdata:/var/lib/postgresql/data
+      - 91612379773_pgdata:/var/lib/postgresql/data
     networks:
-      - webnet
+      - 91612379773_webnet
 
-  rabbitmq:
+  91612379773_rabbitmq:
     image: rabbitmq:3-management
-    container_name: rabbitmq
+    container_name: 91612379773_rabbitmq
     ports:
-      - "5672:5672"
-      - "15672:15672"
+      - "9001:5672"  # Porta AMQP
+      - "9002:15672" # Porta da interface de gerenciamento
     environment:
       RABBITMQ_DEFAULT_USER: guest
       RABBITMQ_DEFAULT_PASS: guest
     volumes:
-      - rabbitmq_data:/var/lib/rabbitmq
+      - 91612379773_rabbitmq_data:/var/lib/rabbitmq
     networks:
-      - webnet
+      - 91612379773_webnet
 
-  minio:
+  91612379773_minio:
     image: minio/minio
-    container_name: minio
+    container_name: 91612379773_minio
     environment:
       MINIO_ROOT_USER: minioadmin
       MINIO_ROOT_PASSWORD: minioadmin
     volumes:
-      - minio_data:/data
+      - 91612379773_minio_data:/data
     ports:
-      - "9000:9000" # Porta para o MinIO
-      - "9001:9001" # Porta para o Console do MinIO
+      - "9003:9000" # API MinIO
+      - "9004:9001" # Console MinIO
     command: server /data --console-address ":9001"
     networks:
-      - webnet
+      - 91612379773_webnet
 
-  coregodelivery:
+  91612379773_api_coregodelivery:
     build:
       context: ..
       dockerfile: deploy/Dockerfile
-    container_name: coregodelivery-app
+    container_name: 91612379773_api_coregodelivery
     ports:
-      - "5273:5273"
+      - "9005:9005"
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
+      - Kestrel__Port=9005
       - DOTNET_RUNNING_IN_CONTAINER=true
+      - RabbitMQ__Host=91612379773_rabbitmq
+      - RabbitMQ__Username=guest
+      - RabbitMQ__Password=guest
+      - RabbitMQ__Port=9001
+      - RabbitMQ__QueuesName__MotorcycleNotificationQueue=motorcycle_notification_queue
+      - MinIOSettings__Endpoint=91612379773_minio
+      - MinIOSettings__Port=9003
+      - MinIOSettings__AccessKey=V5SAuF1U4Ma2zW9e8PgW
+      - MinIOSettings__SecretKey=OpsKYLv87DDjXNZMPYRaiB3Q4ivktSaZOmzVIJkK
+      - MinIOSettings__UseSSL=false
+      - ConnectionStrings__Postgres=Server=91612379773_postgres; Port=9000; Database=dbgodelivery; User ID=randandan; Password=randandan_XLR;
     depends_on:
-      - postgres
-      - rabbitmq
-      - minio
+      - 91612379773_postgres
+      - 91612379773_rabbitmq
+      - 91612379773_minio
     entrypoint: ["dotnet", "CoreGoDelivery.Api.dll"]
     networks:
-      - webnet
+      - 91612379773_webnet
 
 volumes:
-  pgdata:
-  rabbitmq_data:
-  minio_data:
+  91612379773_pgdata:
+  91612379773_rabbitmq_data:
+  91612379773_minio_data:
 
 networks:
-  webnet:
+  91612379773_webnet:
     driver: bridge

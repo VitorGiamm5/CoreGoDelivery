@@ -1,5 +1,4 @@
 ﻿using CoreGoDelivery.Api.Controllers.Base;
-using CoreGoDelivery.Application.Services.Internal.Motorcycle.Queries.List;
 using CoreGoDelivery.Application.Services.Internal.MotorcycleModel.Queries.List;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;

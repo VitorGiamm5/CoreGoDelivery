@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CoreGoDelivery.Api.Controllers;
 
-[Route("api/motorcycle")]
+[Route("api/motorcycles")]
 [ApiController]
 public class MotorcycleController(IMediator _mediator) : BaseApiController
 {

@@ -1,7 +1,5 @@
 ﻿using CoreGoDelivery.Application.Extensions;
 using CoreGoDelivery.Application.Services.Internal.Motorcycle.Commands.Commons;
-using CoreGoDelivery.Application.Services.Internal.Motorcycle.Commands.Create;
-using CoreGoDelivery.Domain.Entities.GoDelivery.Base;
 using CoreGoDelivery.Domain.Entities.GoDelivery.Motorcycle;
 using CoreGoDelivery.Domain.Repositories.GoDelivery;
 using CoreGoDelivery.Domain.Response;

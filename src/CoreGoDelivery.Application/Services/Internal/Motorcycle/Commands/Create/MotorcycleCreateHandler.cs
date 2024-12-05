@@ -29,8 +29,8 @@ public class MotorcycleCreateHandler : IRequestHandler<MotorcycleCreateCommand, 
     {
         var apiReponse = new ActionResult();
 
+        request.Id = Ulid.NewUlid().ToString();
         request.Plate = request.Plate.RemoveCharactersToUpper();
-
         apiReponse.SetError(await _validator.Validate(request));
 
         if (apiReponse.HasError())

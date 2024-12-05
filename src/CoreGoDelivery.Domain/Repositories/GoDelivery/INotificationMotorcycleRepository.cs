@@ -4,5 +4,5 @@ namespace CoreGoDelivery.Domain.Repositories.GoDelivery;
 
 public interface INotificationMotorcycleRepository
 {
-    bool Create(NotificationMotorcycleEntity data);
+    Task<bool> CreateAsync(NotificationMotorcycleEntity data);
 }

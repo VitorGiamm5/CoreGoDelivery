@@ -52,7 +52,7 @@ public class RentalReturnedToBaseValidator
         if (!isBeforeDateStart)
         {
             message.Append($"Invalid field: {nameof(data.ReturnedToBaseDate)} : {data.ReturnedToBaseDate} must be after 'StartDate' : {rentalEntity.StartDate}; ");
-        
+
             return message;
         }
 

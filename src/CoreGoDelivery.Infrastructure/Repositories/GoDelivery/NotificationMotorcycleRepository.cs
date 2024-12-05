@@ -10,13 +10,13 @@ public class NotificationMotorcycleRepository : BaseRepository<NotificationMotor
     {
     }
 
-    public bool Create(NotificationMotorcycleEntity data)
+    public async Task<bool> CreateAsync(NotificationMotorcycleEntity data)
     {
         var result = _context
             .Set<NotificationMotorcycleEntity>()
             .Add(data);
 
-        _context.SaveChanges();
+        await _context.SaveChangesAsync();
 
         return IsSuccessCreate(result);
     }

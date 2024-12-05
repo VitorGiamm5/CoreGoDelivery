@@ -13,7 +13,7 @@ public sealed class MotorcycleCreateCommand : IRequest<ActionResult>
     [DefaultValue(2020)]
     public int YearManufacture { get; set; }
 
-    [DefaultValue("Mottu Sport")]
+    [DefaultValue("Sport")]
     public string ModelName { get; set; }
 
     [DefaultValue("CDX-0101")]

@@ -42,7 +42,7 @@ public sealed class ActionResult
 
     public void SetPaginedData(object items, int count, int pageIndex, int pageSize)
     {
-        Data = new PaginatedList(items, count, pageIndex, pageSize);                 
+        Data = new PaginatedList(items, count, pageIndex, pageSize);
     }
 
     public object GetData()
