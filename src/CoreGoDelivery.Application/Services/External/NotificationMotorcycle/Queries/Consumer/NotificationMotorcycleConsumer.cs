@@ -1,5 +1,5 @@
 ﻿using CoreGoDelivery.Domain.Entities.GoDelivery.NotificationMotorcycle;
-using CoreGoDelivery.Domain.RabbitMQ.NotificationMotorcycle;
+using CoreGoDelivery.Domain.NotificationMotorcycle;
 using CoreGoDelivery.Domain.Repositories.GoDelivery;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -40,6 +40,7 @@ public class NotificationMotorcycleConsumer : BackgroundService
                 sleepDurationProvider: attempt => TimeSpan.FromSeconds(Math.Pow(2, attempt)),
                 onRetry: (exception, timespan, attempt, context) =>
                 {
+                    Console.WriteLine($"{_connection.Endpoint}");
                     Console.WriteLine($"Retry {attempt}: Connection to RabbitMQ failed. Exception: {exception.Message}. Next attempt in {timespan}.");
                 });
 
@@ -87,18 +88,17 @@ public class NotificationMotorcycleConsumer : BackgroundService
                 CreatedBy = notification.CreatedBy
             };
 
-            using (var scope = _serviceScopeFactory.CreateScope())
+            using var scope = _serviceScopeFactory.CreateScope();
+
+            var notificationRepository = scope.ServiceProvider.GetRequiredService<INotificationMotorcycleRepository>();
+            try
             {
-                var notificationRepository = scope.ServiceProvider.GetRequiredService<INotificationMotorcycleRepository>();
-                try
-                {
-                    await notificationRepository.CreateAsync(entityNotification);
-                    Console.WriteLine("Message processed and saved to database successfully.");
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine($"Error saving message to database: {ex.Message}");
-                }
+                await notificationRepository.CreateAsync(entityNotification);
+                Console.WriteLine("Message processed and saved to database successfully.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error saving message to database: {ex.Message}");
             }
         };
 

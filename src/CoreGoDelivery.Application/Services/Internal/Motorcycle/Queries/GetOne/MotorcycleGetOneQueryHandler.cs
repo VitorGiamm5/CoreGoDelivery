@@ -2,7 +2,7 @@
 using CoreGoDelivery.Application.Services.Internal.Motorcycle.Commands.Commons;
 using CoreGoDelivery.Domain.Enums.ServiceErrorMessage;
 using CoreGoDelivery.Domain.Repositories.GoDelivery;
-using CoreGoDelivery.Domain.Response;
+using CoreGoDelivery.Domain.Response.BaseResponse;
 using MediatR;
 
 namespace CoreGoDelivery.Application.Services.Internal.Motorcycle.Queries.GetOne;

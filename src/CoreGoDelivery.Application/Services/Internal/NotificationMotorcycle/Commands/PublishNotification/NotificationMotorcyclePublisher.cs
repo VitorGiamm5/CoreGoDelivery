@@ -1,4 +1,4 @@
-﻿using CoreGoDelivery.Domain.RabbitMQ.NotificationMotorcycle;
+﻿using CoreGoDelivery.Domain.NotificationMotorcycle;
 using Microsoft.Extensions.Configuration;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Exceptions;
@@ -21,7 +21,7 @@ public class NotificationMotorcyclePublisher
 
     public void PublishMotorcycle(NotificationMotorcycleDto motorcycle)
     {
-        if (motorcycle == null) throw new ArgumentNullException(nameof(motorcycle));
+        ArgumentNullException.ThrowIfNull(motorcycle);
 
         try
         {

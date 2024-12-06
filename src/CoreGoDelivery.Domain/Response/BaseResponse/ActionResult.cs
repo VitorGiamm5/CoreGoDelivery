@@ -1,7 +1,7 @@
 ﻿using CoreGoDelivery.Domain.Entities.GoDelivery.Base;
 using System.Text;
 
-namespace CoreGoDelivery.Domain.Response;
+namespace CoreGoDelivery.Domain.Response.BaseResponse;
 
 public sealed class ActionResult
 {

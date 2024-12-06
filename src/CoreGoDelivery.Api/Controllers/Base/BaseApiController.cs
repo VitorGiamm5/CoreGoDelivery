@@ -2,7 +2,7 @@
 using CoreGoDelivery.Domain.Consts;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
-using ActionResult = CoreGoDelivery.Domain.Response.ActionResult;
+using ActionResult = CoreGoDelivery.Domain.Response.BaseResponse.ActionResult;
 
 namespace CoreGoDelivery.Api.Controllers.Base;
 

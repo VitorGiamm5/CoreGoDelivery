@@ -1,7 +1,7 @@
 ﻿using CoreGoDelivery.Application.Extensions;
 using CoreGoDelivery.Domain.Consts;
 using CoreGoDelivery.Domain.Repositories.GoDelivery;
-using CoreGoDelivery.Domain.Response;
+using CoreGoDelivery.Domain.Response.BaseResponse;
 using MediatR;
 
 namespace CoreGoDelivery.Application.Services.Internal.Motorcycle.Commands.ChangePlateById;

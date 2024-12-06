@@ -1,6 +1,8 @@
-﻿using CoreGoDelivery.Domain.Repositories.GoDelivery;
-using CoreGoDelivery.Domain.Response;
-using CoreGoDelivery.Infrastructure.FileBucket.MinIO;
+﻿using CoreGoDelivery.Application.Extensions;
+using CoreGoDelivery.Domain.Enums.ServiceErrorMessage;
+using CoreGoDelivery.Domain.Repositories.GoDelivery;
+using CoreGoDelivery.Domain.Response.BaseResponse;
+using CoreGoDelivery.Infrastructure.FileBucket.FileStorage;
 using MediatR;
 
 namespace CoreGoDelivery.Application.Services.Internal.LicenseDriver.Queries.GetOneLicenseFile;
@@ -9,14 +11,12 @@ public class GetOneLicenseFileHandler : IRequestHandler<GetOneLicenseFileCommand
 {
     public readonly IDeliverierRepository _repositoryDelivarier;
     public readonly ILicenceDriverRepository _repositoryLicence;
-    public readonly IMinIOFileService _fileService;
-
-    public readonly string BUCKET_NAME = "license-cnh";
+    public readonly IFileStorageService _fileService;
 
     public GetOneLicenseFileHandler(
         IDeliverierRepository repositoryDelivarier,
         ILicenceDriverRepository repositoryLicence,
-        IMinIOFileService fileService)
+        IFileStorageService fileService)
     {
         _repositoryDelivarier = repositoryDelivarier;
         _repositoryLicence = repositoryLicence;
@@ -32,39 +32,35 @@ public class GetOneLicenseFileHandler : IRequestHandler<GetOneLicenseFileCommand
 
         if (deliverier == null)
         {
-            apiResponse.SetError("nao tem entregador");
+            apiResponse.SetError("deliverier".AppendError(AdditionalMessageEnum.NotFound));
         }
 
         var license = await _repositoryLicence.GetOneById(request.Id);
 
         if (license == null)
         {
-            apiResponse.SetError("nao tem license");
+            apiResponse.SetError("license".AppendError(AdditionalMessageEnum.NotFound));
         }
 
         if (string.IsNullOrEmpty(license?.ImageUrlReference))
         {
-            apiResponse.SetError("nao tem ImageUrlReference");
+            apiResponse.SetError("ImageUrlReference".AppendError(AdditionalMessageEnum.NotFound));
         }
 
         #endregion
 
         try
         {
-            var base64File = await _fileService.GetFileAsBase64Async(BUCKET_NAME, license!.ImageUrlReference);
+            var base64File = await _fileService.GetFileAsync(license!.ImageUrlReference);
 
             if (base64File == null)
             {
-                apiResponse.SetError("nao achou o arquivo");
+                apiResponse.SetError("base64File".AppendError(AdditionalMessageEnum.NotFound));
 
                 return apiResponse;
             }
 
             apiResponse.SetData(new { licenseImageBase64 = base64File });
-        }
-        catch (FileNotFoundException ex)
-        {
-            apiResponse.SetError(ex.Message);
         }
         catch (Exception ex)
         {

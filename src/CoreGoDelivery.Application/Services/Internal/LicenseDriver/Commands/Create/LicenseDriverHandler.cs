@@ -1,11 +1,12 @@
-﻿using CoreGoDelivery.Application.Extensions;
+﻿using Azure.Core;
+using CoreGoDelivery.Application.Extensions;
 using CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.Create.Common;
 using CoreGoDelivery.Application.Services.Internal.LicenseDriver.Commands.Create.Common;
 using CoreGoDelivery.Domain.Enums.ServiceErrorMessage;
 using CoreGoDelivery.Domain.Repositories.GoDelivery;
-using CoreGoDelivery.Domain.Response;
-using CoreGoDelivery.Infrastructure.FileBucket.MinIO;
-using CoreGoDelivery.Infrastructure.FileBucket.MinIO.Extensions;
+using CoreGoDelivery.Domain.Response.BaseResponse;
+using CoreGoDelivery.Infrastructure.FileBucket.ContentType;
+using CoreGoDelivery.Infrastructure.FileBucket.FileStorage;
 using MediatR;
 
 namespace CoreGoDelivery.Application.Services.Internal.LicenseDriver.Commands.Create;
@@ -13,15 +14,12 @@ namespace CoreGoDelivery.Application.Services.Internal.LicenseDriver.Commands.Cr
 public class LicenseDriverHandler : IRequestHandler<LicenseImageCommand, ActionResult>
 {
     public readonly ILicenceDriverRepository _repositoryLicense;
-    public readonly IMinIOFileService _fileService;
-
+    public readonly IFileStorageService _fileService;
     public readonly LicenseDriverValidator _validator;
-
-    public readonly string BUCKET_NAME = "license-cnh";
 
     public LicenseDriverHandler(
         ILicenceDriverRepository repositoryLicense,
-        IMinIOFileService fileService,
+        IFileStorageService fileService,
         LicenseDriverValidator validator)
     {
         _repositoryLicense = repositoryLicense;
@@ -49,22 +47,19 @@ public class LicenseDriverHandler : IRequestHandler<LicenseImageCommand, ActionR
             return apiReponse;
         }
 
-        if (license.IsPendingImage())
-        {
-            var (_, _, fileExtension) = ImageValidateExtensionFile.Build(command.LicenseImageBase64);
+        var (_, _, fileExtension) = ImageValidateExtensionFile.Build(command.LicenseImageBase64);
 
-            license.ImageUrlReference = NameCreatorFile.LicenseDriver(command.IdLicenseNumber!, fileExtension);
+        license.ImageUrlReference = NameCreatorFile.LicenseDriver(command.IdLicenseNumber!, fileExtension);
 
-            await _repositoryLicense.UpdateFileName(license.Id, license.ImageUrlReference);
-        }
-
+        await _repositoryLicense.UpdateFileName(license.Id, license.ImageUrlReference);
+    
         using Stream stream = new MemoryStream(command.LicenseImageBase64);
 
         var contentType = GetContentType.Get(license.ImageUrlReference);
 
         try
         {
-            await _fileService.SaveOrReplace(BUCKET_NAME, license.ImageUrlReference, stream, contentType);
+            await _fileService.UploadFileAsync(license.ImageUrlReference, stream, contentType);
         }
         catch (Exception ex)
         {
@@ -73,7 +68,16 @@ public class LicenseDriverHandler : IRequestHandler<LicenseImageCommand, ActionR
             apiReponse.SetError(ex.Message);
         }
 
-        apiReponse.SetData(new { message = $"License image accepted" });
+        apiReponse.SetData(new 
+        { 
+            message = $"License image accepted", 
+            metadata = new
+            {
+                license.Id,
+                license.ImageUrlReference,
+                contentType
+            }
+        });
 
         return apiReponse;
     }

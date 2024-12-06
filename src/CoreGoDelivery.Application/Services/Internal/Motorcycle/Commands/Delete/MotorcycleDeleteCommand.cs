@@ -1,4 +1,4 @@
-﻿using CoreGoDelivery.Domain.Response;
+﻿using CoreGoDelivery.Domain.Response.BaseResponse;
 using MediatR;
 
 namespace CoreGoDelivery.Application.Services.Internal.Motorcycle.Commands.Delete;

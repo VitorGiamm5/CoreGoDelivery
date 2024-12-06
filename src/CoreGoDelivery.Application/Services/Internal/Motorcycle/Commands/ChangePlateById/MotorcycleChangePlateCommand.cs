@@ -1,4 +1,4 @@
-﻿using CoreGoDelivery.Domain.Response;
+﻿using CoreGoDelivery.Domain.Response.BaseResponse;
 using MediatR;
 using System.ComponentModel;
 using System.Text.Json.Serialization;
@@ -10,6 +10,5 @@ public class MotorcycleChangePlateCommand : IRequest<ActionResult>
     [JsonIgnore]
     public string? Id { get; set; }
 
-    [DefaultValue("abc-1234")]
     public string? Plate { get; set; }
 }

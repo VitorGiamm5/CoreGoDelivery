@@ -3,7 +3,7 @@ using CoreGoDelivery.Application.Services.Internal.Motorcycle.Commands.Commons;
 using CoreGoDelivery.Application.Services.Internal.NotificationMotorcycle.Commands.PublishNotification;
 using CoreGoDelivery.Domain.Enums.ServiceErrorMessage;
 using CoreGoDelivery.Domain.Repositories.GoDelivery;
-using CoreGoDelivery.Domain.Response;
+using CoreGoDelivery.Domain.Response.BaseResponse;
 using MediatR;
 
 namespace CoreGoDelivery.Application.Services.Internal.Motorcycle.Commands.Create;
@@ -31,6 +31,7 @@ public class MotorcycleCreateHandler : IRequestHandler<MotorcycleCreateCommand, 
 
         request.Id = Ulid.NewUlid().ToString();
         request.Plate = request.Plate.RemoveCharactersToUpper();
+
         apiReponse.SetError(await _validator.Validate(request));
 
         if (apiReponse.HasError())
