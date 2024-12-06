@@ -1,4 +1,4 @@
-﻿using CoreGoDelivery.Domain.RabbitMQ.NotificationMotorcycle;
+﻿using CoreGoDelivery.Domain.NotificationMotorcycle;
 using Microsoft.Extensions.Configuration;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Exceptions;

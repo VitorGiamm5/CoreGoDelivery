@@ -1,6 +1,6 @@
 ﻿using CoreGoDelivery.Domain.Entities.GoDelivery.MotorcycleModel;
 using CoreGoDelivery.Domain.Repositories.GoDelivery;
-using CoreGoDelivery.Domain.Response;
+using CoreGoDelivery.Domain.Response.BaseResponse;
 using MediatR;
 
 namespace CoreGoDelivery.Application.Services.Internal.MotorcycleModel.Queries.List;

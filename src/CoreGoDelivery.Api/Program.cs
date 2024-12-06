@@ -63,7 +63,7 @@ if (app.Environment.IsDevelopment())
     ExecutePendingMigration.Execute(builder.Services);
 }
 
-app.MapControllers().WithMetadata(new RouteAttribute("api/[controller]")); ;
+app.MapControllers().WithMetadata(new RouteAttribute("api/[controller]"));
 
 try
 {

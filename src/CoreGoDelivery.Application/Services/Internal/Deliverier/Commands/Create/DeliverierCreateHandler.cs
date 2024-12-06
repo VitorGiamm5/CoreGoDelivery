@@ -1,7 +1,7 @@
 ﻿using CoreGoDelivery.Application.Extensions;
 using CoreGoDelivery.Domain.Enums.ServiceErrorMessage;
 using CoreGoDelivery.Domain.Repositories.GoDelivery;
-using CoreGoDelivery.Domain.Response;
+using CoreGoDelivery.Domain.Response.BaseResponse;
 using MediatR;
 
 namespace CoreGoDelivery.Application.Services.Internal.Deliverier.Commands.Create;
@@ -21,6 +21,8 @@ public class DeliverierCreateHandler : IRequestHandler<DeliverierCreateCommand, 
 
     public async Task<ActionResult> Handle(DeliverierCreateCommand request, CancellationToken cancellationToken)
     {
+        request.Id = Guid.NewGuid().ToString();
+
         var apiReponse = new ActionResult();
 
         apiReponse.SetError(await _validator.Validate(request));

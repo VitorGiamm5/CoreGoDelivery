@@ -1,7 +1,7 @@
 ﻿using CoreGoDelivery.Application.Extensions;
 using CoreGoDelivery.Application.Services.Internal.Motorcycle.Commands.Create;
 using CoreGoDelivery.Domain.Entities.GoDelivery.Motorcycle;
-using CoreGoDelivery.Domain.RabbitMQ.NotificationMotorcycle;
+using CoreGoDelivery.Domain.NotificationMotorcycle;
 
 namespace CoreGoDelivery.Application.Services.Internal.Motorcycle.Commands.Commons;
 

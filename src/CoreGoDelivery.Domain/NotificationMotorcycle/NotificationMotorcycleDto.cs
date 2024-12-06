@@ -1,6 +1,6 @@
 ﻿using CoreGoDelivery.Domain.Entities.GoDelivery.Base;
 
-namespace CoreGoDelivery.Domain.RabbitMQ.NotificationMotorcycle;
+namespace CoreGoDelivery.Domain.NotificationMotorcycle;
 
 public sealed class NotificationMotorcycleDto : BaseEntity
 {

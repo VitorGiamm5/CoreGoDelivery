@@ -1,4 +1,4 @@
-﻿using CoreGoDelivery.Domain.Response;
+﻿using CoreGoDelivery.Domain.Response.BaseResponse;
 using MediatR;
 using System.ComponentModel;
 using System.Text.Json.Serialization;

@@ -2,13 +2,13 @@
 using CoreGoDelivery.Domain.MinIOFile;
 using CoreGoDelivery.Domain.Repositories.GoDelivery;
 using CoreGoDelivery.Infrastructure.Database;
+using CoreGoDelivery.Infrastructure.FileBucket.FileStorage;
 using CoreGoDelivery.Infrastructure.FileBucket.MinIO;
 using CoreGoDelivery.Infrastructure.Repositories.GoDelivery;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using Minio;
 using Polly;
 using Polly.Retry;
 
@@ -19,6 +19,8 @@ public static class SetupInfrastructure
     public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddDomain(configuration);
+
+        AddRepositories(services);
 
         RetryPolicy retryPolicy = Policy
             .Handle<Exception>()
@@ -34,18 +36,14 @@ public static class SetupInfrastructure
         {
             retryPolicy.Execute(() =>
             {
-                options.UseNpgsql()
-                       .AddInfrastructure(configuration);
+                options.UseNpgsql().AddInfrastructure(configuration);
             });
         });
 
-        AddRepositories(services);
-
-        services.Configure<MinIOSettings>(options => configuration.GetSection("MinIOSettings"));
-
-        services.AddSingleton<MinioClient>();
-
-        services.TryAddTransient<IMinIOFileService, MinIOFileService>();
+        services.AddScoped<MinIOClientService>();
+        services.Configure<MinIOSettings>(configuration.GetSection("MinIOSettings"));
+        services.TryAddSingleton<IMinIOClientService, MinIOClientService>();
+        services.TryAddScoped<IFileStorageService, FileStorageService>();
 
         return services;
     }

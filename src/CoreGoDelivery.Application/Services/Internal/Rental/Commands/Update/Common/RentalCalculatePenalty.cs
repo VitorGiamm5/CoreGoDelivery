@@ -2,7 +2,7 @@
 using CoreGoDelivery.Domain.Consts;
 using CoreGoDelivery.Domain.Entities.GoDelivery.Rental;
 using CoreGoDelivery.Domain.Enums.ServiceErrorMessage;
-using CoreGoDelivery.Domain.Response;
+using CoreGoDelivery.Domain.Response.BaseResponse;
 
 namespace CoreGoDelivery.Application.Services.Internal.Rental.Commands.Update.Common;
 

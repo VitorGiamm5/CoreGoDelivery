@@ -1,5 +1,5 @@
 ﻿using CoreGoDelivery.Domain.Entities.GoDelivery.NotificationMotorcycle;
-using CoreGoDelivery.Domain.RabbitMQ.NotificationMotorcycle;
+using CoreGoDelivery.Domain.NotificationMotorcycle;
 using CoreGoDelivery.Domain.Repositories.GoDelivery;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

@@ -2,7 +2,7 @@
 using CoreGoDelivery.Application.Services.Internal.Rental.Commands.Create.Common;
 using CoreGoDelivery.Domain.Enums.ServiceErrorMessage;
 using CoreGoDelivery.Domain.Repositories.GoDelivery;
-using CoreGoDelivery.Domain.Response;
+using CoreGoDelivery.Domain.Response.BaseResponse;
 using MediatR;
 
 namespace CoreGoDelivery.Application.Services.Internal.Rental.Commands.Create;
@@ -26,6 +26,8 @@ public class RentalCreateHandler : IRequestHandler<RentalCreateCommand, ActionRe
 
     public async Task<ActionResult> Handle(RentalCreateCommand request, CancellationToken cancellationToken)
     {
+        request.Id = Guid.NewGuid().ToString();
+
         var apiReponse = new ActionResult();
 
         apiReponse.SetError(await _validator.BuilderCreateValidator(request));

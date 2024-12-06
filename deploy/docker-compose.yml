@@ -64,10 +64,11 @@ services:
       - RabbitMQ__QueuesName__MotorcycleNotificationPublishQueue=motorcycle_notification_queue
       - RabbitMQ__QueuesName__MotorcycleNotificationConsumerQueue=motorcycle_notification_queue
       - MinIOSettings__Endpoint=91612379773_minio
-      - MinIOSettings__Port=9099
+      - MinIOSettings__Port=9000
       - MinIOSettings__AccessKey=V5SAuF1U4Ma2zW9e8PgW
       - MinIOSettings__SecretKey=OpsKYLv87DDjXNZMPYRaiB3Q4ivktSaZOmzVIJkK
       - MinIOSettings__UseSSL=false
+      - MinIOSettings__BucketLicenseCnh=license-cnh
       - ConnectionStrings__Postgres=Server=91612379773_postgres; Port=5432; Database=dbgodelivery; User ID=randandan; Password=randandan_XLR;
     depends_on:
       - 91612379773_postgres
