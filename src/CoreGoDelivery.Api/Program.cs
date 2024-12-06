@@ -74,6 +74,8 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.MapControllers().WithMetadata(new RouteAttribute("api/[controller]"));
+
 app.UseAuthorization();
 
 app.UseCors("AllowAll");
