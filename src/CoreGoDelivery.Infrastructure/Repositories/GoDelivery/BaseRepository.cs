@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace CoreGoDelivery.Infrastructure.Repositories.GoDelivery;
 
-public abstract class BaseRepository<T> : IBaseRepository where T : class
+public abstract class BaseRepository<T> where T : class
 {
     public readonly ApplicationDbContext _context;
 

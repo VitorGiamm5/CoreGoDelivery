@@ -54,6 +54,8 @@ services:
     ports:
       - "9005:9005"
     environment:
+      - AllowSpecificOrigin=http://localhost:5173
+      - AllowSpecificMethods=GET,POST,PUT,DELETE
       - ASPNETCORE_ENVIRONMENT=Production
       - Kestrel__Port=9005
       - DOTNET_RUNNING_IN_CONTAINER=true
@@ -65,8 +67,8 @@ services:
       - RabbitMQ__QueuesName__MotorcycleNotificationConsumerQueue=motorcycle_notification_queue
       - MinIOSettings__Endpoint=91612379773_minio
       - MinIOSettings__Port=9000
-      - MinIOSettings__AccessKey=V5SAuF1U4Ma2zW9e8PgW
-      - MinIOSettings__SecretKey=OpsKYLv87DDjXNZMPYRaiB3Q4ivktSaZOmzVIJkK
+      - MinIOSettings__AccessKey=0tcqKSRUxKo5cwFzufiI
+      - MinIOSettings__SecretKey=UElHjuK1idet3PoGDbvj4h7xBqimQeX9cWYpBKgz
       - MinIOSettings__UseSSL=false
       - MinIOSettings__BucketLicenseCnh=license-cnh
       - ConnectionStrings__Postgres=Server=91612379773_postgres; Port=5432; Database=dbgodelivery; User ID=randandan; Password=randandan_XLR;

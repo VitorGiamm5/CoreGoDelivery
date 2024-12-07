@@ -4,7 +4,6 @@ using CoreGoDelivery.Application;
 using CoreGoDelivery.Infrastructure.Database.Services;
 using Microsoft.AspNetCore.Components;
 using Microsoft.OpenApi.Models;
-using Serilog;
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -63,19 +62,23 @@ if (app.Environment.IsDevelopment())
     ExecutePendingMigration.Execute(builder.Services);
 }
 
+builder.Services.AddCors(options =>
+{
+    string[] AllowSpecificOrigin = builder.Configuration.GetValue<string[]>("AllowSpecificOrigin", ["default"])!;
+    string[] AllowSpecificMethods = builder.Configuration.GetValue<string[]>("AllowSpecificMethods", ["default"])!;
+
+    options.AddPolicy("AllowSpecificOrigin",
+        builder => builder.WithOrigins(AllowSpecificOrigin!)
+                          .AllowAnyHeader()
+                          .WithMethods(AllowSpecificMethods));
+});
+
+app.UseHttpsRedirection();
+
+app.UseAuthorization();
+
+app.UseCors("AllowSpecificOrigin");
+
 app.MapControllers().WithMetadata(new RouteAttribute("api/[controller]"));
 
-try
-{
-    Log.Information("Starting application...");
-
-    app.Run();
-}
-catch (Exception ex)
-{
-    Log.Fatal(ex, "Fail to start application...");
-}
-finally
-{
-    Log.CloseAndFlush();
-}
+app.Run();
