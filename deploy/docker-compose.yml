@@ -54,7 +54,7 @@ services:
     ports:
       - "9005:9005"
     environment:
-      - AllowSpecificOrigin=http://localhost:5173
+      - AllowSpecificOrigin=http://localhost:5173/
       - AllowSpecificMethods=GET,POST,PUT,DELETE
       - ASPNETCORE_ENVIRONMENT=Production
       - Kestrel__Port=9005

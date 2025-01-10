@@ -84,3 +84,12 @@ RabbitMQ (UI)	15672	        9002	        Porta para a interface de UI
 MinIO (API)	    9000	        9003	        Porta da API do MinIO
 MinIO (Console)	9001	        9004	        Porta do console do MinIO
 CoreGoDelivery	80	            9005	        Porta da aplicação principal
+
+Estrutura [tests]
+
+Domain
+Application [src]
+Api
+Application
+Domain
+Infrastructure

@@ -52,6 +52,16 @@ builder.WebHost.ConfigureKestrel(options =>
     options.ListenAnyIP(kestrelPort);
 });
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", builder =>
+    {
+        builder.AllowAnyOrigin()
+               .AllowAnyMethod()
+               .AllowAnyHeader();
+    });
+});
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
@@ -62,22 +72,11 @@ if (app.Environment.IsDevelopment())
     ExecutePendingMigration.Execute(builder.Services);
 }
 
-builder.Services.AddCors(options =>
-{
-    string[] AllowSpecificOrigin = builder.Configuration.GetValue<string[]>("AllowSpecificOrigin", ["default"])!;
-    string[] AllowSpecificMethods = builder.Configuration.GetValue<string[]>("AllowSpecificMethods", ["default"])!;
-
-    options.AddPolicy("AllowSpecificOrigin",
-        builder => builder.WithOrigins(AllowSpecificOrigin!)
-                          .AllowAnyHeader()
-                          .WithMethods(AllowSpecificMethods));
-});
-
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
-app.UseCors("AllowSpecificOrigin");
+app.UseCors("AllowAll");
 
 app.MapControllers().WithMetadata(new RouteAttribute("api/[controller]"));
 
