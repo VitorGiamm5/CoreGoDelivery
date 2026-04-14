@@ -11,7 +11,7 @@ public class CalculateDatesByPlanTests
     [Fact]
     public void Calculate_ShouldReturnRentalEntity_WithCorrectDates()
     {
-        var service = new RentalCalculateDatesByPlan();
+        //var service = new RentalCalculateDatesByPlan();
 
         var plan = new RentalPlanEntity { DaysQuantity = 5 };
 
