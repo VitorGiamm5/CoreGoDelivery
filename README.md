@@ -1,86 +1,92 @@
-Go Core Delivery
+# Go Core Delivery
+Main application for managing motorcycles, rentals and drivers.
 
-Especificações:
-- Dotnet Core 8.0
-- Entity Framework
-- DocsBRValidator (Extenção Validador de documentos)
-- Postgres
-- RabbitMQ
+## Specifications:
+- Dotnet Core 8 LTS
+- Entity Framework (ORM)
+- CQRS
+- RabbitMQ (Queue)
+- PostgreSQL (Relational Database)
+- DocsBRValidator (brazilian documents validator)
+- MinIO (File server)
 - Docker
 - Docker compose
-- Polly
-- xUnit
-- MinIO (File server)
+- Polly (Circuit break and as a connection factory)
+- xUnit with Moq (Unit test and mock data)
 
-#How to run
-1. Abra o terminal, preferencialmente na raiz C:/ (opcional)
-$ mkdir Projetos
+## Tech Features
+- CRUD Motorcycle
+- CRUD Rentals
+- CRUD Divers
+- Motorcycle models list
+- License Driver Image: Upload, storage, Get
+- Send a mensage to RabbitMQ when a new motorcycle is added and save the mensage in other database
 
-2. No terminal clonar:
-$ git clone https://github.com/VitorGiamm5/CoreGoDelivery.git
+## Business Features
+- Calculate the motorcycle **Rental value**
+- **Plans** of retal
+- **Motorcycle** and **driver** must be **Unic**
+- **Restrict** new rentals for motorcycles **currently in use**
+- Validate license driver data
 
-3. Entrar na raíz do projeto:
-$ cd CoreGoDelivery
+# How to run
 
-4. Executar o docker compose:
-$ docker-compose -f deploy/docker-compose.yml down
-$ docker-compose -f deploy/docker-compose.yml up --build
+### 1. Clone the project
+``git clone https://github.com/VitorGiamm5/CoreGoDelivery.git``
 
-Observação:
-- Depois que o docker baixar todas as imagens ele auto inicia os serviços
-- A aplicação .Net possui a injeção do Polly, isso maximiza que a conexão entre os serviços sejam realizadas dentro do docker
+### 2. Create local infrasctructure:
+This step will download docker images, and put it into run
+``./local-infrastructure/start.sh``
 
-5. Verificar se os serviços estão online (postgre, rabbitmq e deploy-coregodelivery)
-$ docker ps -a
+### 3. Connections
+- PosgreSQL (Database)
+``Host: localhost``
+``Port: 9000``
+``Database: dbgodelivery``
+``User name: randandan``
+``Key access: randandan_XLR``
 
-7. Executar as migrations (esteja com seu terminal na raíz do projeto "c:/Projetos/CoreGoDelivery")
-$ dotnet ef database update -s src\CoreGoDelivery.Api -p src\CoreGoDelivery.Infrastructure
+- RabbitMQ (Queue)
+``Host: localhost``
+``Port: 9002``
+``Queue: motorcycle_notification_queue``
+``User name: guest``
+``Key access: guest``
 
-8. Para conectar o Banco recomenda-se usar o DBeaver, para facilitar a importação de dados que serão necessários!
+- Mini IO (Local File Server)
+``Host: localhost``
+``Port: 9004``
+``Bucket: motorcycle_notification_queue``
+``User name: guest``
+``Key access: guest``
 
-Host: localhost
-Port: 5432
-Bando de dados: dbgodelivery
-Nome de usuário: randandan
-Senha: randandan_XLR
-
-7. Depois de conectado e com as tables criadas, necessário injetar dados diretamente no banco, seguindo o seguinte passo a passo:
-Na raiz do projeto abra a poasta "Assets" e depois "SQL-Importar-Dados", veja que para cada tabela há um arquivo .csv correlato para importar.
-Para importar os dados, você deve abrrir o DBeaver, ir até a collection, ver as tables e com o botão direito ir em "importar dados" .csv, selecione o arquivo com o nome correlato com a tabela e importar, recomenda-se fazer isso em todas as tabelas, no entanto, as principais e cruciais são: tb_modelMotorcycle e tb_RentalPlan
-
-Atenção:
-É obrigatório importar os csv => tb_modelMotorcycle e tb_RentalPlan
-ATENÇÃO CASO NÃO IMPORTE A APLICAÇÃO NÃO FUNCIONARÁ
-
-8. Para facilitar o consumo da Api, está disponível na pasta Asset > postmanCollection, o arquivo de colection para importar no postman
-
-9. Pronto para usar!
+### 4. Check if dotnet-ef is installed
+``dotnet tool install --global dotnet-ef``
 
 ===
-Notas e dicas de uso:
 
-Para os end-points que necessitam de imagem base64, elas estão disponíveis na pasta "Assets" e então na pasta "ImageCNH", nela contém uma imagem .png e uma .bmp e de brinde, arquivos de texto com as imagens já em base64!
+### Usage data migration guide
 
-Caso modifique alguma entidade, esse é o comando para criar a migration
+``dotnet ef migrations add InicialBase -s .\src\CoreGoDelivery.Api -p .\src\CoreGoDelivery.Infrastructure``
 
-Gerar migration, considere abrir o Powershell na pasta raiz do projeto: 
-$ dotnet ef migrations add InicialBase -s src\CoreGoDelivery.Api -p src\CoreGoDelivery.Infrastructure
 
-Atualizar o banco:
-$ dotnet ef database update -s .\CoreGoDelivery.Api -p .\CoreGoDelivery.Infrastructure
+``dotnet ef database update -s .\src\CoreGoDelivery.Api -p .\src\CoreGoDelivery.Infrastructure``
 
-Referências:
+## References:
 
-- Validador de documentos
+- Brazilian documents validator
 https://www.nuget.org/packages/DocsBRValidator
 
-- Página administrativa do RabbitMQ
-http://localhost:15672/#/
+- RabbitMQ Administrative page
+http://localhost:9002/#/
 
-Serviço	        Porta Interna	Porta Externa	Observação
-PostgreSQL	    5432	        9000	        Porta padrão do PostgreSQL
-RabbitMQ (AMQP)	5672	        9001	        Porta para o protocolo AMQP
-RabbitMQ (UI)	15672	        9002	        Porta para a interface de UI
-MinIO (API)	    9000	        9003	        Porta da API do MinIO
-MinIO (Console)	9001	        9004	        Porta do console do MinIO
-CoreGoDelivery	80	            9005	        Porta da aplicação principal
+- Mini IO Administrative page
+http://localhost:9004
+
+Service name    Internal port	external port	
+PostgreSQL	    5432	        9000	       
+RabbitMQ (AMQP)	5672	        9001	       
+RabbitMQ (UI)	15672	        9002	       
+MinIO (API)	    9000	        9003	       
+MinIO (Console)	9001	        9004	       
+CoreGoDelivery	80	            9005	       

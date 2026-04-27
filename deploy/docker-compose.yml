@@ -11,7 +11,7 @@ services:
       POSTGRES_PASSWORD: randandan_XLR
       POSTGRES_DB: dbgodelivery
     ports:
-      - "9000:5432" # Mapeando porta padrão do PostgreSQL
+      - "9000:5432" # Expose host PostgreSQL
     volumes:
       - 91612379773_pgdata:/var/lib/postgresql/data
     networks:
@@ -21,8 +21,8 @@ services:
     image: rabbitmq:3-management
     container_name: 91612379773_rabbitmq
     ports:
-      - "9001:5672"  # Porta AMQP
-      - "9002:15672" # Porta da interface de gerenciamento
+      - "9001:5672"  # AMQP
+      - "9002:15672" # UI
     environment:
       RABBITMQ_DEFAULT_USER: guest
       RABBITMQ_DEFAULT_PASS: guest
@@ -82,4 +82,4 @@ volumes:
   91612379773_pgdata:
   91612379773_rabbitmq_data:
   91612379773_minio_data:
-
+    name: 91612379773_minio_data
